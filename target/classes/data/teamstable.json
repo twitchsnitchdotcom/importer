@@ -1,0 +1,187 @@
+{
+  "draw": 1,
+  "recordsTotal": 8391,
+  "recordsFiltered": 8391,
+  "data": [
+    {
+      "rownum": 1,
+      "streamtime": 6345,
+      "watchtime": 486481290,
+      "maxviewers": 485989,
+      "avgviewers": 52327,
+      "members": 3,
+      "maxchannels": 3,
+      "avgchannels": 0,
+      "id": 6878,
+      "name": "Vizz",
+      "logo": "https://static-cdn.jtvnw.net/ttv-boxart/404_boxart.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "twitchurl": "vizz",
+      "baseOnly": true
+    },
+    {
+      "rownum": 2,
+      "streamtime": 36300,
+      "watchtime": 476153595,
+      "maxviewers": 236559,
+      "avgviewers": 49345,
+      "members": 59,
+      "maxchannels": 8,
+      "avgchannels": 3,
+      "id": 984,
+      "name": "Luminosity Gaming",
+      "logo": "https://static-cdn.jtvnw.net/jtv_user_pictures/team-luminosity-team_logo_image-3fdb1863bd374e4d89fb5796e543518f-600x600.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "twitchurl": "luminosity",
+      "baseOnly": true
+    },
+    {
+      "rownum": 3,
+      "streamtime": 596145,
+      "watchtime": 441188715,
+      "maxviewers": 86883,
+      "avgviewers": 46533,
+      "members": 525,
+      "maxchannels": 126,
+      "avgchannels": 66,
+      "id": 3727,
+      "name": "G FUEL: The Official Energy Drink of Esports®",
+      "logo": "https://static-cdn.jtvnw.net/jtv_user_pictures/team-gfuel-team_logo_image-c54f1684da9048daa65e071b36cd9199-600x600.jpeg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "twitchurl": "gfuel",
+      "baseOnly": true
+    },
+    {
+      "rownum": 4,
+      "streamtime": 16020,
+      "watchtime": 397892850,
+      "maxviewers": 150940,
+      "avgviewers": 41213,
+      "members": 15,
+      "maxchannels": 7,
+      "avgchannels": 1,
+      "id": 9062,
+      "name": "OTK",
+      "logo": "https://static-cdn.jtvnw.net/jtv_user_pictures/team-otk-team_logo_image-f3369452905b4fc385eb9ccea7bfe8cf-600x600.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "twitchurl": "otk",
+      "baseOnly": true
+    },
+    {
+      "rownum": 5,
+      "streamtime": 7590,
+      "watchtime": 320562630,
+      "maxviewers": 390403,
+      "avgviewers": 32485,
+      "members": 7,
+      "maxchannels": 3,
+      "avgchannels": 0,
+      "id": 9881,
+      "name": "Karmine Corp",
+      "logo": "https://static-cdn.jtvnw.net/jtv_user_pictures/team-karminecorp-team_logo_image-a9770353fcd2483d92eb45ce6f062fc9-600x600.jpeg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "twitchurl": "karminecorp",
+      "baseOnly": true
+    },
+    {
+      "rownum": 6,
+      "streamtime": 69855,
+      "watchtime": 297107820,
+      "maxviewers": 80974,
+      "avgviewers": 31439,
+      "members": 33,
+      "maxchannels": 16,
+      "avgchannels": 7,
+      "id": 3864,
+      "name": "Loaded",
+      "logo": "https://static-cdn.jtvnw.net/jtv_user_pictures/team-loadedllc-team_logo_image-10567f1fb93447e3acf3f645e295e591-600x600.jpeg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "twitchurl": "loadedllc",
+      "baseOnly": true
+    },
+    {
+      "rownum": 7,
+      "streamtime": 9225,
+      "watchtime": 287792415,
+      "maxviewers": 257419,
+      "avgviewers": 30327,
+      "members": 9,
+      "maxchannels": 4,
+      "avgchannels": 1,
+      "id": 305,
+      "name": "Riot Games",
+      "logo": "https://static-cdn.jtvnw.net/jtv_user_pictures/team-riotgames-team_logo_image-8da2b035ee7a445b940ec3e677907285-600x600.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "twitchurl": "riotgames",
+      "baseOnly": true
+    },
+    {
+      "rownum": 8,
+      "streamtime": 2535,
+      "watchtime": 287585535,
+      "maxviewers": 288860,
+      "avgviewers": 31349,
+      "members": 1,
+      "maxchannels": 1,
+      "avgchannels": 0,
+      "id": 9921,
+      "name": "ibai",
+      "logo": "https://static-cdn.jtvnw.net/ttv-boxart/404_boxart.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "twitchurl": "ibai",
+      "baseOnly": true
+    },
+    {
+      "rownum": 9,
+      "streamtime": 56205,
+      "watchtime": 285149040,
+      "maxviewers": 172194,
+      "avgviewers": 29253,
+      "members": 34,
+      "maxchannels": 15,
+      "avgchannels": 6,
+      "id": 769,
+      "name": "ESL Gaming",
+      "logo": "https://static-cdn.jtvnw.net/jtv_user_pictures/team-eslgaming-team_logo_image-d04a90b45c094a539c6c7c39ce2d9dfe-600x600.jpeg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "twitchurl": "eslgaming",
+      "baseOnly": true
+    },
+    {
+      "rownum": 10,
+      "streamtime": 59040,
+      "watchtime": 283682445,
+      "maxviewers": 132860,
+      "avgviewers": 29280,
+      "members": 44,
+      "maxchannels": 12,
+      "avgchannels": 6,
+      "id": 441,
+      "name": "CS:GO Professional Player Streams",
+      "logo": "https://static-cdn.jtvnw.net/jtv_user_pictures/team-csgopros-team_logo_image-d24a3c22372f09b7-600x600.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "twitchurl": "csgopros",
+      "baseOnly": true
+    }
+  ],
+  "progressProps": [
+    {
+      "key": "watchtime",
+      "value": 486481290.0
+    },
+    {
+      "key": "maxviewers",
+      "value": 485989.0
+    },
+    {
+      "key": "avgviewers",
+      "value": 52327.0
+    },
+    {
+      "key": "streamtime",
+      "value": 2344230.0
+    },
+    {
+      "key": "members",
+      "value": 4009.0
+    },
+    {
+      "key": "maxchannels",
+      "value": 704.0
+    },
+    {
+      "key": "avgchannels",
+      "value": 267.0
+    }
+  ]
+}

@@ -1,0 +1,387 @@
+{
+  "data": [
+    {
+      "users": [
+        {
+          "user_id": "135675015",
+          "user_name": "Ninja614",
+          "user_login": "ninja614"
+        },
+        {
+          "user_id": "30935224",
+          "user_name": "kayPOWXD",
+          "user_login": "kaypowxd"
+        },
+        {
+          "user_id": "81407816",
+          "user_name": "BisIobo",
+          "user_login": "bisiobo"
+        },
+        {
+          "user_id": "66667807",
+          "user_name": "Tea_The_Khajiit",
+          "user_login": "tea_the_khajiit"
+        },
+        {
+          "user_id": "48601138",
+          "user_name": "0periodproductions",
+          "user_login": "0periodproductions"
+        },
+        {
+          "user_id": "45984532",
+          "user_name": "Xynode",
+          "user_login": "xynode"
+        },
+        {
+          "user_id": "82180270",
+          "user_name": "Tianlein",
+          "user_login": "tianlein"
+        },
+        {
+          "user_id": "127729122",
+          "user_name": "BertFerkins",
+          "user_login": "bertferkins"
+        },
+        {
+          "user_id": "437625612",
+          "user_name": "THE_GAMEROOM",
+          "user_login": "the_gameroom"
+        },
+        {
+          "user_id": "29044119",
+          "user_name": "JebroUnity",
+          "user_login": "jebrounity"
+        },
+        {
+          "user_id": "31888181",
+          "user_name": "Aeyvi",
+          "user_login": "aeyvi"
+        },
+        {
+          "user_id": "65006110",
+          "user_name": "LadyAse",
+          "user_login": "ladyase"
+        },
+        {
+          "user_id": "102174186",
+          "user_name": "MissRae",
+          "user_login": "missrae"
+        },
+        {
+          "user_id": "151667807",
+          "user_name": "Syrachtv",
+          "user_login": "syrachtv"
+        },
+        {
+          "user_id": "97742230",
+          "user_name": "Desastre_Show",
+          "user_login": "desastre_show"
+        },
+        {
+          "user_id": "79899381",
+          "user_name": "AlexOs",
+          "user_login": "alexos"
+        },
+        {
+          "user_id": "74379928",
+          "user_name": "Ninjamonkey0169",
+          "user_login": "ninjamonkey0169"
+        },
+        {
+          "user_id": "102579304",
+          "user_name": "JHartEllis",
+          "user_login": "jhartellis"
+        },
+        {
+          "user_id": "79787864",
+          "user_name": "IcyIC",
+          "user_login": "icyic"
+        },
+        {
+          "user_id": "411779502",
+          "user_name": "TamrielDownunder",
+          "user_login": "tamrieldownunder"
+        },
+        {
+          "user_id": "156531174",
+          "user_name": "DacuTV",
+          "user_login": "dacutv"
+        },
+        {
+          "user_id": "176364014",
+          "user_name": "MiniMari",
+          "user_login": "minimari"
+        },
+        {
+          "user_id": "129801090",
+          "user_name": "AngryWolf6",
+          "user_login": "angrywolf6"
+        },
+        {
+          "user_id": "88486767",
+          "user_name": "Dawnwhisper",
+          "user_login": "dawnwhisper"
+        },
+        {
+          "user_id": "232207936",
+          "user_name": "Vindahlia",
+          "user_login": "vindahlia"
+        },
+        {
+          "user_id": "58337613",
+          "user_name": "mApplinator",
+          "user_login": "mapplinator"
+        },
+        {
+          "user_id": "55434616",
+          "user_name": "Krayn_Live",
+          "user_login": "krayn_live"
+        },
+        {
+          "user_id": "20289538",
+          "user_name": "HeroofNone",
+          "user_login": "heroofnone"
+        },
+        {
+          "user_id": "180607139",
+          "user_name": "NirnStorm",
+          "user_login": "nirnstorm"
+        },
+        {
+          "user_id": "105141879",
+          "user_name": "Matygon",
+          "user_login": "matygon"
+        },
+        {
+          "user_id": "11665392",
+          "user_name": "inwils",
+          "user_login": "inwils"
+        },
+        {
+          "user_id": "91104754",
+          "user_name": "ninikulive",
+          "user_login": "ninikulive"
+        },
+        {
+          "user_id": "161444554",
+          "user_name": "LuckyGhost",
+          "user_login": "luckyghost"
+        },
+        {
+          "user_id": "204810561",
+          "user_name": "loonaromi",
+          "user_login": "loonaromi"
+        },
+        {
+          "user_id": "138658744",
+          "user_name": "thepaleorc",
+          "user_login": "thepaleorc"
+        },
+        {
+          "user_id": "102219184",
+          "user_name": "TheForgebreaker",
+          "user_login": "theforgebreaker"
+        },
+        {
+          "user_id": "39337034",
+          "user_name": "YanekShow",
+          "user_login": "yanekshow"
+        },
+        {
+          "user_id": "150149263",
+          "user_name": "Strannik_Oss",
+          "user_login": "strannik_oss"
+        },
+        {
+          "user_id": "140601926",
+          "user_name": "parabellumpk",
+          "user_login": "parabellumpk"
+        },
+        {
+          "user_id": "98902092",
+          "user_name": "Hellstrif",
+          "user_login": "hellstrif"
+        },
+        {
+          "user_id": "103126576",
+          "user_name": "Artesio",
+          "user_login": "artesio"
+        },
+        {
+          "user_id": "113274513",
+          "user_name": "Kaasiope",
+          "user_login": "kaasiope"
+        },
+        {
+          "user_id": "124365448",
+          "user_name": "NefasQS",
+          "user_login": "nefasqs"
+        },
+        {
+          "user_id": "138977338",
+          "user_name": "VikingTrash",
+          "user_login": "vikingtrash"
+        },
+        {
+          "user_id": "250625533",
+          "user_name": "ItsIffy_",
+          "user_login": "itsiffy_"
+        },
+        {
+          "user_id": "268353545",
+          "user_name": "Dova",
+          "user_login": "dova"
+        },
+        {
+          "user_id": "436815633",
+          "user_name": "DESHPLEASE",
+          "user_login": "deshplease"
+        },
+        {
+          "user_id": "36725419",
+          "user_name": "Tirinei",
+          "user_login": "tirinei"
+        },
+        {
+          "user_id": "54576987",
+          "user_name": "Dark8beto",
+          "user_login": "dark8beto"
+        },
+        {
+          "user_id": "128992089",
+          "user_name": "Saint_Crow",
+          "user_login": "saint_crow"
+        },
+        {
+          "user_id": "230766127",
+          "user_name": "lord_morrowind",
+          "user_login": "lord_morrowind"
+        },
+        {
+          "user_id": "435635944",
+          "user_name": "Lasuu",
+          "user_login": "lasuu"
+        },
+        {
+          "user_id": "477389214",
+          "user_name": "Ath3onTV",
+          "user_login": "ath3ontv"
+        },
+        {
+          "user_id": "190080187",
+          "user_name": "MiezeMelli",
+          "user_login": "miezemelli"
+        },
+        {
+          "user_id": "91085613",
+          "user_name": "VoltorTV",
+          "user_login": "voltortv"
+        },
+        {
+          "user_id": "161080932",
+          "user_name": "DioWolfYT",
+          "user_login": "diowolfyt"
+        },
+        {
+          "user_id": "156037856",
+          "user_name": "Fextralife",
+          "user_login": "fextralife"
+        },
+        {
+          "user_id": "77607999",
+          "user_name": "PainInTheAxe",
+          "user_login": "painintheaxe"
+        },
+        {
+          "user_id": "440926815",
+          "user_name": "msradcore",
+          "user_login": "msradcore"
+        },
+        {
+          "user_id": "91359311",
+          "user_name": "BrahWeGotThis",
+          "user_login": "brahwegotthis"
+        },
+        {
+          "user_id": "45468154",
+          "user_name": "Prestonality",
+          "user_login": "prestonality"
+        },
+        {
+          "user_id": "455788608",
+          "user_name": "DemonCatDaphne",
+          "user_login": "demoncatdaphne"
+        },
+        {
+          "user_id": "507845042",
+          "user_name": "airiesummer",
+          "user_login": "airiesummer"
+        },
+        {
+          "user_id": "20851013",
+          "user_name": "ManCaveGaming",
+          "user_login": "mancavegaming"
+        },
+        {
+          "user_id": "254125916",
+          "user_name": "Loctavian",
+          "user_login": "loctavian"
+        },
+        {
+          "user_id": "266412660",
+          "user_name": "gracefully_lyris",
+          "user_login": "gracefully_lyris"
+        },
+        {
+          "user_id": "61225141",
+          "user_name": "TC_Lee13",
+          "user_login": "tc_lee13"
+        },
+        {
+          "user_id": "172563398",
+          "user_name": "Varlav",
+          "user_login": "varlav"
+        },
+        {
+          "user_id": "66560444",
+          "user_name": "skinnycheeks",
+          "user_login": "skinnycheeks"
+        },
+        {
+          "user_id": "91173496",
+          "user_name": "DeimosThea",
+          "user_login": "deimosthea"
+        },
+        {
+          "user_id": "55648557",
+          "user_name": "Deltiasgaming",
+          "user_login": "deltiasgaming"
+        },
+        {
+          "user_id": "113273932",
+          "user_name": "Medic1556",
+          "user_login": "medic1556"
+        },
+        {
+          "user_id": "535888987",
+          "user_name": "Nine_Tale_Fox",
+          "user_login": "nine_tale_fox"
+        },
+        {
+          "user_id": "77747708",
+          "user_name": "Reishi_Spores",
+          "user_login": "reishi_spores"
+        }
+      ],
+      "background_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/team-esostreamteam-background_image-383d40546d954ce79ff1bd48cb110735.jpeg",
+      "banner": "https://static-cdn.jtvnw.net/jtv_user_pictures/team-esostreamteam-banner_image-edf43f7c92a743e6af44a25dfc5da225-640x125.png",
+      "created_at": "2018-11-16 13:43:00.634247 +0000 UTC",
+      "updated_at": "2022-02-18 15:11:36.442538 +0000 UTC",
+      "info": "The ESO Stream Team is comprised of hard-working, passionate, knowledgeable and dedicated Elder Scrolls Online livestreamers that work directly with ZeniMax Online Studios to provide viewers with engaging content and exclusive giveaways!",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/team-esostreamteam-team_logo_image-c82abfb5449c41aab1e1f8b4be9953ea-600x600.png",
+      "team_name": "esostreamteam",
+      "team_display_name": "ESO Stream Team",
+      "id": "5893"
+    }
+  ]
+}

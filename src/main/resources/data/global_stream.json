@@ -1,0 +1,378 @@
+{
+  "data": [
+    {
+      "id": "46079856813",
+      "user_id": "459331509",
+      "user_login": "auronplay",
+      "user_name": "auronplay",
+      "game_id": "32982",
+      "game_name": "Grand Theft Auto V",
+      "type": "live",
+      "title": "DESPUÉS DE LA GUERRA LLEGAN LAS CARRERITAS 😎🔥",
+      "viewer_count": 139328,
+      "started_at": "2022-04-05T15:35:55Z",
+      "language": "es",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_auronplay-{width}x{height}.jpg",
+      "tag_ids": [
+        "d4bb9c58-2141-4881-bcdc-3fe0505457d1"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "46078699277",
+      "user_id": "31239503",
+      "user_login": "esl_csgo",
+      "user_name": "ESL_CSGO",
+      "game_id": "32399",
+      "game_name": "Counter-Strike: Global Offensive",
+      "type": "live",
+      "title": "LIVE: Players vs FaZe Clan - ESL Pro League Season 15 - Playoffs",
+      "viewer_count": 91984,
+      "started_at": "2022-04-05T12:33:50Z",
+      "language": "en",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_esl_csgo-{width}x{height}.jpg",
+      "tag_ids": [
+        "36a89a80-4fcd-4b74-b3d2-2c6fd9b30c95",
+        "6ea6bca4-4712-4ab9-a906-e3336a9d8039"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "45150805756",
+      "user_id": "622498423",
+      "user_login": "otplol_",
+      "user_name": "otplol_",
+      "game_id": "21779",
+      "game_name": "League of Legends",
+      "type": "live",
+      "title": "EUM PLAY-IN - VIT vs WOLF -JOUR 2 - BO1",
+      "viewer_count": 89347,
+      "started_at": "2022-04-05T14:34:30Z",
+      "language": "fr",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_otplol_-{width}x{height}.jpg",
+      "tag_ids": [
+        "6f655045-9989-4ef7-8f85-1edcec42d648",
+        "36a89a80-4fcd-4b74-b3d2-2c6fd9b30c95"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "46079496605",
+      "user_id": "26261471",
+      "user_login": "asmongold",
+      "user_name": "Asmongold",
+      "game_id": "509658",
+      "game_name": "Just Chatting",
+      "type": "live",
+      "title": "BIG DAY--R/PLACE DRAMA LMAO--LOST ARK ROADMAP--GETTING 1490--ARGOS TODAY--MAYBE ALT F4 OR FORTNITE LATER",
+      "viewer_count": 58124,
+      "started_at": "2022-04-05T14:41:04Z",
+      "language": "en",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_asmongold-{width}x{height}.jpg",
+      "tag_ids": [
+        "6ea6bca4-4712-4ab9-a906-e3336a9d8039"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "45152360876",
+      "user_id": "40063341",
+      "user_login": "domingo",
+      "user_name": "Domingo",
+      "game_id": "417752",
+      "game_name": "Talk Shows & Podcasts",
+      "type": "live",
+      "title": "🍿 POPCORN avec Pierre Niney, Thomas Deseur, Marie, Zack & PP Garcia !",
+      "viewer_count": 48715,
+      "started_at": "2022-04-05T17:53:05Z",
+      "language": "fr",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_domingo-{width}x{height}.jpg",
+      "tag_ids": [
+        "6f655045-9989-4ef7-8f85-1edcec42d648"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "46077773373",
+      "user_id": "50160915",
+      "user_login": "dreamleague",
+      "user_name": "DreamLeague",
+      "game_id": "29595",
+      "game_name": "Dota 2",
+      "type": "live",
+      "title": "LIVE: Team Secret vs Brame - DPC WEU Tour 2 - DreamLeague Season 17",
+      "viewer_count": 41024,
+      "started_at": "2022-04-05T09:00:07Z",
+      "language": "en",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_dreamleague-{width}x{height}.jpg",
+      "tag_ids": [
+        "36a89a80-4fcd-4b74-b3d2-2c6fd9b30c95",
+        "6ea6bca4-4712-4ab9-a906-e3336a9d8039"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "46078923293",
+      "user_id": "181077473",
+      "user_login": "gaules",
+      "user_name": "Gaules",
+      "game_id": "32399",
+      "game_name": "Counter-Strike: Global Offensive",
+      "type": "live",
+      "title": "Faze vs Players Playoffs ESL Pro League Season 15  - Siga @Gaules nas redes sociais",
+      "viewer_count": 38239,
+      "started_at": "2022-04-05T13:10:49Z",
+      "language": "pt",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_gaules-{width}x{height}.jpg",
+      "tag_ids": [
+        "c2839af5-f1d2-46c4-8edc-1d0bfbd85070",
+        "39ee8140-901a-4762-bfca-8260dea1310f"
+      ],
+      "is_mature": true
+    },
+    {
+      "id": "45150931948",
+      "user_id": "41513956",
+      "user_login": "unrealengine",
+      "user_name": "UnrealEngine",
+      "game_id": "509670",
+      "game_name": "Science & Technology",
+      "type": "live",
+      "title": "The Matrix Awakens: Creating a World | Unreal Engine",
+      "viewer_count": 26662,
+      "started_at": "2022-04-05T14:55:03Z",
+      "language": "en",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_unrealengine-{width}x{height}.jpg",
+      "tag_ids": [
+        "bfedff64-c53a-4e6f-bda4-9eeb36dc8853",
+        "f588bd74-e496-4d11-9169-3597f38a5d25",
+        "6ea6bca4-4712-4ab9-a906-e3336a9d8039"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "46079791357",
+      "user_id": "19571641",
+      "user_login": "ninja",
+      "user_name": "Ninja",
+      "game_id": "33214",
+      "game_name": "Fortnite",
+      "type": "live",
+      "title": "Fortnite no build Cup at 5 Central w/ Timthetatman, Reverse2k and FunkBOMB",
+      "viewer_count": 25977,
+      "started_at": "2022-04-05T15:25:51Z",
+      "language": "en",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_ninja-{width}x{height}.jpg",
+      "tag_ids": [
+        "6ea6bca4-4712-4ab9-a906-e3336a9d8039"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "39631982937",
+      "user_id": "213748641",
+      "user_login": "csgo_mc",
+      "user_name": "csgo_mc",
+      "game_id": "32399",
+      "game_name": "Counter-Strike: Global Offensive",
+      "type": "live",
+      "title": "Faze vs Players (1-0) | ESL Pro League Season 15 | by @__KvaN & @ceh999",
+      "viewer_count": 25019,
+      "started_at": "2022-04-05T13:03:45Z",
+      "language": "ru",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_csgo_mc-{width}x{height}.jpg",
+      "tag_ids": [
+        "36a89a80-4fcd-4b74-b3d2-2c6fd9b30c95",
+        "0569b171-2a2b-476e-a596-5bdfb45a1327",
+        "2a14b52e-d459-4c92-be11-5d86b898f6b6"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "45151880796",
+      "user_id": "31561517",
+      "user_login": "lyonwgflive",
+      "user_name": "LyonWGFLive",
+      "game_id": "27471",
+      "game_name": "Minecraft",
+      "type": "live",
+      "title": "FACCIAMO PIANGERE LA RAPITRICE SU MINECRAFT!! !prime !live !discord !telegram !merch",
+      "viewer_count": 24699,
+      "started_at": "2022-04-05T17:00:20Z",
+      "language": "it",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_lyonwgflive-{width}x{height}.jpg",
+      "tag_ids": [
+        "5b9935eb-1e9a-4217-98ad-62bda5cff0d1"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "46079572957",
+      "user_id": "72550899",
+      "user_login": "roshtein",
+      "user_name": "ROSHTEIN",
+      "game_id": "498566",
+      "game_name": "Slots",
+      "type": "live",
+      "title": "18+ SOON OPENING 208 HIGH ROLLER BONUSES BECAUSE OF BONUS HUNT ANNIVERSARY | !STORE FOR MILLIONS WORTH OF GIFTS | +18",
+      "viewer_count": 24216,
+      "started_at": "2022-04-05T14:53:49Z",
+      "language": "en",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_roshtein-{width}x{height}.jpg",
+      "tag_ids": [
+        "6ea6bca4-4712-4ab9-a906-e3336a9d8039"
+      ],
+      "is_mature": true
+    },
+    {
+      "id": "46079752141",
+      "user_id": "90075649",
+      "user_login": "illojuan",
+      "user_name": "IlloJuan",
+      "game_id": "65632",
+      "game_name": "DayZ",
+      "type": "live",
+      "title": "💪 GIGACHAD SOY DAYZ ENJOYER Y LO SERÉ HASTA LA MUERTE GIGACHAD 💪",
+      "viewer_count": 22760,
+      "started_at": "2022-04-05T15:19:33Z",
+      "language": "es",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_illojuan-{width}x{height}.jpg",
+      "tag_ids": [
+        "d4bb9c58-2141-4881-bcdc-3fe0505457d1"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "45151598060",
+      "user_id": "99899949",
+      "user_login": "bratishkinoff",
+      "user_name": "bratishkinoff",
+      "game_id": "509658",
+      "game_name": "Just Chatting",
+      "type": "live",
+      "title": "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄",
+      "viewer_count": 22434,
+      "started_at": "2022-04-05T16:26:31Z",
+      "language": "ru",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_bratishkinoff-{width}x{height}.jpg",
+      "tag_ids": [
+        "4d580385-6b91-4cee-aedf-0d79ea956694",
+        "532af76e-eabd-451e-9709-cd1cc7653edb",
+        "0569b171-2a2b-476e-a596-5bdfb45a1327"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "45151421372",
+      "user_id": "23161357",
+      "user_login": "lirik",
+      "user_name": "LIRIK",
+      "game_id": "512987",
+      "game_name": "LEGO Star Wars: The Skywalker Saga",
+      "type": "live",
+      "title": "GAMING GAMIN GI NGINGINASJKFNKJHGKJ GNAMGING INGAM GANMQIN GAMING",
+      "viewer_count": 22281,
+      "started_at": "2022-04-05T16:03:35Z",
+      "language": "en",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_lirik-{width}x{height}.jpg",
+      "tag_ids": [
+        "6ea6bca4-4712-4ab9-a906-e3336a9d8039"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "40691408107",
+      "user_id": "49839696",
+      "user_login": "rebirthztv",
+      "user_name": "RebirthzTV",
+      "game_id": "32982",
+      "game_name": "Grand Theft Auto V",
+      "type": "live",
+      "title": "ตู้ โอคอนเนอร์ SS1 โตมาถึงได้รู้ว่าชินจังไม่ใช่การ์ตูน แต่เป็นความรู้สึก  Omnuay",
+      "viewer_count": 22134,
+      "started_at": "2022-04-05T15:17:29Z",
+      "language": "th",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_rebirthztv-{width}x{height}.jpg",
+      "tag_ids": [
+        "f19c7524-c18d-41af-9f39-034c8d0b0fee"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "39632289161",
+      "user_id": "121510236",
+      "user_login": "juansguarnizo",
+      "user_name": "juansguarnizo",
+      "game_id": "32982",
+      "game_name": "Grand Theft Auto V",
+      "type": "live",
+      "title": "CARRERAS, JUST CHATTING y HORIZON 😎🤙",
+      "viewer_count": 19841,
+      "started_at": "2022-04-05T15:55:25Z",
+      "language": "es",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_juansguarnizo-{width}x{height}.jpg",
+      "tag_ids": [
+        "d4bb9c58-2141-4881-bcdc-3fe0505457d1"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "45151943676",
+      "user_id": "223191589",
+      "user_login": "tubbo",
+      "user_name": "Tubbo",
+      "game_id": "27471",
+      "game_name": "Minecraft",
+      "type": "live",
+      "title": "DREAM SMP THEN GAMING WITH TOMMY SCHLATT & PHIL",
+      "viewer_count": 19123,
+      "started_at": "2022-04-05T17:05:55Z",
+      "language": "en",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_tubbo-{width}x{height}.jpg",
+      "tag_ids": [
+        "c2839af5-f1d2-46c4-8edc-1d0bfbd85070",
+        "6ea6bca4-4712-4ab9-a906-e3336a9d8039"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "40691314171",
+      "user_id": "31919607",
+      "user_login": "elxokas",
+      "user_name": "elxokas",
+      "game_id": "21779",
+      "game_name": "League of Legends",
+      "type": "live",
+      "title": "LOL TODO EL DÍA QUE AYER TWITCH DECIDIÓ FUNARME TAMBIÉN Sadge !REDES",
+      "viewer_count": 18989,
+      "started_at": "2022-04-05T14:36:06Z",
+      "language": "es",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_elxokas-{width}x{height}.jpg",
+      "tag_ids": [
+        "d4bb9c58-2141-4881-bcdc-3fe0505457d1"
+      ],
+      "is_mature": false
+    },
+    {
+      "id": "45151658236",
+      "user_id": "48878319",
+      "user_login": "thegrefg",
+      "user_name": "TheGrefg",
+      "game_id": "33214",
+      "game_name": "Fortnite",
+      "type": "live",
+      "title": "AYER GUERRA EN REDDIT, HOY GUERRA EN FORTNITE 🏆😈 TORNEO SIN CONSTRUCCIÓN CON GENTE BUENÍSIMA (y guapa).",
+      "viewer_count": 18308,
+      "started_at": "2022-04-05T16:34:04Z",
+      "language": "es",
+      "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_thegrefg-{width}x{height}.jpg",
+      "tag_ids": [
+        "d4bb9c58-2141-4881-bcdc-3fe0505457d1"
+      ],
+      "is_mature": false
+    }
+  ],
+  "pagination": {
+    "cursor": "eyJiIjp7IkN1cnNvciI6ImV5SnpJam94TXprek1qZ3VORFEwTVRVM05URTNNVGNzSW1RaU9tWmhiSE5sTENKMElqcDBjblZsZlE9PSJ9LCJhIjp7IkN1cnNvciI6ImV5SnpJam94T0RNd09DNDJOelF4T0RNeU1qZzNNemNzSW1RaU9tWmhiSE5sTENKMElqcDBjblZsZlE9PSJ9fQ"
+  }
+}

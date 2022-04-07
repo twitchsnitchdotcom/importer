@@ -1,0 +1,11 @@
+com/twitchsnitch/importer/service/ImporterService$1.class
+com/twitchsnitch/importer/config/DoConfig.class
+com/twitchsnitch/importer/dto/ChatterListDTO.class
+com/twitchsnitch/importer/service/ImporterService.class
+com/twitchsnitch/importer/service/StorageServiceImpl.class
+com/twitchsnitch/importer/service/SchedulingService.class
+com/twitchsnitch/importer/dto/RefreshTokenDTO.class
+com/twitchsnitch/importer/dto/ChattersDTO.class
+com/twitchsnitch/importer/ImporterApplication.class
+com/twitchsnitch/importer/service/StorageService.class
+com/twitchsnitch/importer/dto/OAuthTokenDTO.class
