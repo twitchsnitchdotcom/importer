@@ -13,24 +13,21 @@ public class ImportDataResource {
 
     private final TwitchDataService twitchDataService;
 
-    @GetMapping("/import/streamtags")
-    public void importStreamTags() {
-        twitchDataService.importGlobalStreamTags();
-    }
-
-    @GetMapping("/import/games")
+    @GetMapping("/import/sully/games")
     public void importGames(){
-        twitchDataService.importGames();
+        twitchDataService.importSullyGames();
     }
 
     @GetMapping("/import/teams")
     public void importTeams(){
         twitchDataService.importSullyTeams();
+        //todo is a matcher to twitch games?
     }
 
     @GetMapping("/import/channels")
     public void importChannels(){
-        twitchDataService.importChannels();
+        twitchDataService.importSullyChannels();
+        //todo is a matcher to twitch user?
     }
 
 
