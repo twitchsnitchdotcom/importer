@@ -320,7 +320,7 @@ public class PersistenceService {
                         "                    c.twitch_url = channel.twitchurl,\n" +
                         "                    c.url = channel.url,\n" +
                         "                    c.display_name = channel.displayname" +
-                        " MERGE (c)-[HAS_LANGUAGE]->(l:Language{name:channel.language)")
+                        " MERGE (c)-[:HAS_LANGUAGE]->(l:Language{name:channel.language})")
                 .bind(jsonMap).to("json")
                 .run();
         logResultSummaries(run);
@@ -407,7 +407,7 @@ public class PersistenceService {
                                 "                    g.previous_avg_ratio = $previousavgratio,\n" +
                                 "                    g.previous_vphs = $previousvphs,\n" +
                                 "                    g.fphs = $fphs,\n" +
-                                "                    g.vphs = $vphs,\n" +);
+                                "                    g.vphs = $vphs,\n")
                         .bind(jsonMap).to("json")
                         .run();
                 logResultSummaries(run);

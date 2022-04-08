@@ -14,6 +14,8 @@ import com.twitchsnitch.importer.dto.sully.games.GamesTable;
 import com.twitchsnitch.importer.dto.sully.teams.TeamsTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +33,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class TwitchDataService {
@@ -67,12 +70,21 @@ public class TwitchDataService {
 
     private final static Logger log = LoggerFactory.getLogger(TwitchDataService.class);
 
-    //@PostConstruct
+    @PostConstruct
     public void initWebDriver() throws URISyntaxException {
-        URL resource = getClass().getClassLoader().getResource("chromedriver");
-        File tokensFile = new File(resource.toURI());
-        System.setProperty("webdriver.chrome.driver", tokensFile.getAbsolutePath());
-        driver = new ChromeDriver();
+        File webDriverFile = new File("/usr/lib/chromium-browser/chromedriver");
+        System.setProperty("webdriver.chrome.driver", webDriverFile.getAbsolutePath());
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("start-maximized"); // open Browser in maximized mode
+        options.addArguments("disable-infobars"); // disabling infobars
+        options.addArguments("--disable-extensions"); // disabling extensions
+        options.addArguments("--disable-gpu"); // applicable to windows os only
+        options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+        options.addArguments("--no-sandbox"); // Bypass OS security model
+        System.setProperty("webdriver.chrome.silentOutput", "true");
+        driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
     }
 
     public HttpEntity getGenericHttpRequest(OAuthTokenDTO randomToken) {
@@ -92,15 +104,30 @@ public class TwitchDataService {
     }
 
     public String goToWebSite(String url) {
-        driver.get(url);
-        return driver.findElement(By.tagName("pre")).getText();
+        try{
+            driver.get("view-source:" + url);
+            String json = driver.findElement(By.className("line-content")).getText();
+            return json;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            log.debug(driver.getPageSource());
+        }
+        return null;
     }
 
     public List<String> goToWebSites(List<String> urls) {
         List<String> jsonList = new ArrayList<>();
         for (String url : urls) {
-            driver.get(url);
-            jsonList.add(driver.findElement(By.tagName("pre")).getText());
+            try{
+                driver.get("view-source:" + url);
+                jsonList.add(driver.findElement(By.className("line-content")).getText());
+                log.debug("Pages collected so far is: " + jsonList.size());
+            }
+            catch(Exception e){
+                log.error("The URL that failed is: " + url);
+                e.printStackTrace();
+            }
         }
         return jsonList;
     }
@@ -243,7 +270,7 @@ public class TwitchDataService {
             channelTotalSize = channelsTable.getRecordsTotal();
             log.debug("Actual Channel size: " + channelTotalSize);
             if(testing){
-                channelTotalSize = 101;  //todo comment out when its the real size
+                channelTotalSize = 1001;  //todo comment out when its the real size
             }
             List<String> channelUrls = buildUpSubSequentUrls(channelprefix, suffix, channelTotalSize);
             for (String json : goToWebSites(channelUrls)) {
@@ -267,7 +294,7 @@ public class TwitchDataService {
             teamTotalSize = teamsTable.getRecordsTotal();
             log.debug("Actual Teams size: " + teamTotalSize);
             if(testing){
-                teamTotalSize = 101;  //todo comment out when its the real size
+                teamTotalSize = 1001;  //todo comment out when its the real size
             }
 
             List<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);

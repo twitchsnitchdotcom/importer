@@ -5,22 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/channels/ChannelGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/channels/ChannelGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/channels/ChannelGamePicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/channels/ChannelGamePicker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/channels/ChannelRaidFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/channels/ChannelRaidFinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/channels/ChannelStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/channels/ChannelStream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/channels/ChannelsTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/channels/ChannelsTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/games/GamesTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/games/GamesTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/teams/TeamsTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/teams/TeamsTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/twitch/ChatterListDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/twitch/ChatterListDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/twitch/GameListDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/twitch/GameListDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/twitch/StreamListDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/twitch/StreamListDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/twitch/StreamTagListDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/twitch/StreamTagListDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/pagesource.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TestingService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/web/ImportDataResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/web/ImportDataResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +58,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="project.propCompiler" />
   </component>
   <component name="RecentsManager">
@@ -136,7 +128,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>393</line>
+          <line>420</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
