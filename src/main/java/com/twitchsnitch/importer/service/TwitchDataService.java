@@ -8,6 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.twitch4j.helix.domain.*;
 import com.github.twitch4j.helix.domain.Game;
+import com.twitchsnitch.importer.dto.sully.channels.ChannelDatum;
+import com.twitchsnitch.importer.dto.sully.games.GamesDatum;
+import com.twitchsnitch.importer.dto.sully.teams.TeamsDatum;
 import com.twitchsnitch.importer.dto.twitch.*;
 import com.twitchsnitch.importer.dto.sully.channels.ChannelsTable;
 import com.twitchsnitch.importer.dto.sully.games.GamesTable;
@@ -54,7 +57,9 @@ public class TwitchDataService {
     private final TwitchClientService twitchClientService;
     private final PersistenceService persistenceService;
     private Neo4jClient client;
-    private ChromeDriver driver;
+    private ChromeDriver primaryDriver;
+    private ChromeDriver secondaryDriver;
+    private ChromeDriver tertiaryDriver;
     private RestTemplate restTemplate = new RestTemplate();
     private Set<String> liveStreamers;
 
@@ -74,6 +79,7 @@ public class TwitchDataService {
 
     private final static Logger log = LoggerFactory.getLogger(TwitchDataService.class);
 
+    //GENERIC METHODS
     @PostConstruct
     public void initWebDriver() throws URISyntaxException {
         File webDriverFile = new File("/usr/lib/chromium-browser/chromedriver");
@@ -86,8 +92,12 @@ public class TwitchDataService {
         options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
         options.addArguments("--no-sandbox"); // Bypass OS security model
         System.setProperty("webdriver.chrome.silentOutput", "true");
-        driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        primaryDriver = new ChromeDriver(options);
+        primaryDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        secondaryDriver = new ChromeDriver(options);
+        secondaryDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        tertiaryDriver = new ChromeDriver(options);
+        tertiaryDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
     }
 
@@ -107,7 +117,7 @@ public class TwitchDataService {
         return request;
     }
 
-    public String goToWebSite(String url) {
+    public String goToWebSite(String url, ChromeDriver driver) {
         try {
             driver.get("view-source:" + url);
             String json = driver.findElement(By.className("line-content")).getText();
@@ -119,7 +129,7 @@ public class TwitchDataService {
         return null;
     }
 
-    public List<String> goToWebSites(List<String> urls) {
+    public List<String> goToWebSites(List<String> urls, ChromeDriver driver) {
         List<String> jsonList = new ArrayList<>();
         for (String url : urls) {
             try {
@@ -146,29 +156,78 @@ public class TwitchDataService {
         return urls;
     }
 
-    public void importTwitchGames() {
-        Set<String> allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds();
-        //SplittingUtils here to limit to 100
-        OAuthTokenDTO localToken = oAuthService.getRandomToken();
-        Map map = runGetGame(allGamesWithoutTwitchIds, localToken);
-        persistenceService.updateGameWithTwitchId(map);
+    private String encodeValue(String value) {
+        try {
+            return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        log.error("BIG PROBLEM, CANT ENCODE THIS STRING: " + value);
+        return null;
     }
 
-    public void importSullyGames() {
+    //DB METHODS
+
+    public void runDBConstraints(){
+        persistenceService.runDBConstraints();
+    }
+
+    public void dropDbConstraints(){
+        persistenceService.dropDBConstraints();
+    }
+
+    //todo import live streams and chatters
+    public void importLiveStreamersAndChatters(){
+
+    }
+
+
+    //import followers to and from
+    //todo need to import channel streams and channel games in the same loop to avoid a whole mess
+    //todo need to do game picker and raid picker here
+
+//    TeamsTable individualTeam = objectMapper().readValue(json, TeamsTable.class);
+//                for(TeamsDatum team: individualTeam.getData()){
+//        Long teamId = team.getId();
+//        String encodedName = encodeValue(team.getName());
+//        String urlFirstPage = "https://sullygnome.com/api/tables/teamtables/getteamchannels/7/0/" + teamId + "/" + encodedName + "/000/1/3/desc/0/";
+//        String teamJson = goToWebSite(urlFirstPage, secondaryDriver);
+//        //todo I am here doing channels table
+//        TeamsTable currentTeams = objectMapper().readValue(goToWebSite(teamsScaffoldUrl, secondaryDriver), TeamsTable.class);
+//        teamTotalSize = teamsTable.getRecordsTotal();
+//        log.debug("Actual Teams size: " + teamTotalSize);
+//        if (testing) {
+//            teamTotalSize = 1001;
+//        }
+//        List<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
+//
+//        persistenceService.persistSullyMembersOfTeam(teamId, teamJson);
+
+
+    //SULLY METHODS
+    public void importGames() {
         String suffix = "/" + numberOfRecords;
         String gameScaffoldUrl = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc/0/" + numberOfRecords;
         String gamePrefix = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc/";
         long gamesTotalSize;
         try {
-            GamesTable gamesTable = objectMapper().readValue(goToWebSite(gameScaffoldUrl), GamesTable.class);
+            GamesTable gamesTable = objectMapper().readValue(goToWebSite(gameScaffoldUrl, tertiaryDriver), GamesTable.class);
             gamesTotalSize = gamesTable.getRecordsTotal();
             log.debug("Actual Game size: " + gamesTotalSize);
             if (testing) {
                 gamesTotalSize = 1001; //todo remove when read for prod
             }
             List<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
-            for (String json : goToWebSites(gamesUrls)) {
+            OAuthTokenDTO localToken = oAuthService.getRandomToken();
+            for (String json : goToWebSites(gamesUrls, tertiaryDriver)) {
                 persistenceService.persistSullyGames(gamesDaysPerspective, objectMapper().readValue(json, Map.class));
+                GamesTable gamesToGetTwitchIds  = objectMapper().readValue(json, GamesTable.class);
+                Set<String> gamesNameList = new HashSet<>();
+                for(GamesDatum data : gamesToGetTwitchIds.getData()){
+                    gamesNameList.add(encodeValue(data.getName()));
+                }
+                Map map = runGetGame(gamesNameList, localToken);
+                persistenceService.updateGameWithTwitchData(map);
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());
@@ -176,21 +235,29 @@ public class TwitchDataService {
 
     }
 
-    public void importSullyChannels() {
+    public void importChannels() {
         String suffix = "/" + numberOfRecords;
         String channelsScaffoldUrl = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/3/desc/0/" + numberOfRecords;
         String channelPrefix = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/3/desc/";
         long channelTotalSize;
         try {
-            ChannelsTable channelsTable = objectMapper().readValue(goToWebSite(channelsScaffoldUrl), ChannelsTable.class);
+            ChannelsTable channelsTable = objectMapper().readValue(goToWebSite(channelsScaffoldUrl, primaryDriver), ChannelsTable.class);
             channelTotalSize = channelsTable.getRecordsTotal();
             log.debug("Actual Channel size: " + channelTotalSize);
             if (testing) {
                 channelTotalSize = 1001;
             }
             List<String> channelUrls = buildUpSubSequentUrls(channelPrefix, suffix, channelTotalSize);
-            for (String json : goToWebSites(channelUrls)) {
+            OAuthTokenDTO localToken = oAuthService.getRandomToken();
+            for (String json : goToWebSites(channelUrls, primaryDriver)) {
                 persistenceService.persistSullyChannels(channelDaysPerspective, objectMapper().readValue(json, Map.class));
+                ChannelsTable currentChannels = objectMapper().readValue(json, ChannelsTable.class);
+                Set<String> loginNames = new HashSet<>();
+                for(ChannelDatum data :currentChannels.getData()){
+                    loginNames.add(data.getUrl());
+                }
+                Map map = runGetUser(loginNames, localToken);
+                persistenceService.updateUserWithTwitchData(map);
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());
@@ -198,7 +265,7 @@ public class TwitchDataService {
 
     }
 
-    public void importSullyTeams() {
+    public void importTeams() {
         String suffix = "/" + numberOfRecords;
         Set<TeamsTable> allTeams = new HashSet<>();
         //teams result list
@@ -206,21 +273,30 @@ public class TwitchDataService {
         String teamsprefix = "https://sullygnome.com/api/tables/teamtables/getteams/" + teamsDaysPerspective + "/0/1/3/desc/";
         long teamTotalSize;
         try {
-            TeamsTable teamsTable = objectMapper().readValue(goToWebSite(teamsScaffoldUrl), TeamsTable.class);
+            TeamsTable teamsTable = objectMapper().readValue(goToWebSite(teamsScaffoldUrl, secondaryDriver), TeamsTable.class);
             teamTotalSize = teamsTable.getRecordsTotal();
             log.debug("Actual Teams size: " + teamTotalSize);
             if (testing) {
                 teamTotalSize = 1001;
             }
             List<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
-            for (String json : goToWebSites(teamsUrls)) {
+            OAuthTokenDTO localToken = oAuthService.getRandomToken();
+            for (String json : goToWebSites(teamsUrls, secondaryDriver)) {
                 persistenceService.persistSullyTeams(teamsDaysPerspective, objectMapper().readValue(json, Map.class));
+                TeamsTable currentTeam = objectMapper().readValue(json, TeamsTable.class);
+                for(TeamsDatum data : currentTeam.getData()){
+                    Map map = runGetTeam(data.getName(), localToken);
+                    persistenceService.updateTeamWithTwitchData(map);
+
+                    //do individual requests but also set the team members in this request because we have access to it
+                }
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());
         }
     }
 
+    //REST METHODS
     public Map runGetChatters(String loginName) {
         String url = "http://tmi.twitch.tv/group/user/" + loginName + "/chatters";
 
@@ -244,20 +320,10 @@ public class TwitchDataService {
         return null;
     }
 
-    private String encodeValue(String value) {
-        try {
-            return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        log.error("BIG PROBLEM, CANT ENCODE THIS STRING: " + value);
-        return null;
-    }
-
-    public Map runGetGame(Set<String> gamesWithOutTwitchIds, OAuthTokenDTO oAuthTokenDTO) {
+    public Map runGetGame(Set<String> encodedGameDisplayNames, OAuthTokenDTO oAuthTokenDTO) {
         StringBuilder url = new StringBuilder("https://api.twitch.tv/helix/games?name=");
         boolean firstValue = true;
-        for (String name : gamesWithOutTwitchIds) {
+        for (String name : encodedGameDisplayNames) {
             if (firstValue) {
                 url.append(encodeValue(name));
                 firstValue = false;
@@ -270,6 +336,53 @@ public class TwitchDataService {
 
             ResponseEntity<String> response = restTemplate.exchange(
                     url.toString(),
+                    HttpMethod.GET,
+                    getGenericHttpRequest(oAuthTokenDTO),
+                    String.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                return objectMapper().readValue(response.getBody(), Map.class);
+            }
+        } catch (HttpClientErrorException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Map runGetUser(Set<String> loginNames, OAuthTokenDTO oAuthTokenDTO) {
+        StringBuilder url = new StringBuilder("https://api.twitch.tv/helix/user?login=");
+        boolean firstValue = true;
+        for (String name : loginNames) {
+            if (firstValue) {
+                url.append(encodeValue(name));
+                firstValue = false;
+            } else {
+                url.append("&login=" + encodeValue(name));
+            }
+        }
+
+        try {
+
+            ResponseEntity<String> response = restTemplate.exchange(
+                    url.toString(),
+                    HttpMethod.GET,
+                    getGenericHttpRequest(oAuthTokenDTO),
+                    String.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                return objectMapper().readValue(response.getBody(), Map.class);
+            }
+        } catch (HttpClientErrorException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Map runGetTeam(String teamName, OAuthTokenDTO oAuthTokenDTO) {
+        String url = "https://api.twitch.tv/helix/teams?name=" + teamName;
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    url,
                     HttpMethod.GET,
                     getGenericHttpRequest(oAuthTokenDTO),
                     String.class);

@@ -13,21 +13,29 @@ public class ImportDataResource {
 
     private final TwitchDataService twitchDataService;
 
-    @GetMapping("/import/sully/games")
+    @GetMapping("/db/drop")
+    public void dropDBConstraints(){
+        twitchDataService.dropDbConstraints();
+    }
+
+    @GetMapping("/db/run")
+    public void runDBConstraints(){
+        twitchDataService.runDBConstraints();
+    }
+
+    @GetMapping("/import/games")
     public void importGames(){
-        twitchDataService.importSullyGames();
+        twitchDataService.importGames();
     }
 
     @GetMapping("/import/teams")
     public void importTeams(){
-        twitchDataService.importSullyTeams();
-        //todo is a matcher to twitch games?
+        twitchDataService.importTeams();
     }
 
     @GetMapping("/import/channels")
     public void importChannels(){
-        twitchDataService.importSullyChannels();
-        //todo is a matcher to twitch user?
+        twitchDataService.importChannels();
     }
 
 

@@ -54,49 +54,80 @@ public class PersistenceService {
                 .registerModule(module);
     }
 
+    //DB METHODS
     public void deleteDBData() {
         ResultSummary run = client.query("MATCH (n) DETACH DELETE n").in(database).run();
         log.debug("Nodes deleted from the DB: " + run.counters().nodesDeleted());
     }
 
+    public void dropDBConstraints() {
+        ResultSummary dropConstraints = client.query("CALL apoc. schema. assert({}, {});").in(database).run();
+        logResultSummaries(dropConstraints);
+    }
+
     public void runDBConstraints() {
 
-        //TODO run some sort of check to see if these constraints exist before trying to add new ones
-        //GAMES
-        //ResultSummary gameNameConstraint = client.query("CREATE CONSTRAINT FOR (g:Game) REQUIRE g.name IS UNIQUE;").in(database).run();
-        //can only have one uniqueness constraint per label?
-//        ResultSummary gameTwitchIdConstraint = client.query("CREATE CONSTRAINT FOR (g:Game) REQUIRE g.twitch_id IS UNIQUE;").in(database).run();
-//        ResultSummary gameSullyIdConstraint = client.query("CREATE CONSTRAINT FOR (g:Game) REQUIRE g.sully_id IS UNIQUE;").in(database).run();
-//        client.query("CREATE CONSTRAINT FOR (g:GameSummary) REQUIRE g.days IS UNIQUE;").in(database).run();
-//        client.query("CREATE CONSTRAINT FOR (g:GamePerspective) REQUIRE g.days IS UNIQUE;").in(database).run();
-
-        //LANGUAGE
+        ResultSummary gameDisplayNameConstraint = client.query("CREATE CONSTRAINT FOR (g:Game) REQUIRE g.display_name IS UNIQUE;").in(database).run();
         ResultSummary languageConstraint = client.query("CREATE CONSTRAINT FOR (l:Language) REQUIRE l.name IS UNIQUE;").in(database).run();
+        ResultSummary channelLoginConstraint = client.query("CREATE CONSTRAINT FOR (c:Channel) REQUIRE c.login IS UNIQUE;").in(database).run();
+        ResultSummary userLoginConstraint = client.query("CREATE CONSTRAINT FOR (u:User) REQUIRE u.login IS UNIQUE;").in(database).run();
+        ResultSummary teamNameConstraint = client.query("CREATE CONSTRAINT FOR (t:Team) REQUIRE t.name IS UNIQUE;").in(database).run();
 
+        ResultSummary gameSullyIdIndex = client.query("CREATE INDEX ON :Game(sully_id);").in(database).run();
+        ResultSummary gameTwitchIdIndex = client.query("CREATE INDEX ON :Game(twitch_id);").in(database).run();
+        ResultSummary channelSullyIdIndex = client.query("CREATE INDEX ON :Channel(sully_id);").in(database).run();
+        ResultSummary channelTwitchIdIndex = client.query("CREATE INDEX ON :Channel(twitch_id);").in(database).run();
+        ResultSummary teamSullyIdIndex = client.query("CREATE INDEX ON :Team(sully_id);").in(database).run();
+        ResultSummary teamTwitchIdIndex = client.query("CREATE INDEX ON :Team(twitch_id);").in(database).run();
 
-        //STREAM TAGS
-        ResultSummary gameNameConstraint = client.query("CREATE CONSTRAINT FOR (s:StreamTag) REQUIRE s.twitch_id IS UNIQUE;").in(database).run();
-        //Channels
+        logResultSummaries(gameDisplayNameConstraint);
+        logResultSummaries(languageConstraint);
+        logResultSummaries(channelLoginConstraint);
+        logResultSummaries(userLoginConstraint);
+        logResultSummaries(teamNameConstraint);
 
-        //Teams
-
-        //Users
-
-
-//        CREATE CONSTRAINT ON (s:Stream) ASSERT s.name IS UNIQUE;
-//        CREATE CONSTRAINT ON (u:User) ASSERT u.name IS UNIQUE;
-//        CREATE CONSTRAINT ON (g:Game) ASSERT g.name IS UNIQUE;
-//        CREATE CONSTRAINT ON (l:Language) ASSERT l.name IS UNIQUE;
-//        CREATE CONSTRAINT ON (t:Team) ASSERT t.id IS UNIQUE;
-
+        logResultSummaries(gameSullyIdIndex);
+        logResultSummaries(gameTwitchIdIndex);
+        logResultSummaries(channelSullyIdIndex);
+        logResultSummaries(channelTwitchIdIndex);
+        logResultSummaries(teamSullyIdIndex);
+        logResultSummaries(teamTwitchIdIndex);
 
     }
 
     private void logResultSummaries(ResultSummary resultSummary) {
-        log.debug("Nodes created: " + resultSummary.counters().nodesCreated());
-        log.debug("Labels added: " + resultSummary.counters().labelsAdded());
-        log.debug("Properties set: " + resultSummary.counters().propertiesSet());
+
+        if (resultSummary.counters().nodesCreated() > 0) {
+            log.debug("Nodes created: " + resultSummary.counters().nodesCreated());
+        }
+        if (resultSummary.counters().labelsAdded() > 0) {
+            log.debug("Labels added: " + resultSummary.counters().labelsAdded());
+        }
+        if (resultSummary.counters().relationshipsCreated() > 0) {
+            log.debug("Relationships added: " + resultSummary.counters().relationshipsCreated());
+        }
+        if (resultSummary.counters().relationshipsDeleted() > 0) {
+            log.debug("Relationships deleted: " + resultSummary.counters().relationshipsDeleted());
+        }
+        if (resultSummary.counters().indexesAdded() > 0) {
+            log.debug("Indexes added: " + resultSummary.counters().indexesAdded());
+        }
+        if (resultSummary.counters().indexesRemoved() > 0) {
+            log.debug("Indexes removed: " + resultSummary.counters().indexesRemoved());
+        }
+        if (resultSummary.counters().constraintsAdded() > 0) {
+            log.debug("Constraints added: " + resultSummary.counters().constraintsAdded());
+        }
+        if (resultSummary.counters().constraintsRemoved() > 0) {
+            log.debug("Constraints added: " + resultSummary.counters().constraintsRemoved());
+        }
+        if (resultSummary.counters().propertiesSet() > 0) {
+            log.debug("Properties set: " + resultSummary.counters().propertiesSet());
+        }
+
     }
+
+    //TWITCH METHODS
 
     public Set<String> getAllGamesWithoutTwitchIds() {
         StopWatch stopWatch = new StopWatch();
@@ -126,14 +157,41 @@ public class PersistenceService {
         return channelsWithoutTwitchIds;
     }
 
+    public void updateGameWithTwitchData(Map json) {
+        ResultSummary run = client.query("UNWIND $json.data as game " +
+                "MATCH (g:Game) WHERE g.name = game.name SET g.twitch_id = game.id;").in(database).bind(json).to("json").run();
+        logResultSummaries(run);
+    }
+
+    public void updateUserWithTwitchData(Map json) {
+        ResultSummary run = client.query("UNWIND $json.data as user " +
+                "MATCH (u:User) WHERE u.login = user.login SET u.twitch_id = user.login, u.created_at = datetime(user.created_at), u.total_view_count = user.view_count;").in(database).bind(json).to("json").run();
+        logResultSummaries(run);
+    }
+
+    public void updateTeamWithTwitchData(Map json) {
+        ResultSummary run = client.query("MATCH (t:Team{name:$json.team_name})\n" +
+                "SET t.created_at = datetime($json.created_at),\n" +
+                "    t.updated_at = datetime($json.updated_at),\n" +
+                "    t.info = $json.info,\n" +
+                "    t.twitch_id = $json.id\n" +
+                "UNWIND $json.data as member\n " +
+                "MERGE (u:User{login:member.login})-[:MEMBER_OF]->(t);").in(database).bind(json).to("json").run();
+        logResultSummaries(run);
+    }
+
+    //SULLY METHODS
+
     @Async
     public void persistSullyChannels(Integer daysPerspective, Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         ResultSummary run = client.query("UNWIND $json.data as channel" +
-                        " MERGE (c:Channel{sully_id:channel.id})\n" +
+                        " MERGE (c:Channel{login:channel.url})\n" +
                         "          SET       c.followers = channel.followers,\n" +
                         "                    c.view_minutes = channel.viewminutes,\n" +
+                        "                    c:User,\n" +
+                        "                    c.row_number = channel.rownumber,\n" +
                         "                    c.streamed_minutes = channel.streamedminutes,\n" +
                         "                    c.max_viewers = channel.maxviewers,\n" +
                         "                    c.avg_viewers = channel.avgviewers,\n" +
@@ -149,11 +207,10 @@ public class PersistenceService {
                         "                    c.partner = channel.partner,\n" +
                         "                    c.affiliate = channel.affiliate,\n" +
                         "                    c.mature = channel.mature,\n" +
-                        "                    c.language = channel.language,\n" +
                         "                    c.status = channel.status,\n" +
-                        "                    c.logo = channel.logo,\n" +
-                        "                    c.twitch_url = channel.twitchurl,\n" +
-                        "                    c.url = channel.url,\n" +
+                        "                    c.profile_image_url = channel.logo,\n" +
+                        "                    c.twitch_link = channel.twitchurl,\n" +
+                        "                    c.sully_id = channel.id,\n" +
                         "                    c.display_name = channel.displayname" +
                         " MERGE (c)-[:HAS_LANGUAGE]->(l:Language{name:channel.language})").in(database)
                 .bind(jsonMap).to("json")
@@ -168,7 +225,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         ResultSummary run = client.query("UNWIND json.data as team" +
-                        "MERGE (t:Team{sully_id:team.id})\n" +
+                        "MERGE (t:Team{display_name:team.name})\n" +
                         "          SET       t.members = team.members,\n" +
                         "                    t.stream_time = team.streamtime,\n" +
                         "                    t.watch_time = team.watchtime,\n" +
@@ -176,9 +233,9 @@ public class PersistenceService {
                         "                    t.avg_viewers = team.avgviewers,\n" +
                         "                    t.max_channels = team.maxchannels,\n" +
                         "                    t.avg_channels = team.avgchannels,\n" +
-                        "                    t.name = team.name,\n" +
-                        "                    t.logo = team.logo,\n" +
-                        "                    t.url = team.twitchurl;").in(database)
+                        "                    t.row_number = team.rownum,\n" +
+                        "                    t.sully_id = team.id,\n" +
+                        "                    t.profile_image_url = team.logo;").in(database)
                 .bind(jsonMap).to("json")
                 .run();
         logResultSummaries(run);
@@ -186,14 +243,16 @@ public class PersistenceService {
         log.debug("Persisting Sully Teams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
     }
 
-    @Async
+    //cant be async because we need to bind the games onto it for the twitch id
+    //@Async
     public void persistSullyGames(Integer daysPerspective, Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
-                        "MERGE (g:Game{sully_id:game.id})\n" +
+                        "MERGE (g:Game{display_name:game.name})\n" +
                         "            SET     g.view_minutes = game.viewminutes,\n" +
                         "                    g.streamed_minutes = game.streamedminutes,\n" +
+                        "                    g.row_number = game.rownum,\n" +
                         "                    g.max_channels = game.maxchannels,\n" +
                         "                    g.unique_channels = game.uniquechannels,\n" +
                         "                    g.avg_channels = game.avgchannels,\n" +
@@ -213,37 +272,54 @@ public class PersistenceService {
                         "                    g.previous_vphs = game.previousvphs,\n" +
                         "                    g.fphs = game.fphs,\n" +
                         "                    g.vphs = game.vphs,\n" +
-                        "                    g.name = game.name,\n" +
-                        "                    g.logo = game.logo,\n" +
-                        "                    g.url = game.url;").in(database)
+                        "                    g.sully_id = game.id,\n" +
+                        "                    g.logo = game.logo;").in(database)
                 .bind(jsonMap).to("json")
                 .run();
         logResultSummaries(run);
-
         stopWatch.stop();
         log.debug("Persisting Sully Games took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
     }
 
+    //in progress
+    @Async
+    public void persistSullyMembersOfTeam(long teamId, Map jsonMap) {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        ResultSummary run = client.query("UNWIND $json.data as member\n" +
+                        "MATCH (t:Team{sully_id:$teamId})\n" +
+                        "MATCH (c.Channel{sully_id:member.id})\n" +
+                        "MERGE (c)-[:MEMBER_OF]->(t)").in(database)
+                .bind(jsonMap).to("json")
+                .bind(teamId).to("teamId")
+                .run();
+        logResultSummaries(run);
+        stopWatch.stop();
+        log.debug("Persisting Sully Games took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+    }
+
+    //in progress
     @Async
     public void persistSullyChannelStreams(Map jsonMap) {
-        ResultSummary run = client.query("MERGE (s:Stream{sully_id:$streamId})\n" +
-                        "            SET     s.start_time = $starttime,\n" +
-                        "                    s.end_time = $endtime,\n" +
-                        "                    s.length = $length,\n" +
-                        "                    s.view_gain = $viewgain,\n" +
-                        "                    s.follower_gain = $followergain,\n" +
-                        "                    s.avg_viewers = $avgviewers,\n" +
-                        "                    s.max_viewers = $maxviewers,\n" +
-                        "                    s.followers_per_hour = $followersperhour,\n" +
-                        "                    s.games_played = $gamesplayed,\n" +
-                        "                    s.views_per_hour = $viewsperhour,\n" +
-                        "                    s.channel_display_name = $channeldisplayname,\n" +
-                        "                    s.channel_logo = $channellogo,\n" +
-                        "                    s.channel_url = $channelurl,\n" +
-                        "                    s.start_date_time = $startDateTime,\n" +
-                        "                    s.stream_url = $streamUrl,\n" +
-                        "                    s.view_minutes = $viewminutes;").in(database)
-                .bind(jsonMap).to("streamId")
+        ResultSummary run = client.query("UNWIND $json.data as stream\n" +
+                "MERGE (s:Stream{sully_id:stream.streamId})\n" +
+                        "            SET     s.start_time = stream.starttime,\n" +
+                        "                    s.end_time = stream.endtime,\n" +
+                        "                    s.length = stream.length,\n" +
+                        "                    s.row_number = stream.rownum,\n" +
+                        "                    s.view_gain = stream.viewgain,\n" +
+                        "                    s.follower_gain = stream.followergain,\n" +
+                        "                    s.avg_viewers = stream.avgviewers,\n" +
+                        "                    s.max_viewers = stream.maxviewers,\n" +
+                        "                    s.followers_per_hour = stream.followersperhour,\n" +
+                        "                    s.views_per_hour = stream.viewsperhour,\n" +
+                        "                    s.start_date_time = stream.startDateTime,\n" +
+                        "                    s.sully_stream_url = stream.streamUrl,\n" +
+                        "                    s.view_minutes = stream.viewminutes\n" +
+                "MATCH (c:Channel{login:stream.channelurl}) \n" +
+                "MERGE (c)-[:STREAMED]->(s);"
+                        ).in(database)
+                .bind(jsonMap).to("json")
                 .run();
 
         logResultSummaries(run);
@@ -252,7 +328,8 @@ public class PersistenceService {
 
     @Async
     public void persistSullyChannelGames(Map jsonMap) {
-        ResultSummary run = client.query("MERGE (g:ChannelGame{sully_id:$streamId})\n" + //todo need to fix this as there is no id
+        ResultSummary run = client.query("UNWIND $json.data as game\n" +
+                        "MERGE (g:ChannelGame{sully_id:$streamId})\n" + //todo need to fix this as there is no id
                         "            SET     s.stream_time = $streamtime,\n" +
                         "                    s.view_time = $viewtime,\n" +
                         "                    s.views_gained = $viewsgained,\n" +
@@ -385,10 +462,5 @@ public class PersistenceService {
 
     }
 
-    public void updateGameWithTwitchId(Map json) {
-        ResultSummary run = client.query("UNWIND $json.data as game " +
-                "MATCH (g:Game) WHERE g.name = game.name SET g.twitch_id = game.id;").in(database).bind(json).to("json").run();
-        logResultSummaries(run);
-    }
 
 }

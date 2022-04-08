@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pagesource.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/pagesource.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/web/ImportDataResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/web/ImportDataResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/twitchsnitch/importer/service/TwitchDataService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/twitchsnitch/importer/service/PersistenceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/twitchsnitch/importer/service/PersistenceService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/twitchsnitch/importer/service/TwitchDataService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/twitchsnitch/importer/service/TwitchDataService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/twitchsnitch/importer/web/ImportDataResource.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,8 +117,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="kinda working, nice :)" />
     <option name="LAST_COMMIT_MESSAGE" value="kinda working, nice :)" />
   </component>
