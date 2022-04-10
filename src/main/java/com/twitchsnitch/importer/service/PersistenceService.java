@@ -228,6 +228,7 @@ public class PersistenceService {
                         "    t.updated_at = datetime($json.updated_at),\n" +
                         "    t.info = $json.info,\n" +
                         "    t.twitch_id = $json.id\n" +
+                        "    WITH data\n" +
                         "    UNWIND data as team\n" +
                         "MERGE (u:User{login:team.user_login})-[:MEMBER_OF]->(t);").in(database)
                 .bind(json).to("json")
