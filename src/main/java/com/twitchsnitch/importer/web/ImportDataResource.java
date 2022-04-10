@@ -15,6 +15,7 @@ public class ImportDataResource {
 
     @GetMapping("/db/drop")
     public void dropDBConstraints(){
+        twitchDataService.de
         twitchDataService.dropDbConstraints();
     }
 

@@ -178,6 +178,7 @@ public class TwitchDataService {
     }
 
     public void dropDbConstraints() {
+        persistenceService.deleteDBData();
         persistenceService.dropDBConstraints();
     }
 
