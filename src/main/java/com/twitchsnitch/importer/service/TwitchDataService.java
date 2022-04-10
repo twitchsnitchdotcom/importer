@@ -68,7 +68,7 @@ public class TwitchDataService {
     private ChromeDriver secondaryDriver;
     private ChromeDriver tertiaryDriver;
     private RestTemplate restTemplate = new RestTemplate();
-    private Set<String> liveStreamers;
+    private Set<String> liveStreamers = new HashSet<>();
 
     public final ObjectMapper objectMapper() {
         JavaTimeModule module = new JavaTimeModule();
@@ -186,19 +186,19 @@ public class TwitchDataService {
 //        persistenceService.dropDBConstraints();
     }
 
-    public void addDBConstraints(){
+    public void addDBConstraints() {
         persistenceService.runDBConstraints();
     }
 
     //todo sixth
-    public void raidPicker(){
-        for(String login : liveStreamers){
+    public void raidPicker() {
+        for (String login : liveStreamers) {
             Map map = runGetRaids();
         }
     }
 
     //todo seventh
-    public void gamePicker(){
+    public void gamePicker() {
 
     }
 
@@ -234,13 +234,15 @@ public class TwitchDataService {
     }
 
     //todo third channel streams,
-    public void importChannelStreams(){
+    public void importChannelStreams() {
         //todo fourth individual stream info
     }
+
     // todo fith channel games
-    public void importChannelGames(){
+    public void importChannelGames() {
 
     }
+
     public void importChannels() {
         String suffix = "/" + numberOfRecords;
         String channelsScaffoldUrl = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/3/desc/0/" + numberOfRecords;
@@ -257,13 +259,14 @@ public class TwitchDataService {
             OAuthTokenDTO localToken = oAuthService.getRandomToken();
             for (String json : goToWebSites(channelUrls, primaryDriver)) {
                 persistenceService.persistSullyChannels(channelDaysPerspective, objectMapper().readValue(json, Map.class));
-                ChannelsTable currentChannels = objectMapper().readValue(json, ChannelsTable.class);
-                Set<String> loginNames = new HashSet<>();
-                for (ChannelDatum data : currentChannels.getData()) {
-                    loginNames.add(data.getUrl());
-                }
-                Map map = runGetUsers(loginNames, localToken);
-                persistenceService.updateUserWithTwitchData(map);
+//todo move into its own implementation
+                //                ChannelsTable currentChannels = objectMapper().readValue(json, ChannelsTable.class);
+//                Set<String> loginNames = new HashSet<>();
+//                for (ChannelDatum data : currentChannels.getData()) {
+//                    loginNames.add(data.getUrl());
+//                }
+//                Map map = runGetUsers(loginNames, localToken);
+//                persistenceService.updateUserWithTwitchData(map);
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());
@@ -289,11 +292,12 @@ public class TwitchDataService {
             OAuthTokenDTO localToken = oAuthService.getRandomToken();
             for (String json : goToWebSites(teamsUrls, secondaryDriver)) {
                 persistenceService.persistSullyTeams(teamsDaysPerspective, objectMapper().readValue(json, Map.class));
-                TeamsTable currentTeam = objectMapper().readValue(json, TeamsTable.class);
-                for (TeamsDatum data : currentTeam.getData()) {
-                    Map map = runGetTeam(data.getTwitchurl(), localToken);
-                    persistenceService.updateTeamWithTwitchData(data.getId(), map);
-                }
+                //todo move into its own implementation
+//                TeamsTable currentTeam = objectMapper().readValue(json, TeamsTable.class);
+//                for (TeamsDatum data : currentTeam.getData()) {
+//                    Map map = runGetTeam(data.getTwitchurl(), localToken);
+//                    persistenceService.updateTeamWithTwitchData(data.getId(), map);
+//                }
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());
@@ -302,15 +306,14 @@ public class TwitchDataService {
 
     public void importFollowsTo() {
         Set<String> usersWithoutTwitchFollowsTo;
-        if(testing){
+        if (testing) {
             usersWithoutTwitchFollowsTo = persistenceService.getUsersWithoutTwitchFollowsTo(followsLimit);
-        }
-        else{
-            usersWithoutTwitchFollowsTo= persistenceService.getUsersWithoutTwitchFollowsTo(null);
+        } else {
+            usersWithoutTwitchFollowsTo = persistenceService.getUsersWithoutTwitchFollowsTo(null);
         }
 
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
-        for(String twitchId: usersWithoutTwitchFollowsTo){
+        for (String twitchId : usersWithoutTwitchFollowsTo) {
             try {
                 FollowsDTO resultList = runGetFollowersTo(twitchId, randomToken, null);
                 persistenceService.persistTwitchFollowersTo(resultList.getMap());
@@ -339,15 +342,14 @@ public class TwitchDataService {
 
     public void importFollowsFrom() {
         Set<String> usersWithoutTwitchFollowsFrom;
-        if(testing){
+        if (testing) {
             usersWithoutTwitchFollowsFrom = persistenceService.getUsersWithoutTwitchFollowsFrom(followsLimit);
-        }
-        else{
-            usersWithoutTwitchFollowsFrom= persistenceService.getUsersWithoutTwitchFollowsFrom(null);
+        } else {
+            usersWithoutTwitchFollowsFrom = persistenceService.getUsersWithoutTwitchFollowsFrom(null);
         }
 
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
-        for(String twitchId: usersWithoutTwitchFollowsFrom){
+        for (String twitchId : usersWithoutTwitchFollowsFrom) {
             try {
                 FollowsDTO resultList = runGetFollowersFrom(twitchId, randomToken, null);
                 persistenceService.persistTwitchFollowersFrom(resultList.getMap());
@@ -443,12 +445,13 @@ public class TwitchDataService {
                     StreamListDTO loopList = runGetLiveStreams(randomToken, cursor);
                     if (loopList != null && loopList.getStreams() != null) {
                         String newCursor = loopList.getPagination().getCursor();
-                        for (StreamDTO stream : loopList.getStreams()) {
-                            Map map = runGetChatters(stream.getUserLogin());
-                            if (map != null) {
-                                persistenceService.persistTwitchChatters(map);
-                            }
-                        }
+                        //todo more into its own implementation
+//                        for (StreamDTO stream : loopList.getStreams()) {
+//                            Map map = runGetChatters(stream.getUserLogin());
+//                            if (map != null) {
+//                                persistenceService.persistTwitchChatters(map);
+//                            }
+//                        }
                         if (newCursor == null) {
                             break;
                         } else {
@@ -587,7 +590,7 @@ public class TwitchDataService {
         return null;
     }
 
-    public FollowsDTO runGetFollowersTo(String twitchId, OAuthTokenDTO oAuthTokenDTO, String cursor){
+    public FollowsDTO runGetFollowersTo(String twitchId, OAuthTokenDTO oAuthTokenDTO, String cursor) {
         String url = "https://api.twitch.tv/helix/users/follows?first=100&to_id=" + twitchId;
         if (cursor != null) {
             url = url + "&after=" + cursor;
@@ -610,7 +613,7 @@ public class TwitchDataService {
         return null;
     }
 
-    public FollowsDTO runGetFollowersFrom(String twitchId, OAuthTokenDTO oAuthTokenDTO, String cursor){
+    public FollowsDTO runGetFollowersFrom(String twitchId, OAuthTokenDTO oAuthTokenDTO, String cursor) {
         String url = "https://api.twitch.tv/helix/users/follows?first=100&from_id=" + twitchId;
         if (cursor != null) {
             url = url + "&after=" + cursor;
