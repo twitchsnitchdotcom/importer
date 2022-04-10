@@ -38,5 +38,29 @@ public class ImportDataResource {
         twitchDataService.importChannels();
     }
 
+    @GetMapping("/import/streams")
+    public void importStreams(){
+        twitchDataService.importLiveStreamersAndChatters();
+    }
+
+    @GetMapping("/import/languages")
+    public void importLanguages(){
+        twitchDataService.importLiveStreamersAndChatters();
+    }
+
+//    @GetMapping("/import/chatters")
+//    public void importChatters(){
+//        twitchDataService.importChatters();
+//    }
+
+    @GetMapping("/import/follows/to")
+    public void importFollowsTo(){
+        twitchDataService.importFollowsTo();
+    }
+
+    @GetMapping("/import/follows/from")
+    public void importFollowsFrom(){
+        twitchDataService.importFollowsFrom();
+    }
 
 }

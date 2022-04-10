@@ -2,6 +2,7 @@ package com.twitchsnitch.importer.service;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,8 +30,10 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -45,11 +48,13 @@ public class TwitchDataService {
     private boolean testSampling;
     @Value("${number.records}")
     private int numberOfRecords;
+    @Value("${follows.limit}")
+    private int followsLimit;
     @Value("${games.days.perspective}")
     private int gamesDaysPerspective;
     @Value("${teams.days.perspective}")
     private int teamsDaysPerspective;
-    @Value("${channel.days.perspective}")
+    @Value("${channels.days.perspective}")
     private int channelDaysPerspective;
     @Value("${testing}")
     private boolean testing;
@@ -168,43 +173,27 @@ public class TwitchDataService {
 
     //DB METHODS
 
-    public void runDBConstraints(){
+    public void runDBConstraints() {
         persistenceService.runDBConstraints();
     }
 
-    public void dropDbConstraints(){
+    public void dropDbConstraints() {
         persistenceService.dropDBConstraints();
     }
 
-    //todo import live streams and chatters
-    public void importLiveStreamersAndChatters(){
+    //todo sixth
+    public void raidPicker(){
 
     }
 
+    //todo seventh
+    public void gamePicker(){
 
-    //import followers to and from
-    //todo need to import channel streams and channel games in the same loop to avoid a whole mess
+    }
+
     //todo need to do game picker and raid picker here
 
-//    TeamsTable individualTeam = objectMapper().readValue(json, TeamsTable.class);
-//                for(TeamsDatum team: individualTeam.getData()){
-//        Long teamId = team.getId();
-//        String encodedName = encodeValue(team.getName());
-//        String urlFirstPage = "https://sullygnome.com/api/tables/teamtables/getteamchannels/7/0/" + teamId + "/" + encodedName + "/000/1/3/desc/0/";
-//        String teamJson = goToWebSite(urlFirstPage, secondaryDriver);
-//        //todo I am here doing channels table
-//        TeamsTable currentTeams = objectMapper().readValue(goToWebSite(teamsScaffoldUrl, secondaryDriver), TeamsTable.class);
-//        teamTotalSize = teamsTable.getRecordsTotal();
-//        log.debug("Actual Teams size: " + teamTotalSize);
-//        if (testing) {
-//            teamTotalSize = 1001;
-//        }
-//        List<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
-//
-//        persistenceService.persistSullyMembersOfTeam(teamId, teamJson);
-
-
-    //SULLY METHODS
+    //MAIN METHODS
     public void importGames() {
         String suffix = "/" + numberOfRecords;
         String gameScaffoldUrl = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc/0/" + numberOfRecords;
@@ -221,9 +210,9 @@ public class TwitchDataService {
             OAuthTokenDTO localToken = oAuthService.getRandomToken();
             for (String json : goToWebSites(gamesUrls, tertiaryDriver)) {
                 persistenceService.persistSullyGames(gamesDaysPerspective, objectMapper().readValue(json, Map.class));
-                GamesTable gamesToGetTwitchIds  = objectMapper().readValue(json, GamesTable.class);
+                GamesTable gamesToGetTwitchIds = objectMapper().readValue(json, GamesTable.class);
                 Set<String> gamesNameList = new HashSet<>();
-                for(GamesDatum data : gamesToGetTwitchIds.getData()){
+                for (GamesDatum data : gamesToGetTwitchIds.getData()) {
                     gamesNameList.add(encodeValue(data.getName()));
                 }
                 Map map = runGetGame(gamesNameList, localToken);
@@ -235,6 +224,9 @@ public class TwitchDataService {
 
     }
 
+    //todo third channel streams,
+    //todo fourth individual stream info
+    // todo fith channel games
     public void importChannels() {
         String suffix = "/" + numberOfRecords;
         String channelsScaffoldUrl = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/3/desc/0/" + numberOfRecords;
@@ -253,10 +245,10 @@ public class TwitchDataService {
                 persistenceService.persistSullyChannels(channelDaysPerspective, objectMapper().readValue(json, Map.class));
                 ChannelsTable currentChannels = objectMapper().readValue(json, ChannelsTable.class);
                 Set<String> loginNames = new HashSet<>();
-                for(ChannelDatum data :currentChannels.getData()){
+                for (ChannelDatum data : currentChannels.getData()) {
                     loginNames.add(data.getUrl());
                 }
-                Map map = runGetUser(loginNames, localToken);
+                Map map = runGetUsers(loginNames, localToken);
                 persistenceService.updateUserWithTwitchData(map);
             }
         } catch (JsonProcessingException e) {
@@ -284,10 +276,9 @@ public class TwitchDataService {
             for (String json : goToWebSites(teamsUrls, secondaryDriver)) {
                 persistenceService.persistSullyTeams(teamsDaysPerspective, objectMapper().readValue(json, Map.class));
                 TeamsTable currentTeam = objectMapper().readValue(json, TeamsTable.class);
-                for(TeamsDatum data : currentTeam.getData()){
+                for (TeamsDatum data : currentTeam.getData()) {
                     Map map = runGetTeam(data.getName(), localToken);
                     persistenceService.updateTeamWithTwitchData(map);
-
                     //do individual requests but also set the team members in this request because we have access to it
                 }
             }
@@ -296,7 +287,193 @@ public class TwitchDataService {
         }
     }
 
+    //todo first
+    public void importFollowsTo() {
+        Set<String> usersWithoutTwitchFollowsTo;
+        if(testing){
+            usersWithoutTwitchFollowsTo = persistenceService.getUsersWithoutTwitchFollowsTo(followsLimit);
+        }
+        else{
+            usersWithoutTwitchFollowsTo= persistenceService.getUsersWithoutTwitchFollowsTo(null);
+        }
+
+        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
+        for(String twitchId: usersWithoutTwitchFollowsTo){
+            try {
+                FollowsDTO resultList = runGetFollowersTo(twitchId, randomToken, null);
+                persistenceService.persistTwitchFollowersTo(resultList.getMap());
+                if (resultList != null) {
+                    String cursor = resultList.getPagination().getCursor();
+                    while (cursor != null) {
+                        FollowsDTO loopList = runGetFollowersTo(twitchId, randomToken, cursor);
+                        if (loopList != null && loopList.getData() != null) {
+                            String newCursor = loopList.getPagination().getCursor();
+                            persistenceService.persistTwitchFollowersTo(resultList.getMap());
+                            if (newCursor == null) {
+                                break;
+                            } else {
+                                cursor = newCursor;
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                log.error(e.getLocalizedMessage());
+            }
+        }
+
+        log.debug("Total size of all the Import followers from are: " + liveStreamers.size());
+    }
+
+
+    public void importFollowsFrom() {
+        Set<String> usersWithoutTwitchFollowsFrom;
+        if(testing){
+            usersWithoutTwitchFollowsFrom = persistenceService.getUsersWithoutTwitchFollowsFrom(followsLimit);
+        }
+        else{
+            usersWithoutTwitchFollowsFrom= persistenceService.getUsersWithoutTwitchFollowsFrom(null);
+        }
+
+        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
+        for(String twitchId: usersWithoutTwitchFollowsFrom){
+            try {
+                FollowsDTO resultList = runGetFollowersFrom(twitchId, randomToken, null);
+                persistenceService.persistTwitchFollowersFrom(resultList.getMap());
+                if (resultList != null) {
+                    String cursor = resultList.getPagination().getCursor();
+                    while (cursor != null) {
+                        FollowsDTO loopList = runGetFollowersFrom(twitchId, randomToken, cursor);
+                        if (loopList != null && loopList.getData() != null) {
+                            String newCursor = loopList.getPagination().getCursor();
+                            persistenceService.persistTwitchFollowersFrom(resultList.getMap());
+                            if (newCursor == null) {
+                                break;
+                            } else {
+                                cursor = newCursor;
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                log.error(e.getLocalizedMessage());
+            }
+        }
+
+        log.debug("Total size of all the Import followers from are: " + liveStreamers.size());
+    }
+
+    public void importLanguages() {
+        try {
+            URL resource = getClass().getClassLoader().getResource("language-english.json");
+            File tokensFile = new File(resource.toURI());
+            LanguageKeyDTO languageKeyDTO = objectMapper().readValue(tokensFile, LanguageKeyDTO.class);
+            persistenceService.persistTwitchLanguage("en", languageKeyDTO.getEn());
+            persistenceService.persistTwitchLanguage("zh", languageKeyDTO.getZh());
+            persistenceService.persistTwitchLanguage("ja", languageKeyDTO.getJa());
+            persistenceService.persistTwitchLanguage("ko", languageKeyDTO.getKo());
+            persistenceService.persistTwitchLanguage("es", languageKeyDTO.getEs());
+            persistenceService.persistTwitchLanguage("fr", languageKeyDTO.getFr());
+            persistenceService.persistTwitchLanguage("de", languageKeyDTO.getDe());
+            persistenceService.persistTwitchLanguage("it", languageKeyDTO.getIt());
+            persistenceService.persistTwitchLanguage("pt", languageKeyDTO.getPt());
+            persistenceService.persistTwitchLanguage("sv", languageKeyDTO.getSv());
+            persistenceService.persistTwitchLanguage("no", languageKeyDTO.getNo());
+            persistenceService.persistTwitchLanguage("nl", languageKeyDTO.getNl());
+            persistenceService.persistTwitchLanguage("fi", languageKeyDTO.getFi());
+            persistenceService.persistTwitchLanguage("el", languageKeyDTO.getEl());
+            persistenceService.persistTwitchLanguage("ru", languageKeyDTO.getRu());
+            persistenceService.persistTwitchLanguage("tr", languageKeyDTO.getTr());
+            persistenceService.persistTwitchLanguage("cs", languageKeyDTO.getCs());
+            persistenceService.persistTwitchLanguage("hu", languageKeyDTO.getHu());
+            persistenceService.persistTwitchLanguage("ar", languageKeyDTO.getAr());
+            persistenceService.persistTwitchLanguage("bg", languageKeyDTO.getBg());
+            persistenceService.persistTwitchLanguage("th", languageKeyDTO.getTh());
+            persistenceService.persistTwitchLanguage("vi", languageKeyDTO.getVi());
+            persistenceService.persistTwitchLanguage("asl", languageKeyDTO.getAsl());
+            persistenceService.persistTwitchLanguage("other", languageKeyDTO.getOther());
+            persistenceService.persistTwitchLanguage("uk", languageKeyDTO.getUk());
+            persistenceService.persistTwitchLanguage("pl", languageKeyDTO.getPl());
+            persistenceService.persistTwitchLanguage("hi", languageKeyDTO.getHi());
+            persistenceService.persistTwitchLanguage("ca", languageKeyDTO.getCa());
+            persistenceService.persistTwitchLanguage("zh-HK", languageKeyDTO.getZhHK());
+            persistenceService.persistTwitchLanguage("zh-TW", languageKeyDTO.getZhTW());
+            persistenceService.persistTwitchLanguage("da", languageKeyDTO.getDa());
+            persistenceService.persistTwitchLanguage("id", languageKeyDTO.getId());
+            persistenceService.persistTwitchLanguage("ms", languageKeyDTO.getMs());
+            persistenceService.persistTwitchLanguage("pt-BR", languageKeyDTO.getPtBR());
+            persistenceService.persistTwitchLanguage("ro", languageKeyDTO.getRo());
+            persistenceService.persistTwitchLanguage("sk", languageKeyDTO.getSk());
+            persistenceService.persistTwitchLanguage("es-MX", languageKeyDTO.getEsMX());
+        } catch (IOException e) {
+            log.error(e.getLocalizedMessage());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void importLiveStreamersAndChatters() {
+        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
+        try {
+            StreamListDTO resultList = runGetLiveStreams(randomToken, null);
+            persistenceService.persistTwitchStreams(resultList.getMap());
+            if (resultList.getStreams() != null) {
+                for (StreamDTO stream : resultList.getStreams()) {
+                    Map map = runGetChatters(stream.getUserLogin());
+                    if (map != null) {
+                        persistenceService.persistTwitchChatters(map);
+                    }
+                }
+                String cursor = resultList.getPagination().getCursor();
+                while (cursor != null) {
+                    StreamListDTO loopList = runGetLiveStreams(randomToken, cursor);
+                    if (loopList != null && loopList.getStreams() != null) {
+                        String newCursor = loopList.getPagination().getCursor();
+                        for (StreamDTO stream : loopList.getStreams()) {
+                            Map map = runGetChatters(stream.getUserLogin());
+                            if (map != null) {
+                                persistenceService.persistTwitchChatters(map);
+                            }
+                        }
+                        if (newCursor == null) {
+                            break;
+                        } else {
+                            cursor = newCursor;
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error(e.getLocalizedMessage());
+        }
+        log.debug("Total size of all the Streams are: " + liveStreamers.size());
+    }
+
     //REST METHODS
+
+    public StreamListDTO runGetLiveStreams(OAuthTokenDTO oAuthTokenDTO, String cursor) {
+        String url = "https://api.twitch.tv/helix/streams?limit=100";
+        if (cursor != null) {
+            url = url + "&after=" + cursor;
+        }
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    getGenericHttpRequest(oAuthTokenDTO),
+                    String.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                StreamListDTO streamListDTO = objectMapper().readValue(response.getBody(), StreamListDTO.class);
+                streamListDTO.setMap(objectMapper().readValue(response.getBody(), Map.class));
+                return streamListDTO;
+            }
+        } catch (HttpClientErrorException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Map runGetChatters(String loginName) {
         String url = "http://tmi.twitch.tv/group/user/" + loginName + "/chatters";
 
@@ -349,8 +526,8 @@ public class TwitchDataService {
         return null;
     }
 
-    public Map runGetUser(Set<String> loginNames, OAuthTokenDTO oAuthTokenDTO) {
-        StringBuilder url = new StringBuilder("https://api.twitch.tv/helix/user?login=");
+    public Map runGetUsers(Set<String> loginNames, OAuthTokenDTO oAuthTokenDTO) {
+        StringBuilder url = new StringBuilder("https://api.twitch.tv/helix/users?login=");
         boolean firstValue = true;
         for (String name : loginNames) {
             if (firstValue) {
@@ -395,6 +572,56 @@ public class TwitchDataService {
         }
         return null;
     }
+
+    public FollowsDTO runGetFollowersTo(String twitchId, OAuthTokenDTO oAuthTokenDTO, String cursor){
+        String url = "https://api.twitch.tv/helix/users/follows?first=100&to_id=" + twitchId;
+        if (cursor != null) {
+            url = url + "&after=" + cursor;
+        }
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    getGenericHttpRequest(oAuthTokenDTO),
+                    String.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                FollowsDTO followsDTO = objectMapper().readValue(response.getBody(), FollowsDTO.class);
+                followsDTO.setMap(objectMapper().readValue(response.getBody(), Map.class));
+                return followsDTO;
+            }
+        } catch (HttpClientErrorException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public FollowsDTO runGetFollowersFrom(String twitchId, OAuthTokenDTO oAuthTokenDTO, String cursor){
+        String url = "https://api.twitch.tv/helix/users/follows?first=100&from_id=" + twitchId;
+        if (cursor != null) {
+            url = url + "&after=" + cursor;
+        }
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    getGenericHttpRequest(oAuthTokenDTO),
+                    String.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                FollowsDTO followsDTO = objectMapper().readValue(response.getBody(), FollowsDTO.class);
+                followsDTO.setMap(objectMapper().readValue(response.getBody(), Map.class));
+                return followsDTO;
+            }
+        } catch (HttpClientErrorException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+
 }
 
 

@@ -6,10 +6,11 @@ import com.twitchsnitch.importer.dto.twitch.StreamDTO;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StreamListDTO {
 
-    private LinkedHashMap map;
+    private Map map;
 
     @JsonProperty("data")
     private List<StreamDTO> streams;
@@ -32,11 +33,11 @@ public class StreamListDTO {
         this.pagination = pagination;
     }
 
-    public LinkedHashMap getMap() {
+    public Map getMap() {
         return map;
     }
 
-    public void setMap(LinkedHashMap map) {
+    public void setMap(Map map) {
         this.map = map;
     }
 }
