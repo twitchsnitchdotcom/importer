@@ -269,7 +269,7 @@ public class PersistenceService {
 
     public void persistTwitchLanguage(String key, String name) {
         ResultSummary run = client.query(
-                        "CREATE (l:Language:{key:$key}) SET l.name = $name").in(database)
+                        "CREATE (l:Language{key:$key}) SET l.name = $name").in(database)
                 .bind(key).to("key")
                 .bind(name).to("name")
                 .run();
