@@ -292,7 +292,7 @@ public class TwitchDataService {
                 TeamsTable currentTeam = objectMapper().readValue(json, TeamsTable.class);
                 for (TeamsDatum data : currentTeam.getData()) {
                     Map map = runGetTeam(data.getTwitchurl(), localToken);
-                    persistenceService.updateTeamWithTwitchData(map);
+                    persistenceService.updateTeamWithTwitchData(data.getId(), map);
                 }
             }
         } catch (JsonProcessingException e) {
