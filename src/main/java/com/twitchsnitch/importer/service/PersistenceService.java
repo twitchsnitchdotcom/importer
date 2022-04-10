@@ -249,8 +249,8 @@ public class PersistenceService {
                         "                    l.is_mature = stream.is_mature\n" +
                         "                    MERGE (u:User{login:stream.user_login})\n" +
                         "                    MERGE (u)-[:PLAYS]->(g:Games{twitch_id:stream.game_id})\n" +
-                        "                    MERGE (l:Language{name:stream.language})\n" +
-                        "                    MERGE (u)-[:HAS_LANGUAGE]->(l)\n"
+                        "                    MERGE (lang:Language{name:stream.language})\n" +
+                        "                    MERGE (u)-[:HAS_LANGUAGE]->(lamg)\n"
                 ).in(database)
                 .bind(jsonMap).to("json")
                 .run();
