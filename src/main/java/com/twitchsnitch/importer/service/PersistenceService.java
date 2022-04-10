@@ -142,6 +142,7 @@ public class PersistenceService {
         if (resultSummary.counters().propertiesSet() > 0) {
             log.debug("Properties set: " + resultSummary.counters().propertiesSet());
         }
+
         System.out.println("-------------------------------------------------------------------------");
 
     }
@@ -220,21 +221,24 @@ public class PersistenceService {
         logResultSummaries("updateUserWithTwitchData", run);
     }
 
-    public void updateTeamWithTwitchData(Map json) {
+    public void updateTeamWithTwitchData(Long sullyId, Map json) {
         ResultSummary run = client.query("UNWIND $json.data as member \n" +
-                "MATCH (t:Team{name:$json.team_name})\n" +
+                "MATCH (t:Team{sully_id:$sullyId})\n" +
                 "SET t.created_at = datetime($json.created_at),\n" +
                 "    t.updated_at = datetime($json.updated_at),\n" +
                 "    t.info = $json.info,\n" +
                 "    t.twitch_id = $json.id\n" +
-                "MERGE (u:User{login:member.login})-[:MEMBER_OF]->(t);").in(database).bind(json).to("json").run();
+                "MERGE (u:User{login:member.login})-[:MEMBER_OF]->(t);").in(database)
+                .bind(json).to("json")
+                .bind(sullyId).to("sullyId")
+                .run();
         logResultSummaries("updateTeamWithTwitchData", run);
     }
 
     public void persistTwitchStreams(Map jsonMap) {
         ResultSummary run = client.query("UNWIND json.data as stream\n" +
                         "                    MERGE (l:LiveStream{twitch_id:stream.id})\n" +
-                        "                    SET     l.title= = stream.title,\n" +
+                        "                    SET     l.title = stream.title,\n" +
                         "                    l.viewer_count = stream.viewercount,\n" +
                         "                    l.started_at = datetime(stream.started_at),\n" +
                         "                    l.thumbnail_url = stream.thumbnail_url,\n" +

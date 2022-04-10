@@ -283,7 +283,7 @@ public class TwitchDataService {
             teamTotalSize = teamsTable.getRecordsTotal();
             log.debug("Actual Teams size: " + teamTotalSize);
             if (testing) {
-                teamTotalSize = 1001;
+                teamTotalSize = 101;
             }
             List<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
             OAuthTokenDTO localToken = oAuthService.getRandomToken();
@@ -291,9 +291,8 @@ public class TwitchDataService {
                 persistenceService.persistSullyTeams(teamsDaysPerspective, objectMapper().readValue(json, Map.class));
                 TeamsTable currentTeam = objectMapper().readValue(json, TeamsTable.class);
                 for (TeamsDatum data : currentTeam.getData()) {
-                    Map map = runGetTeam(data.getName(), localToken);
+                    Map map = runGetTeam(data.getTwitchurl(), localToken);
                     persistenceService.updateTeamWithTwitchData(map);
-                    //do individual requests but also set the team members in this request because we have access to it
                 }
             }
         } catch (JsonProcessingException e) {
@@ -571,7 +570,6 @@ public class TwitchDataService {
 
     public Map runGetTeam(String teamName, OAuthTokenDTO oAuthTokenDTO) {
         String url = "https://api.twitch.tv/helix/teams?name=" + teamName;
-        log.debug(url);
         try {
             ResponseEntity<String> response = restTemplate.exchange(
                     url,
