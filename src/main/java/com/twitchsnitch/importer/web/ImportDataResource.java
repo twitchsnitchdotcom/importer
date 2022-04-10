@@ -51,7 +51,7 @@ public class ImportDataResource {
 
     @GetMapping("/import/languages")
     public void importLanguages() {
-        twitchDataService.importLiveStreamersAndChatters();
+        twitchDataService.importLanguages();
     }
 
     @GetMapping("/import/follows/to")
