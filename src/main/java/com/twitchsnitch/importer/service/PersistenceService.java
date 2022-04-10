@@ -85,13 +85,13 @@ public class PersistenceService {
         ResultSummary raidFinderCompositeConstraint = client.query("CREATE CONSTRAINT FOR (r:RaidFinder) REQUIRE r.composite_sully_id IS UNIQUE;").in(database).run();
 
 
-        ResultSummary languageNameIndex = client.query("CREATE INDEX FOR (Language) ON (l.name);").in(database).run();
-        ResultSummary gameSullyIdIndex = client.query("CREATE INDEX FOR (Game) ON (g.sully_id);").in(database).run();
-        ResultSummary gameTwitchIdIndex = client.query("CREATE INDEX FOR (Game) ON (g.twitch_id);").in(database).run();
-        ResultSummary channelSullyIdIndex = client.query("CREATE INDEX FOR (Channel) ON (c.sully_id);").in(database).run();
-        ResultSummary channelTwitchIdIndex = client.query("CREATE INDEX FOR (Channel) ON (c.twitch_id);").in(database).run();
-        ResultSummary teamSullyIdIndex = client.query("CREATE INDEX FOR (Team) ON (t.sully_id);").in(database).run();
-        ResultSummary teamTwitchIdIndex = client.query("CREATE INDEX FOR (Team) ON (t.twitch_id);").in(database).run();
+        ResultSummary languageNameIndex = client.query("CREATE INDEX FOR (l.Language) ON (l.name);").in(database).run();
+        ResultSummary gameSullyIdIndex = client.query("CREATE INDEX FOR (g.Game) ON (g.sully_id);").in(database).run();
+        ResultSummary gameTwitchIdIndex = client.query("CREATE INDEX FOR (g.Game) ON (g.twitch_id);").in(database).run();
+        ResultSummary channelSullyIdIndex = client.query("CREATE INDEX FOR (c.Channel) ON (c.sully_id);").in(database).run();
+        ResultSummary channelTwitchIdIndex = client.query("CREATE INDEX FOR (c.Channel) ON (c.twitch_id);").in(database).run();
+        ResultSummary teamSullyIdIndex = client.query("CREATE INDEX FOR (t.Team) ON (t.sully_id);").in(database).run();
+        ResultSummary teamTwitchIdIndex = client.query("CREATE INDEX FOR (t.Team) ON (t.twitch_id);").in(database).run();
 
         logResultSummaries("gameDisplayNameConstraint", gameDisplayNameConstraint);
         logResultSummaries("languageConstraint", languageConstraint);
@@ -101,6 +101,7 @@ public class PersistenceService {
         logResultSummaries("gameFinderCompositeConstraint", gameFinderCompositeConstraint);
         logResultSummaries("raidFinderCompositeConstraint", raidFinderCompositeConstraint);
 
+        logResultSummaries("languageNameIndex", gameSullyIdIndex);
         logResultSummaries("gameSullyIdIndex", gameSullyIdIndex);
         logResultSummaries("gameTwitchIdIndex", gameTwitchIdIndex);
         logResultSummaries("channelSullyIdIndex", channelSullyIdIndex);
