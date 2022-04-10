@@ -177,13 +177,17 @@ public class TwitchDataService {
 
     public void addDB() {
         persistenceService.addDatabase("neo4j");
-        persistenceService.runDBConstraints();
+
     }
 
     public void dropDB() {
         persistenceService.dropDatabase("neo4j");
 //        persistenceService.deleteDBData();
 //        persistenceService.dropDBConstraints();
+    }
+
+    public void addDBConstraints(){
+        persistenceService.runDBConstraints();
     }
 
     //todo sixth
