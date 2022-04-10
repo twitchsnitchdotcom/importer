@@ -58,6 +58,8 @@ public class TwitchDataService {
     private int channelDaysPerspective;
     @Value("${testing}")
     private boolean testing;
+    @Value("${database}")
+    private String database;
     private final OAuthService oAuthService;
     private final TwitchClientService twitchClientService;
     private final PersistenceService persistenceService;
@@ -173,13 +175,15 @@ public class TwitchDataService {
 
     //DB METHODS
 
-    public void runDBConstraints() {
+    public void addDB() {
+        persistenceService.addDatabase(database);
         persistenceService.runDBConstraints();
     }
 
-    public void dropDbConstraints() {
-        persistenceService.deleteDBData();
-        persistenceService.dropDBConstraints();
+    public void dropDB() {
+        persistenceService.dropDatabase(database);
+//        persistenceService.deleteDBData();
+//        persistenceService.dropDBConstraints();
     }
 
     //todo sixth

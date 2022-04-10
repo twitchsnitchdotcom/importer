@@ -51,8 +51,20 @@ public class PersistenceService {
                 .registerModule(module);
     }
 
+    public void addDatabase(String database) {
+        ResultSummary run = client.query("CREATE DATABASE " + database).in(database).run();
+        logResultSummaries("addDatabase", run);
+    }
+
+    public void dropDatabase(String database) {
+        ResultSummary run = client.query("DROP DATABASE " + database).in(database).run();
+        logResultSummaries("dropDatabase", run);
+    }
+
     //DB METHODS
     public void deleteDBData() {
+        //drop db development
+        //create db development
         ResultSummary run = client.query("MATCH (n) DETACH DELETE n").in(database).run();
         log.debug("Nodes deleted from the DB: " + run.counters().nodesDeleted());
     }
@@ -521,4 +533,6 @@ public class PersistenceService {
 
         logResultSummaries("persistSullyChannelGameFinder", run);
     }
+
+
 }
