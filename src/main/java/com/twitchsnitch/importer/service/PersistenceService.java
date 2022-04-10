@@ -221,16 +221,17 @@ public class PersistenceService {
         logResultSummaries("updateUserWithTwitchData", run);
     }
 
-    public void updateTeamWithTwitchData(Long sullyId, Map json) {
-        ResultSummary run = client.query("UNWIND $json.data as member \n" +
+    public void updateTeamWithTwitchData(Long sullyId, String login, Map json) {
+        ResultSummary run = client.query("UNWIND $json.data.users as member \n" +
                 "MATCH (t:Team{sully_id:$sullyId})\n" +
                 "SET t.created_at = datetime($json.created_at),\n" +
                 "    t.updated_at = datetime($json.updated_at),\n" +
                 "    t.info = $json.info,\n" +
                 "    t.twitch_id = $json.id\n" +
-                "MERGE (u:User{login:member.login})-[:MEMBER_OF]->(t);").in(database)
+                "MERGE (u:User{login:member.user_login})-[:MEMBER_OF]->(t);").in(database)
                 .bind(json).to("json")
                 .bind(sullyId).to("sullyId")
+                .bind(login).to("login")
                 .run();
         logResultSummaries("updateTeamWithTwitchData", run);
     }
