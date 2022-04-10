@@ -221,12 +221,12 @@ public class PersistenceService {
     }
 
     public void updateTeamWithTwitchData(Map json) {
-        ResultSummary run = client.query("MATCH (t:Team{name:$json.team_name})\n" +
+        ResultSummary run = client.query("UNWIND $json.data as member \n" +
+                "MATCH (t:Team{name:$json.team_name})\n" +
                 "SET t.created_at = datetime($json.created_at),\n" +
                 "    t.updated_at = datetime($json.updated_at),\n" +
                 "    t.info = $json.info,\n" +
                 "    t.twitch_id = $json.id\n" +
-                "UNWIND $json.data as member\n " +
                 "MERGE (u:User{login:member.login})-[:MEMBER_OF]->(t);").in(database).bind(json).to("json").run();
         logResultSummaries("updateTeamWithTwitchData", run);
     }
