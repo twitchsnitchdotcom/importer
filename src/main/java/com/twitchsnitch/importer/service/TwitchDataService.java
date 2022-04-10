@@ -571,6 +571,7 @@ public class TwitchDataService {
 
     public Map runGetTeam(String teamName, OAuthTokenDTO oAuthTokenDTO) {
         String url = "https://api.twitch.tv/helix/teams?name=" + teamName;
+        log.debug(url);
         try {
             ResponseEntity<String> response = restTemplate.exchange(
                     url,
