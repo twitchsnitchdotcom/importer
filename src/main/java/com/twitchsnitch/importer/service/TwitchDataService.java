@@ -423,6 +423,7 @@ public class TwitchDataService {
         }
     }
 
+    //todo remove chatters implementation
     public void importLiveStreamersAndChatters() {
         liveStreamers = new HashSet<>();
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();

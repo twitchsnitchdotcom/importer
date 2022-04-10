@@ -170,10 +170,10 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsTo = new HashSet<>();
         Collection<Map<String, Object>> all;
         if (limit != null) {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL SET RETURN c.twitch_id").fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL RETURN c.twitch_id").fetch().all();
 
         } else {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL SET RETURN c.twitch_id LIMIT " + limit).fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL RETURN c.twitch_id LIMIT " + limit).fetch().all();
 
         }
         for (Map<String, Object> objectMap : all) {
@@ -192,10 +192,10 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsFrom = new HashSet<>();
         Collection<Map<String, Object>> all;
         if (limit != null) {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL SET c.twitch_follows_from = false RETURN c.twitch_id").fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL c.twitch_follows_from = false RETURN c.twitch_id").fetch().all();
 
         } else {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL SET c.twitch_follows_from = false RETURN c.twitch_id LIMIT " + limit).fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL c.twitch_follows_from = false RETURN c.twitch_id LIMIT " + limit).fetch().all();
 
         }
         for (Map<String, Object> objectMap : all) {
@@ -239,6 +239,7 @@ public class PersistenceService {
         logResultSummaries("updateTeamWithTwitchData", run);
     }
 
+    //todo needs a limit for testing
     public void persistTwitchStreams(Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as stream\n" +
                         "                    MERGE (l:LiveStream{twitch_id:stream.id})\n" +
@@ -250,7 +251,7 @@ public class PersistenceService {
                         "                    MERGE (u:User{login:stream.user_login})\n" +
                         "                    MERGE (u)-[:PLAYS]->(g:Games{twitch_id:stream.game_id})\n" +
                         "                    MERGE (lang:Language{name:stream.language})\n" +
-                        "                    MERGE (u)-[:HAS_LANGUAGE]->(lamg)\n"
+                        "                    MERGE (u)-[:HAS_LANGUAGE]->(lang)\n"
                 ).in(database)
                 .bind(jsonMap).to("json")
                 .run();
