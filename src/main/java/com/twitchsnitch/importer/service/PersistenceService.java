@@ -85,13 +85,13 @@ public class PersistenceService {
         ResultSummary raidFinderCompositeConstraint = client.query("CREATE CONSTRAINT FOR (r:RaidFinder) REQUIRE r.composite_sully_id IS UNIQUE;").in(database).run();
 
 
-        ResultSummary languageNameIndex = client.query("CREATE INDEX FOR (l.Language) ON (l.name);").in(database).run();
-        ResultSummary gameSullyIdIndex = client.query("CREATE INDEX FOR (g.Game) ON (g.sully_id);").in(database).run();
-        ResultSummary gameTwitchIdIndex = client.query("CREATE INDEX FOR (g.Game) ON (g.twitch_id);").in(database).run();
-        ResultSummary channelSullyIdIndex = client.query("CREATE INDEX FOR (c.Channel) ON (c.sully_id);").in(database).run();
-        ResultSummary channelTwitchIdIndex = client.query("CREATE INDEX FOR (c.Channel) ON (c.twitch_id);").in(database).run();
-        ResultSummary teamSullyIdIndex = client.query("CREATE INDEX FOR (t.Team) ON (t.sully_id);").in(database).run();
-        ResultSummary teamTwitchIdIndex = client.query("CREATE INDEX FOR (t.Team) ON (t.twitch_id);").in(database).run();
+        ResultSummary languageNameIndex = client.query("CREATE INDEX FOR (l:Language) ON (l.name);").in(database).run();
+        ResultSummary gameSullyIdIndex = client.query("CREATE INDEX FOR (g:Game) ON (g.sully_id);").in(database).run();
+        ResultSummary gameTwitchIdIndex = client.query("CREATE INDEX FOR (g:Game) ON (g.twitch_id);").in(database).run();
+        ResultSummary channelSullyIdIndex = client.query("CREATE INDEX FOR (c:Channel) ON (c.sully_id);").in(database).run();
+        ResultSummary channelTwitchIdIndex = client.query("CREATE INDEX FOR (c:Channel) ON (c.twitch_id);").in(database).run();
+        ResultSummary teamSullyIdIndex = client.query("CREATE INDEX FOR (t:Team) ON (t.sully_id);").in(database).run();
+        ResultSummary teamTwitchIdIndex = client.query("CREATE INDEX FOR (t:Team) ON (t.twitch_id);").in(database).run();
 
         logResultSummaries("gameDisplayNameConstraint", gameDisplayNameConstraint);
         logResultSummaries("languageConstraint", languageConstraint);
@@ -265,7 +265,7 @@ public class PersistenceService {
 
     public void persistTwitchLanguage(String key, String name) {
         ResultSummary run = client.query(
-                        "CREATE (l.Language:{key:$key}) SET l.name = $name").in(database)
+                        "CREATE (l:Language:{key:$key}) SET l.name = $name").in(database)
                 .bind(key).to("key")
                 .bind(name).to("name")
                 .run();
@@ -275,7 +275,7 @@ public class PersistenceService {
     public void persistTwitchFollowersTo(Map jsonMap) {
         ResultSummary run = client.query("UNWIND json.data as follower\n" +
                         "                    MERGE (f:User{login:follower.from_login})\n" +
-                        "                    MERGE (t.User{login:follower.to_login})\n" +
+                        "                    MERGE (t:User{login:follower.to_login})\n" +
                         "                    t.twitch_followers_to = json.total,\n" +
                         "                    MERGE (f)-[:FOLLOWS{followed_at:datetime(follower.followed_at)}]->(t);\n"
                 ).in(database)
@@ -288,7 +288,7 @@ public class PersistenceService {
     public void persistTwitchFollowersFrom(Map jsonMap) {
         ResultSummary run = client.query("UNWIND json.data as follower\n" +
                         "                    MERGE (f:User{login:follower.from_login})\n" +
-                        "                    MERGE (t.User{login:follower.to_login})\n" +
+                        "                    MERGE (t:User{login:follower.to_login})\n" +
                         "                    f.twitch_followers_to = json.total,\n" +
                         "                    MERGE (f)-[:FOLLOWS{followed_at:datetime(follower.followed_at)}]->(t);\n"
                 ).in(database)
