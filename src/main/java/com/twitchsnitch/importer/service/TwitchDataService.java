@@ -188,15 +188,15 @@ public class TwitchDataService {
 
     //todo sixth
     public void raidPicker(){
-
+        for(String login : liveStreamers){
+            Map map = runGetRaids();
+        }
     }
 
     //todo seventh
     public void gamePicker(){
 
     }
-
-    //todo need to do game picker and raid picker here
 
     //MAIN METHODS
     public void importGames() {
@@ -230,8 +230,13 @@ public class TwitchDataService {
     }
 
     //todo third channel streams,
-    //todo fourth individual stream info
+    public void importChannelStreams(){
+        //todo fourth individual stream info
+    }
     // todo fith channel games
+    public void importChannelGames(){
+
+    }
     public void importChannels() {
         String suffix = "/" + numberOfRecords;
         String channelsScaffoldUrl = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/3/desc/0/" + numberOfRecords;
@@ -292,7 +297,6 @@ public class TwitchDataService {
         }
     }
 
-    //todo first
     public void importFollowsTo() {
         Set<String> usersWithoutTwitchFollowsTo;
         if(testing){
@@ -329,7 +333,6 @@ public class TwitchDataService {
 
         log.debug("Total size of all the Import followers from are: " + liveStreamers.size());
     }
-
 
     public void importFollowsFrom() {
         Set<String> usersWithoutTwitchFollowsFrom;
@@ -418,6 +421,7 @@ public class TwitchDataService {
     }
 
     public void importLiveStreamersAndChatters() {
+        liveStreamers = new HashSet<>();
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
         try {
             StreamListDTO resultList = runGetLiveStreams(randomToken, null);
@@ -427,6 +431,7 @@ public class TwitchDataService {
                     Map map = runGetChatters(stream.getUserLogin());
                     if (map != null) {
                         persistenceService.persistTwitchChatters(map);
+                        liveStreamers.add(stream.getUserLogin());
                     }
                 }
                 String cursor = resultList.getPagination().getCursor();
@@ -624,7 +629,15 @@ public class TwitchDataService {
         return null;
     }
 
+    private Map runGetRaids() {
+        String url = "https://sullygnome.com/api/tables/channeltables/raidfinder/30/571/%203/0/0/9999999/10000/50000/011/11/false/1/4/desc/0/100";
+        return null;
+    }
 
+    private Map runGetGamePicker() {
+        String url = "https://sullygnome.com/api/tables/gametables/getgamepickergames/88082/3196211/180/true/1/-1/-1/-1/10/5000/-1/10/-1/-1/1/0/desc/0/100";
+        return null;
+    }
 
 
 }
