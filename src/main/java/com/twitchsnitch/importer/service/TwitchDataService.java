@@ -176,12 +176,12 @@ public class TwitchDataService {
     //DB METHODS
 
     public void addDB() {
-        persistenceService.addDatabase(database);
+        persistenceService.addDatabase("neo4j");
         persistenceService.runDBConstraints();
     }
 
     public void dropDB() {
-        persistenceService.dropDatabase(database);
+        persistenceService.dropDatabase("neo4j");
 //        persistenceService.deleteDBData();
 //        persistenceService.dropDBConstraints();
     }
