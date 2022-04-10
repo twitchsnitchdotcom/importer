@@ -343,7 +343,7 @@ public class PersistenceService {
     public void persistSullyTeams(Integer daysPerspective, Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        ResultSummary run = client.query("UNWIND json.data as team\n" +
+        ResultSummary run = client.query("UNWIND $json.data as team\n" +
                         "MERGE (t:Team{display_name:team.name})\n" +
                         "          SET       t.members = team.members,\n" +
                         "                    t.stream_time = team.streamtime,\n" +
