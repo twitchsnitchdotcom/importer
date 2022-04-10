@@ -304,7 +304,7 @@ public class PersistenceService {
     public void persistSullyChannels(Integer daysPerspective, Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        ResultSummary run = client.query("UNWIND $json.data as channel" +
+        ResultSummary run = client.query("UNWIND $json.data as channel\n" +
                         " MERGE (c:Channel{login:channel.url})\n" +
                         "          SET       c.followers = channel.followers,\n" +
                         "                    c.view_minutes = channel.viewminutes,\n" +
@@ -343,7 +343,7 @@ public class PersistenceService {
     public void persistSullyTeams(Integer daysPerspective, Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        ResultSummary run = client.query("UNWIND json.data as team" +
+        ResultSummary run = client.query("UNWIND json.data as team\n" +
                         "MERGE (t:Team{display_name:team.name})\n" +
                         "          SET       t.members = team.members,\n" +
                         "                    t.stream_time = team.streamtime,\n" +
@@ -475,7 +475,7 @@ public class PersistenceService {
 
     @Async
     public void persistSullyChannelRaidFinder(String channelLogin, Map jsonMap) {
-        ResultSummary run = client.query("UNWIND $json as rf" +
+        ResultSummary run = client.query("UNWIND $json as rf\n" +
                         "MERGE (r:RaidFinder{composite_sully_id:rf.id#$channelLogin})\n" +
                         "            SET     r.live_minutes = rf.liveMinutes,\n" +
                         "                    r.live_viewers = rf.liveViewers,\n" +
