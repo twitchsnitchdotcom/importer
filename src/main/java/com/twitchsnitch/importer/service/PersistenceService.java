@@ -101,7 +101,7 @@ public class PersistenceService {
         logResultSummaries("gameFinderCompositeConstraint", gameFinderCompositeConstraint);
         logResultSummaries("raidFinderCompositeConstraint", raidFinderCompositeConstraint);
 
-        logResultSummaries("languageNameIndex", gameSullyIdIndex);
+        logResultSummaries("languageNameIndex", languageNameIndex);
         logResultSummaries("gameSullyIdIndex", gameSullyIdIndex);
         logResultSummaries("gameTwitchIdIndex", gameTwitchIdIndex);
         logResultSummaries("channelSullyIdIndex", channelSullyIdIndex);
@@ -169,10 +169,10 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsTo = new HashSet<>();
         Collection<Map<String, Object>> all;
         if (limit != null) {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL SET c.twitch_follows_to = false RETURN c.twitch_id").fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL SET RETURN c.twitch_id").fetch().all();
 
         } else {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL SET c.twitch_follows_to = false RETURN c.twitch_id LIMIT " + limit).fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL SET RETURN c.twitch_id LIMIT " + limit).fetch().all();
 
         }
         for (Map<String, Object> objectMap : all) {
