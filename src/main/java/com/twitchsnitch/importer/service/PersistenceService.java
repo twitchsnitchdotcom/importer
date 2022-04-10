@@ -224,8 +224,8 @@ public class PersistenceService {
     public void updateTeamWithTwitchData(Long sullyId, Map json) {
         ResultSummary run = client.query("UNWIND $json.data as data \n" +
                         "MATCH (t:Team{sully_id:$sullyId})\n" +
-                        "SET t.created_at = datetime(replace(trim(split(team.created_at,\"+\")[0]), \" \", \"T\")),\n" +
-                        "    t.updated_at = datetime(replace(trim(split(team.updated_at,\"+\")[0]), \" \", \"T\")),\n" +
+                        "SET t.created_at = datetime(replace(trim(split($json.created_at.created_at,\"+\")[0]), \" \", \"T\")),\n" +
+                        "    t.updated_at = datetime(replace(trim(split($json.updated_at,\"+\")[0]), \" \", \"T\")),\n" +
                         "    t.info = $json.info,\n" +
                         "    t.twitch_id = $json.id\n" +
                         "    WITH data\n" +
