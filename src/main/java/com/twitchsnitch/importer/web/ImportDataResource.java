@@ -14,6 +14,17 @@ public class ImportDataResource {
 
     private final TwitchDataService twitchDataService;
 
+    @GetMapping("/e2e")
+    public void e2e(){
+        twitchDataService.dropDBConstraints();
+        twitchDataService.addDBConstraints();
+        twitchDataService.importLanguages();
+        twitchDataService.importGames();
+        twitchDataService.importTwitchGameData();
+        twitchDataService.importChannels();
+        twitchDataService.importTwitchUsers();
+    }
+
     @GetMapping("/db/add")
     public void addDB() {
         twitchDataService.addDB();

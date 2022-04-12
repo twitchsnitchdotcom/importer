@@ -127,8 +127,15 @@ public class TwitchDataService {
             String json = driver.findElement(By.className("line-content")).getText();
             return json;
         } catch (Exception e) {
-            e.printStackTrace();
-            log.debug(driver.getPageSource());
+            log.error("The URL that failed is: " + url + " I will wait another 2 seconds for the response");
+            try {
+                driver.get("view-source:" + url);
+                Thread.sleep(2000);
+                String json = driver.findElement(By.className("line-content")).getText();
+                return json;
+            } catch (Exception e2) {
+                log.error("FAILED COLLECTING: " + url);
+            }
         }
         return null;
     }
@@ -141,8 +148,16 @@ public class TwitchDataService {
                 jsonList.add(driver.findElement(By.className("line-content")).getText());
                 log.debug("Pages collected so far is: " + jsonList.size());
             } catch (Exception e) {
-                log.error("The URL that failed is: " + url);
-                e.printStackTrace();
+                log.error("The URL that failed is: " + url + " I will wait another 2 seconds for the response");
+                try {
+                    driver.get("view-source:" + url);
+                    Thread.sleep(2000);
+                    jsonList.add(driver.findElement(By.className("line-content")).getText());
+
+                } catch (Exception e2) {
+                    log.error("FAILED COLLECTING: " + url);
+                }
+
             }
         }
         return jsonList;
