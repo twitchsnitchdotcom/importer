@@ -228,6 +228,14 @@ public class TwitchDataService {
         persistenceService.runDBConstraints();
     }
 
+
+    public void twitchIdNotSetCountGame(){
+        persistenceService.twitchIdNotSetCountGame();
+    }
+
+    public void twitchIdNotSetCountUser(){
+        persistenceService.twitchIdNotSetCountUser();
+    }
     //todo sixth
     public void raidPicker() {
         for (String login : liveStreamers) {
