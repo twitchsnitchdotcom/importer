@@ -29,7 +29,7 @@ public class ImportDataResource {
         twitchDataService.importTwitchUsers();
         twitchDataService.twitchIdNotSetCountUser();
 
-        twitchDataService.importChannelGames();
+
 
         twitchDataService.importChannelStreams();
         twitchDataService.importChannelStreamsDetail();
@@ -37,6 +37,8 @@ public class ImportDataResource {
 
         twitchDataService.importTeams();
         twitchDataService.importTwitchTeams();
+
+        twitchDataService.importChannelGames();
 
         twitchDataService.importFollowsFrom();
         twitchDataService.importFollowsTo();

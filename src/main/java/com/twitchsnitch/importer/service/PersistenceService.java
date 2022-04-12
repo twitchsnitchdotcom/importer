@@ -155,7 +155,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<Long> sullyChannelStreams = new HashSet<>();
-        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) WHERE exists (c.sully_id) AND NOT (c)-[:HAS_CHANEL_GAME]->() RETURN c.sully_id").in(database).fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) WHERE c.sully_id IS NOT NULL AND NOT (c)-[:HAS_CHANEL_GAME]->() RETURN c.sully_id").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 sullyChannelStreams.add((Long) entry.getValue());
@@ -171,7 +171,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<Long> sullyChannelStreams = new HashSet<>();
-        Collection<Map<String, Object>> all = client.query("MATCH (c:ChannelStreams) WHERE exists (c.sully_id) AND NOT (c)-[:HAS_STREAM]->() RETURN c.sully_id").in(database).fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH (c:ChannelStreams) WHERE c.sully_id IS NOT NULL AND NOT (c)-[:HAS_STREAM]->() RETURN c.sully_id").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 sullyChannelStreams.add((Long) entry.getValue());
