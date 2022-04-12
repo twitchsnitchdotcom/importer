@@ -155,7 +155,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<Long> sullyChannelStreams = new HashSet<>();
-        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) WHERE exists (c.sully_id) AND NOT (c)-[:HAS_CHANEL_GAME]->() RETURN c.sully_id").fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) WHERE exists (c.sully_id) AND NOT (c)-[:HAS_CHANEL_GAME]->() RETURN c.sully_id").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 sullyChannelStreams.add((Long) entry.getValue());
@@ -171,7 +171,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<Long> sullyChannelStreams = new HashSet<>();
-        Collection<Map<String, Object>> all = client.query("MATCH (c:ChannelStreams) WHERE exists (c.sully_id) AND NOT (c)-[:HAS_STREAM]->() RETURN c.sully_id").fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH (c:ChannelStreams) WHERE exists (c.sully_id) AND NOT (c)-[:HAS_STREAM]->() RETURN c.sully_id").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 sullyChannelStreams.add((Long) entry.getValue());
@@ -186,7 +186,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<String> sullyChannels = new HashSet<>();
-        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) RETURN c.sully_id").fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) RETURN c.sully_id").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 sullyChannels.add((String) entry.getValue());
@@ -201,7 +201,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<String> gamesWithoutTwitchIds = new HashSet<>();
-        Collection<Map<String, Object>> all = client.query("MATCH (g:Game) WHERE g.twitch_id IS NULL RETURN g.name LIMIT 100").fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH (g:Game) WHERE g.twitch_id IS NULL RETURN g.name LIMIT 100").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 gamesWithoutTwitchIds.add((String) entry.getValue());
@@ -219,10 +219,10 @@ public class PersistenceService {
         Set<String> usersWithoutTwitchId = new HashSet<>();
         Collection<Map<String, Object>> all;
         if (limit != null) {
-            all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login").fetch().all();
+            all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login").in(database).fetch().all();
 
         } else {
-            all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login LIMIT " + limit).fetch().all();
+            all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login LIMIT " + limit).in(database).fetch().all();
 
         }
         for (Map<String, Object> objectMap : all) {
@@ -242,10 +242,10 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsTo = new HashSet<>();
         Collection<Map<String, Object>> all;
         if (limit != null) {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL RETURN c.twitch_id ORDER BY c.followers DESC").fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL RETURN c.twitch_id ORDER BY c.followers DESC").in(database).fetch().all();
 
         } else {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL RETURN c.twitch_id ORDER BY c.followers DESC LIMIT " + limit).fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL RETURN c.twitch_id ORDER BY c.followers DESC LIMIT " + limit).in(database).fetch().all();
 
         }
         for (Map<String, Object> objectMap : all) {
@@ -264,10 +264,10 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsFrom = new HashSet<>();
         Collection<Map<String, Object>> all;
         if (limit != null) {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL RETURN c.twitch_id ORDER BY c.followers DESC").fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL RETURN c.twitch_id ORDER BY c.followers DESC").in(database).fetch().all();
 
         } else {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL RETURN c.twitch_id ORDER BY c.followers DESC LIMIT " + limit).fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL RETURN c.twitch_id ORDER BY c.followers DESC LIMIT " + limit).in(database).fetch().all();
 
         }
         for (Map<String, Object> objectMap : all) {
@@ -288,10 +288,10 @@ public class PersistenceService {
         Set<String> teamsWithoutTwitchId = new HashSet<>();
         Collection<Map<String, Object>> all;
         if (limit != null) {
-            all = client.query("MATCH (t:Team) WHERE t.twitch_id IS NULL RETURN t.login").fetch().all();
+            all = client.query("MATCH (t:Team) WHERE t.twitch_id IS NULL RETURN t.login").in(database).fetch().all();
 
         } else {
-            all = client.query("MATCH (t:Team) WHERE t.twitch_id IS NULL RETURN t.login LIMIT " + limit).fetch().all();
+            all = client.query("MATCH (t:Team) WHERE t.twitch_id IS NULL RETURN t.login LIMIT " + limit).in(database).fetch().all();
 
         }
         for (Map<String, Object> objectMap : all) {
