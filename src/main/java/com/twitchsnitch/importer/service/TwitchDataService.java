@@ -226,13 +226,14 @@ public class TwitchDataService {
     }
 
 
-    public void twitchIdNotSetCountGame(){
+    public void twitchIdNotSetCountGame() {
         persistenceService.twitchIdNotSetCountGame();
     }
 
-    public void twitchIdNotSetCountUser(){
+    public void twitchIdNotSetCountUser() {
         persistenceService.twitchIdNotSetCountUser();
     }
+
     //todo sixth
     public void raidPicker() {
         for (String login : liveStreamers) {
@@ -245,7 +246,7 @@ public class TwitchDataService {
         String url = "https://sullygnome.com/api/tables/gametables/getgamepickergames/88082/3196211/180/true/1/-1/-1/-1/10/5000/-1/10/-1/-1/1/0/desc/0/100";
     }
 
-    public void importTopGames(){
+    public void importTopGames() {
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
         try {
             TopGameDTO resultList = runGetTopGame(randomToken, null);
@@ -272,7 +273,7 @@ public class TwitchDataService {
     }
 
     public void importChannelGames() {
-        try{
+        try {
             String urlPrefix = "https://sullygnome.com/api/tables/channeltables/games/" + gamesDaysPerspective + "/";
             String urlSuffix = "/%20/1/2/desc/0/100";
             Set<Long> channelsWithoutChannelGameData = persistenceService.getChannelsWithoutChannelGameData();
@@ -280,8 +281,7 @@ public class TwitchDataService {
                 String json = goToWebSiteJSON(urlPrefix + sullyId + urlSuffix, tertiaryDriver);
                 persistenceService.persistSullyChannelGames(sullyId, objectMapper().readValue(json, Map.class));
             }
-        }
-        catch (JsonProcessingException e) {
+        } catch (JsonProcessingException e) {
             log.error(e.getMessage());
         }
     }
@@ -333,11 +333,11 @@ public class TwitchDataService {
         }
     }
 
-    public void importTwitchGameData(){
+    public void importTwitchGameData() {
         Set<String> allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds();
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
         List<Set<String>> setsOf100 = SplittingUtils.choppedSet(allGamesWithoutTwitchIds, 100);
-        for(Set<String> chunk : setsOf100){
+        for (Set<String> chunk : setsOf100) {
             Map map = runGetGame(chunk, localToken);
             persistenceService.updateGameWithTwitchData(map);
         }
@@ -348,7 +348,7 @@ public class TwitchDataService {
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
         Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId();
         List<Set<String>> setsOf100 = SplittingUtils.choppedSet(usersWithoutTwitchId, 100);
-        for(Set<String> chunk : setsOf100){
+        for (Set<String> chunk : setsOf100) {
             Map map = runGetUsers(chunk, localToken);
             persistenceService.updateUserWithTwitchData(map);
         }
@@ -357,7 +357,7 @@ public class TwitchDataService {
 
     public void importChannelStreams() {
         Set<Long> allSullyChannels = persistenceService.getAllSullyChannels();
-        if(testing){
+        if (testing) {
             allSullyChannels = SplittingUtils.splitIntoMultipleSets(allSullyChannels, 10).get(0); //reduce it by 10x
         }
         try {
@@ -368,7 +368,7 @@ public class TwitchDataService {
 
                 long streamsTotalSize;
                 String jsonScaffold = goToWebSiteJSON(channelStreamScaffoldUrl, tertiaryDriver);
-                if(jsonScaffold != null){
+                if (jsonScaffold != null) {
                     ChannelStreamList channelStreamList = objectMapper().readValue(jsonScaffold, ChannelStreamList.class);
                     streamsTotalSize = channelStreamList.getRecordsTotal();
                     List<String> streamsUrls = buildUpSubSequentUrls(channelStreamPrefix, suffix, streamsTotalSize);
@@ -591,7 +591,7 @@ public class TwitchDataService {
         for (String streamLogin : liveStreamers) {
             Map map = runGetChatters(streamLogin);
             if (map != null) {
-                persistenceService.persistTwitchChatters(map);
+                persistenceService.persistTwitchChatters(streamLogin, map);
             }
         }
     }
@@ -604,22 +604,22 @@ public class TwitchDataService {
             persistenceService.persistTwitchStreams(resultList.getMap());
             if (resultList.getStreams() != null) {
                 for (StreamDTO stream : resultList.getStreams()) {
-                    Map map = runGetChatters(stream.getUserLogin());
-                    if (map != null) {
-                        persistenceService.persistTwitchChatters(map);
-                        liveStreamers.add(stream.getUserLogin());
-                    }
+                    liveStreamers.add(stream.getUserLogin());
                 }
-                String cursor = resultList.getPagination().getCursor();
-                while (cursor != null && liveStreamers.size() < limit) {
-                    StreamListDTO loopList = runGetLiveStreams(randomToken, cursor);
-                    if (loopList != null && loopList.getStreams() != null) {
-                        String newCursor = loopList.getPagination().getCursor();
-                        if (newCursor == null) {
-                            break;
-                        } else {
-                            cursor = newCursor;
-                        }
+            }
+            String cursor = resultList.getPagination().getCursor();
+            while (cursor != null && liveStreamers.size() < limit) {
+                StreamListDTO loopList = runGetLiveStreams(randomToken, cursor);
+                persistenceService.persistTwitchStreams(resultList.getMap());
+                for (StreamDTO stream : loopList.getStreams()) {
+                    liveStreamers.add(stream.getUserLogin());
+                }
+                if (loopList != null && loopList.getStreams() != null) {
+                    String newCursor = loopList.getPagination().getCursor();
+                    if (newCursor == null) {
+                        break;
+                    } else {
+                        cursor = newCursor;
                     }
                 }
             }
@@ -801,7 +801,7 @@ public class TwitchDataService {
         return null;
     }
 
-    public TopGameDTO runGetTopGame(OAuthTokenDTO oAuthTokenDTO, String cursor){
+    public TopGameDTO runGetTopGame(OAuthTokenDTO oAuthTokenDTO, String cursor) {
         String url = "https://api.twitch.tv/helix/games/top?first=100";
         if (cursor != null) {
             url = url + "&after=" + cursor;
@@ -824,7 +824,7 @@ public class TwitchDataService {
         return null;
     }
 
-    private static boolean isFuzzy(String term, String value){
+    private static boolean isFuzzy(String term, String value) {
         int distance;
         term = term.trim();
         if (term.length() < 3) {
@@ -834,7 +834,7 @@ public class TwitchDataService {
         } else {
             distance = 2;
         }
-        return StringUtils.getLevenshteinDistance(value, term)<=distance;
+        return StringUtils.getLevenshteinDistance(value, term) <= distance;
     }
 
 }

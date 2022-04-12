@@ -29,8 +29,6 @@ public class ImportDataResource {
         twitchDataService.importTwitchUsers();
         twitchDataService.twitchIdNotSetCountUser();
 
-
-
         twitchDataService.importChannelStreams();
         twitchDataService.importChannelStreamsDetail();
         twitchDataService.importLiveStreams(100);
