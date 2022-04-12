@@ -652,7 +652,7 @@ public class PersistenceService {
     public void persistTwitchGames(Map map) {
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
                 "MERGE (g:Game{name:game.name})\n" +
-                "SET g.twitch_id = toLong(game.id),\n" +
+                "SET g.twitch_id = toInteger(game.id),\n" +
                 "g.box_art_url = game.box_art_url;"
                 ).in(database)
                 .bind(map).to("json")
