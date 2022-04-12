@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 "viewminutes"
 })
 @Generated("jsonschema2pojo")
-public class ChannelStreamDatum {
+public class ChannelStreamListDatum {
 
 @JsonProperty("rownum")
 private Long rownum;

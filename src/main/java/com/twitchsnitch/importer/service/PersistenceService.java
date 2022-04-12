@@ -148,12 +148,57 @@ public class PersistenceService {
     }
 
     //TWITCH METHODS
+    public Set<Long> getChannelsWithoutChannelGameData() {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Set<Long> sullyChannelStreams = new HashSet<>();
+        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) WHERE exists (c.sully_id) AND NOT (c)-[:HAS_CHANEL_GAME]->() RETURN c.sully_id").fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                sullyChannelStreams.add((Long) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.debug("Get All Sully channel streams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return sullyChannelStreams;
+    }
+
+    //todo be extended to be actually accurate
+    public Set<Long> getChannelStreamsWithoutIndividualData() {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Set<Long> sullyChannelStreams = new HashSet<>();
+        Collection<Map<String, Object>> all = client.query("MATCH (c:ChannelStreams) WHERE exists (c.sully_id) AND NOT (c)-[:HAS_STREAM]->() RETURN c.sully_id").fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                sullyChannelStreams.add((Long) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.debug("Get All Sully channel streams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return sullyChannelStreams;
+    }
+
+    public Set<String> getAllSullyChannels(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Set<String> sullyChannels = new HashSet<>();
+        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) RETURN c.sully_id").fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                sullyChannels.add((String) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.debug("Get All Sully channels  took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return sullyChannels;
+    }
 
     public Set<String> getAllGamesWithoutTwitchIds() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<String> gamesWithoutTwitchIds = new HashSet<>();
-        Collection<Map<String, Object>> all = client.query("MATCH (g:Game) WHERE g.twitch_id IS NULL SET g.twitch_id = false RETURN g.name").fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH (g:Game) WHERE g.twitch_id IS NULL RETURN g.name LIMIT 100").fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 gamesWithoutTwitchIds.add((String) entry.getValue());
@@ -170,10 +215,10 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsTo = new HashSet<>();
         Collection<Map<String, Object>> all;
         if (limit != null) {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL RETURN c.twitch_id").fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL RETURN c.twitch_id ORDER BY c.followers DESC").fetch().all();
 
         } else {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL RETURN c.twitch_id LIMIT " + limit).fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL RETURN c.twitch_id ORDER BY c.followers DESC LIMIT " + limit).fetch().all();
 
         }
         for (Map<String, Object> objectMap : all) {
@@ -192,10 +237,10 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsFrom = new HashSet<>();
         Collection<Map<String, Object>> all;
         if (limit != null) {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL c.twitch_follows_from = false RETURN c.twitch_id").fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL RETURN c.twitch_id ORDER BY c.followers DESC").fetch().all();
 
         } else {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL c.twitch_follows_from = false RETURN c.twitch_id LIMIT " + limit).fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL RETURN c.twitch_id ORDER BY c.followers DESC LIMIT " + limit).fetch().all();
 
         }
         for (Map<String, Object> objectMap : all) {
@@ -208,6 +253,49 @@ public class PersistenceService {
         return usersWithoutFollowsFrom;
     }
 
+    public Set<String> getUsersWithoutTwitchId(Integer limit){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Set<String> usersWithoutTwitchId = new HashSet<>();
+        Collection<Map<String, Object>> all;
+        if (limit != null) {
+            all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login").fetch().all();
+
+        } else {
+            all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login LIMIT " + limit).fetch().all();
+
+        }
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                usersWithoutTwitchId.add((String) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.debug("Get All Users without twitch_id took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return usersWithoutTwitchId;
+    }
+
+    public Set<String> getTeamsWithoutTwitchId(Integer limit){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Set<String> teamsWithoutTwitchId = new HashSet<>();
+        Collection<Map<String, Object>> all;
+        if (limit != null) {
+            all = client.query("MATCH (t:Team) WHERE t.twitch_id IS NULL RETURN t.login").fetch().all();
+
+        } else {
+            all = client.query("MATCH (t:Team) WHERE t.twitch_id IS NULL RETURN t.login LIMIT " + limit).fetch().all();
+
+        }
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                teamsWithoutTwitchId.add((String) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.debug("Get All teams without twitch_id took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return teamsWithoutTwitchId;
+    }
 
     public void updateGameWithTwitchData(Map json) {
         ResultSummary run = client.query("UNWIND $json.data as game " +
@@ -221,9 +309,9 @@ public class PersistenceService {
         logResultSummaries("updateUserWithTwitchData", run);
     }
 
-    public void updateTeamWithTwitchData(Long sullyId, Map json) {
+    public void updateTeamWithTwitchData(String login, Map json) {
         ResultSummary run = client.query("UNWIND $json.data as data \n" +
-                        "MATCH (t:Team{sully_id:$sullyId})\n" +
+                        "MATCH (t:Team{login:$login})\n" +
                         "SET t.created_at = datetime(replace(trim(split($json.created_at.created_at,\"+\")[0]), \" \", \"T\")),\n" +
                         "    t.updated_at = datetime(replace(trim(split($json.updated_at,\"+\")[0]), \" \", \"T\")),\n" +
                         "    t.info = $json.info,\n" +
@@ -234,12 +322,11 @@ public class PersistenceService {
                 "WHERE team.user_login IS NOT NULL\n" +
                         "MERGE (u:User{login:team.user_login})-[:MEMBER_OF]->(t) ;").in(database)
                 .bind(json).to("json")
-                .bind(sullyId).to("sullyId")
+                .bind(login).to("login")
                 .run();
         logResultSummaries("updateTeamWithTwitchData", run);
     }
 
-    //todo needs a limit for testing
     public void persistTwitchStreams(Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as stream\n" +
                         "                    MERGE (l:LiveStream{twitch_id:stream.id})\n" +
@@ -436,35 +523,20 @@ public class PersistenceService {
 
     }
 
+    //
     @Async
-    public void persistSullyChannelIndividualStream(Map jsonMap) {
-        ResultSummary run = client.query("UNWIND $json.data as stream\n" +
-                        "MERGE (s:Stream{sully_id:stream.streamId})\n" +
-                        "            SET     s.start_time = stream.starttime,\n" +
-                        "                    s.end_time = stream.endtime,\n" +
-                        "                    s.length = stream.length,\n" +
-                        "                    s.row_number = stream.rownum,\n" +
-                        "                    s.view_gain = stream.viewgain,\n" +
-                        "                    s.follower_gain = stream.followergain,\n" +
-                        "                    s.avg_viewers = stream.avgviewers,\n" +
-                        "                    s.max_viewers = stream.maxviewers,\n" +
-                        "                    s.followers_per_hour = stream.followersperhour,\n" +
-                        "                    s.views_per_hour = stream.viewsperhour,\n" +
-                        "                    s.start_date_time = stream.startDateTime,\n" +
-                        "                    s.sully_stream_url = stream.streamUrl,\n" +
-                        "                    s.view_minutes = stream.viewminutes\n" +
-                        "MATCH (c:Channel{login:stream.channelurl}) \n" +
-                        "MERGE (c)-[:STREAMED]->(s);"
+    public void persistSullyChannelIndividualStream(IndividualStreamDTO individualStreamDTO) {
+        ResultSummary run = client.query(""
                 ).in(database)
-                .bind(jsonMap).to("json")
+                .bind(null).to("json")
                 .run();
 
-        logResultSummaries("persistSullyChannelStreams", run);
+        logResultSummaries("persistSullyChannelIndividualStream", run);
 
     }
 
     @Async
-    public void persistSullyChannelGames(Map jsonMap) {
+    public void persistSullyChannelGames(Long sullyId, Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
                         "MERGE (g:ChannelGame{sully_id:game.streamId})\n" +
                         "            SET     g.stream_time = game.streamtime,\n" +
@@ -475,8 +547,10 @@ public class PersistenceService {
                         "                    g.max_viewers = game.maxviewers,\n" +
                         "                    g.followers_per_hour = game.followersperhour,\n" +
                         "                    g.games_played = game.gamesplayed,\n" +
-                        "                    g.views_per_hour = game.viewsperhour;").in(database)
+                        "                    g.views_per_hour = game.viewsperhour\n" +
+                        "MERGE (c:Channel{sully_id:$sullyId})-[:HAS_CHANNEL_GAME]->(g)").in(database)
                 .bind(jsonMap).to("json")
+                .bind(sullyId).to("sullyId")
                 .run();
         logResultSummaries("persistSullyChannelGames", run);
 
@@ -543,6 +617,5 @@ public class PersistenceService {
 
         logResultSummaries("persistSullyChannelGameFinder", run);
     }
-
 
 }

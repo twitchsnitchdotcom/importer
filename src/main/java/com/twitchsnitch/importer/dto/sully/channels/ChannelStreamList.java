@@ -22,7 +22,7 @@ import com.twitchsnitch.importer.dto.sully.ProgressProp;
 "progressProps"
 })
 @Generated("jsonschema2pojo")
-public class ChannelStream {
+public class ChannelStreamList {
 
     private LinkedHashMap map;
 @JsonProperty("draw")
@@ -32,7 +32,7 @@ private Long recordsTotal;
 @JsonProperty("recordsFiltered")
 private Long recordsFiltered;
 @JsonProperty("data")
-private List<ChannelStreamDatum> data = null;
+private List<ChannelStreamListDatum> data = null;
 @JsonProperty("progressProps")
 private List<ProgressProp> progressProps = null;
 @JsonIgnore
@@ -69,12 +69,12 @@ this.recordsFiltered = recordsFiltered;
 }
 
 @JsonProperty("data")
-public List<ChannelStreamDatum> getData() {
+public List<ChannelStreamListDatum> getData() {
 return data;
 }
 
 @JsonProperty("data")
-public void setData(List<ChannelStreamDatum> data) {
+public void setData(List<ChannelStreamListDatum> data) {
 this.data = data;
 }
 

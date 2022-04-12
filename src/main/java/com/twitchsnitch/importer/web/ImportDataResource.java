@@ -19,39 +19,47 @@ public class ImportDataResource {
         twitchDataService.addDB();
     }
 
-    @GetMapping("/db/constraints")
-    public void addDBConstraints() {
-        twitchDataService.addDBConstraints();
-    }
-
     @GetMapping("/db/drop")
     public void dropDB() {
         twitchDataService.dropDB();
     }
 
-    @GetMapping("/import/games")
-    public void importGames() {
-        twitchDataService.importGames();
+    @GetMapping("/db/add/constraints")
+    public void addDBConstraints() {
+        twitchDataService.addDBConstraints();
     }
 
-    @GetMapping("/import/teams")
-    public void importTeams() {
-        twitchDataService.importTeams();
-    }
-
-    @GetMapping("/import/channels")
-    public void importChannels() {
-        twitchDataService.importChannels();
-    }
-
-    @GetMapping("/import/streams")
-    public void importStreams() {
-        twitchDataService.importLiveStreamersAndChatters();
+    @GetMapping("/db/drop/constraints")
+    public void dropDBConstraints() {
+        twitchDataService.dropDBConstraints();
     }
 
     @GetMapping("/import/languages")
     public void importLanguages() {
         twitchDataService.importLanguages();
+    }
+
+    @GetMapping("/import/games")
+    public void importGames() {
+        twitchDataService.importGames();
+        twitchDataService.importTwitchGameData();
+    }
+
+    @GetMapping("/import/channels")
+    public void importChannels() {
+        twitchDataService.importChannels();
+        twitchDataService.importTwitchUsers();
+    }
+
+    @GetMapping("/import/teams")
+    public void importTeams() {
+        twitchDataService.importTeams();
+        twitchDataService.importTwitchTeams(100);
+    }
+
+    @GetMapping("/import/streams")
+    public void importStreams() {
+        twitchDataService.importLiveStreams(200);
     }
 
     @GetMapping("/import/follows/to")
