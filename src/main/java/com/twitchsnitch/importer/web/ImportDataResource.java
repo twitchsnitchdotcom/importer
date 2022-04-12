@@ -33,14 +33,16 @@ public class ImportDataResource {
         twitchDataService.importChannelStreamsDetail();
         twitchDataService.importLiveStreams(100);
 
-        twitchDataService.importTeams();
-        twitchDataService.importTwitchTeams();
-
-        twitchDataService.importChannelGames();
-
         twitchDataService.importFollowsFrom();
         twitchDataService.importFollowsTo();
         twitchDataService.importChatters();
+
+//        twitchDataService.importTeams();
+//        twitchDataService.importTwitchTeams();
+//
+//        twitchDataService.importChannelGames();
+
+
     }
 
     @GetMapping("/db/add")
