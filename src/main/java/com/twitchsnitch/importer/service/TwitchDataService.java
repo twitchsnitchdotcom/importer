@@ -366,16 +366,20 @@ public class TwitchDataService {
                 String channelStreamPrefix = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc";
 
                 long streamsTotalSize;
-                ChannelStreamList channelStreamList = objectMapper().readValue(goToWebSiteJSON(channelStreamScaffoldUrl, tertiaryDriver), ChannelStreamList.class);
-                streamsTotalSize = channelStreamList.getRecordsTotal();
-                log.debug("Actual channel stream size: " + streamsTotalSize);
-                if (testing) {
-                    streamsTotalSize = 10; //todo remove when read for prod
+                String jsonScaffold = goToWebSiteJSON(channelStreamScaffoldUrl, tertiaryDriver);
+                if(jsonScaffold != null){
+                    ChannelStreamList channelStreamList = objectMapper().readValue(jsonScaffold, ChannelStreamList.class);
+                    streamsTotalSize = channelStreamList.getRecordsTotal();
+                    log.debug("Actual channel stream size: " + streamsTotalSize);
+                    if (testing) {
+                        streamsTotalSize = 10; //todo remove when read for prod
+                    }
+                    List<String> streamsUrls = buildUpSubSequentUrls(channelStreamPrefix, suffix, streamsTotalSize);
+                    for (String json : goToWebSitesJSON(streamsUrls, tertiaryDriver)) {
+                        persistenceService.persistSullyChannelStreams(objectMapper().readValue(json, Map.class));
+                    }
                 }
-                List<String> streamsUrls = buildUpSubSequentUrls(channelStreamPrefix, suffix, streamsTotalSize);
-                for (String json : goToWebSitesJSON(streamsUrls, tertiaryDriver)) {
-                    persistenceService.persistSullyChannelStreams(objectMapper().readValue(json, Map.class));
-                }
+
 
             }
         } catch (JsonProcessingException e) {
