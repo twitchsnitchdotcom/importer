@@ -365,13 +365,8 @@ public class TwitchDataService {
                 long streamsTotalSize;
                 String jsonScaffold = goToWebSiteJSON(channelStreamScaffoldUrl, tertiaryDriver);
                 if(jsonScaffold != null){
-                    log.debug("This stream worked: " + id);
                     ChannelStreamList channelStreamList = objectMapper().readValue(jsonScaffold, ChannelStreamList.class);
                     streamsTotalSize = channelStreamList.getRecordsTotal();
-                    log.debug("Actual channel stream size: " + streamsTotalSize);
-                    if (testing) {
-                        streamsTotalSize = 10; //todo remove when read for prod
-                    }
                     List<String> streamsUrls = buildUpSubSequentUrls(channelStreamPrefix, suffix, streamsTotalSize);
                     for (String json : goToWebSitesJSON(streamsUrls, tertiaryDriver)) {
                         persistenceService.persistSullyChannelStreams(objectMapper().readValue(json, Map.class));
