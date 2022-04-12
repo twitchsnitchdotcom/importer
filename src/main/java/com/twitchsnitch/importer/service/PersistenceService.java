@@ -379,12 +379,11 @@ public class PersistenceService {
 
     public void persistTwitchChatters(String login, Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.chatters as chatters\n" +
-                    "MATCH (s:User{login:$login})\n" +
-                        "                    FOREACH(vip in chatters.vips| MERGE(u:User {login:vip}) MERGE(u)-[:VIP]->(s))\n" +
-                        "                    FOREACH(mod in chatters.moderators | MERGE(u:User {login:mod})\n" +
-                        "                    MERGE(u)-[:MODERATOR]->(s))\n" +
+                        "                    FOREACH(vip in chatters.vips| MERGE(u:User {login:vip}) MERGE(u)-[:VIP]->(s:User{login:$login}))\n" +
+                        "                    FOREACH(mod in chatters.moderators | MERGE(s:User{login:$login})\n" +
+                        "                    MERGE(u)-[:MODERATOR]->(s:User{login:$login}))\n" +
                         "                    FOREACH(chatter in chatters.viewers| MERGE(u:User {login:chatter})\n" +
-                        "                    MERGE(u)-[:CHATTER]->(s))").in(database)
+                        "                    MERGE(u)-[:CHATTER]->(s:User{login:$login}))").in(database)
                 .bind(jsonMap).to("json")
                 .bind(login).to("login")
                 .run();
