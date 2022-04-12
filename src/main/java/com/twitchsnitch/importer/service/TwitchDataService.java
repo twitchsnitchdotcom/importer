@@ -254,6 +254,7 @@ public class TwitchDataService {
                 String cursor = resultList.getPagination().getCursor();
                 while (cursor != null) {
                     TopGameDTO loopList = runGetTopGame(randomToken, cursor);
+                    persistenceService.persistTwitchGames(loopList.getMap());
                     if (loopList != null && loopList.getData() != null) {
                         String newCursor = loopList.getPagination().getCursor();
                         if (newCursor == null) {
@@ -801,7 +802,7 @@ public class TwitchDataService {
     }
 
     public TopGameDTO runGetTopGame(OAuthTokenDTO oAuthTokenDTO, String cursor){
-        String url = "https://api.twitch.tv/helix/games/top?limit=100";
+        String url = "https://api.twitch.tv/helix/games/top?first=100";
         if (cursor != null) {
             url = url + "&after=" + cursor;
         }
