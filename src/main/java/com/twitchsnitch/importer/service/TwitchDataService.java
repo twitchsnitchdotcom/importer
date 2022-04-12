@@ -271,6 +271,15 @@ public class TwitchDataService {
             }
         }
     }
+    public void importTwitchUsers() {
+        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
+        Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId(100);
+        while (usersWithoutTwitchId.size() > 0) {
+            Map map = runGetUsers(persistenceService.getUsersWithoutTwitchId(100), randomToken);
+            persistenceService.updateUserWithTwitchData(map);
+            usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId(100);
+        }
+    }
 
     public void importChannelStreams() {
         Set<String> allSullyChannels = persistenceService.getAllSullyChannels();
@@ -331,16 +340,6 @@ public class TwitchDataService {
         for (String teamName : teamsWithoutTwitchId) {
             Map map = runGetTeam(teamName, localToken);
             persistenceService.updateTeamWithTwitchData(teamName, map);
-        }
-    }
-
-    public void importTwitchUsers() {
-        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
-        Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId(100);
-        while (usersWithoutTwitchId.size() > 0) {
-            Map map = runGetUsers(persistenceService.getUsersWithoutTwitchId(100), randomToken);
-            persistenceService.updateUserWithTwitchData(map);
-            usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId(100);
         }
     }
 
