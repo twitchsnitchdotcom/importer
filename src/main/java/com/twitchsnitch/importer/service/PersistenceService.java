@@ -274,7 +274,43 @@ public class PersistenceService {
         return usersWithoutFollowsFrom;
     }
 
+    public Long twitchIdNotSetCountChannel(){
+        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) WHERE c.twitch_id IS NULL RETURN count(c)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                long notsetcount =  (Long) entry.getValue();
+                log.debug("Get All Users without twitch_id is : " + notsetcount);
+                return notsetcount;
+            }
+        }
+        return null;
 
+    }
+
+    public Long twitchIdNotSetCountGame(){
+        Collection<Map<String, Object>> all = client.query("MATCH (g:Game) WHERE g.twitch_id IS NULL RETURN count(g)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                long notsetcount =  (Long) entry.getValue();
+                log.debug("Get All Games without twitch_id is : " + notsetcount);
+                return notsetcount;
+            }
+        }
+        return null;
+
+    }
+
+    public Long twitchIdNotSetCountUser(){
+        Collection<Map<String, Object>> all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN count(u)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                long notsetcount =  (Long) entry.getValue();
+                log.debug("Get All Users without twitch_id is : " + notsetcount);
+                return notsetcount;
+            }
+        }
+        return null;
+    }
 
     public Set<String> getTeamsWithoutTwitchId(){
         StopWatch stopWatch = new StopWatch();
@@ -613,4 +649,7 @@ public class PersistenceService {
         logResultSummaries("persistSullyChannelGameFinder", run);
     }
 
+    public void persistTwitchGames(Map map) {
+
+    }
 }

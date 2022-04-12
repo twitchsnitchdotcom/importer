@@ -10,6 +10,7 @@ import com.twitchsnitch.importer.dto.twitch.*;
 import com.twitchsnitch.importer.dto.sully.games.GamesTable;
 import com.twitchsnitch.importer.dto.sully.teams.TeamsTable;
 import com.twitchsnitch.importer.utils.SplittingUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -239,6 +240,31 @@ public class TwitchDataService {
         String url = "https://sullygnome.com/api/tables/gametables/getgamepickergames/88082/3196211/180/true/1/-1/-1/-1/10/5000/-1/10/-1/-1/1/0/desc/0/100";
     }
 
+    public void importTopGames(){
+        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
+        try {
+            TopGameDTO resultList = runGetTopGame(randomToken, null);
+            persistenceService.persistTwitchGames(resultList.getMap());
+            if (resultList.getData() != null) {
+                String cursor = resultList.getPagination().getCursor();
+                while (cursor != null) {
+                    TopGameDTO loopList = runGetTopGame(randomToken, cursor);
+                    if (loopList != null && loopList.getData() != null) {
+                        String newCursor = loopList.getPagination().getCursor();
+                        if (newCursor == null) {
+                            break;
+                        } else {
+                            cursor = newCursor;
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error(e.getLocalizedMessage());
+        }
+        log.debug("Total size of all the Top Games are: " + liveStreamers.size());
+    }
+
     public void importChannelGames() {
         try{
             String urlPrefix = "https://sullygnome.com/api/tables/channeltables/games/" + gamesDaysPerspective + "/";
@@ -309,6 +335,7 @@ public class TwitchDataService {
             Map map = runGetGame(chunk, localToken);
             persistenceService.updateGameWithTwitchData(map);
         }
+        persistenceService.twitchIdNotSetCountGame();
     }
 
     public void importTwitchUsers() {
@@ -319,6 +346,7 @@ public class TwitchDataService {
             Map map = runGetUsers(chunk, localToken);
             persistenceService.updateUserWithTwitchData(map);
         }
+        persistenceService.twitchIdNotSetCountUser();
     }
 
     public void importChannelStreams() {
@@ -762,6 +790,42 @@ public class TwitchDataService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public TopGameDTO runGetTopGame(OAuthTokenDTO oAuthTokenDTO, String cursor){
+        String url = "https://api.twitch.tv/helix/games/top";
+        if (cursor != null) {
+            url = url + "&after=" + cursor;
+        }
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    getGenericHttpRequest(oAuthTokenDTO),
+                    String.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                TopGameDTO gamesDTO = objectMapper().readValue(response.getBody(), TopGameDTO.class);
+                gamesDTO.setMap(objectMapper().readValue(response.getBody(), Map.class));
+                return gamesDTO;
+            }
+        } catch (HttpClientErrorException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static boolean isFuzzy(String term, String value){
+        int distance;
+        term = term.trim();
+        if (term.length() < 3) {
+            distance = 0;
+        } else if (term.length() < 6) {
+            distance = 1;
+        } else {
+            distance = 2;
+        }
+        return StringUtils.getLevenshteinDistance(value, term)<=distance;
     }
 
 }

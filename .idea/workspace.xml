@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/twitch/TopGameDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/twitch/TopGameDatum.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" afterDir="false" />
     </list>
