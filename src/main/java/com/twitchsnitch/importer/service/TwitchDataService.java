@@ -365,7 +365,7 @@ public class TwitchDataService {
                 long streamsTotalSize;
                 String jsonScaffold = goToWebSiteJSON(channelStreamScaffoldUrl, tertiaryDriver);
                 if(jsonScaffold != null){
-                    log.debug("This stream worked: " + id)
+                    log.debug("This stream worked: " + id);
                     ChannelStreamList channelStreamList = objectMapper().readValue(jsonScaffold, ChannelStreamList.class);
                     streamsTotalSize = channelStreamList.getRecordsTotal();
                     log.debug("Actual channel stream size: " + streamsTotalSize);
