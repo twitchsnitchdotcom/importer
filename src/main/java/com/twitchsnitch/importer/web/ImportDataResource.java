@@ -48,12 +48,30 @@ public class ImportDataResource {
     @GetMapping("/import/channels")
     public void importChannels() {
         twitchDataService.importChannels();
+    }
+
+    @GetMapping("/import/users/twitch")
+    public void importChannelsTwitch() {
         twitchDataService.importTwitchUsers();
+    }
+
+    @GetMapping("/import/channels/games")
+    public void importChannelGames() {
+        twitchDataService.importChannelGames();
+    }
+
+    @GetMapping("/import/channels/streams")
+    public void importChannelStreams() {
+        twitchDataService.importChannelStreams();
     }
 
     @GetMapping("/import/teams")
     public void importTeams() {
         twitchDataService.importTeams();
+    }
+
+    @GetMapping("/import/teams/twitch")
+    public void importTeamsTwitch() {
         twitchDataService.importTwitchTeams(100);
     }
 
