@@ -20,6 +20,7 @@ public class ImportDataResource {
         twitchDataService.addDBConstraints();
         twitchDataService.importLanguages();
 
+        twitchDataService.importTopGames();
         twitchDataService.importGames();
         twitchDataService.importTwitchGameData();
         twitchDataService.twitchIdNotSetCountGame();
@@ -30,6 +31,9 @@ public class ImportDataResource {
 
         twitchDataService.importChannelStreams();
         twitchDataService.importLiveStreams(100);
+
+        twitchDataService.importTeams();
+        twitchDataService.importTwitchTeams();
     }
 
     @GetMapping("/db/add")

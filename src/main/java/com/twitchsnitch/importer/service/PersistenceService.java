@@ -495,7 +495,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
-                        "MERGE (g:Game{name:game.name})\n" +
+                        "MATCH (g:Game{name:game.name})\n" +
                         "            SET     g.view_minutes = game.viewminutes,\n" +
                         "                    g.streamed_minutes = game.streamedminutes,\n" +
                         "                    g.row_number = game.rownum,\n" +
@@ -650,6 +650,14 @@ public class PersistenceService {
     }
 
     public void persistTwitchGames(Map map) {
+        ResultSummary run = client.query("UNWIND $json.data as game\n" +
+                "MERGE (g:Game{name:game.name})\n" +
+                "SET g.twitch_id = toLong(game.id)\n" +
+                "g.box_art_url = game.box_art_url;"
+                ).in(database)
+                .bind(map).to("json")
+                .run();
 
+        logResultSummaries("persistTwitchGames", run);
     }
 }
