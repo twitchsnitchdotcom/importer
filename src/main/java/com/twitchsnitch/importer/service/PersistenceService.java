@@ -366,9 +366,9 @@ public class PersistenceService {
                         "                    l.started_at = datetime(stream.started_at),\n" +
                         "                    l.thumbnail_url = stream.thumbnail_url,\n" +
                         "                    l.is_mature = stream.is_mature\n" +
-                        "                    MERGE (u:User{login:stream.user_login})\n" +
-                        "                    MERGE (u)-[:PLAYS]->(g:Games{twitch_id:stream.game_id})\n" +
-                        "                    MERGE (lang:Language{name:stream.language})\n" +
+                        "                    MERGE (u:User{login:stream.user_login})-[:STREAMED]->(l)\n" +
+                        "                    MERGE (u)-[:PLAYS]->(g:Game{twitch_id:stream.game_id})\n" +
+                        "                    MERGE (lang:Language{key:stream.language})\n" +
                         "                    MERGE (u)-[:HAS_LANGUAGE]->(lang)\n"
                 ).in(database)
                 .bind(jsonMap).to("json")
