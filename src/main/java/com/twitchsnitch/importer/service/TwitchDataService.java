@@ -305,10 +305,7 @@ public class TwitchDataService {
         Set<String> allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds(100);
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
         while(allGamesWithoutTwitchIds.size() > 0){
-            for(String name: allGamesWithoutTwitchIds){
-                gamesNameList.add(encodeValue(name));
-            }
-            Map map = runGetGame(gamesNameList, localToken);
+            Map map = runGetGame(allGamesWithoutTwitchIds, localToken);
             persistenceService.updateGameWithTwitchData(map);
             allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds(100);
             gamesNameList = new HashSet<>();
@@ -644,10 +641,10 @@ public class TwitchDataService {
         return null;
     }
 
-    public Map runGetGame(Set<String> encodedGameDisplayNames, OAuthTokenDTO oAuthTokenDTO) {
+    public Map runGetGame(Set<String> nonEncodedGameDisplayNames, OAuthTokenDTO oAuthTokenDTO) {
         StringBuilder url = new StringBuilder("https://api.twitch.tv/helix/games?name=");
         boolean firstValue = true;
-        for (String name : encodedGameDisplayNames) {
+        for (String name : nonEncodedGameDisplayNames) {
             if (firstValue) {
                 url.append(encodeValue(name));
                 firstValue = false;
@@ -694,11 +691,13 @@ public class TwitchDataService {
                     String.class);
 
             if (response.getStatusCode().is2xxSuccessful()) {
+                log.debug("SUCCESSFUL REQUEST FOR TWITCH USERS : " + loginNames.toString());
                 return objectMapper().readValue(response.getBody(), Map.class);
             }
         } catch (HttpClientErrorException | JsonProcessingException e) {
             e.printStackTrace();
         }
+        log.debug("");
         return null;
     }
 
