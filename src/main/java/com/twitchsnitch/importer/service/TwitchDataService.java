@@ -398,7 +398,7 @@ public class TwitchDataService {
             gamesTotalSize = gamesTable.getRecordsTotal();
             log.debug("Actual Game size: " + gamesTotalSize);
             if (testing) {
-                gamesTotalSize = 101; //todo remove when read for prod
+                gamesTotalSize = 201; //todo remove when read for prod
             }
             List<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
             for (String json : goToWebSitesJSON(gamesUrls, tertiaryDriver)) {
@@ -429,7 +429,7 @@ public class TwitchDataService {
             channelTotalSize = channelsTable.getRecordsTotal();
             log.debug("Actual Channel size: " + channelTotalSize);
             if (testing) {
-                channelTotalSize = 101;
+                channelTotalSize = 201;
             }
             List<String> channelUrls = buildUpSubSequentUrls(channelPrefix, suffix, channelTotalSize);
             OAuthTokenDTO localToken = oAuthService.getRandomToken();
@@ -454,7 +454,7 @@ public class TwitchDataService {
             teamTotalSize = teamsTable.getRecordsTotal();
             log.debug("Actual Teams size: " + teamTotalSize);
             if (testing) {
-                teamTotalSize = 101;
+                teamTotalSize = 201;
             }
             List<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
             for (String json : goToWebSitesJSON(teamsUrls, secondaryDriver)) {
