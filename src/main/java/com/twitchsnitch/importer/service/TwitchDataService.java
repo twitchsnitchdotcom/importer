@@ -316,7 +316,7 @@ public class TwitchDataService {
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
         Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId(100);
         while (usersWithoutTwitchId.size() > 0) {
-            Map map = runGetUsers(persistenceService.getUsersWithoutTwitchId(100), randomToken);
+            Map map = runGetUsers(usersWithoutTwitchId, randomToken);
             persistenceService.updateUserWithTwitchData(map);
             usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId(100);
         }
