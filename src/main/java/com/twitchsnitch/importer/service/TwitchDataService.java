@@ -803,7 +803,7 @@ public class TwitchDataService {
     public TopGameDTO runGetTopGame(OAuthTokenDTO oAuthTokenDTO, String cursor){
         String url = "https://api.twitch.tv/helix/games/top";
         if (cursor != null) {
-            url = url + "&after=" + cursor;
+            url = url + "?after=" + cursor;
         }
         try {
             ResponseEntity<String> response = restTemplate.exchange(
