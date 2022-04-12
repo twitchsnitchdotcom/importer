@@ -65,7 +65,10 @@ public class PersistenceService {
     public void deleteDBData() {
         //drop db development
         //create db development
-        ResultSummary run = client.query("MATCH (n) DETACH DELETE n").in(database).run();
+        ResultSummary run = client.query("call apoc.periodic.iterate(\n" +
+                "\"MATCH (p) return id(p) AS id\", \n" +
+                "\"MATCH (n) WHERE id(n) = id DETACH DELETE n\", \n" +
+                "{batchSize:1000})").in(database).run();
         log.debug("Nodes deleted from the DB: " + run.counters().nodesDeleted());
     }
 
