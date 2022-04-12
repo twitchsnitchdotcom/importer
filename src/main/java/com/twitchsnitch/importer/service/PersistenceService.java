@@ -209,7 +209,31 @@ public class PersistenceService {
         }
         stopWatch.stop();
         log.debug("Get All Games Without TwitchIds took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.debug("FOUND:" + gamesWithoutTwitchIds.size() +  " Games Without TwitchIds");
         return gamesWithoutTwitchIds;
+    }
+
+    public Set<String> getUsersWithoutTwitchId(Integer limit){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Set<String> usersWithoutTwitchId = new HashSet<>();
+        Collection<Map<String, Object>> all;
+        if (limit != null) {
+            all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login").fetch().all();
+
+        } else {
+            all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login LIMIT " + limit).fetch().all();
+
+        }
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                usersWithoutTwitchId.add((String) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.debug("FOUND:" + usersWithoutTwitchId.size() +  " Users Without TwitchIds");
+        log.debug("Get All Users without twitch_id took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return usersWithoutTwitchId;
     }
 
     public Set<String> getUsersWithoutTwitchFollowsTo(Integer limit) {
@@ -256,27 +280,7 @@ public class PersistenceService {
         return usersWithoutFollowsFrom;
     }
 
-    public Set<String> getUsersWithoutTwitchId(Integer limit){
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
-        Set<String> usersWithoutTwitchId = new HashSet<>();
-        Collection<Map<String, Object>> all;
-        if (limit != null) {
-            all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login").fetch().all();
 
-        } else {
-            all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login LIMIT " + limit).fetch().all();
-
-        }
-        for (Map<String, Object> objectMap : all) {
-            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
-                usersWithoutTwitchId.add((String) entry.getValue());
-            }
-        }
-        stopWatch.stop();
-        log.debug("Get All Users without twitch_id took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
-        return usersWithoutTwitchId;
-    }
 
     public Set<String> getTeamsWithoutTwitchId(Integer limit){
         StopWatch stopWatch = new StopWatch();
@@ -428,7 +432,7 @@ public class PersistenceService {
                         "                    c.profile_image_url = channel.logo,\n" +
                         "                    c.twitch_link = channel.twitchurl,\n" +
                         "                    c.sully_id = channel.id,\n" +
-                        "                    c.display_name = channel.displayname\n" +
+                        "                    c.name = channel.displayname\n" +
                         "MERGE (l:Language{name:channel.language}) \n" +
                         " MERGE (c)-[:HAS_LANGUAGE]->(l)").in(database)
                 .bind(jsonMap).to("json")
@@ -467,7 +471,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
-                        "MERGE (g:Game{display_name:game.name})\n" +
+                        "MERGE (g:Game{name:game.name})\n" +
                         "            SET     g.view_minutes = game.viewminutes,\n" +
                         "                    g.streamed_minutes = game.streamedminutes,\n" +
                         "                    g.row_number = game.rownum,\n" +
