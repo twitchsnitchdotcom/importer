@@ -29,7 +29,7 @@ public class ImportDataResource {
         twitchDataService.twitchIdNotSetCountUser();
 
         twitchDataService.importChannelStreams();
-        twitchDataService.importLiveStreams(1000);
+        twitchDataService.importLiveStreams(100);
     }
 
     @GetMapping("/db/add")

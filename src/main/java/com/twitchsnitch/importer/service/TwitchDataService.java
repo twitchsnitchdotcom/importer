@@ -356,6 +356,9 @@ public class TwitchDataService {
 
     public void importChannelStreams() {
         Set<Long> allSullyChannels = persistenceService.getAllSullyChannels();
+        if(testing){
+            allSullyChannels = SplittingUtils.splitIntoMultipleSets(allSullyChannels, 10).get(0); //reduce it by 10x
+        }
         try {
             for (Long id : allSullyChannels) {
                 String suffix = "/" + numberOfRecords;
