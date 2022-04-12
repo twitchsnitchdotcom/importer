@@ -306,7 +306,7 @@ public class TwitchDataService {
     public void importGames() {
         String suffix = "/" + numberOfRecords;
         String gameScaffoldUrl = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc/0/" + numberOfRecords;
-        String gamePrefix = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc";
+        String gamePrefix = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc/";
         long gamesTotalSize;
         try {
             GamesTable gamesTable = objectMapper().readValue(goToWebSite(gameScaffoldUrl, tertiaryDriver), GamesTable.class);
