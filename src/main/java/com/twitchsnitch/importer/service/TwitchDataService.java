@@ -307,11 +307,11 @@ public class TwitchDataService {
         while(allGamesWithoutTwitchIds.size() > 0){
             for(String name: allGamesWithoutTwitchIds){
                 gamesNameList.add(encodeValue(name));
-                Map map = runGetGame(gamesNameList, localToken);
-                persistenceService.updateGameWithTwitchData(map);
-                allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds(100);
-                gamesNameList = new HashSet<>();
             }
+            Map map = runGetGame(gamesNameList, localToken);
+            persistenceService.updateGameWithTwitchData(map);
+            allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds(100);
+            gamesNameList = new HashSet<>();
         }
     }
 
