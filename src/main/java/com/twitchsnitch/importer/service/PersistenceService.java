@@ -182,7 +182,7 @@ public class PersistenceService {
         return sullyChannelStreams;
     }
 
-    public Set<Long> getAllSullyChannels(){
+    public Set<Long> getAllSullyChannels() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<Long> sullyChannels = new HashSet<>();
@@ -209,11 +209,11 @@ public class PersistenceService {
         }
         stopWatch.stop();
         log.debug("Get All Games Without TwitchIds took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
-        log.debug("FOUND:" + gamesWithoutTwitchIds.size() +  " Games Without TwitchIds");
+        log.debug("FOUND:" + gamesWithoutTwitchIds.size() + " Games Without TwitchIds");
         return gamesWithoutTwitchIds;
     }
 
-    public Set<String> getUsersWithoutTwitchId(){
+    public Set<String> getUsersWithoutTwitchId() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<String> usersWithoutTwitchId = new HashSet<>();
@@ -225,7 +225,7 @@ public class PersistenceService {
             }
         }
         stopWatch.stop();
-        log.debug("FOUND:" + usersWithoutTwitchId.size() +  " Users Without TwitchIds");
+        log.debug("FOUND:" + usersWithoutTwitchId.size() + " Users Without TwitchIds");
         log.debug("Get All Users without twitch_id took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         return usersWithoutTwitchId;
     }
@@ -274,11 +274,11 @@ public class PersistenceService {
         return usersWithoutFollowsFrom;
     }
 
-    public Long twitchIdNotSetCountChannel(){
+    public Long twitchIdNotSetCountChannel() {
         Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) WHERE c.twitch_id IS NULL RETURN count(c)").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
-                long notsetcount =  (Long) entry.getValue();
+                long notsetcount = (Long) entry.getValue();
                 log.debug("Get All Users without twitch_id is : " + notsetcount);
                 return notsetcount;
             }
@@ -287,11 +287,11 @@ public class PersistenceService {
 
     }
 
-    public Long twitchIdNotSetCountGame(){
+    public Long twitchIdNotSetCountGame() {
         Collection<Map<String, Object>> all = client.query("MATCH (g:Game) WHERE g.twitch_id IS NULL RETURN count(g)").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
-                long notsetcount =  (Long) entry.getValue();
+                long notsetcount = (Long) entry.getValue();
                 log.debug("Get All Games without twitch_id is : " + notsetcount);
                 return notsetcount;
             }
@@ -300,11 +300,11 @@ public class PersistenceService {
 
     }
 
-    public Long twitchIdNotSetCountUser(){
+    public Long twitchIdNotSetCountUser() {
         Collection<Map<String, Object>> all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN count(u)").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
-                long notsetcount =  (Long) entry.getValue();
+                long notsetcount = (Long) entry.getValue();
                 log.debug("Get All Users without twitch_id is : " + notsetcount);
                 return notsetcount;
             }
@@ -312,7 +312,7 @@ public class PersistenceService {
         return null;
     }
 
-    public Set<String> getTeamsWithoutTwitchId(){
+    public Set<String> getTeamsWithoutTwitchId() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<String> teamsWithoutTwitchId = new HashSet<>();
@@ -350,7 +350,7 @@ public class PersistenceService {
                         "    WITH data\n" +
                         "WHERE data IS NOT NULL \n" +
                         "    UNWIND data as team\n" +
-                "WHERE team.user_login IS NOT NULL\n" +
+                        "WHERE team.user_login IS NOT NULL\n" +
                         "MERGE (u:User{login:team.user_login})-[:MEMBER_OF]->(t) ;").in(database)
                 .bind(json).to("json")
                 .bind(login).to("login")
@@ -401,10 +401,10 @@ public class PersistenceService {
     }
 
     public void persistTwitchFollowersTo(Map jsonMap) {
-        ResultSummary run = client.query("UNWIND json.data as follower\n" +
+        ResultSummary run = client.query("UNWIND $json.data as follower\n" +
                         "                    MERGE (f:User{login:follower.from_login})\n" +
                         "                    MERGE (t:User{login:follower.to_login})\n" +
-                        "                    t.twitch_followers_to = json.total,\n" +
+                        "                    SET t.twitch_followers_to = $json.total\n" +
                         "                    MERGE (f)-[:FOLLOWS{followed_at:datetime(follower.followed_at)}]->(t);\n"
                 ).in(database)
                 .bind(jsonMap).to("json")
@@ -414,10 +414,10 @@ public class PersistenceService {
     }
 
     public void persistTwitchFollowersFrom(Map jsonMap) {
-        ResultSummary run = client.query("UNWIND json.data as follower\n" +
+        ResultSummary run = client.query("UNWIND $json.data as follower\n" +
                         "                    MERGE (f:User{login:follower.from_login})\n" +
+                        "                    SET f.twitch_followers_from = $json.total\n" +
                         "                    MERGE (t:User{login:follower.to_login})\n" +
-                        "                    f.twitch_followers_to = json.total,\n" +
                         "                    MERGE (f)-[:FOLLOWS{followed_at:datetime(follower.followed_at)}]->(t);\n"
                 ).in(database)
                 .bind(jsonMap).to("json")
@@ -652,9 +652,9 @@ public class PersistenceService {
 
     public void persistTwitchGames(Map map) {
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
-                "MERGE (g:Game{name:game.name})\n" +
-                "SET g.twitch_id = toInteger(game.id),\n" +
-                "g.box_art_url = game.box_art_url;"
+                        "MERGE (g:Game{name:game.name})\n" +
+                        "SET g.twitch_id = toInteger(game.id),\n" +
+                        "g.box_art_url = game.box_art_url;"
                 ).in(database)
                 .bind(map).to("json")
                 .run();
