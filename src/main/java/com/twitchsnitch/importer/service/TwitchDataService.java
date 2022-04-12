@@ -675,10 +675,10 @@ public class TwitchDataService {
         boolean firstValue = true;
         for (String name : loginNames) {
             if (firstValue) {
-                url.append(encodeValue(name));
+                url.append(name);
                 firstValue = false;
             } else {
-                url.append("&login=" + encodeValue(name));
+                url.append("&login=" + name);
             }
         }
 
