@@ -86,8 +86,10 @@ public class PersistenceService {
         ResultSummary teamNameConstraint = client.query("CREATE CONSTRAINT FOR (t:Team) REQUIRE t.name IS UNIQUE;").in(database).run();
         ResultSummary gameFinderCompositeConstraint = client.query("CREATE CONSTRAINT FOR (g:GameFinder) REQUIRE g.composite_sully_id IS UNIQUE;").in(database).run();
         ResultSummary raidFinderCompositeConstraint = client.query("CREATE CONSTRAINT FOR (r:RaidFinder) REQUIRE r.composite_sully_id IS UNIQUE;").in(database).run();
+        ResultSummary liveStreamConstraint = client.query("CREATE CONSTRAINT FOR (l:LiveStream) REQUIRE r.twitch_id IS UNIQUE;").in(database).run();
 
 
+        ResultSummary liveStreamTwitchIdIndex = client.query("CREATE INDEX FOR (l:LiveStream) ON (l.twitch_id);").in(database).run();
         ResultSummary languageNameIndex = client.query("CREATE INDEX FOR (l:Language) ON (l.name);").in(database).run();
         ResultSummary gameSullyIdIndex = client.query("CREATE INDEX FOR (g:Game) ON (g.sully_id);").in(database).run();
         ResultSummary gameTwitchIdIndex = client.query("CREATE INDEX FOR (g:Game) ON (g.twitch_id);").in(database).run();
@@ -95,7 +97,8 @@ public class PersistenceService {
         ResultSummary channelTwitchIdIndex = client.query("CREATE INDEX FOR (c:Channel) ON (c.twitch_id);").in(database).run();
         ResultSummary teamSullyIdIndex = client.query("CREATE INDEX FOR (t:Team) ON (t.sully_id);").in(database).run();
         ResultSummary teamTwitchIdIndex = client.query("CREATE INDEX FOR (t:Team) ON (t.twitch_id);").in(database).run();
-
+        
+        logResultSummaries("liveStreamConstraint", liveStreamConstraint);
         logResultSummaries("gameDisplayNameConstraint", gameDisplayNameConstraint);
         logResultSummaries("languageConstraint", languageConstraint);
         logResultSummaries("channelLoginConstraint", channelLoginConstraint);
@@ -104,6 +107,7 @@ public class PersistenceService {
         logResultSummaries("gameFinderCompositeConstraint", gameFinderCompositeConstraint);
         logResultSummaries("raidFinderCompositeConstraint", raidFinderCompositeConstraint);
 
+        logResultSummaries("liveStreamTwitchIdIndex", liveStreamTwitchIdIndex);
         logResultSummaries("languageNameIndex", languageNameIndex);
         logResultSummaries("gameSullyIdIndex", gameSullyIdIndex);
         logResultSummaries("gameTwitchIdIndex", gameTwitchIdIndex);
@@ -366,7 +370,7 @@ public class PersistenceService {
                         "                    l.started_at = datetime(stream.started_at),\n" +
                         "                    l.thumbnail_url = stream.thumbnail_url,\n" +
                         "                    l.is_mature = stream.is_mature\n" +
-                        "                    MATCH (u:User{login:stream.user_login})-[:STREAMED]->(l)\n" +
+                        "                    MATCH (u:User) WHERE u.login = stream.user_login\n" +
                         "                    MERGE (u)-[:STREAMED]->(l)\n" +
                         "                    MERGE (u)-[:PLAYS]->(g:Game{twitch_id:stream.game_id})\n" +
                         "                    MERGE (lang:Language{key:stream.language})\n" +
