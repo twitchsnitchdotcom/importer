@@ -369,7 +369,7 @@ public class PersistenceService {
                         "                    l.viewer_count = stream.viewercount,\n" +
                         "                    l.started_at = datetime(stream.started_at),\n" +
                         "                    l.thumbnail_url = stream.thumbnail_url,\n" +
-                        "                    l.is_mature = stream.is_mature WITH l\n" +
+                        "                    l.is_mature = stream.is_mature WITH l, stream\n" +
                         "                    MATCH (u:User) WHERE u.login = stream.user_login\n" +
                         "                    MERGE (u)-[:STREAMED]->(l)\n" +
                         "                    MERGE (u)-[:PLAYS]->(g:Game{twitch_id:stream.game_id})\n" +
