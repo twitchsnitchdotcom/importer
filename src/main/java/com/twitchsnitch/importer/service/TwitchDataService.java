@@ -129,10 +129,9 @@ public class TwitchDataService {
             String json = driver.findElement(By.className("line-content")).getText();
             return json;
         } catch (Exception e) {
-            log.error("The URL that failed is: " + url + " I will wait another 2 seconds for the response");
             try {
                 driver.get("view-source:" + url);
-                Thread.sleep(2000);
+                //Thread.sleep(2000);
                 String json = driver.findElement(By.className("line-content")).getText();
                 return json;
             } catch (Exception e2) {
@@ -150,10 +149,9 @@ public class TwitchDataService {
                 jsonList.add(driver.findElement(By.className("line-content")).getText());
                 log.debug("Pages collected so far is: " + jsonList.size());
             } catch (Exception e) {
-                log.error("The URL that failed is: " + url + " I will wait another 2 seconds for the response");
                 try {
                     driver.get("view-source:" + url);
-                    Thread.sleep(2000);
+                    //Thread.sleep(2000);
                     jsonList.add(driver.findElement(By.className("line-content")).getText());
 
                 } catch (Exception e2) {
@@ -173,7 +171,6 @@ public class TwitchDataService {
                 htmlList.add(driver.getPageSource());
                 log.debug("Pages collected so far is: " + htmlList.size());
             } catch (Exception e) {
-                log.error("The URL that failed is: " + url + " I will wait another 2 seconds for the response");
                 try {
                     driver.get(url);
                     Thread.sleep(2000);
@@ -368,6 +365,7 @@ public class TwitchDataService {
                 long streamsTotalSize;
                 String jsonScaffold = goToWebSiteJSON(channelStreamScaffoldUrl, tertiaryDriver);
                 if(jsonScaffold != null){
+                    log.debug("This stream worked: " + id)
                     ChannelStreamList channelStreamList = objectMapper().readValue(jsonScaffold, ChannelStreamList.class);
                     streamsTotalSize = channelStreamList.getRecordsTotal();
                     log.debug("Actual channel stream size: " + streamsTotalSize);
