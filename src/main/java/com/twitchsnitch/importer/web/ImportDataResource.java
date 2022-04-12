@@ -34,8 +34,8 @@ public class ImportDataResource {
         twitchDataService.importLiveStreams(100);
 
         twitchDataService.importChatters();
-        twitchDataService.importFollowsFrom();
         twitchDataService.importFollowsTo();
+        twitchDataService.importFollowsFrom();
 
 
 //        twitchDataService.importTeams();
