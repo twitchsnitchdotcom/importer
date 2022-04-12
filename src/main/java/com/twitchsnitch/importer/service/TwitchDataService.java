@@ -9,6 +9,7 @@ import com.twitchsnitch.importer.dto.sully.channels.*;
 import com.twitchsnitch.importer.dto.twitch.*;
 import com.twitchsnitch.importer.dto.sully.games.GamesTable;
 import com.twitchsnitch.importer.dto.sully.teams.TeamsTable;
+import com.twitchsnitch.importer.utils.SplittingUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -301,24 +302,22 @@ public class TwitchDataService {
     }
 
     public void importTwitchGameData(){
-        Set<String> gamesNameList = new HashSet<>();
-        Set<String> allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds(100);
+        Set<String> allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds();
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
-        while(allGamesWithoutTwitchIds.size() > 0){
-            Map map = runGetGame(allGamesWithoutTwitchIds, localToken);
+        List<Set<String>> setsOf100 = SplittingUtils.choppedSet(allGamesWithoutTwitchIds, 100);
+        for(Set<String> chunk : setsOf100){
+            Map map = runGetGame(chunk, localToken);
             persistenceService.updateGameWithTwitchData(map);
-            allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds(100);
-            gamesNameList = new HashSet<>();
         }
     }
 
     public void importTwitchUsers() {
-        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
-        Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId(100);
-        while (usersWithoutTwitchId.size() > 0) {
-            Map map = runGetUsers(usersWithoutTwitchId, randomToken);
+        OAuthTokenDTO localToken = oAuthService.getRandomToken();
+        Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId();
+        List<Set<String>> setsOf100 = SplittingUtils.choppedSet(usersWithoutTwitchId, 100);
+        for(Set<String> chunk : setsOf100){
+            Map map = runGetUsers(chunk, localToken);
             persistenceService.updateUserWithTwitchData(map);
-            usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId(100);
         }
     }
 
