@@ -65,7 +65,6 @@ public class ImportDataResource {
         twitchDataService.importTwitchGameData();
     }
 
-
     @GetMapping("/import/users/twitch")
     public void importUsersTwitch() {
         twitchDataService.importTwitchUsers();
@@ -88,12 +87,12 @@ public class ImportDataResource {
 
     @GetMapping("/import/teams/twitch")
     public void importTeamsTwitch() {
-        twitchDataService.importTwitchTeams(100);
+        twitchDataService.importTwitchTeams();
     }
 
     @GetMapping("/import/streams")
     public void importStreams() {
-        twitchDataService.importLiveStreams(200);
+        twitchDataService.importLiveStreams(100);
     }
 
     @GetMapping("/import/follows/to")

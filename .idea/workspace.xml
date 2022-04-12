@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/channels/IndividualStreamDataDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/jsoup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/JsoupTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/channels/IndividualStreamDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/channels/IndividualStreamDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/web/ImportDataResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/web/ImportDataResource.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +76,7 @@
       <recent name="com.twitchsnitch.importer.service" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.JsoupTest">
     <configuration name="ImporterApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.ImporterApplication" />
       <module name="importer" />
@@ -84,8 +90,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="JsoupTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.JsoupTest" />
+      <module name="importer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.JsoupTest" />
         <item itemvalue="Application.ImporterApplication" />
       </list>
     </recent_temporary>
@@ -123,11 +143,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/SchedulingService.java</url>
           <line>14</line>
           <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>632</line>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

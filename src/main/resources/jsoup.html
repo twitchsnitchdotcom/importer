@@ -1,0 +1,786 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+        let isDarkMode = false;
+        if (prefersDarkScheme.matches) {
+            isDarkMode = true;
+        }
+
+        try {
+            let cookieValue = '';
+            const parts = document.cookie.split('SullyGnomeDarkMode=');
+
+            if (parts.length === 2)
+            {
+                cookieValue = parts.pop().split(';').shift();
+            }
+
+            if(cookieValue === 'dark')
+            {
+                isDarkMode = true;
+            }
+            else if(cookieValue === 'light')
+            {
+                isDarkMode = false;
+            }
+        }
+        catch(ex) {
+
+        }
+        if (isDarkMode) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', '');
+        }
+
+
+    </script>
+
+
+    <script type="text/javascript">
+            var sg_a_scCode = "c03de72a";
+            var sg_a_scProject = "10710394";
+            var sg_a_gaCode = "UA-69840346-1";
+        </script>
+
+    <meta name="robots" content="noindex">
+
+
+
+    <script type="text/javascript">
+                try {
+                    (function (i, s, o, g, r, a, m) {
+                        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+                    ga('create', sg_a_gaCode , 'auto');
+                    ga('send', 'pageview');
+                }
+                catch (ex) {
+
+                }
+
+                var sc_project = sg_a_scProject; //Update url
+                var sc_invisible = 1;
+                var sc_security = sg_a_scCode;
+                var scJsHost = "https://secure.";
+
+
+            </script>
+    <script async type='text/javascript' src='https://secure.statcounter.com/counter/counter.js'></script>
+
+
+
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>auronplay - Monday 11th April 3:40pm stream summary stats - SullyGnome</title>
+    <meta name="description" content="Statistics for auronplay&#x27;s stream on Monday 11th April 3:40pm." />
+
+
+
+    <link rel="stylesheet" href="/css/sullystyle.min.css?v=TxoQjmqDrK99n0k0aypFZnXpp9f86wgu8joUmJIW0JA" />
+    <link rel="stylesheet" href="/lib/jquery-ui-1.12.1.custom/jquery-ui.min.css" />
+
+
+
+
+</head>
+<body>
+<script type="text/javascript">
+        var PageInfo = {"dayranges":[{"Key":3,"Value":"3 days"},{"Key":7,"Value":"7 days"},{"Key":14,"Value":"14 days"},{"Key":30,"Value":"30 days"},{"Key":90,"Value":"90 days"},{"Key":180,"Value":"180 days"},{"Key":365,"Value":"365 days"},{"Key":0,"Value":"More"}],"defaultsection":"stream","urlpart":"auronplay","id":24713147,"name":"auronplay","logo":null,"defaultpagesize":100,"defaultLanguageId":0,"additionalparams":"","compareIds":null,"timezoneText":"Timezone (UTC)","timezoneOffset":0,"sitedefaultdayrange":7,"dayRange":7,"dayRangeOffset":0,"latestDayId":2762,"twitchUrl":"https://www.twitch.tv/auronplay","latestUpdateDay":1649635200000,"lateUpdateTime":1649761200000,"rangeInfo":{"dayRange":7,"dayRangeOffset":0,"isNamedRange":false,"namedRange":"","month":0,"year":0,"range":"7","startDayId":2756,"endDayId":2763},"filterInfo":{"minYear":2019,"maxYear":2022,"minYearMonth":9,"maxYearMonth":3,"filterUrl":"/channel/auronplay/{RANGE}/stream/46140632173"},"tablePageSizes":[["10","25","50","100"],["10","25","50","100"]],"timecode":"125175_4/12/2022 12:59:14 PM_4859a4d9-dde4-4b23-8691-16fec68bca5e_7d6da0d14be12943382b4c6edd285635","language":null,"timezone":"(UTC) Coordinated Universal Time"};
+        var PageData = {"name":"","id":0};
+
+        var RedirectToUrl = function (Url) {
+            window.location.href = Url;
+        }
+
+        var ToggleMoreRangeLinks = function (Container) {
+            var el = document.getElementById(Container);
+
+            if (el.style.display == 'none') {
+                el.style.display = 'block';
+            }
+            else {
+                el.style.display = 'none';
+            }
+        }
+
+
+    </script>
+
+<div class="LeftMenu">
+    <div class="LeftMenuHeader">
+        <div class="LeftMenuHeaderTopImage">
+            <a href="/">
+                <img src="/Images/gnome.png" alt="Hi I'm SullyGnome!" height="48" width="40" />
+            </a>
+        </div>
+    </div>
+
+    <div class="MenuItemWrapper" title="Back to the home page">
+        <a href="/">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/home.svg" class="FontAweIcon MenuItemHome" alt="Home" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Home
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="MenuItemWrapper" title="View stats on the channels which stream on Twitch">
+        <a href="/channels">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/tv.svg" class="FontAweIcon" alt="Channels" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Channels
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="MenuItemWrapper" title="View stats on the games streamed on Twitch">
+        <a href="/games">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/gamepad.svg" class="FontAweIcon" alt="Game" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Games
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+
+
+    <div class="MenuItemWrapper" title="View stats on the teams which stream on Twitch">
+        <a href="/teams">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/user-plus.svg" class="FontAweIcon" alt="Teams" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Teams
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="MenuItemWrapper" title="Search for channels by the games they play and broadcast language">
+        <a href="/channelsearch">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/search.svg" class="FontAweIcon" alt="Search" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Search
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <div class="MenuItemWrapper" title="See channels which have reached milestones">
+        <a href="/milestones">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/tasks.svg" class="FontAweIcon" alt="Channel milestones" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Milestones
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="MenuItemWrapper" title="Detailed analysis articles on Twitch">
+        <a href="/articlesanalysis">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/newspaper.svg" class="FontAweIcon" alt="Articles" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Articles
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="MenuItemWrapper" title="All about me and the site">
+        <a href="/about">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/male.svg" class="FontAweIcon" alt="About" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    About
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="MenuItemWrapper" title="Support me :)">
+        <a href="https://www.patreon.com/sullygnome" target="_blank">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/Patreon_Mark_Primary.png" class="PatreonIcon" alt="Patreon" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Patreon
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="LeftMenuFooter">
+        <div class='DarkModeHeader'>Dark mode</div>
+        <div class="DarkmodeWrapper notransition" id='dmWrapper'>
+            <input type="checkbox" id="dmChk" class="notransition"/>
+            <label for="dmChk" class="DarkmodeToggle notransition" onclick='SullyJS.Util.SwitchDarkMode(); return true;'>
+                <span class="DarkmodeSpan notransition" id='dmSpan'>
+                </span>
+            </label>
+        </div>
+
+        <script type='text/javascript'>
+                if(isDarkMode)
+                {
+                    document.getElementById('dmChk').checked = true;
+                }
+            </script>
+        <div class="LeftMenuFooterContact">
+            <div class="LeftMenuFooterContact">
+                <div class="LeftMenuFooterIcon">
+                    <a href="https://twitter.com/SullyGnome" target='_blank' title="Twitter">
+                        <img height="22" width="22" src="/Images/twitterlatest.png" style="border:0" alt="Message me on Twitter" />
+                    </a>
+                </div>
+                <div class="LeftMenuFooterIcon">
+                    <a href="/cdn-cgi/l/email-protection#dab9b5b4aebbb9ae9aa9afb6b6a3bdb4b5b7bff4b9b5b7" target='_blank' title="Email">
+                        <img src="/Images/Email.png" style="border:0" alt="Send me an email" />
+                    </a>
+                </div>
+                <div class="LeftMenuFooterIcon">
+                    <a href="https://www.twitch.tv/sullygnome" title="Twitch PM" target='_blank'>
+                        <img src="/Images/TwitchIcon.png" style="border:0" alt="Send me a Twitch PM" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="RightContent">
+    <div class="TopMenu">
+        <div class="SiteTileBar">
+            <div class="SiteTitleBarHeader">
+                <h2>SullyGnome - Twitch stats and analysis</h2>
+            </div>
+            <div class="SiteTitleBarTimezone">
+                <a href="" onclick="SullyJS.Util.ShowTimezonePicker(); return false;">Timezone: (UTC) Coordinated Universal Time</a>
+            </div>
+            <div class="SiteTitleBarSearch">
+                <div id="SearchContainer" class="SiteTitleItem SiteTitleItemSearch" style="position:relative">
+                    <img src="/images/sidebar/cog.svg" class="SearchToggleMenuIcon" onclick="SullyJS.Search.CreateSearchCombo.ToggleOptions();" style="display:none" id="showSearchIcon" />
+                    <input id="HeaderChannelGameSearch" placeholder="Search for a game or channel">
+                    <div id="SearchToggleMenu" style="display:none" class="SearchToggleMenu">
+                        <div class="SearchToggleMenuText" id="idSearchFilterLabel">Filter: </div>
+                        <div class="SearchToggleMenuOption" data-search-item-type="1"><img src="/images/sidebar/tv.svg" alt="Search for channels" title="Search for channels" onmouseenter="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel(1);" onmouseleave="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel();" onclick="SullyJS.Search.CreateSearchCombo.SetSearchFilter(1);" /></div>
+                        <div class="SearchToggleMenuOption" data-search-item-type="2"><img src="/images/sidebar/gamepad.svg" alt="Search for games" title="Search for games" onmouseenter="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel(2);" onmouseleave="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel();" onclick="SullyJS.Search.CreateSearchCombo.SetSearchFilter(2);" /></div>
+                        <div class="SearchToggleMenuOption" data-search-item-type="4"><img src="/images/sidebar/user-plus.svg" alt="Search for teams" title="Search for teams" onmouseenter="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel(4);" onmouseleave="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel();" onclick="SullyJS.Search.CreateSearchCombo.SetSearchFilter(4);" /></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="MainContent">
+        <div class="PageHeader">
+            <div class="PageHeaderInner">
+                <div class="PageHeaderLeft" id="pageHeaderLeft" style="display:none">
+
+                    <div class='RelatedLinksItemSmall FL'>
+                        <a href='/game/Max_Payne_3' style="display:block" title='View stats for Max Payne 3'>
+                            <img src='https://static-cdn.jtvnw.net/ttv-boxart/21222_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Max Payne 3' data-isgamelink='' data-gamename='Max Payne 3' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+
+                    <div class='RelatedLinksItemSmall FL'>
+                        <a href='/game/Grand_Theft_Auto_Vice_City' style="display:block" title='View stats for Grand Theft Auto: Vice City'>
+                            <img src='https://static-cdn.jtvnw.net/ttv-boxart/15631_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Grand Theft Auto: Vice City' data-isgamelink='' data-gamename='Grand Theft Auto: Vice City' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+
+                    <div class='RelatedLinksItemSmall FL'>
+                        <a href='/game/Borderlands_3' style="display:block" title='View stats for Borderlands 3'>
+                            <img src='https://static-cdn.jtvnw.net/ttv-boxart/491318_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Borderlands 3' data-isgamelink='' data-gamename='Borderlands 3' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+
+                    <div class='RelatedLinksItemSmall FL'>
+                        <a href='/game/Halo_Infinite' style="display:block" title='View stats for Halo Infinite'>
+                            <img src='https://static-cdn.jtvnw.net/ttv-boxart/506416_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Halo Infinite' data-isgamelink='' data-gamename='Halo Infinite' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+
+                    <div class='RelatedLinksItemSmall FL'>
+                        <a href='/game/Control' style="display:block" title='View stats for Control'>
+                            <img src='https://static-cdn.jtvnw.net/ttv-boxart/506462_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Control' data-isgamelink='' data-gamename='Control' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+                </div>
+                <div class="PageHeaderMiddle" id="pageHeaderMiddle">
+                    <div class="PageHeaderMiddleTop">
+
+                        <div class="PageHeaderMiddleCon">
+                            <div class="PageHeaderMiddleConInner">
+
+                                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/ec898e4a-e0df-4dc0-a99d-7540c6dbe1e8-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="PageHeaderMiddleTopImage" />
+
+                                <div class="PageHeaderMiddleWithImageHeader">
+                                    <h1>
+                                        <span class="PageHeaderMiddleWithImageHeaderP1">auronplay</span>
+                                        <span class="PageHeaderMiddleWithImageHeaderP2">Stream starting Monday 11th April 3:40pm</span>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class='MiddleSubHeaderContainer'><div class='MiddleSubHeaderRow'><div class='MiddleSubHeaderItem' title='Total number of followers'>Followers:</div><div class='MiddleSubHeaderItemValue'>12,351,911</div><div class='MiddleSubHeaderItem' title='Total number of views'>Views:</div><div class='MiddleSubHeaderItemValue'>259,671,497</div><div class='MiddleSubHeaderItem'>Status:</div><div class='MiddleSubHeaderItemValue'>Partnered</div><div class='MiddleSubHeaderItem'>Mature:</div><div class='MiddleSubHeaderItemValue'>No</div><div class='MiddleSubHeaderItem' title='Broadcast language'>Language:</div><div class='MiddleSubHeaderItemValue'>Spanish</div><div class='MiddleSubHeaderItem'>Created:</div><div class='MiddleSubHeaderItemValue' title='Channel was created on this date'>3rd Sep 2019</div></div></div>
+                </div>
+
+                <div class="PageHeaderRight" id="pageHeaderRight" style="display:none">
+
+                    <div class='RelatedLinksItemSmall FR'>
+                        <a href='/channel/juanjuegajuegos' style="display:block" title='View stats for JuanJuegaJuegos'>
+                            <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/9d945e50-77c3-42b0-96b7-0514c52d2aa9-profile_image-150x150.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for JuanJuegaJuegos' data-ischannellink='' data-channelname='JuanJuegaJuegos' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+
+                    <div class='RelatedLinksItemSmall FR'>
+                        <a href='/channel/fuslie' style="display:block" title='View stats for fuslie'>
+                            <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/517e697a-6768-4834-a703-c326cc1a74b5-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for fuslie' data-ischannellink='' data-channelname='fuslie' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="PageSubHeader" id="pageSubHeaderOuter">
+            <div class="PageSubHeaderInner">
+                <div class="PageSubHeaderLeft" id="pageSubHeaderLeft">
+                    <div title='View summary stats for auronplay over the past 7 days' class='PageSubHeaderTabFirst PageSubHeaderTab' onclick='RedirectToUrl("/channel/auronplay"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/auronplay'>Summary</a></div></div>
+                    <div title='View streams for auronplay over the past 7 days' class='PageSubHeaderTab SelectedLink SelectedTab' onclick='RedirectToUrl("/channel/auronplay/streams"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/auronplay/streams'>Streams</a></div></div>
+                    <div title='View games played by auronplay over the past 7 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/channel/auronplay/games"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/auronplay/games'>Games</a></div></div>
+                    <div title='View activity stats for auronplay over the past 7 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/channel/auronplay/activitystats"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/auronplay/activitystats'>Activity</a></div></div>
+                    <div title='View a stream calendar for auronplay' class='PageSubHeaderTab' onclick='RedirectToUrl("/channel/auronplay/calendar"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/auronplay/calendar'>Calendar</a></div></div>
+                    <div title='Compareauronplay to other Twitch channels' class='PageSubHeaderTab' onclick='RedirectToUrl("/channel/auronplay/compare"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/auronplay/compare'>Compare</a></div></div>
+                    <div title='View auronplay stats over the long term' class='PageSubHeaderTab' onclick='RedirectToUrl("/channel/auronplay/longtermstats"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/auronplay/longtermstats'>Long-term stats</a></div></div>
+                    <div title='Tool to help choose a game to stream' class='PageSubHeaderTab TabLinkLeftPadded' onclick='RedirectToUrl("/tools/gamepicker?channel=auronplay"); return false;'><div class='SubheaderLinkContainer'><a href='/tools/gamepicker?channel=auronplay'>Game Picker</a></div></div>
+                    <div title='Use this tool to help build relationships by raiding channels after your finish streaming' class='PageSubHeaderTab' onclick='RedirectToUrl("/tools/raidfinder?channel=auronplay"); return false;'><div class='SubheaderLinkContainer'><a href='/tools/raidfinder?channel=auronplay'>Raid Finder</a></div></div>
+                </div>
+                <div class="PageSubHeaderMiddle" id="pageSubHeaderMiddle">
+
+                    <div class="PageSubHeaderRight" id="pageSubHeaderRight">
+                        <a href='https://www.twitch.tv/auronplay' title='View auronplay on Twitch' target='_blank' ><img src='/images/TwitchIcon.png'/></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class='PageContentSubHeader' id="pageContentSubHeader">
+            <div class="MiddleSubHeaderItemCont">
+                <div class='MiddleSubHeaderItem PageContentSubHeaderItem'>Start:</div>
+                <div class='MiddleSubHeaderItemValue'>Monday 11th April 3:40pm</div>
+            </div>
+            <div class="MiddleSubHeaderItemCont">
+                <div class='MiddleSubHeaderItem PageContentSubHeaderItem'>Length:</div>
+                <div class='MiddleSubHeaderItemValue'>3 hours, 49 minutes</div>
+            </div>
+            <div class="MiddleSubHeaderItemCont">
+                <div class='MiddleSubHeaderItem PageContentSubHeaderItem'>Watch time:</div>
+                <div class='MiddleSubHeaderItemValue'>520,681 hours</div>
+            </div>
+            <div class="MiddleSubHeaderItemCont">
+                <div class='MiddleSubHeaderItem PageContentSubHeaderItem'>Followers:</div>
+                <div class='MiddleSubHeaderItemValue'>9,104</div>
+            </div>
+            <div class="MiddleSubHeaderItemCont">
+                <div class='MiddleSubHeaderItem PageContentSubHeaderItem'>Views:</div>
+                <div class='MiddleSubHeaderItemValue'>438,921</div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <div class="PageQuickLinksPanel" id="channelQuickLinks">
+            <div style="float:left">
+                <a href="/team/auronplay" style="padding-right:5px">Auronplay</a>
+            </div>
+        </div>
+
+        <div class="PageContentContainer">
+
+
+            <div class="StreamSubHeader">
+                <div class="StreamSubHeaderLeft">
+                    <a href="/channel/auronplay/stream/46130924829" class="StreamSubHeaderLinkIcon"><img src="/images/fa/angle-left-solid.svg" /></a>
+                    <a href="/channel/auronplay/stream/46130924829" class="StreamSubHeaderLink">Sunday 10th April 3:42pm (3 hours, 17 minutes)</a>
+                </div>
+
+                <div class="StreamSubHeaderRight">
+                </div>
+            </div>
+
+
+            <div class="StandardPageContainer">
+                <div class="SetMinScrollable">
+
+                    <div class="MiniPanelContainer">
+                        <div class="MiniPanelOuter">
+                            <div class="MiniPanel">
+                                <div class="MiniPanelTop" title="The average number of viewers watching the stream">
+                                    <div class="MiniPanelTopLeft" >Average viewers:</div>
+                                    <div class="MiniPanelTopRight">
+                                        129,820
+                                    </div>
+                                    <img src="/images/sidebar/info-circle-solid.svg" class="MiniPanelInfoIcon" title="There is usually a high degree of variance between streams and averages can get easily skewed (by a large raid for example). This panel uses standard deviation of calculate an expected range and then displays whether or not the stream falls within this range. Please note that being on par is not a negative, particularly if the trend is positive." />
+                                </div>
+                                <div class="MiniPanelProcess"  title="How this streams average viewership compares the largest in the previous 15 streams" >
+                                    <div class="MiniPanelProcessInner">
+                                        <div class="MiniPanelProcessInnerOverlay MiniPanelProcessInnerOverlayViewers" style="width:89%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="MiniPanelMiddle" title="How this streams average viewership compares to previous 15 streams">
+                                    <div class="MiniPanelMiddleLeft">Stream performance:</div>
+                                    <div class="MiniPanelMiddleRight DeviationCompareAbove">Above</div>
+                                </div>
+                                <div class="MiniPanelBottom" title="The trend in average viewership of previous 15 streams">
+                                    <div class="MiniPanelBottomLeft">Previous stream trend:</div>
+                                    <div class="MiniPanelBottomRight DeviationCompareAbove">Positive</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="MiniPanelOuter">
+                            <div class="MiniPanel">
+                                <div class="MiniPanelTop" title="The average number of views per hour gained during the course of this stream">
+                                    <div class="MiniPanelTopLeft" >Views per hour:</div>
+                                    <div class="MiniPanelTopRight">
+                                        117,045.60
+                                    </div>
+                                    <img src="/images/sidebar/info-circle-solid.svg" class="MiniPanelInfoIcon" title="There is usually a high degree of variance between streams and averages can get easily skewed (by a large raid for example). This panel uses standard deviation of calculate an expected range and then displays whether or not the stream falls within this range. Please note that being on par is not a negative, particularly if the trend is positive." />
+                                </div>
+                                <div class="MiniPanelProcess"  title="How this streams average views per hour compares the largest in the previous 15 streams" >
+                                    <div class="MiniPanelProcessInner">
+                                        <div class="MiniPanelProcessInnerOverlay MiniPanelProcessInnerOverlayViews" style="width:64%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="MiniPanelMiddle" title="How this streams average views per hour compares to previous 15 streams">
+                                    <div class="MiniPanelMiddleLeft">Stream performance:</div>
+                                    <div class="MiniPanelMiddleRight DeviationCompareSlightlyAbove">Slightly above</div>
+                                </div>
+                                <div class="MiniPanelBottom" title="The trend in average views per hour of the previous 15 streams">
+                                    <div class="MiniPanelBottomLeft">Previous stream trend:</div>
+                                    <div class="MiniPanelBottomRight DeviationCompareBelow">Negative</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="InfoPanelContainer">
+
+                        <div class="ChartPanelWide">
+                            <div id="channelstream" class="LineChartContainer">
+                                <div class="ChartHeader">
+                                    <div class="ChartTitleText">
+                                        <h3 class="ChartTitle" id="lblChartTitle">Stream overview - auronplay&#x27;s stream starting Monday 11th April 3:40pm</h3>
+                                    </div>
+                                    <div class="ChartOptions">
+                                        <a href="" class="ChartResize" onclick="SullyJS.Charts.ExpandCollapseChart(this,'ChartPanelWide','CanvasWrapWide'); return false;">Expand</a>
+                                        <a href="" class="ChartResize" onclick="SullyJS.Charts.SaveChart(this); return false;">Image</a>
+                                        <a href="" class="ChartResize ChartStyleOption" onclick="SullyJS.Charts.RestyleChart(this,2); return false;" id="lineStyleOption" style="display:none">Show offline</a>
+                                    </div>
+                                </div>
+                                <div class="ChartRangeRow">
+                                    <div id="pnlChartDescription" style="display:none">
+                                        <div class="ChartRangeLabel" id="litDescriptionLabel"></div>
+                                    </div>
+                                    <div id="pnlChartMinLabel" style="display:inline">
+                                        <div class="ChartRangeLabel" id="litRangeMinLabel"></div>
+                                        <div class="ChartRangeValue" id="litRangeMinValue"></div>
+                                    </div>
+                                    <div id="pnlChartMaxLabel" style="display:inline">
+                                        <div class="ChartRangeLabel" id="litRangeMaxLabel"></div>
+                                        <div class="ChartRangeValue" id="litRangeMaxValue"></div>
+                                    </div>&nbsp;
+                                </div>
+                                <div class="ChartRangeRowHidden" style="display:none">
+                                </div>
+                                <div class="CanvasWrapWide" id="chartwrappanel">
+                                    <canvas id="canvasLineChart" class="LineChart"></canvas>
+                                </div>
+                                <div id="ChartSlider" style="display:none" class="ChartSliderContainer ChartFooter">
+                                    <input id="inSliderLeft_36275419-2b86-426b-af8d-3c810b2562f4" style="display:none" />
+                                    <a id="LeftText" class="ChartSliderLeft" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'Start'); return false;">Start Text</a>
+                                    <div class="ChartSliderMiddle">
+                                        <div id="MiddleContainer" class="ChartSliderWrapper"></div>
+                                    </div>
+                                    <input id="inSliderRight_2441da12-2937-467a-897a-e041def6d408" style="display:none" />
+                                    <a id="RightText" class="ChartSliderRight" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'End'); return false;">End Text</a>
+                                </div>
+                                <div id="LineChartLegend"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="StreamGameSummaryPanelContainer">
+                        <div class="StreamGameSummaryPanel">
+                            <div class="StreamGameSummaryPanelHeader">
+                                <div class="StreamGameSummaryPanelHeaderLeft">
+                                    <div class="StreamGameSummaryPanelItemValue">Grand Theft Auto V</div>
+                                </div>
+                                <div class="StreamGameSummaryPanelHeaderPart">
+                                    <div class="StreamGameSummaryPanelItem">Watch time: </div><div class="StreamGameSummaryPanelItemValue">498,339 hours</div>
+                                </div>
+                                <div class="StreamGameSummaryPanelHeaderPart">
+                                    <div class="StreamGameSummaryPanelItem">Stream length: </div><div class="StreamGameSummaryPanelItemValue">3 hours, 30 minutes</div>
+                                </div>
+                            </div>
+
+                            <div class="MiniPanelBreak">
+                                <hr />
+                            </div>
+
+                            <div class="MiniPanelContainer">
+                                <img src="https://static-cdn.jtvnw.net/ttv-boxart/32982_IGDB-136x190.jpg" class="MiniPanelLogo" />
+                                <div class="MiniPanelOuter">
+                                    <div class="MiniPanel">
+                                        <div class="MiniPanelTop" title="The average number of viewers watching the stream">
+                                            <div class="MiniPanelTopLeft" >Average viewers:</div>
+                                            <div class="MiniPanelTopRight">
+                                                142,383
+                                            </div>
+                                            <img src="/images/sidebar/info-circle-solid.svg" class="MiniPanelInfoIcon" title="There is usually a high degree of variance between streams and averages can get easily skewed (by a large raid for example). This panel uses standard deviation of calculate an expected range and then displays whether or not the stream falls within this range. Please note that being on par is not a negative." />
+                                        </div>
+                                        <div class="MiniPanelProcess"  title="How this streams average viewership compares the largest in the previous 8 streams" >
+                                            <div class="MiniPanelProcessInner">
+                                                <div class="MiniPanelProcessInnerOverlay MiniPanelProcessInnerOverlayViewers" style="width:100%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="MiniPanelMiddle" title="The maximum number of viewers watching Grand Theft Auto V during this stream">
+                                            <div class="MiniPanelMiddleLeft">Max viewers:</div>
+                                            <div class="MiniPanelMiddleRight Bold">164,582</div>
+                                        </div>
+                                        <div class="MiniPanelBottom" title="How this streams average viewers compares to the past 8 Grand Theft Auto V streams">
+                                            <div class="MiniPanelBottomLeft">Game performance:</div>
+                                            <div class="MiniPanelBottomRight DeviationCompareAbove">Above</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="MiniPanelOuter">
+                                    <div class="MiniPanel">
+                                        <div class="MiniPanelTop" title="The average number of views per hour gained during the course of this stream">
+                                            <div class="MiniPanelTopLeft" >Views per hour:</div>
+                                            <div class="MiniPanelTopRight">
+                                                90,100.43
+                                            </div>
+                                            <img src="/images/sidebar/info-circle-solid.svg" class="MiniPanelInfoIcon" title="There is usually a high degree of variance between streams and averages can get easily skewed (by a large raid for example). This panel uses standard deviation of calculate an expected range and then displays whether or not the stream falls within this range. Please note that being on par is not a negative." />
+                                        </div>
+                                        <div class="MiniPanelProcess"  title="How this streams average views per hour compares the largest in the previous 8 streams" >
+                                            <div class="MiniPanelProcessInner">
+                                                <div class="MiniPanelProcessInnerOverlay MiniPanelProcessInnerOverlayViews" style="width:81%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="MiniPanelMiddle" title="The number of views gained watching Grand Theft Auto V during this stream">
+                                            <div class="MiniPanelMiddleLeft">Views:</div>
+                                            <div class="MiniPanelMiddleRight Bold">315,352</div>
+                                        </div>
+                                        <div class="MiniPanelBottom" title="How this streams views per hour compares to the past 8 Grand Theft Auto V streams">
+                                            <div class="MiniPanelBottomLeft">Game performance:</div>
+                                            <div class="MiniPanelBottomRight DeviationCompareBelow">Below</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><div class="StreamGameSummaryPanel">
+                        <div class="StreamGameSummaryPanelHeader">
+                            <div class="StreamGameSummaryPanelHeaderLeft">
+                                <div class="StreamGameSummaryPanelItemValue">Just Chatting</div>
+                            </div>
+                            <div class="StreamGameSummaryPanelHeaderPart">
+                                <div class="StreamGameSummaryPanelItem">Watch time: </div><div class="StreamGameSummaryPanelItemValue">22,341 hours</div>
+                            </div>
+                            <div class="StreamGameSummaryPanelHeaderPart">
+                                <div class="StreamGameSummaryPanelItem">Stream length: </div><div class="StreamGameSummaryPanelItemValue">0 hours, 34 minutes</div>
+                            </div>
+                        </div>
+
+                        <div class="MiniPanelBreak">
+                            <hr />
+                        </div>
+
+                        <div class="MiniPanelContainer">
+                            <img src="https://static-cdn.jtvnw.net/ttv-boxart/509658-136x190.jpg" class="MiniPanelLogo" />
+                            <div class="MiniPanelOuter">
+                                <div class="MiniPanel">
+                                    <div class="MiniPanelTop" title="The average number of viewers watching the stream">
+                                        <div class="MiniPanelTopLeft" >Average viewers:</div>
+                                        <div class="MiniPanelTopRight">
+                                            41,885
+                                        </div>
+                                        <img src="/images/sidebar/info-circle-solid.svg" class="MiniPanelInfoIcon" title="There is usually a high degree of variance between streams and averages can get easily skewed (by a large raid for example). This panel uses standard deviation of calculate an expected range and then displays whether or not the stream falls within this range. Please note that being on par is not a negative." />
+                                    </div>
+                                    <div class="MiniPanelProcess"  title="How this streams average viewership compares the largest in the previous 15 streams" >
+                                        <div class="MiniPanelProcessInner">
+                                            <div class="MiniPanelProcessInnerOverlay MiniPanelProcessInnerOverlayViewers" style="width:29%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="MiniPanelMiddle" title="The maximum number of viewers watching Just Chatting during this stream">
+                                        <div class="MiniPanelMiddleLeft">Max viewers:</div>
+                                        <div class="MiniPanelMiddleRight Bold">65,909</div>
+                                    </div>
+                                    <div class="MiniPanelBottom" title="How this streams average viewers compares to the past 15 Just Chatting streams">
+                                        <div class="MiniPanelBottomLeft">Game performance:</div>
+                                        <div class="MiniPanelBottomRight DeviationCompareEqual">On par</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="MiniPanelOuter">
+                                <div class="MiniPanel">
+                                    <div class="MiniPanelTop" title="The average number of views per hour gained during the course of this stream">
+                                        <div class="MiniPanelTopLeft" >Views per hour:</div>
+                                        <div class="MiniPanelTopRight">
+                                            59,842.00
+                                        </div>
+                                        <img src="/images/sidebar/info-circle-solid.svg" class="MiniPanelInfoIcon" title="There is usually a high degree of variance between streams and averages can get easily skewed (by a large raid for example). This panel uses standard deviation of calculate an expected range and then displays whether or not the stream falls within this range. Please note that being on par is not a negative." />
+                                    </div>
+                                    <div class="MiniPanelProcess"  title="How this streams average views per hour compares the largest in the previous 15 streams" >
+                                        <div class="MiniPanelProcessInner">
+                                            <div class="MiniPanelProcessInnerOverlay MiniPanelProcessInnerOverlayViews" style="width:31%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="MiniPanelMiddle" title="The number of views gained watching Just Chatting during this stream">
+                                        <div class="MiniPanelMiddleLeft">Views:</div>
+                                        <div class="MiniPanelMiddleRight Bold">14,960</div>
+                                    </div>
+                                    <div class="MiniPanelBottom" title="How this streams views per hour compares to the past 15 Just Chatting streams">
+                                        <div class="MiniPanelBottomLeft">Game performance:</div>
+                                        <div class="MiniPanelBottomRight DeviationCompareBelow">Below</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>        </div>
+                </div>
+            </div>
+
+            <div class="ContentFooter"></div>
+
+
+
+        </div>
+    </div>
+    <div style="clear:both"></div>
+
+    <div id="TimezonePicker" class="TimezonePicker" style="display:none" onclick="SullyJS.Util.ShowTimezonePicker(); return false;">
+        <div class="TimezonePickerContent" onclick="SullyJS.Util.ShowTimezonePrevent(event);">
+            <span class="TimezonePickerClose" onclick="SullyJS.Util.ShowTimezonePicker(); return false;">&times;</span>
+            <p id="TimezonePickerHeader"></p>
+            <hr />
+            <select class="TimezonePickerSelect" id="TimezonePickerSelect" onchange="SullyJS.Util.TimezonePickerSelected();">
+                <option value="">Loading...</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div id="LanguagePicker" class="TimezonePicker" style="display:none" onclick="SullyJS.Util.ShowLanguagePicker(); return false;">
+        <div class="TimezonePickerContent" onclick="SullyJS.Util.ShowLanguagePrevent(event);">
+            <span class="TimezonePickerClose" onclick="SullyJS.Util.ShowLanguagePicker(); return false;">&times;</span>
+            <p id="LanguagePickerHeader"></p>
+            <hr />
+            <select class="TimezonePickerSelect" id="LanguagePickerSelect" onchange="SullyJS.Util.LanguagePickerSelected();">
+            </select>
+        </div>
+    </div>
+
+    <div class="FooterContainer">
+        <div class="PageFooter">
+            <a href="https://SullyGnome.com">SullyGnome.com</a> © is in no way affiliated with <a href="https://www.twitch.tv/" target="_blank">Twitch</a>. Please do not scrape this site, it's a hobby project with limited resources.
+            <a href="/policy/tos">Terms</a>
+            <a href="/policy/cookie">Cookies</a>
+        </div>
+
+    </div>
+</div>
+
+<link rel="icon" type="image/x-icon" href="https://www.sullygnome.com/images/fav/favicon.ico" />
+
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/lib/jquery/jquery-3.2.1.min.js"></script>
+<script src="/lib/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="/js/sully/sully.bundle.min.js?v=gZjkEj6Ay02onJ0x2VW-Vn-QKF106ovWOHe_6dlKT3Y"></script>
+<script src="/js/sully/chart.bundle.js"></script>
+<script src="/lib/nouislider/nouislider.min.js"></script>
+<link rel="stylesheet" href="/lib/nouislider/nouislider.min.css" />
+
+
+
+<script>
+            var ShowAnalytics = true;
+        </script>
+
+
+<script>
+
+        if(isDarkMode)
+        {
+            SullyJS.Util.SetDarkMode();
+        }
+
+        var wrapper = $('[id=dmWrapper]');
+        wrapper.removeClass('notransition');
+        wrapper.find('.notransition').removeClass('notransition');
+
+    </script>
+
+
+<script type="text/javascript">
+        SullyJS.Charts.Line.CreateLineChart("channelstream", "channelstream", 7, 0, 24713147, "auronplay", null, null,0,0,46140632173, false);
+    </script>
+
+
+
+<script>
+            $('[id*=showSearchIcon]').show();
+            SullyJS.Util.RunStartEvents();
+            $(function () {
+                SullyJS.Search.CreateSearchCombo();
+                SullyJS.Pages.CreateToolTips();
+            });
+        </script>
+
+</body>
+</html>

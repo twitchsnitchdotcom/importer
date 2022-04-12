@@ -197,11 +197,11 @@ public class PersistenceService {
         return sullyChannels;
     }
 
-    public Set<String> getAllGamesWithoutTwitchIds() {
+    public Set<String> getAllGamesWithoutTwitchIds(Integer limit) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<String> gamesWithoutTwitchIds = new HashSet<>();
-        Collection<Map<String, Object>> all = client.query("MATCH (g:Game) WHERE g.twitch_id IS NULL RETURN g.name LIMIT 100").in(database).fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH (g:Game) WHERE g.twitch_id IS NULL RETURN g.name LIMIT " + limit).in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 gamesWithoutTwitchIds.add((String) entry.getValue());
@@ -218,13 +218,7 @@ public class PersistenceService {
         stopWatch.start();
         Set<String> usersWithoutTwitchId = new HashSet<>();
         Collection<Map<String, Object>> all;
-        if (limit != null) {
-            all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login").in(database).fetch().all();
-
-        } else {
-            all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login LIMIT " + limit).in(database).fetch().all();
-
-        }
+        all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login LIMIT " + limit).in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 usersWithoutTwitchId.add((String) entry.getValue());
@@ -282,18 +276,12 @@ public class PersistenceService {
 
 
 
-    public Set<String> getTeamsWithoutTwitchId(Integer limit){
+    public Set<String> getTeamsWithoutTwitchId(){
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<String> teamsWithoutTwitchId = new HashSet<>();
         Collection<Map<String, Object>> all;
-        if (limit != null) {
-            all = client.query("MATCH (t:Team) WHERE t.twitch_id IS NULL RETURN t.login").in(database).fetch().all();
-
-        } else {
-            all = client.query("MATCH (t:Team) WHERE t.twitch_id IS NULL RETURN t.login LIMIT " + limit).in(database).fetch().all();
-
-        }
+        all = client.query("MATCH (t:Team) WHERE t.twitch_id IS NULL RETURN t.login").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 teamsWithoutTwitchId.add((String) entry.getValue());

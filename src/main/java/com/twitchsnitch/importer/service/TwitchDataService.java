@@ -5,14 +5,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.twitchsnitch.importer.dto.sully.channels.ChannelStreamList;
-import com.twitchsnitch.importer.dto.sully.channels.ChannelStreamListDatum;
-import com.twitchsnitch.importer.dto.sully.channels.IndividualStreamDTO;
-import com.twitchsnitch.importer.dto.sully.games.GamesDatum;
+import com.twitchsnitch.importer.dto.sully.channels.*;
 import com.twitchsnitch.importer.dto.twitch.*;
-import com.twitchsnitch.importer.dto.sully.channels.ChannelsTable;
 import com.twitchsnitch.importer.dto.sully.games.GamesTable;
 import com.twitchsnitch.importer.dto.sully.teams.TeamsTable;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -121,7 +121,7 @@ public class TwitchDataService {
         return request;
     }
 
-    public String goToWebSite(String url, ChromeDriver driver) {
+    public String goToWebSiteJSON(String url, ChromeDriver driver) {
         try {
             driver.get("view-source:" + url);
             String json = driver.findElement(By.className("line-content")).getText();
@@ -140,7 +140,7 @@ public class TwitchDataService {
         return null;
     }
 
-    public List<String> goToWebSites(List<String> urls, ChromeDriver driver) {
+    public List<String> goToWebSitesJSON(List<String> urls, ChromeDriver driver) {
         List<String> jsonList = new ArrayList<>();
         for (String url : urls) {
             try {
@@ -161,6 +161,29 @@ public class TwitchDataService {
             }
         }
         return jsonList;
+    }
+
+    public List<String> goToWebSitesHTML(List<String> urls, ChromeDriver driver) {
+        List<String> htmlList = new ArrayList<>();
+        for (String url : urls) {
+            try {
+                driver.get(url);
+                htmlList.add(driver.getPageSource());
+                log.debug("Pages collected so far is: " + htmlList.size());
+            } catch (Exception e) {
+                log.error("The URL that failed is: " + url + " I will wait another 2 seconds for the response");
+                try {
+                    driver.get(url);
+                    Thread.sleep(2000);
+                    htmlList.add(driver.getPageSource());
+
+                } catch (Exception e2) {
+                    log.error("FAILED COLLECTING: " + url);
+                }
+
+            }
+        }
+        return htmlList;
     }
 
     private List<String> buildUpSubSequentUrls(String prefix, String suffix, long resultSize) {
@@ -186,7 +209,6 @@ public class TwitchDataService {
     }
 
     //DB METHODS
-
     public void addDB() {
         persistenceService.addDatabase("system");
     }
@@ -222,7 +244,7 @@ public class TwitchDataService {
             String urlSuffix = "/%20/1/2/desc/0/100";
             Set<Long> channelsWithoutChannelGameData = persistenceService.getChannelsWithoutChannelGameData();
             for (Long sullyId : channelsWithoutChannelGameData) {
-                String json = goToWebSite(urlPrefix + sullyId + urlSuffix, tertiaryDriver);
+                String json = goToWebSiteJSON(urlPrefix + sullyId + urlSuffix, tertiaryDriver);
                 persistenceService.persistSullyChannelGames(sullyId, objectMapper().readValue(json, Map.class));
             }
         }
@@ -231,46 +253,68 @@ public class TwitchDataService {
         }
     }
 
-//    public void importChannelStreamsDetail() {
-//        Set<Long> streamIdSet = persistenceService.getChannelStreamsWithoutIndividualData();
-//        try {
-//            for (Long id : streamIdSet) {
-//                String suffix = "/" + numberOfRecords;
-//                String channelStreamDetailScaffoldUrl = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc/10";
-//                String channelStreamDetailPrefix = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc";
-//
-//                long streamsDetailTotalSize;
-//                ChannelStreamList channelStreamList = objectMapper().readValue(goToWebSite(channelStreamDetailScaffoldUrl, tertiaryDriver), ChannelStreamList.class);
-//                streamsDetailTotalSize = channelStreamList.getRecordsTotal();
-//                log.debug("Actual channel stream detail size: " + streamsDetailTotalSize);
-//                if (testing) {
-//                    streamsDetailTotalSize = 10; //todo remove when read for prod
-//                }
-//                List<String> streamsUrls = buildUpSubSequentUrls(channelStreamPrefix, suffix, streamsTotalSize);
-//                for (String json : goToWebSites(streamsUrls, tertiaryDriver)) {
-//                    persistenceService.persistSullyChannelStreams(objectMapper().readValue(json, Map.class));
-//                }
-//
-//            }
-//        } catch (JsonProcessingException e) {
-//            log.error(e.getMessage());
-//        }
-//    }
+    public void importChannelStreamsDetail() {
+        Set<Long> streamIdSet = persistenceService.getChannelStreamsWithoutIndividualData();
+        try {
+            for (Long id : streamIdSet) {
+                String suffix = "/" + numberOfRecords;
+                String channelStreamDetailScaffoldUrl = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc/10";
+                String channelStreamDetailPrefix = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc";
+
+                long streamsDetailTotalSize;
+                ChannelStreamList channelStreamList = objectMapper().readValue(goToWebSiteJSON(channelStreamDetailScaffoldUrl, tertiaryDriver), ChannelStreamList.class);
+                streamsDetailTotalSize = channelStreamList.getRecordsTotal();
+                log.debug("Actual channel stream detail size: " + streamsDetailTotalSize);
+                if (testing) {
+                    streamsDetailTotalSize = 10; //todo remove when read for prod
+                }
+                List<String> streamsUrls = buildUpSubSequentUrls(channelStreamDetailPrefix, suffix, streamsDetailTotalSize);
+                for (String html : goToWebSitesHTML(streamsUrls, tertiaryDriver)) {
+                    IndividualStreamDTO individualStreamDTO = new IndividualStreamDTO();
+                    Document doc = Jsoup.parse(html);
+                    individualStreamDTO.setAverageViewers(Long.parseLong(doc.select("body > div.RightContent > div.MainContent > div.PageContentContainer > div.StandardPageContainer > div > div.MiniPanelContainer > div:nth-child(1) > div > div.MiniPanelTop > div.MiniPanelTopRight").get(0).text().replace(",", "")));
+                    individualStreamDTO.setViewsPerHour(Double.parseDouble(doc.select("body > div.RightContent > div.MainContent > div.PageContentContainer > div.StandardPageContainer > div > div.MiniPanelContainer > div:nth-child(2) > div > div.MiniPanelTop > div.MiniPanelTopRight").get(0).text().replace(",", "")));
+                    Elements streamSummaryPanels = doc.getElementsByClass("StreamGameSummaryPanel");
+                    for (Element panel : streamSummaryPanels) {
+                        IndividualStreamDataDTO individualStreamDataDTO = new IndividualStreamDataDTO();
+                        Elements pannelItems = panel.getElementsByClass("StreamGameSummaryPanelItemValue");
+                        individualStreamDataDTO.setGameName(pannelItems.get(0).text());
+                        individualStreamDataDTO.setWatchTime(Long.parseLong(pannelItems.get(1).text().replace(",", "").replace(" hours", "")));
+                        individualStreamDataDTO.setStreamLength(pannelItems.get(2).text());
+                        Elements miniPanelOuter = panel.getElementsByClass("MiniPanelOuter");
+
+                        individualStreamDataDTO.setAverageViewers(Long.parseLong(miniPanelOuter.get(0).getElementsByClass("MiniPanelTop").get(0).getElementsByClass("MiniPanelTopRight").get(0).text().replace(",", "")));
+                        individualStreamDataDTO.setMaxViewers(Long.parseLong(miniPanelOuter.get(0).getElementsByClass("MiniPanelMiddle").get(0).getElementsByClass("MiniPanelMiddleRight").get(0).text().replace(",", "")));
+                        individualStreamDataDTO.setMaxViewersPerformance(miniPanelOuter.get(0).getElementsByClass("MiniPanelBottom").get(0).getElementsByClass("MiniPanelBottomRight").get(0).text());
+                        individualStreamDataDTO.setViewsPerHour(Double.parseDouble(miniPanelOuter.get(1).getElementsByClass("MiniPanelTop").get(0).getElementsByClass("MiniPanelTopRight").get(0).text().replace(",", "")));
+                        individualStreamDataDTO.setViews(Long.parseLong(miniPanelOuter.get(1).getElementsByClass("MiniPanelMiddle").get(0).getElementsByClass("MiniPanelMiddleRight").get(0).text().replace(",", "")));
+                        individualStreamDataDTO.setViewsPerformance(miniPanelOuter.get(1).getElementsByClass("MiniPanelBottom").get(0).getElementsByClass("MiniPanelBottomRight").get(0).text());
+                        individualStreamDTO.getGamesPlayed().add(individualStreamDataDTO);
+                    }
+                    persistenceService.persistSullyChannelIndividualStream(individualStreamDTO);
+                }
+
+            }
+        } catch (JsonProcessingException e) {
+            log.error(e.getMessage());
+        }
+    }
 
     public void importTwitchGameData(){
         Set<String> gamesNameList = new HashSet<>();
-        Set<String> allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds();
+        Set<String> allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds(100);
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
         while(allGamesWithoutTwitchIds.size() > 0){
             for(String name: allGamesWithoutTwitchIds){
                 gamesNameList.add(encodeValue(name));
                 Map map = runGetGame(gamesNameList, localToken);
                 persistenceService.updateGameWithTwitchData(map);
-                allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds();
+                allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds(100);
                 gamesNameList = new HashSet<>();
             }
         }
     }
+
     public void importTwitchUsers() {
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
         Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId(100);
@@ -290,14 +334,14 @@ public class TwitchDataService {
                 String channelStreamPrefix = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc";
 
                 long streamsTotalSize;
-                ChannelStreamList channelStreamList = objectMapper().readValue(goToWebSite(channelStreamScaffoldUrl, tertiaryDriver), ChannelStreamList.class);
+                ChannelStreamList channelStreamList = objectMapper().readValue(goToWebSiteJSON(channelStreamScaffoldUrl, tertiaryDriver), ChannelStreamList.class);
                 streamsTotalSize = channelStreamList.getRecordsTotal();
                 log.debug("Actual channel stream size: " + streamsTotalSize);
                 if (testing) {
                     streamsTotalSize = 10; //todo remove when read for prod
                 }
                 List<String> streamsUrls = buildUpSubSequentUrls(channelStreamPrefix, suffix, streamsTotalSize);
-                for (String json : goToWebSites(streamsUrls, tertiaryDriver)) {
+                for (String json : goToWebSitesJSON(streamsUrls, tertiaryDriver)) {
                     persistenceService.persistSullyChannelStreams(objectMapper().readValue(json, Map.class));
                 }
 
@@ -318,14 +362,14 @@ public class TwitchDataService {
         String gamePrefix = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc/";
         long gamesTotalSize;
         try {
-            GamesTable gamesTable = objectMapper().readValue(goToWebSite(gameScaffoldUrl, tertiaryDriver), GamesTable.class);
+            GamesTable gamesTable = objectMapper().readValue(goToWebSiteJSON(gameScaffoldUrl, tertiaryDriver), GamesTable.class);
             gamesTotalSize = gamesTable.getRecordsTotal();
             log.debug("Actual Game size: " + gamesTotalSize);
             if (testing) {
                 gamesTotalSize = 1001; //todo remove when read for prod
             }
             List<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
-            for (String json : goToWebSites(gamesUrls, tertiaryDriver)) {
+            for (String json : goToWebSitesJSON(gamesUrls, tertiaryDriver)) {
                 persistenceService.persistSullyGames(gamesDaysPerspective, objectMapper().readValue(json, Map.class));
             }
         } catch (JsonProcessingException e) {
@@ -334,9 +378,9 @@ public class TwitchDataService {
 
     }
 
-    public void importTwitchTeams(Integer limit) {
+    public void importTwitchTeams() {
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
-        Set<String> teamsWithoutTwitchId = persistenceService.getTeamsWithoutTwitchId(limit);
+        Set<String> teamsWithoutTwitchId = persistenceService.getTeamsWithoutTwitchId();
         for (String teamName : teamsWithoutTwitchId) {
             Map map = runGetTeam(teamName, localToken);
             persistenceService.updateTeamWithTwitchData(teamName, map);
@@ -349,7 +393,7 @@ public class TwitchDataService {
         String channelPrefix = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/3/desc/";
         long channelTotalSize;
         try {
-            ChannelsTable channelsTable = objectMapper().readValue(goToWebSite(channelsScaffoldUrl, primaryDriver), ChannelsTable.class);
+            ChannelsTable channelsTable = objectMapper().readValue(goToWebSiteJSON(channelsScaffoldUrl, primaryDriver), ChannelsTable.class);
             channelTotalSize = channelsTable.getRecordsTotal();
             log.debug("Actual Channel size: " + channelTotalSize);
             if (testing) {
@@ -357,7 +401,7 @@ public class TwitchDataService {
             }
             List<String> channelUrls = buildUpSubSequentUrls(channelPrefix, suffix, channelTotalSize);
             OAuthTokenDTO localToken = oAuthService.getRandomToken();
-            for (String json : goToWebSites(channelUrls, primaryDriver)) {
+            for (String json : goToWebSitesJSON(channelUrls, primaryDriver)) {
                 persistenceService.persistSullyChannels(channelDaysPerspective, objectMapper().readValue(json, Map.class));
             }
         } catch (JsonProcessingException e) {
@@ -374,14 +418,14 @@ public class TwitchDataService {
         String teamsprefix = "https://sullygnome.com/api/tables/teamtables/getteams/" + teamsDaysPerspective + "/0/1/3/desc/";
         long teamTotalSize;
         try {
-            TeamsTable teamsTable = objectMapper().readValue(goToWebSite(teamsScaffoldUrl, secondaryDriver), TeamsTable.class);
+            TeamsTable teamsTable = objectMapper().readValue(goToWebSiteJSON(teamsScaffoldUrl, secondaryDriver), TeamsTable.class);
             teamTotalSize = teamsTable.getRecordsTotal();
             log.debug("Actual Teams size: " + teamTotalSize);
             if (testing) {
                 teamTotalSize = 101;
             }
             List<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
-            for (String json : goToWebSites(teamsUrls, secondaryDriver)) {
+            for (String json : goToWebSitesJSON(teamsUrls, secondaryDriver)) {
                 persistenceService.persistSullyTeams(teamsDaysPerspective, objectMapper().readValue(json, Map.class));
             }
         } catch (JsonProcessingException e) {
