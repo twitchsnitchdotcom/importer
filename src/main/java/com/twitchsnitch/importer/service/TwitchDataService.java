@@ -358,9 +358,9 @@ public class TwitchDataService {
     }
 
     public void importChannelStreams() {
-        Set<String> allSullyChannels = persistenceService.getAllSullyChannels();
+        Set<Long> allSullyChannels = persistenceService.getAllSullyChannels();
         try {
-            for (String id : allSullyChannels) {
+            for (Long id : allSullyChannels) {
                 String suffix = "/" + numberOfRecords;
                 String channelStreamScaffoldUrl = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc/10";
                 String channelStreamPrefix = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc";

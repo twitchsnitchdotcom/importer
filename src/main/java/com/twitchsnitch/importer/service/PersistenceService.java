@@ -182,14 +182,14 @@ public class PersistenceService {
         return sullyChannelStreams;
     }
 
-    public Set<String> getAllSullyChannels(){
+    public Set<Long> getAllSullyChannels(){
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        Set<String> sullyChannels = new HashSet<>();
+        Set<Long> sullyChannels = new HashSet<>();
         Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) RETURN c.sully_id").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
-                sullyChannels.add((String) entry.getValue());
+                sullyChannels.add((Long) entry.getValue());
             }
         }
         stopWatch.stop();
