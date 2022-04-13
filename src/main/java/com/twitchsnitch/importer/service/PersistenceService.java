@@ -316,16 +316,16 @@ public class PersistenceService {
                 "  // Store information about vips\n" +
                 "  FOREACH (vip in chatters.vips | \n" +
                 "          MERGE (u:User{login:vip}) \n" +
-                "          MERGE (u)-[:VIP{date:datetime()}]->(s))\n" +
+                "          MERGE (u)-[:VIP]->(s))\n" +
                 "  //Store information about moderators\n" +
                 "  FOREACH (mod in chatters.moderators | \n" +
                 "          MERGE (u:User{login:mod}) \n" +
-                "          MERGE (u)-[:MODERATOR{date:datetime()]->(s))\n" +
+                "          MERGE (u)-[:MODERATOR]->(s))\n" +
                 "  //Store information about regular users\n" +
                 "  FOREACH (chatter in chatters.viewers | \n" +
                 "          MERGE (u:User{login:chatter}) \n" +
-                "          MERGE (u)-[:CHATTER{date:datetime()]->(s))',\n" +
-                "{batchSize:1})").in(database).run();
+                "          MERGE (u)-[:CHATTER]->(s))',\n" +
+                "{batchSize:10, parallel:true})").in(database).run();
         logResultSummaries("runChattersOnDB", run);
     }
 
