@@ -308,8 +308,8 @@ public class PersistenceService {
         ResultSummary run = client.query("// Import mods/vip/chatters for each stream\n" +
                 "CALL apoc.periodic.iterate(\n" +
                 "   // Return all stream nodes\n" +
-                "  'MATCH (s:Stream) RETURN s',\n" +
-                "  'WITH s, \"http://tmi.twitch.tv/group/user/\" + s.name + \"/chatters\" as url     \n" +
+                "  'MATCH (s:Channel) RETURN s',\n" +
+                "  'WITH s, \"http://tmi.twitch.tv/group/user/\" + s.login + \"/chatters\" as url     \n" +
                 "  //Fetch chatter information  \n" +
                 "  CALL apoc.load.json(url) YIELD value     \n" +
                 "  WITH s, value.chatters as chatters     \n" +
