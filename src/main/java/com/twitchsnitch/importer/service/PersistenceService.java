@@ -399,7 +399,6 @@ public class PersistenceService {
                         "                    l.is_mature = stream.is_mature WITH l, stream\n" +
                         "                    MATCH (u:User) WHERE u.login = stream.user_login\n" +
                         "                    MERGE (u)-[:STREAMED]->(l)\n" +
-                        "                    MATCH (g:Game) WHERE g.twitch_id = stream.game_id\n" +
                         "                    MERGE (u)-[:PLAYS]->(g:Game{twitch_id:stream.game_id})\n" +
                         "                    MERGE (lang:Language{key:stream.language})\n" +
                         "                    MERGE (u)-[:HAS_LANGUAGE]->(lang)\n"
