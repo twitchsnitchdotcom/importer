@@ -30,13 +30,13 @@ public class ImportDataResource {
 //        twitchDataService.importTwitchGameData();
 //        twitchDataService.twitchIdNotSetCountGame();
 
-        twitchDataService.importChannelStreams();
-        twitchDataService.importChannelStreamsDetail();
-        twitchDataService.importLiveStreams(100);
+//        twitchDataService.importChannelStreams();
+//        twitchDataService.importChannelStreamsDetail();
+//        twitchDataService.importLiveStreams(100);
 //
-//        twitchDataService.importChatters();
-//        twitchDataService.importFollowsTo();
-//        twitchDataService.importFollowsFrom();
+
+        twitchDataService.importFollowsTo();
+        twitchDataService.importFollowsFrom();
 //
 //        twitchDataService.importTeams();
 //        twitchDataService.importTwitchTeams();
