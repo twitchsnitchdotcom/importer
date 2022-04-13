@@ -225,7 +225,10 @@ public class TwitchDataService {
         persistenceService.runDBConstraints();
     }
 
-
+    public void runChattersOnDB()
+    {
+        persistenceService.runChattersOnDB();
+    }
     public void twitchIdNotSetCountGame() {
         persistenceService.twitchIdNotSetCountGame();
     }
