@@ -35,12 +35,12 @@ public class ImportDataResource {
 //        twitchDataService.importLiveStreams(100);
 //
 
-        twitchDataService.importFollowsTo();
-        twitchDataService.importFollowsFrom();
+//        twitchDataService.importFollowsTo();
+//        twitchDataService.importFollowsFrom();
 //
-//        twitchDataService.importTeams();
-//        twitchDataService.importTwitchTeams();
-//        twitchDataService.importChannelGames();
+        twitchDataService.importTeams();
+        twitchDataService.importTwitchTeams();
+        twitchDataService.importChannelGames();
 
 
     }
