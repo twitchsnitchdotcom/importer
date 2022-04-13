@@ -304,6 +304,32 @@ public class PersistenceService {
 
     }
 
+    public void runChattersOnDB(){
+        ResultSummary run = client.query("// Import mods/vip/chatters for each stream\n" +
+                "CALL apoc.periodic.iterate(\n" +
+                "   // Return all stream nodes\n" +
+                "  'MATCH (s:Stream) RETURN s',\n" +
+                "  'WITH s, \"http://tmi.twitch.tv/group/user/\" + s.name + \"/chatters\" as url     \n" +
+                "  //Fetch chatter information  \n" +
+                "  CALL apoc.load.json(url) YIELD value     \n" +
+                "  WITH s, value.chatters as chatters     \n" +
+                "  // Store information about vips\n" +
+                "  FOREACH (vip in chatters.vips | \n" +
+                "          MERGE (u:User{name:vip}) \n" +
+                "          MERGE (u)-[:VIP]->(s))\n" +
+                "  //Store information about moderators\n" +
+                "  FOREACH (mod in chatters.moderators | \n" +
+                "          MERGE (u:User{name:mod}) \n" +
+                "          MERGE (u)-[:MODERATOR]->(s))\n" +
+                "  //Store information about regular users\n" +
+                "  FOREACH (chatter in chatters.viewers | \n" +
+                "          MERGE (u:User{name:chatter}) \n" +
+                "          MERGE (u)-[:CHATTER]->(s))',\n" +
+                "{batchSize:1})").in(database).run();
+        logResultSummaries("runChattersOnDB", run);
+    }
+
+
     public Long twitchIdNotSetCountUser() {
         Collection<Map<String, Object>> all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN count(u)").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
