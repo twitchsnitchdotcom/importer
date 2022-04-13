@@ -482,7 +482,7 @@ public class TwitchDataService {
             try {
                 FollowsDTO resultList = runGetFollowersTo(twitchId, randomToken, null);
                 persistenceService.persistTwitchFollowersTo(resultList.getMap());
-                if (resultList != null) {
+                if (resultList != null && !testing) {
                     String cursor = resultList.getPagination().getCursor();
                     while (cursor != null) {
                         FollowsDTO loopList = runGetFollowersTo(twitchId, randomToken, cursor);
@@ -518,7 +518,7 @@ public class TwitchDataService {
             try {
                 FollowsDTO resultList = runGetFollowersFrom(twitchId, randomToken, null);
                 persistenceService.persistTwitchFollowersFrom(resultList.getMap());
-                if (resultList != null) {
+                if (resultList != null && !testing) {
                     String cursor = resultList.getPagination().getCursor();
                     while (cursor != null) {
                         FollowsDTO loopList = runGetFollowersFrom(twitchId, randomToken, cursor);
