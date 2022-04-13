@@ -89,7 +89,7 @@ public class PersistenceService {
         ResultSummary liveStreamConstraint = client.query("CREATE CONSTRAINT FOR (l:LiveStream) REQUIRE l.twitch_id IS UNIQUE;").in(database).run();
 
 
-        ResultSummary liveStreamTwitchIdIndex = client.query("CREATE INDEX FOR (l:LiveStream) ON (l.twitch_id);").in(database).run();
+        ResultSummary liveStreamTwitchIdIndex = client.query("CREATE INDEX FOR (l:LiveStream) ON (l.sully_id);").in(database).run();
         ResultSummary languageNameIndex = client.query("CREATE INDEX FOR (l:Language) ON (l.name);").in(database).run();
         ResultSummary gameSullyIdIndex = client.query("CREATE INDEX FOR (g:Game) ON (g.sully_id);").in(database).run();
         ResultSummary gameTwitchIdIndex = client.query("CREATE INDEX FOR (g:Game) ON (g.twitch_id);").in(database).run();
@@ -107,7 +107,7 @@ public class PersistenceService {
         logResultSummaries("gameFinderCompositeConstraint", gameFinderCompositeConstraint);
         logResultSummaries("raidFinderCompositeConstraint", raidFinderCompositeConstraint);
 
-        logResultSummaries("liveStreamTwitchIdIndex", liveStreamTwitchIdIndex);
+        logResultSummaries("liveStreamSullyIdIndex", liveStreamTwitchIdIndex);
         logResultSummaries("languageNameIndex", languageNameIndex);
         logResultSummaries("gameSullyIdIndex", gameSullyIdIndex);
         logResultSummaries("gameTwitchIdIndex", gameTwitchIdIndex);
