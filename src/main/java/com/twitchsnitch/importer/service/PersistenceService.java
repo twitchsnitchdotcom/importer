@@ -316,7 +316,7 @@ public class PersistenceService {
                 "  // Store information about vips\n" +
                 "  FOREACH (vip in chatters.vips | \n" +
                 "          MERGE (u:User{login:vip}) \n" +
-                "          MERGE (u)-[:VIP]->(s))\n" +
+                "          MERGE (u)-[v:VIP]->(s))\n" +
                 "  //Store information about moderators\n" +
                 "  FOREACH (mod in chatters.moderators | \n" +
                 "          MERGE (u:User{login:mod}) \n" +
@@ -324,7 +324,8 @@ public class PersistenceService {
                 "  //Store information about regular users\n" +
                 "  FOREACH (chatter in chatters.viewers | \n" +
                 "          MERGE (u:User{login:chatter}) \n" +
-                "          MERGE (u)-[:CHATTER]->(s))',\n" +
+                "          MERGE (u)-[c:CHATTER]->(s))\n" +
+                "ON CREATE SET c.weight = 1 ON MATCH SET c.weight = c.weight + 1',\n" +
                 "{batchSize:10, parallel:true})").in(database).run();
         logResultSummaries("runChattersOnDB", run);
     }
