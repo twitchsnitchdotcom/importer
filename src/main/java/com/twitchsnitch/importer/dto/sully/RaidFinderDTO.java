@@ -9,9 +9,9 @@ public class RaidFinderDTO {
 
     private boolean dataIsSet = false;
 
-    private int lowRange;
+    private Long lowRange;
 
-    private int highRange;
+    private Long highRange;
 
     public boolean isDataIsSet() {
         return dataIsSet;
@@ -29,19 +29,19 @@ public class RaidFinderDTO {
         this.gameIds = gameIds;
     }
 
-    public int getLowRange() {
+    public Long getLowRange() {
         return lowRange;
     }
 
-    public void setLowRange(int lowRange) {
+    public void setLowRange(Long lowRange) {
         this.lowRange = lowRange;
     }
 
-    public int getHighRange() {
+    public Long getHighRange() {
         return highRange;
     }
 
-    public void setHighRange(int highRange) {
+    public void setHighRange(Long highRange) {
         this.highRange = highRange;
     }
 }

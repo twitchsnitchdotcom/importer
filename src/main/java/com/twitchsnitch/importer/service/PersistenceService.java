@@ -150,24 +150,25 @@ public class PersistenceService {
         RaidFinderDTO raidFinderDTO = new RaidFinderDTO();
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        int lowRange = 999999999;
-        int highRange = 0;
+        long lowRange = 999999999;
+        long highRange = 0;
         Collection<Map<String, Object>> all = client.query("MATCH p=(c:Channel{login:$login})-[r:GAME_METADATA]->(g:Game) RETURN g.sully_id as id,toInteger(r.avg_viewers * 0.5) as lowRange, toInteger(r.avg_viewers * 1.5) as highRange LIMIT 4").in(database).bind(login).to("login").fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 if (entry.getKey().equalsIgnoreCase("id")) {
-                    raidFinderDTO.getGameIds().add((String) entry.getValue());
+                    Long value = (Long) entry.getValue();
+                    raidFinderDTO.getGameIds().add(value.toString());
                     raidFinderDTO.setDataIsSet(true);
                 }
                 if (entry.getKey().equalsIgnoreCase("lowRange")) {
-                    Integer value = (Integer) entry.getValue();
+                    Long value = (Long) entry.getValue();
                     if (value < lowRange) {
                         lowRange = value;
                     }
                 }
 
                 if (entry.getKey().equalsIgnoreCase("highRange")) {
-                    Integer value = (Integer) entry.getValue();
+                    Long value = (Long) entry.getValue();
                     if (value > highRange) {
                         highRange = value;
                     }
