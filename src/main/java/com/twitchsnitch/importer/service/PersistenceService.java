@@ -275,18 +275,15 @@ public class PersistenceService {
         return usersWithoutTwitchId;
     }
 
-    public Set<String> getUsersWithoutTwitchFollowsTo(Integer limit) {
+    public Set<String> getUsersWithoutTwitchFollowsTo( ) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<String> usersWithoutFollowsTo = new HashSet<>();
         Collection<Map<String, Object>> all;
-        if (limit != null) {
+
             all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC").in(database).fetch().all();
 
-        } else {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC LIMIT " + limit).in(database).fetch().all();
 
-        }
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 usersWithoutFollowsTo.add((String) entry.getValue());
@@ -297,18 +294,15 @@ public class PersistenceService {
         return usersWithoutFollowsTo;
     }
 
-    public Set<String> getUsersWithoutTwitchFollowsFrom(Integer limit) {
+    public Set<String> getUsersWithoutTwitchFollowsFrom() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<String> usersWithoutFollowsFrom = new HashSet<>();
         Collection<Map<String, Object>> all;
-        if (limit != null) {
+
             all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC").in(database).fetch().all();
 
-        } else {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC LIMIT " + limit).in(database).fetch().all();
 
-        }
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 usersWithoutFollowsFrom.add((String) entry.getValue());

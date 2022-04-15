@@ -354,7 +354,7 @@ public class TwitchDataService {
     public void importFollowsFrom() {
         Set<String> usersWithoutTwitchFollowsFrom;
 
-        usersWithoutTwitchFollowsFrom = persistenceService.getUsersWithoutTwitchFollowsFrom(null);
+        usersWithoutTwitchFollowsFrom = persistenceService.getUsersWithoutTwitchFollowsFrom();
 
 
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
