@@ -622,7 +622,7 @@ public class PersistenceService {
     @Async
     public void persistSullyChannelGames(Long channelId, Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
-                        "MATCH (g:Game{name:split(game.gamesplayed,\"+\")[0]})\n" +
+                        "MATCH (g:Game{name:split(game.gamesplayed,\"|\")[0]})\n" +
                         "            MATCH (c:Channel{sully_id:$channelId}) \n" +
                 "MERGE (c)-[m:GAME_METADATA]->(g) \n" +
                         "            SET     m.stream_time = game.streamtime,\n" +
