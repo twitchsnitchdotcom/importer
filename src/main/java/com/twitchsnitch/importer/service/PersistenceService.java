@@ -367,15 +367,15 @@ public class PersistenceService {
     }
 
     public void updateTeamWithTwitchData(String login, Map json) {
-        ResultSummary run = client.query("UNWIND $json.data as data \n" +
+        ResultSummary run = client.query("UNWIND $json.data as row \n" +
                         "MATCH (t:Team{login:$login})\n" +
-                        "SET t.created_at = datetime(replace(trim(split($json.created_at.created_at,\"+\")[0]), \" \", \"T\")),\n" +
-                        "    t.updated_at = datetime(replace(trim(split($json.updated_at,\"+\")[0]), \" \", \"T\")),\n" +
-                        "    t.info = $json.info,\n" +
-                        "    t.twitch_id = $json.id\n" +
-                        "    WITH data\n" +
-                        "    UNWIND data as team\n" +
-                        "MERGE (u:User{login:team.user_login})-[:MEMBER_OF]->(t) ;").in(database)
+                        "SET t.created_at = datetime(replace(trim(split(row.created_at.created_at,\"+\")[0]), \" \", \"T\")),\n" +
+                        "    t.updated_at = datetime(replace(trim(split(row.updated_at,\"+\")[0]), \" \", \"T\")),\n" +
+                        "    t.info = data.info,\n" +
+                        "    t.twitch_id = row.id\n" +
+                        "    WITH row,t\n" +
+                        "    UNWIND row as member\n" +
+                        "MERGE (u:User{login:member.user_login})-[:MEMBER_OF]->(t) ;").in(database)
                 .bind(json).to("json")
                 .bind(login).to("login")
                 .run();
