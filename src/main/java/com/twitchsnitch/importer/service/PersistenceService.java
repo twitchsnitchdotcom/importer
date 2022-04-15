@@ -633,7 +633,6 @@ public class PersistenceService {
                         "                    m.avg_viewers = game.avgviewers,\n" +
                         "                    m.max_viewers = game.maxviewers,\n" +
                         "                    m.followers_per_hour = game.followersperhour,\n" +
-                        "                    m.games_played = game.gamesplayed,\n" +
                         "                    m.views_per_hour = game.viewsperhour\n").in(database)
                 .bind(jsonMap).to("json")
                 .bind(channelId).to("channelId")
