@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.neo4j.core.Neo4jClient;
 import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -284,7 +285,6 @@ public class TwitchDataService {
                 channelTotalSize = 201;
             }
             List<String> channelUrls = buildUpSubSequentUrls(channelPrefix, suffix, channelTotalSize);
-            OAuthTokenDTO localToken = oAuthService.getRandomToken();
             for (String json : goToWebSitesJSON(channelUrls)) {
                 persistenceService.persistSullyChannels(channelDaysPerspective, objectMapper().readValue(json, Map.class));
             }
@@ -317,6 +317,7 @@ public class TwitchDataService {
         }
     }
 
+    @Async
     public void importFollowsTo() {
         Set<String> usersWithoutTwitchFollowsTo;
         if (testing) {
@@ -351,6 +352,7 @@ public class TwitchDataService {
         }
     }
 
+    @Async
     public void importFollowsFrom() {
         Set<String> usersWithoutTwitchFollowsFrom;
         if (testing) {
@@ -434,6 +436,7 @@ public class TwitchDataService {
         }
     }
 
+    @Async
     public void importRaidPicker() {
         try{
             for (String login : liveStreamers) {
@@ -459,6 +462,7 @@ public class TwitchDataService {
         }
     }
 
+    @Async
     public void importGameFinder() {
         try {
             String suffix = "/" + numberOfRecords;
@@ -484,30 +488,30 @@ public class TwitchDataService {
         }
     }
 
-    public void importTopGames() {
-        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
-        try {
-            TopGameDTO resultList = runGetTopGame(randomToken, null);
-            persistenceService.persistTwitchGames(resultList.getMap());
-            if (resultList.getData() != null) {
-                String cursor = resultList.getPagination().getCursor();
-                while (cursor != null) {
-                    TopGameDTO loopList = runGetTopGame(randomToken, cursor);
-                    persistenceService.persistTwitchGames(loopList.getMap());
-                    if (loopList != null && loopList.getData() != null) {
-                        String newCursor = loopList.getPagination().getCursor();
-                        if (newCursor == null) {
-                            break;
-                        } else {
-                            cursor = newCursor;
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            log.error(e.getLocalizedMessage());
-        }
-    }
+//    public void importTopGames() {
+//        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
+//        try {
+//            TopGameDTO resultList = runGetTopGame(randomToken, null);
+//            persistenceService.persistTwitchGames(resultList.getMap());
+//            if (resultList.getData() != null) {
+//                String cursor = resultList.getPagination().getCursor();
+//                while (cursor != null) {
+//                    TopGameDTO loopList = runGetTopGame(randomToken, cursor);
+//                    persistenceService.persistTwitchGames(loopList.getMap());
+//                    if (loopList != null && loopList.getData() != null) {
+//                        String newCursor = loopList.getPagination().getCursor();
+//                        if (newCursor == null) {
+//                            break;
+//                        } else {
+//                            cursor = newCursor;
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            log.error(e.getLocalizedMessage());
+//        }
+//    }
 
     public void importChannelGames() {
         try {
@@ -523,6 +527,7 @@ public class TwitchDataService {
         }
     }
 
+    @Async
     public void importTwitchGameData() {
         Set<String> allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds();
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
@@ -545,6 +550,7 @@ public class TwitchDataService {
         persistenceService.getTwitchIdNotSetCountUser();
     }
 
+    @Async
     public void importChannelStreams() {
         Set<Long> allSullyChannels = persistenceService.getAllSullyChannels();
         if (testing) {
@@ -602,6 +608,7 @@ public class TwitchDataService {
         }
     }
 
+    @Async
     public void importLiveStreams(Integer limit) {
         liveStreamers = new HashSet<>();
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
