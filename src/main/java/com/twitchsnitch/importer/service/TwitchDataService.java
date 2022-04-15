@@ -455,7 +455,10 @@ public class TwitchDataService {
                     }
                     String url = "https://sullygnome.com/api/tables/channeltables/raidfinder/30/2215977/%20" + gameString + "/0/0/9999999/" + raidDTO.getLowRange() +"/" + raidDTO.getHighRange() + "/011/11/false/1/4/desc/0/100";
                     String json = goToWebSiteJSON(url);
-                    persistenceService.persistSullyChannelRaidFinder(login, objectMapper().readValue(json, Map.class));
+                    ChannelRaidFinder channelRaidFinder = objectMapper().readValue(json, ChannelRaidFinder.class);
+                    if(channelRaidFinder.getRecordsTotal() > 0){
+                        persistenceService.persistSullyChannelRaidFinder(login, objectMapper().readValue(json, Map.class));
+                    }
                 }
 
             }
