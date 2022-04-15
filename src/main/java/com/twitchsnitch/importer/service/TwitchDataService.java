@@ -46,8 +46,6 @@ public class TwitchDataService {
     private boolean testSampling;
     @Value("${number.records}")
     private int numberOfRecords;
-    @Value("${follows.limit}")
-    private int followsLimit;
     @Value("${games.days.perspective}")
     private int gamesDaysPerspective;
     @Value("${teams.days.perspective}")
@@ -235,10 +233,12 @@ public class TwitchDataService {
 
     //MAIN METHODS
 
+    @Async
     public void importChattersOnDB() {
         persistenceService.persistChattersOnDB();
     }
 
+    @Async
     public void importGames() {
         String suffix = "/" + numberOfRecords;
         String gameScaffoldUrl = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc/0/" + numberOfRecords;
@@ -261,6 +261,7 @@ public class TwitchDataService {
 
     }
 
+    @Async
     public void importTwitchTeams() {
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
         Set<String> teamsWithoutTwitchId = persistenceService.getTeamsWithoutTwitchId();
@@ -272,6 +273,7 @@ public class TwitchDataService {
         }
     }
 
+    @Async
     public void importChannels() {
         String suffix = "/" + numberOfRecords;
         String channelsScaffoldUrl = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/3/desc/0/" + numberOfRecords;
@@ -294,6 +296,7 @@ public class TwitchDataService {
 
     }
 
+    @Async
     public void importTeams() {
         String suffix = "/" + numberOfRecords;
         Set<TeamsTable> allTeams = new HashSet<>();
@@ -320,12 +323,7 @@ public class TwitchDataService {
     @Async
     public void importFollowsTo() {
         Set<String> usersWithoutTwitchFollowsTo;
-        if (testing) {
-            usersWithoutTwitchFollowsTo = persistenceService.getUsersWithoutTwitchFollowsTo(followsLimit);
-        } else {
-            usersWithoutTwitchFollowsTo = persistenceService.getUsersWithoutTwitchFollowsTo(null);
-        }
-
+        usersWithoutTwitchFollowsTo = persistenceService.getUsersWithoutTwitchFollowsTo(null);
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
         for (String twitchId : usersWithoutTwitchFollowsTo) {
             try {
@@ -355,11 +353,9 @@ public class TwitchDataService {
     @Async
     public void importFollowsFrom() {
         Set<String> usersWithoutTwitchFollowsFrom;
-        if (testing) {
-            usersWithoutTwitchFollowsFrom = persistenceService.getUsersWithoutTwitchFollowsFrom(followsLimit);
-        } else {
-            usersWithoutTwitchFollowsFrom = persistenceService.getUsersWithoutTwitchFollowsFrom(null);
-        }
+
+        usersWithoutTwitchFollowsFrom = persistenceService.getUsersWithoutTwitchFollowsFrom(null);
+
 
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
         for (String twitchId : usersWithoutTwitchFollowsFrom) {
@@ -438,32 +434,30 @@ public class TwitchDataService {
 
     @Async
     public void importRaidPicker() {
-        try{
+        try {
             for (String login : persistenceService.getLiveStreams()) {
                 RaidFinderDTO raidDTO = persistenceService.getRaidFinder(login);
                 boolean secondValue = false;
                 String gameString = "";
-                if(raidDTO.isDataIsSet()){
-                    for(String gameId : raidDTO.getGameIds()){
-                        if(secondValue){
+                if (raidDTO.isDataIsSet()) {
+                    for (String gameId : raidDTO.getGameIds()) {
+                        if (secondValue) {
                             gameString = gameString + "," + gameId;
-                        }
-                        else{
+                        } else {
                             gameString = gameString + gameId;
                             secondValue = true;
                         }
                     }
-                    String url = "https://sullygnome.com/api/tables/channeltables/raidfinder/30/2215977/%20" + gameString + "/0/0/9999999/" + raidDTO.getLowRange() +"/" + raidDTO.getHighRange() + "/011/11/false/1/4/desc/0/100";
+                    String url = "https://sullygnome.com/api/tables/channeltables/raidfinder/30/2215977/%20" + gameString + "/0/0/9999999/" + raidDTO.getLowRange() + "/" + raidDTO.getHighRange() + "/011/11/false/1/4/desc/0/100";
                     String json = goToWebSiteJSON(url);
                     ChannelRaidFinder channelRaidFinder = objectMapper().readValue(json, ChannelRaidFinder.class);
-                    if(channelRaidFinder.getRecordsTotal() > 0){
+                    if (channelRaidFinder.getRecordsTotal() > 0) {
                         persistenceService.persistSullyChannelRaidFinder(login, objectMapper().readValue(json, Map.class));
                     }
                 }
 
             }
-        }
-        catch (JsonProcessingException e) {
+        } catch (JsonProcessingException e) {
             log.error(e.getMessage());
         }
     }
@@ -473,14 +467,14 @@ public class TwitchDataService {
         try {
             String suffix = "/" + numberOfRecords;
             String gamePickerScaffoldUrl = "https://sullygnome.com/api/tables/gametables/getgamepickergames/-1/-1/90/false/-1/-1/-1/-1/-1/-1/-1/-1/-1/-1/2/4/desc/0/100";
-            String gamePickerPrefix =      "https://sullygnome.com/api/tables/gametables/getgamepickergames/-1/-1/90/false/-1/-1/-1/-1/-1/-1/-1/-1/-1/-1/2/4/desc/";
+            String gamePickerPrefix = "https://sullygnome.com/api/tables/gametables/getgamepickergames/-1/-1/90/false/-1/-1/-1/-1/-1/-1/-1/-1/-1/-1/2/4/desc/";
             long gamePickerTotalSize;
 
             String jsonScaffold = goToWebSiteJSON(gamePickerScaffoldUrl);
             if (jsonScaffold != null) {
                 ChannelGamePicker channelGamePicker = objectMapper().readValue(jsonScaffold, ChannelGamePicker.class);
                 gamePickerTotalSize = channelGamePicker.getRecordsTotal();
-                if(testing){
+                if (testing) {
                     gamePickerTotalSize = 200;
                 }
                 List<String> gamePickerUrls = buildUpSubSequentUrls(gamePickerPrefix, suffix, gamePickerTotalSize);
@@ -518,6 +512,7 @@ public class TwitchDataService {
 //        }
 //    }
 
+    @Async
     public void importChannelGames() {
         try {
             String urlPrefix = "https://sullygnome.com/api/tables/channeltables/games/" + gamesDaysPerspective + "/";
@@ -544,6 +539,7 @@ public class TwitchDataService {
         persistenceService.getTwitchIdNotSetCountGame();
     }
 
+    @Async
     public void importTwitchUsers() {
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
         Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId();

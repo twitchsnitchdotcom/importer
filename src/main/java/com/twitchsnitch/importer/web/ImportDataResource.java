@@ -14,36 +14,45 @@ public class ImportDataResource {
 
     private final TwitchDataService twitchDataService;
 
-    @GetMapping("/e2e")
-    public void e2e(){
+    @GetMapping("/phase/1")
+    public void phase1(){
+
         twitchDataService.dropDBConstraints();
         twitchDataService.addDBConstraints();
         twitchDataService.importLanguages();
 
         twitchDataService.importChannels();
-        twitchDataService.importTwitchUsers();
-        twitchDataService.getTwitchIdNotSetCountUser();
-
         twitchDataService.importGames();
-        twitchDataService.importTwitchGameData();
-        twitchDataService.getTwitchIdNotSetCountGame();
-
         twitchDataService.importTeams();
-        twitchDataService.importTwitchTeams();
-
-        twitchDataService.importChannelStreams();
-        twitchDataService.importLiveStreams(100);
-        twitchDataService.importChannelGames();
-
         twitchDataService.importFollowsTo();
         twitchDataService.importFollowsFrom();
 
+    }
+
+    @GetMapping("/phase/2")
+    public void phase2() {
+
+        twitchDataService.importTwitchUsers();
+        twitchDataService.importTwitchGameData();
+        twitchDataService.importTwitchTeams();
+
+        twitchDataService.importChannelStreams();
+        twitchDataService.importChannelGames();
+
         twitchDataService.importChattersOnDB();
         twitchDataService.importTwitchUsers();
+    }
 
+    @GetMapping("/phase/3")
+    public void phase3() {
 
-
-
+        twitchDataService.importFollowsTo();
+        twitchDataService.importFollowsFrom();
+        twitchDataService.importLiveStreams(null);
+        twitchDataService.importGameFinder();
+        twitchDataService.importRaidPicker();
+        twitchDataService.importChattersOnDB();
+        twitchDataService.importTwitchUsers();
 
     }
 
