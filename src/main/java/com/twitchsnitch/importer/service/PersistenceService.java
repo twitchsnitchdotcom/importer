@@ -700,7 +700,7 @@ public class PersistenceService {
     public void persistSullyChannelGameFinder(Map jsonMap) {
 
         ResultSummary run = client.query("UNWIND $json.data as gf\n" +
-                        "MATCH (gg:Game{sully_id:gf.id})\n" +
+                        "MATCH (g:Game{sully_id:gf.id})\n" +
                         "            SET     g.gf_average_viewers = gf.averageviewers,\n" +
                         "                    g.gf_row_num = gf.rownum,\n" +
                         "                    g.gf_average_channels = gf.averagechannels,\n" +
