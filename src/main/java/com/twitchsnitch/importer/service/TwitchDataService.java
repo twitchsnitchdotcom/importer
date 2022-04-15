@@ -439,7 +439,7 @@ public class TwitchDataService {
     @Async
     public void importRaidPicker() {
         try{
-            for (String login : liveStreamers) {
+            for (String login : persistenceService.getLiveStreams()) {
                 RaidFinderDTO raidDTO = persistenceService.getRaidFinder(login);
                 boolean secondValue = false;
                 String gameString = "";

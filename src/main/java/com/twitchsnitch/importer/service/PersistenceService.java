@@ -79,7 +79,7 @@ public class PersistenceService {
         ResultSummary channelLoginConstraint = client.query("CREATE CONSTRAINT FOR (c:Channel) REQUIRE c.login IS UNIQUE;").in(database).run();
         ResultSummary userLoginConstraint = client.query("CREATE CONSTRAINT FOR (u:User) REQUIRE u.login IS UNIQUE;").in(database).run();
         ResultSummary teamNameConstraint = client.query("CREATE CONSTRAINT FOR (t:Team) REQUIRE t.login IS UNIQUE;").in(database).run();
-        ResultSummary gameFinderCompositeConstraint = client.query("CREATE CONSTRAINT FOR (g:GameFinder) REQUIRE g.composite_sully_id IS UNIQUE;").in(database).run();
+        //ResultSummary gameFinderCompositeConstraint = client.query("CREATE CONSTRAINT FOR (g:GameFinder) REQUIRE g.composite_sully_id IS UNIQUE;").in(database).run();
         ResultSummary raidFinderCompositeConstraint = client.query("CREATE CONSTRAINT FOR (r:RaidFinder) REQUIRE r.composite_sully_id IS UNIQUE;").in(database).run();
         ResultSummary liveStreamConstraint = client.query("CREATE CONSTRAINT FOR (l:LiveStream) REQUIRE l.twitch_id IS UNIQUE;").in(database).run();
 
@@ -97,7 +97,7 @@ public class PersistenceService {
         logResultSummaries("channelLoginConstraint", channelLoginConstraint);
         logResultSummaries("userLoginConstraint", userLoginConstraint);
         logResultSummaries("teamNameConstraint", teamNameConstraint);
-        logResultSummaries("gameFinderCompositeConstraint", gameFinderCompositeConstraint);
+        //logResultSummaries("gameFinderCompositeConstraint", gameFinderCompositeConstraint);
         logResultSummaries("raidFinderCompositeConstraint", raidFinderCompositeConstraint);
 
         logResultSummaries("liveStreamSullyIdIndex", liveStreamTwitchIdIndex);
@@ -180,6 +180,21 @@ public class PersistenceService {
         return raidFinderDTO;
     }
 
+    public List<String> getLiveStreams() {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        List<String> liveStreams = new HashSet<>();
+        Collection<Map<String, Object>> all = client.query("MATCH (l:LiveStream)<-[:LIVE_STREAMING]-(c:Channel) RETURN c.login").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                liveStreams.add((String) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.debug("Get All live streams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return liveStreams;
+    }
+
     public Set<Long> getChannelsWithoutChannelGameData() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -199,7 +214,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<Long> sullyChannelStreams = new HashSet<>();
-        Collection<Map<String, Object>> all = client.query("MATCH (cs:ChannelStream) WHERE NOT (cs)-[:STREAM_METADATA]->() RETURN cs.sully_id, ").in(database).fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH (cs:ChannelStream) WHERE NOT (cs)-[:STREAM_METADATA]->() RETURN cs.sully_id").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 sullyChannelStreams.add((Long) entry.getValue());
@@ -750,6 +765,5 @@ public class PersistenceService {
 
         logResultSummaries("persistTwitchGames", run);
     }
-
 
 }
