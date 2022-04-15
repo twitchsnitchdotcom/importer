@@ -108,6 +108,7 @@ public class TwitchDataService {
         try {
             driver.get("view-source:" + url);
             String json = driver.findElement(By.className("line-content")).getText();
+            driverService.returnDriverAfterUse(driver);
             return json;
         } catch (Exception e) {
             try {
