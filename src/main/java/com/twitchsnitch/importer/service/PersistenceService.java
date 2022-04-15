@@ -151,11 +151,13 @@ public class PersistenceService {
     }
 
     //TWITCH METHODS
+
+
     public Set<Long> getChannelsWithoutChannelGameData() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<Long> sullyChannelStreams = new HashSet<>();
-        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) WHERE isEmpty((c)-[:HAS_CHANEL_GAME]->()) RETURN c.sully_id").in(database).fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) WHERE exists (c.sully_id) and NOT (c)-[:GAME_METADATA]->() RETURN c.sully_id").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 sullyChannelStreams.add((Long) entry.getValue());
@@ -618,21 +620,23 @@ public class PersistenceService {
     }
 
     @Async
-    public void persistSullyChannelGames(Long sullyId, Map jsonMap) {
+    public void persistSullyChannelGames(Long channelId, Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
-                        "MERGE (g:ChannelGame{sully_id:game.streamId})\n" +
-                        "            SET     g.stream_time = game.streamtime,\n" +
-                        "                    g.view_time = game.viewtime,\n" +
-                        "                    g.views_gained = game.viewsgained,\n" +
-                        "                    g.followers = game.followers,\n" +
-                        "                    g.avg_viewers = game.avgviewers,\n" +
-                        "                    g.max_viewers = game.maxviewers,\n" +
-                        "                    g.followers_per_hour = game.followersperhour,\n" +
-                        "                    g.games_played = game.gamesplayed,\n" +
-                        "                    g.views_per_hour = game.viewsperhour\n" +
-                        "MERGE (c:Channel{sully_id:$sullyId})-[:HAS_CHANNEL_GAME]->(g)").in(database)
+                        "MATCH (g:Game{name:split(game.gamesplayed,\"+\")[0]})\n" +
+                        "            MATCH (c:Channel{sully_id:$channelId}) \n" +
+                "MERGE (c)-[m:GAME_METADATA]->(g) \n" +
+                        "            SET     m.stream_time = game.streamtime,\n" +
+                        "                    m.view_time = game.viewtime,\n" +
+                        "                    m.row_num = game.rownum,\n" +
+                        "                    m.views_gained = game.viewsgained,\n" +
+                        "                    m.followers = game.followers,\n" +
+                        "                    m.avg_viewers = game.avgviewers,\n" +
+                        "                    m.max_viewers = game.maxviewers,\n" +
+                        "                    m.followers_per_hour = game.followersperhour,\n" +
+                        "                    m.games_played = game.gamesplayed,\n" +
+                        "                    m.views_per_hour = game.viewsperhour\n").in(database)
                 .bind(jsonMap).to("json")
-                .bind(sullyId).to("sullyId")
+                .bind(channelId).to("$channelId")
                 .run();
         logResultSummaries("persistSullyChannelGames", run);
 
