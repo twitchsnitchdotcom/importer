@@ -16,14 +16,14 @@ public class ImportDataResource {
 
     @GetMapping("/e2e")
     public void e2e(){
-//        twitchDataService.dropDBConstraints();
-//        twitchDataService.addDBConstraints();
-//        twitchDataService.importLanguages();
-//
-//        twitchDataService.importChannels();
-//        twitchDataService.importTwitchUsers();
-//        twitchDataService.twitchIdNotSetCountUser();
-//        twitchDataService.runChattersOnDB();
+        twitchDataService.dropDBConstraints();
+        twitchDataService.addDBConstraints();
+        twitchDataService.importLanguages();
+
+        twitchDataService.importChannels();
+        twitchDataService.importTwitchUsers();
+        twitchDataService.twitchIdNotSetCountUser();
+        twitchDataService.runChattersOnDB();
 //
 //        //twitchDataService.importTopGames();
 //        twitchDataService.importGames();
@@ -38,9 +38,9 @@ public class ImportDataResource {
 //        twitchDataService.importFollowsTo();
 //        twitchDataService.importFollowsFrom();
 //
-        twitchDataService.importTeams();
-        twitchDataService.importTwitchTeams();
-        twitchDataService.importChannelGames();
+//        twitchDataService.importTeams();
+//        twitchDataService.importTwitchTeams();
+//        twitchDataService.importChannelGames();
 
 
     }
