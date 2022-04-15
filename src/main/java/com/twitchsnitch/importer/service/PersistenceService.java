@@ -572,7 +572,7 @@ public class PersistenceService {
                         "                    s.start_date_time = stream.startDateTime,\n" +
                         "                    s.sully_stream_url = stream.streamUrl,\n" +
                         "                    s.view_minutes = stream.viewminutes\n" +
-                        "MATCH (c:Channel{login:stream.channelurl}) \n" +
+                        "MERGE (c:Channel{login:stream.channelurl}) \n" +
                         "MERGE (c)-[:STREAMED]->(s);"
                 ).in(database)
                 .bind(jsonMap).to("json")
