@@ -1,17 +1,11 @@
 package com.twitchsnitch.importer.service;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.twitchsnitch.importer.dto.sully.RaidFinderDTO;
 import com.twitchsnitch.importer.dto.sully.channels.*;
-import com.twitchsnitch.importer.dto.sully.games.GamesDatum;
-import com.twitchsnitch.importer.dto.sully.games.GamesTable;
-import com.twitchsnitch.importer.dto.sully.teams.TeamsDatum;
-import com.twitchsnitch.importer.dto.sully.teams.TeamsTable;
-import com.twitchsnitch.importer.dto.twitch.*;
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
 import org.neo4j.driver.GraphDatabase;
@@ -20,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.neo4j.core.Neo4jClient;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 
@@ -152,7 +145,6 @@ public class PersistenceService {
     }
 
     //TWITCH METHODS
-
     public RaidFinderDTO getRaidFinder(String login) {
         RaidFinderDTO raidFinderDTO = new RaidFinderDTO();
         StopWatch stopWatch = new StopWatch();
@@ -202,7 +194,6 @@ public class PersistenceService {
         return sullyChannelStreams;
     }
 
-    //todo be extended to be actually accurate
     public Set<Long> getChannelStreamsWithoutIndividualData() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -310,70 +301,6 @@ public class PersistenceService {
         return usersWithoutFollowsFrom;
     }
 
-    public Long twitchIdNotSetCountChannel() {
-        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) WHERE c.twitch_id IS NULL RETURN count(c)").in(database).fetch().all();
-        for (Map<String, Object> objectMap : all) {
-            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
-                long notsetcount = (Long) entry.getValue();
-                log.debug("Get All Users without twitch_id is : " + notsetcount);
-                return notsetcount;
-            }
-        }
-        return null;
-
-    }
-
-    public Long twitchIdNotSetCountGame() {
-        Collection<Map<String, Object>> all = client.query("MATCH (g:Game) WHERE g.twitch_id IS NULL RETURN count(g)").in(database).fetch().all();
-        for (Map<String, Object> objectMap : all) {
-            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
-                long notsetcount = (Long) entry.getValue();
-                log.debug("Get All Games without twitch_id is : " + notsetcount);
-                return notsetcount;
-            }
-        }
-        return null;
-
-    }
-
-    public void runChattersOnDB() {
-        ResultSummary run = client.query("// Import mods/vip/chatters for each stream\n" +
-                "CALL apoc.periodic.iterate(\n" +
-                "   // Return all stream nodes\n" +
-                "  'MATCH (s:Channel) RETURN s',\n" +
-                "  'WITH s, \"http://tmi.twitch.tv/group/user/\" + s.login + \"/chatters\" as url     \n" +
-                "  //Fetch chatter information  \n" +
-                "  CALL apoc.load.json(url) YIELD value     \n" +
-                "  WITH s, value.chatters as chatters     \n" +
-                "  // Store information about vips\n" +
-                "  FOREACH (vip in chatters.vips | \n" +
-                "          MERGE (u:User{login:vip}) \n" +
-                "          MERGE (u)-[v:VIP]->(s))\n" +
-                "  //Store information about moderators\n" +
-                "  FOREACH (mod in chatters.moderators | \n" +
-                "          MERGE (u:User{login:mod}) \n" +
-                "          MERGE (u)-[:MODERATOR]->(s))\n" +
-                "  //Store information about regular users\n" +
-                "  FOREACH (chatter in chatters.viewers | \n" +
-                "          MERGE (u:User{login:chatter}) \n" +
-                "          MERGE (u)-[c:CHATTER]->(s))',\n" +
-                "{batchSize:10, parallel:true})").in(database).run();
-        logResultSummaries("runChattersOnDB", run);
-    }
-
-
-    public Long twitchIdNotSetCountUser() {
-        Collection<Map<String, Object>> all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN count(u)").in(database).fetch().all();
-        for (Map<String, Object> objectMap : all) {
-            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
-                long notsetcount = (Long) entry.getValue();
-                log.debug("Get All Users without twitch_id is : " + notsetcount);
-                return notsetcount;
-            }
-        }
-        return null;
-    }
-
     public Set<String> getTeamsWithoutTwitchId() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -389,6 +316,47 @@ public class PersistenceService {
         log.debug("Get All teams without twitch_id took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         return teamsWithoutTwitchId;
     }
+
+    public Long getTwitchIdNotSetCountChannel() {
+        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) WHERE c.twitch_id IS NULL RETURN count(c)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                long notsetcount = (Long) entry.getValue();
+                log.debug("Get All Users without twitch_id is : " + notsetcount);
+                return notsetcount;
+            }
+        }
+        return null;
+
+    }
+
+    public Long getTwitchIdNotSetCountGame() {
+        Collection<Map<String, Object>> all = client.query("MATCH (g:Game) WHERE g.twitch_id IS NULL RETURN count(g)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                long notsetcount = (Long) entry.getValue();
+                log.debug("Get All Games without twitch_id is : " + notsetcount);
+                return notsetcount;
+            }
+        }
+        return null;
+
+    }
+
+    public Long getTwitchIdNotSetCountUser() {
+        Collection<Map<String, Object>> all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN count(u)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                long notsetcount = (Long) entry.getValue();
+                log.debug("Get All Users without twitch_id is : " + notsetcount);
+                return notsetcount;
+            }
+        }
+        return null;
+    }
+
+
+    //updates
 
     public void updateGameWithTwitchData(Map json) {
         ResultSummary run = client.query("UNWIND $json.data as game " +
@@ -417,6 +385,33 @@ public class PersistenceService {
                 .bind(login).to("login")
                 .run();
         logResultSummaries("updateTeamWithTwitchData", run);
+    }
+
+    //persists
+
+    public void persistChattersOnDB() {
+        ResultSummary run = client.query("// Import mods/vip/chatters for each stream\n" +
+                "CALL apoc.periodic.iterate(\n" +
+                "   // Return all stream nodes\n" +
+                "  'MATCH (s:Channel) RETURN s',\n" +
+                "  'WITH s, \"http://tmi.twitch.tv/group/user/\" + s.login + \"/chatters\" as url     \n" +
+                "  //Fetch chatter information  \n" +
+                "  CALL apoc.load.json(url) YIELD value     \n" +
+                "  WITH s, value.chatters as chatters     \n" +
+                "  // Store information about vips\n" +
+                "  FOREACH (vip in chatters.vips | \n" +
+                "          MERGE (u:User{login:vip}) \n" +
+                "          MERGE (u)-[v:VIP]->(s))\n" +
+                "  //Store information about moderators\n" +
+                "  FOREACH (mod in chatters.moderators | \n" +
+                "          MERGE (u:User{login:mod}) \n" +
+                "          MERGE (u)-[:MODERATOR]->(s))\n" +
+                "  //Store information about regular users\n" +
+                "  FOREACH (chatter in chatters.viewers | \n" +
+                "          MERGE (u:User{login:chatter}) \n" +
+                "          MERGE (u)-[c:CHATTER]->(s))',\n" +
+                "{batchSize:10, parallel:true})").in(database).run();
+        logResultSummaries("runChattersOnDB", run);
     }
 
     public void persistTwitchStreams(Map jsonMap) {
@@ -488,9 +483,6 @@ public class PersistenceService {
         logResultSummaries("persistTwitchFollowersFrom", run);
     }
 
-    //SULLY METHODS
-
-    @Async
     public void persistSullyChannels(Integer daysPerspective, Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -529,7 +521,6 @@ public class PersistenceService {
         log.debug("Persisting Sully Channels took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
     }
 
-    @Async
     public void persistSullyTeams(Integer daysPerspective, Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -553,8 +544,6 @@ public class PersistenceService {
         log.debug("Persisting Sully Teams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
     }
 
-    //cant be async because we need to bind the games onto it for the twitch id
-    //@Async
     public void persistSullyGames(Integer daysPerspective, Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -591,7 +580,6 @@ public class PersistenceService {
         log.debug("Persisting Sully Games took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
     }
 
-    @Async
     public void persistSullyChannelStreams(Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as stream\n" +
                         "MERGE (s:ChannelStream{sully_id:stream.streamId})\n" +
@@ -618,8 +606,6 @@ public class PersistenceService {
 
     }
 
-    //
-    @Async
     public void persistSullyChannelIndividualStream(Long channelStreamId, IndividualStreamDTO individualStreamDTO) {
         //MATCH (cs:ChannelStream) WHERE NOT (cs)-[:METADATA]->() RETURN cs.sully_id
 
@@ -653,7 +639,6 @@ public class PersistenceService {
 
     }
 
-    @Async
     public void persistSullyChannelGames(Long channelId, Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
                         "MATCH (g:Game{name:split(game.gamesplayed,\"|\")[0]})\n" +
@@ -675,7 +660,6 @@ public class PersistenceService {
 
     }
 
-    @Async
     public void persistSullyChannelRaidFinder(String channelLogin, Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json as rf\n" +
                         "MERGE (r:RaidFinder{composite_sully_id:rf.id#$channelLogin})\n" +
@@ -697,7 +681,6 @@ public class PersistenceService {
         logResultSummaries("persistSullyChannelRaidFinder", run);
     }
 
-    @Async
     public void persistSullyChannelGameFinder(Map jsonMap) {
 
         ResultSummary run = client.query("UNWIND $json.data as gf\n" +
@@ -751,7 +734,5 @@ public class PersistenceService {
         logResultSummaries("persistTwitchGames", run);
     }
 
-    public void persistGamePicker(Map map) {
-    }
 
 }

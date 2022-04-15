@@ -11,7 +11,7 @@ import java.net.URL;
 
 @SpringBootApplication
 @EnableScheduling
-//@EnableAsync
+@EnableAsync
 public class ImporterApplication {
 
 	public static void main(String[] args){

@@ -22,11 +22,11 @@ public class ImportDataResource {
 
         twitchDataService.importChannels();
         twitchDataService.importTwitchUsers();
-        twitchDataService.twitchIdNotSetCountUser();
+        twitchDataService.getTwitchIdNotSetCountUser();
 
         twitchDataService.importGames();
         twitchDataService.importTwitchGameData();
-        twitchDataService.twitchIdNotSetCountGame();
+        twitchDataService.getTwitchIdNotSetCountGame();
 
         twitchDataService.importTeams();
         twitchDataService.importTwitchTeams();
@@ -84,7 +84,7 @@ public class ImportDataResource {
 
     @GetMapping("/ids/notset/users")
     public Long idsNotSetUsers() {
-        return twitchDataService.twitchIdNotSetCountUser();
+        return twitchDataService.getTwitchIdNotSetCountUser();
     }
 
     @GetMapping("/import/chatters/ondb")
