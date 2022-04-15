@@ -323,7 +323,7 @@ public class TwitchDataService {
     @Async
     public void importFollowsTo() {
         Set<String> usersWithoutTwitchFollowsTo;
-        usersWithoutTwitchFollowsTo = persistenceService.getUsersWithoutTwitchFollowsTo(null);
+        usersWithoutTwitchFollowsTo = persistenceService.getUsersWithoutTwitchFollowsTo();
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
         for (String twitchId : usersWithoutTwitchFollowsTo) {
             try {
