@@ -694,18 +694,16 @@ public class PersistenceService {
     @Async
     public void persistSullyChannelRaidFinder(String channelLogin, Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json as rf\n" +
-                        "MERGE (r:RaidFinder{login:$channelLogin})\n" +
-                        "            SET     r.live_minutes = rf.liveMinutes,\n" +
-                        "                    r.live_viewers = rf.liveViewers,\n" +
-                        "                    r.overlapping_streams = rf.overlappingStreams,\n" +
-                        "                    r.other_channel_streams = rf.otherChannelStreams,\n" +
-                        "                    r.overlapping_ended_during = rf.overlappingEndedDuring,\n" +
-                        "                    r.overlapping_ended_after = rf.overlappingEndedAfter\n" +
-                "WITH rf, r \n" +
                         "MATCH (c:Channel{login:$channelLogin})\n" +
-                        "WITH c, rf , r\n" +
-                        "MATCH (raided:Channel{login:rf.url})\n" +
-                        "                    MERGE (raided)<-[:RAID_RECIPIENT]-(r)-[:RAID_DONOR]->(c);").in(database)
+                        //"WITH c, rf\n" +
+                        "MATCH (c2:Channel{login:rf.url})\n" +
+                        "                    MERGE (c2)<-[cr:CAN_RAID]-(c)\n" +
+                        "            ON CREATE SET     cr.live_minutes = rf.liveMinutes,\n" +
+                        "                    cr.live_viewers = rf.liveViewers,\n" +
+                        "                    cr.overlapping_streams = rf.overlappingStreams,\n" +
+                        "                    cr.other_channel_streams = rf.otherChannelStreams,\n" +
+                        "                    cr.overlapping_ended_during = rf.overlappingEndedDuring,\n" +
+                        "                    cr.overlapping_ended_after = rf.overlappingEndedAfter;").in(database)
                 .bind(jsonMap).to("json")
                 .bind(channelLogin).to("channelLogin")
                 .run();
