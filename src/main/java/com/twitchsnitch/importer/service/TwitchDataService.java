@@ -153,6 +153,7 @@ public class TwitchDataService {
         ChromeDriver driver = driverService.getAvailableDriver();
             try {
                 driver.get(url);
+                driverService.returnDriverAfterUse(driver);
                 return driver.getPageSource();
             } catch (Exception e) {
                 e.printStackTrace();
