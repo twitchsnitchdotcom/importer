@@ -379,7 +379,6 @@ public class PersistenceService {
                         "    t.info = $json.info,\n" +
                         "    t.twitch_id = $json.id\n" +
                         "    WITH data\n" +
-                        "WHERE data IS NOT NULL \n" +
                         "    UNWIND data as team\n" +
                         "WHERE team.user_login IS NOT NULL\n" +
                         "MERGE (u:User{login:team.user_login})-[:MEMBER_OF]->(t) ;").in(database)
