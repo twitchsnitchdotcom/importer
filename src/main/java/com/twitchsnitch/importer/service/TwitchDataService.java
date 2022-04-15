@@ -220,8 +220,8 @@ public class TwitchDataService {
         persistenceService.twitchIdNotSetCountGame();
     }
 
-    public void twitchIdNotSetCountUser() {
-        persistenceService.twitchIdNotSetCountUser();
+    public Long twitchIdNotSetCountUser() {
+        return persistenceService.twitchIdNotSetCountUser();
     }
 
     //raid and game picking is a fine art, we should group them when we have a chance, even reverse it to channel picking for the user.. aaah smart, via an influence from the chatters network, genius.

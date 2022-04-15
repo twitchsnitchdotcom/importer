@@ -81,8 +81,8 @@ public class ImportDataResource {
     }
 
     @GetMapping("/ids/notset/users")
-    public void idsNotSetUsers() {
-        twitchDataService.twitchIdNotSetCountUser();
+    public Long idsNotSetUsers() {
+        return twitchDataService.twitchIdNotSetCountUser();
     }
 
     @GetMapping("/import/chatters/ondb")

@@ -324,8 +324,7 @@ public class PersistenceService {
                 "  //Store information about regular users\n" +
                 "  FOREACH (chatter in chatters.viewers | \n" +
                 "          MERGE (u:User{login:chatter}) \n" +
-                "          MERGE (u)-[c:CHATTER]->(s))\n" +
-                "ON CREATE SET c.weight = 1 ON MATCH SET c.weight = c.weight + 1',\n" +
+                "          MERGE (u)-[c:CHATTER]->(s))',\n" +
                 "{batchSize:10, parallel:true})").in(database).run();
         logResultSummaries("runChattersOnDB", run);
     }
