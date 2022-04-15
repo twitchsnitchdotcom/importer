@@ -333,7 +333,7 @@ public class TwitchDataService {
                         individualStreamDataDTO.setViewsPerformance(miniPanelOuter.get(1).getElementsByClass("MiniPanelBottom").get(0).getElementsByClass("MiniPanelBottomRight").get(0).text());
                         individualStreamDTO.getGamesPlayed().add(individualStreamDataDTO);
                     }
-                    persistenceService.persistSullyChannelIndividualStream(individualStreamDTO);
+                    persistenceService.persistSullyChannelIndividualStream(id, individualStreamDTO);
                 }
 
             }

@@ -171,7 +171,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<Long> sullyChannelStreams = new HashSet<>();
-        Collection<Map<String, Object>> all = client.query("MATCH (c:ChannelStreams) WHERE isEmpty((c)-[:HAS_STREAM]->()) RETURN c.sully_id").in(database).fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH (cs:ChannelStream) WHERE NOT (cs)-[:STREAM_METADATA]->() RETURN cs.sully_id").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 sullyChannelStreams.add((Long) entry.getValue());
@@ -300,7 +300,7 @@ public class PersistenceService {
 
     }
 
-    public void runChattersOnDB(){
+    public void runChattersOnDB() {
         ResultSummary run = client.query("// Import mods/vip/chatters for each stream\n" +
                 "CALL apoc.periodic.iterate(\n" +
                 "   // Return all stream nodes\n" +
@@ -375,7 +375,7 @@ public class PersistenceService {
                         "    t.twitch_id = row.id\n" +
                         "    WITH row,t\n" +
                         "    UNWIND row.users as member\n" +
-                "MERGE (u:User{login:member.user_login})\n" +
+                        "MERGE (u:User{login:member.user_login})\n" +
                         "MERGE (u)-[:MEMBER_OF]->(t);").in(database)
                 .bind(json).to("json")
                 .bind(login).to("login")
@@ -392,7 +392,7 @@ public class PersistenceService {
                         "                    l.thumbnail_url = stream.thumbnail_url,\n" +
                         "                    l.is_mature = stream.is_mature WITH l, stream\n" +
                         "                    MATCH (u:User) WHERE u.login = stream.user_login\n" +
-                        "                    MERGE (u)-[:STREAMED]->(l)\n" +
+                        "                    MERGE (u)-[:LIVE_STREAMING]->(l)\n" +
                         "                    MERGE (l)-[:PLAYS]->(g:Game{twitch_id:stream.game_id})\n" +
                         "                    MERGE (lang:Language{key:stream.language})\n" +
                         "                    MERGE (l)-[:HAS_LANGUAGE]->(lang)\n"
@@ -584,13 +584,36 @@ public class PersistenceService {
 
     //
     @Async
-    public void persistSullyChannelIndividualStream(IndividualStreamDTO individualStreamDTO) {
-        ResultSummary run = client.query(""
-                ).in(database)
-                .bind(null).to("json")
-                .run();
+    public void persistSullyChannelIndividualStream(Long channelStreamId, IndividualStreamDTO individualStreamDTO) {
+        //MATCH (cs:ChannelStream) WHERE NOT (cs)-[:METADATA]->() RETURN cs.sully_id
 
-        logResultSummaries("persistSullyChannelIndividualStream", run);
+        for (IndividualStreamDataDTO data : individualStreamDTO.getGamesPlayed()) {
+            ResultSummary run = client.query("MATCH (c:ChannelStream{sully_id:$channelStreamId})\n" +
+                            "MATCH (g:Game{name:$gameName})\n" +
+                            "MERGE (c)-[m:STREAM_METADATA]->(g)\n" +
+                            "SET m.watch_time = $watchTime,\n" +
+                            "m.stream_length = $streamLength,\n" +
+                            "m.average_viewers = $averageViewers,\n" +
+                            "m.max_viewers = $maxViewers,\n" +
+                            "m.max_viewers_performance = $maxViewersPerformance,\n" +
+                            "m.views_per_hour = $viewsPerHour,\n" +
+                            "m.views = $views,\n" +
+                            "m.views_performance= $viewsPerformance;"
+                    ).in(database)
+                    .bind(channelStreamId).to("channelStreamId")
+                    .bind(data.getGameName()).to("gameName")
+                    .bind(data.getWatchTime()).to("watchTime")
+                    .bind(data.getStreamLength()).to("streamLength")
+                    .bind(data.getAverageViewers()).to("averageViewers")
+                    .bind(data.getMaxViewers()).to("maxViewers")
+                    .bind(data.getMaxViewersPerformance()).to("maxViewersPerformance")
+                    .bind(data.getViewsPerHour()).to("viewsPerHour")
+                    .bind(data.getViews()).to("views")
+                    .bind(data.getViewsPerHour()).to("viewsPerformance")
+                    .run();
+            logResultSummaries("persistSullyChannelIndividualStream", run);
+        }
+
 
     }
 
