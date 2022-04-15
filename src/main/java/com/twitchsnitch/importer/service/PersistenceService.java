@@ -694,7 +694,7 @@ public class PersistenceService {
     @Async
     public void persistSullyChannelRaidFinder(String channelLogin, Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json as rf\n" +
-                        "MERGE (r:RaidFinder{composite_sully_id:rf.id#$channelLogin})\n" +
+                        "MERGE (r:RaidFinder{login:$channelLogin})\n" +
                         "            SET     r.live_minutes = rf.liveMinutes,\n" +
                         "                    r.live_viewers = rf.liveViewers,\n" +
                         "                    r.overlapping_streams = rf.overlappingStreams,\n" +
