@@ -701,6 +701,7 @@ public class PersistenceService {
                         "                    r.other_channel_streams = rf.otherChannelStreams,\n" +
                         "                    r.overlapping_ended_during = rf.overlappingEndedDuring,\n" +
                         "                    r.overlapping_ended_after = rf.overlappingEndedAfter\n" +
+                "WITH rf, r \n" +
                         "MATCH (raided:Channel{login:rf.url})\n" +
                         "MATCH (c:Channel{login:$channelLogin})\n" +
                         "WITH c, raided, r\n" +
