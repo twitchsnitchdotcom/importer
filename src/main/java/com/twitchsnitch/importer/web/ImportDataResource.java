@@ -23,7 +23,7 @@ public class ImportDataResource {
         twitchDataService.importChannels();
         twitchDataService.importTwitchUsers();
         twitchDataService.twitchIdNotSetCountUser();
-        twitchDataService.runChattersOnDB();
+        twitchDataService.importChattersOnDB();
 //
 //        //twitchDataService.importTopGames();
 //        twitchDataService.importGames();
@@ -70,14 +70,30 @@ public class ImportDataResource {
         twitchDataService.importLanguages();
     }
 
-    @GetMapping("/import/games")
-    public void importGames() {
-        twitchDataService.importGames();
-    }
-
     @GetMapping("/import/channels")
     public void importChannels() {
         twitchDataService.importChannels();
+    }
+
+    @GetMapping("/import/users/twitch")
+    public void importUsersTwitch() {
+        twitchDataService.importTwitchUsers();
+    }
+
+    @GetMapping("/ids/notset/users")
+    public void idsNotSetUsers() {
+        twitchDataService.twitchIdNotSetCountUser();
+    }
+
+    @GetMapping("/import/chatters/ondb")
+    public void importChattersOnDB() {
+        twitchDataService.importChattersOnDB();
+    }
+
+
+    @GetMapping("/import/games")
+    public void importGames() {
+        twitchDataService.importGames();
     }
 
     @GetMapping("/import/games/twitch")
@@ -85,10 +101,7 @@ public class ImportDataResource {
         twitchDataService.importTwitchGameData();
     }
 
-    @GetMapping("/import/users/twitch")
-    public void importUsersTwitch() {
-        twitchDataService.importTwitchUsers();
-    }
+
 
     @GetMapping("/import/channels/games")
     public void importChannelGames() {
