@@ -38,6 +38,7 @@ public class DriverService {
         for(int i =0; i < webDriversSize; i++){
             ChromeDriver driver = new ChromeDriver(options);
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().window().minimize();
             availableDrivers.add(driver);
         }
 
@@ -47,6 +48,7 @@ public class DriverService {
         if(availableDrivers.size() == 0){
             ChromeDriver driver = new ChromeDriver(options);
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().window().minimize();
             return driver;
         }
         else{
