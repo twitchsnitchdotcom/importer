@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,12 +140,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>454</line>
+          <line>443</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>298</line>
+          <line>290</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
