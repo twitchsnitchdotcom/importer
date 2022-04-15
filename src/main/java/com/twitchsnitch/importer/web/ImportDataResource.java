@@ -24,14 +24,16 @@ public class ImportDataResource {
         twitchDataService.importChannels();
         twitchDataService.importGames();
         twitchDataService.importTeams();
-        twitchDataService.importFollowsTo();
-        twitchDataService.importFollowsFrom();
+
 
     }
 
     @GetMapping("/phase/2")
     public void phase2() {
 
+        twitchDataService.importFollowsTo();
+        twitchDataService.importFollowsFrom();
+        
         twitchDataService.importTwitchUsers();
         twitchDataService.importTwitchGameData();
         twitchDataService.importTwitchTeams();
