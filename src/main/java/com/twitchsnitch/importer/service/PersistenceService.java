@@ -79,11 +79,11 @@ public class PersistenceService {
 
     public void runDBConstraints() {
 
-        ResultSummary gameDisplayNameConstraint = client.query("CREATE CONSTRAINT FOR (g:Game) REQUIRE g.display_name IS UNIQUE;").in(database).run();
+        ResultSummary gameDisplayNameConstraint = client.query("CREATE CONSTRAINT FOR (g:Game) REQUIRE g.name IS UNIQUE;").in(database).run();
         ResultSummary languageConstraint = client.query("CREATE CONSTRAINT FOR (l:Language) REQUIRE l.key IS UNIQUE;").in(database).run();
         ResultSummary channelLoginConstraint = client.query("CREATE CONSTRAINT FOR (c:Channel) REQUIRE c.login IS UNIQUE;").in(database).run();
         ResultSummary userLoginConstraint = client.query("CREATE CONSTRAINT FOR (u:User) REQUIRE u.login IS UNIQUE;").in(database).run();
-        ResultSummary teamNameConstraint = client.query("CREATE CONSTRAINT FOR (t:Team) REQUIRE t.name IS UNIQUE;").in(database).run();
+        ResultSummary teamNameConstraint = client.query("CREATE CONSTRAINT FOR (t:Team) REQUIRE t.login IS UNIQUE;").in(database).run();
         ResultSummary gameFinderCompositeConstraint = client.query("CREATE CONSTRAINT FOR (g:GameFinder) REQUIRE g.composite_sully_id IS UNIQUE;").in(database).run();
         ResultSummary raidFinderCompositeConstraint = client.query("CREATE CONSTRAINT FOR (r:RaidFinder) REQUIRE r.composite_sully_id IS UNIQUE;").in(database).run();
         ResultSummary liveStreamConstraint = client.query("CREATE CONSTRAINT FOR (l:LiveStream) REQUIRE l.twitch_id IS UNIQUE;").in(database).run();
@@ -95,9 +95,7 @@ public class PersistenceService {
         ResultSummary gameTwitchIdIndex = client.query("CREATE INDEX FOR (g:Game) ON (g.twitch_id);").in(database).run();
         ResultSummary channelSullyIdIndex = client.query("CREATE INDEX FOR (c:Channel) ON (c.sully_id);").in(database).run();
         ResultSummary channelTwitchIdIndex = client.query("CREATE INDEX FOR (c:Channel) ON (c.twitch_id);").in(database).run();
-        ResultSummary teamSullyIdIndex = client.query("CREATE INDEX FOR (t:Team) ON (t.sully_id);").in(database).run();
-        ResultSummary teamTwitchIdIndex = client.query("CREATE INDEX FOR (t:Team) ON (t.twitch_id);").in(database).run();
-        
+
         logResultSummaries("liveStreamConstraint", liveStreamConstraint);
         logResultSummaries("gameDisplayNameConstraint", gameDisplayNameConstraint);
         logResultSummaries("languageConstraint", languageConstraint);
@@ -113,8 +111,6 @@ public class PersistenceService {
         logResultSummaries("gameTwitchIdIndex", gameTwitchIdIndex);
         logResultSummaries("channelSullyIdIndex", channelSullyIdIndex);
         logResultSummaries("channelTwitchIdIndex", channelTwitchIdIndex);
-        logResultSummaries("teamSullyIdIndex", teamSullyIdIndex);
-        logResultSummaries("teamTwitchIdIndex", teamTwitchIdIndex);
 
     }
 
@@ -501,7 +497,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         ResultSummary run = client.query("UNWIND $json.data as team\n" +
-                        "MERGE (t:Team{display_name:team.name})\n" +
+                        "MERGE (t:Team{name:team.name})\n" +
                         "          SET       t.members = team.members,\n" +
                         "                    t.stream_time = team.streamtime,\n" +
                         "                    t.watch_time = team.watchtime,\n" +
@@ -509,6 +505,7 @@ public class PersistenceService {
                         "                    t.avg_viewers = team.avgviewers,\n" +
                         "                    t.max_channels = team.maxchannels,\n" +
                         "                    t.avg_channels = team.avgchannels,\n" +
+                        "                    t.login = team.twitchurl,\n" +
                         "                    t.row_number = team.rownum,\n" +
                         "                    t.sully_id = team.id,\n" +
                         "                    t.profile_image_url = team.logo;").in(database)
