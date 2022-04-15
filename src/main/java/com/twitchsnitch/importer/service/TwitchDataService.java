@@ -417,8 +417,10 @@ public class TwitchDataService {
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
         Set<String> teamsWithoutTwitchId = persistenceService.getTeamsWithoutTwitchId();
         for (String teamName : teamsWithoutTwitchId) {
-            Map map = runGetTeam(teamName, localToken);
-            persistenceService.updateTeamWithTwitchData(teamName, map);
+            if(teamName != null){
+                Map map = runGetTeam(teamName, localToken);
+                persistenceService.updateTeamWithTwitchData(teamName, map);
+            }
         }
     }
 
