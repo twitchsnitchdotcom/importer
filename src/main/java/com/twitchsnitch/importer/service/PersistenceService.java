@@ -526,7 +526,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
-                        "MATCH (g:Game{name:game.name})\n" +
+                        "MERGE (g:Game{name:game.name})\n" +
                         "            SET     g.view_minutes = game.viewminutes,\n" +
                         "                    g.streamed_minutes = game.streamedminutes,\n" +
                         "                    g.row_number = game.rownum,\n" +
