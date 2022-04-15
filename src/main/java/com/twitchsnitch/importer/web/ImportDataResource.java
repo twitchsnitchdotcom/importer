@@ -139,6 +139,14 @@ public class ImportDataResource {
         twitchDataService.importLiveStreams(100);
     }
 
+    @GetMapping("/import/game/finder")
+    public void importGameFinder() {
+        twitchDataService.importGameFinder();
+    }
 
-
+    @GetMapping("/import/raid/finder")
+    public void importRaidFinder() {
+        twitchDataService.importLiveStreams(1000);
+        twitchDataService.importGameFinder();
+    }
 }

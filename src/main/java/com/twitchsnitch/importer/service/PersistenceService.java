@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.twitchsnitch.importer.dto.sully.RaidFinderDTO;
 import com.twitchsnitch.importer.dto.sully.channels.*;
 import com.twitchsnitch.importer.dto.sully.games.GamesDatum;
 import com.twitchsnitch.importer.dto.sully.games.GamesTable;
@@ -152,6 +153,39 @@ public class PersistenceService {
 
     //TWITCH METHODS
 
+    public RaidFinderDTO getRaidFinder(String login) {
+        RaidFinderDTO raidFinderDTO = new RaidFinderDTO();
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        int lowRange = 999999999;
+        int highRange = 0;
+        Collection<Map<String, Object>> all = client.query("MATCH p=(c:Channel{login:$login})-[r:GAME_METADATA]->(g:Game) RETURN g.sully_id as id,toInteger(r.avg_viewers * 0.5) as lowRange, toInteger(r.avg_viewers * 1.5) as highRange LIMIT 4").in(database).bind(login).to("login").fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                if (entry.getKey().equalsIgnoreCase("id")) {
+                    raidFinderDTO.getGameIds().add((String) entry.getValue());
+                }
+                if (entry.getKey().equalsIgnoreCase("lowRange")) {
+                    Integer value = (Integer) entry.getValue();
+                    if (value < lowRange) {
+                        lowRange = value;
+                    }
+                }
+
+                if (entry.getKey().equalsIgnoreCase("highRange")) {
+                    Integer value = (Integer) entry.getValue();
+                    if (value > highRange) {
+                        highRange = value;
+                    }
+                }
+            }
+        }
+        raidFinderDTO.setLowRange(lowRange);
+        raidFinderDTO.setHighRange(highRange);
+        stopWatch.stop();
+        log.debug("Get All Raid finders took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return raidFinderDTO;
+    }
 
     public Set<Long> getChannelsWithoutChannelGameData() {
         StopWatch stopWatch = new StopWatch();
@@ -624,7 +658,7 @@ public class PersistenceService {
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
                         "MATCH (g:Game{name:split(game.gamesplayed,\"|\")[0]})\n" +
                         "            MATCH (c:Channel{sully_id:$channelId}) \n" +
-                "MERGE (c)-[m:GAME_METADATA]->(g) \n" +
+                        "MERGE (c)-[m:GAME_METADATA]->(g) \n" +
                         "            SET     m.stream_time = game.streamtime,\n" +
                         "                    m.view_time = game.viewtime,\n" +
                         "                    m.row_num = game.rownum,\n" +
@@ -650,8 +684,12 @@ public class PersistenceService {
                         "                    r.overlapping_streams = rf.overlappingStreams,\n" +
                         "                    r.other_channel_streams = rf.otherChannelStreams,\n" +
                         "                    r.overlapping_ended_during = rf.overlappingEndedDuring,\n" +
-                        "                    r.overlapping_ended_after = rf.overlappingEndedAfter,\n" +
-                        "                    MERGE (raided:Channel{login:rf.url})<-[:RAID_RECIPIENT]-(r)-[:RAID_DONOR]->(c:Channel{login:$channelLogin});").in(database)
+                        "                    r.overlapping_ended_after = rf.overlappingEndedAfter\n" +
+                        "MATCH (raided:Channel{login:rf.url})\n" +
+                        "MATCH (c:Channel{login:$channelLogin})\n" +
+                        "WITH c, raided, r\n" +
+                        "MATCH (raided:Channel{login:rf.url})\n" +
+                        "                    MERGE (raided)<-[:RAID_RECIPIENT]-(r)-[:RAID_DONOR]->(c);").in(database)
                 .bind(jsonMap).to("json")
                 .bind(channelLogin).to("channelLogin")
                 .run();
@@ -660,42 +698,40 @@ public class PersistenceService {
     }
 
     @Async
-    public void persistSullyChannelGameFinder(String channelLogin, Map jsonMap) {
+    public void persistSullyChannelGameFinder(Map jsonMap) {
 
         ResultSummary run = client.query("UNWIND $json.data as gf\n" +
-                        "MERGE (g:GameFinder{composite_sully_id:gf.id#$channelLogin})\n" +
-                        "            SET     g.average_viewers = gf.averageviewers,\n" +
-                        "                    g.average_channels = gf.averagechannels,\n" +
-                        "                    g.per_average_viewers = gf.peraverageviewers,\n" +
-                        "                    g.per_average_channels = gf.peraveragechannels,\n" +
-                        "                    g.per_recent_avg_viewers = gf.perrecentavgviewers,\n" +
-                        "                    g.per_past_1_avg_viewers = gf.perpast1avgviewers,\n" +
-                        "                    g.per_past_2_avg_viewers = gf.perpast2avgviewers,\n" +
-                        "                    g.per_past3_avg_viewers = gf.perpast3avgviewers,\n" +
-                        "                    g.per_recent_avg_channels = gf.perrecentavgchannels,\n" +
-                        "                    g.per_past_1_avg_channels = gf.perpast1avgchannels,\n" +
-                        "                    g.per_past_2_avg_channels = gf.perpast2avgchannels,\n" +
-                        "                    g.per_past_3_avg_channels = gf.perpast3avgchannels,\n" +
-                        "                    g.channels_above = gf.channelsabove,\n" +
-                        "                    g.channels_same = gf.channelssame,\n" +
-                        "                    g.channels_below = gf.channelsbelow,\n" +
-                        "                    g.viewers_above = gf.viewersabove,\n" +
-                        "                    g.viewers_same = gf.viewerssame,\n" +
-                        "                    g.viewers_below = gf.viewersbelow,\n" +
-                        "                    g.est_position = gf.estposition,\n" +
-                        "                    g.viewer_ratio = gf.viewerratio,\n" +
-                        "                    g.viewer_ratio_same_blow = gf.viewerratiosameblow,\n" +
-                        "                    g.game_trend_channels_recent = gf.gametrendchannelsrecent,\n" +
-                        "                    g.game_trend_channels_3_day = gf.gametrendchannels3day,\n" +
-                        "                    g.game_trend_viewers_recent = gf.gametrendviewersrecent,\n" +
-                        "                    g.game_trend_viewers_3_day = gf.gametrendviewers3day,\n" +
-                        "                    g.twitch_game_trend_channels_recent = gf.twitchgametrendchannelsrecent,\n" +
-                        "                    g.twitch_game_trend_channels_3_day = gf.twitchgametrendchannels3day,\n" +
-                        "                    g.twitch_game_trend_viewers_recent = gf.twitchgametrendviewersrecent,\n" +
-                        "                    g.twitch_game_trend_viewers_3_day = gf.twitchgametrendviewers3day,\n" +
-                        "                    g.name = gf.name,\n" +
-                        "                    MATCH (game:Game{sully_id:gf.id)\n" +
-                        "                    MERGE (game)<-[:IN_GAME]-(g)-[:GAME_FOUND]->(c:Channel{login:$channelLogin});").in(database)
+                        "MATCH (gg:Game{sully_id:gf.id})\n" +
+                        "            SET     g.gf_average_viewers = gf.averageviewers,\n" +
+                        "                    g.gf_row_num = gf.rownum,\n" +
+                        "                    g.gf_average_channels = gf.averagechannels,\n" +
+                        "                    g.gf_per_average_viewers = gf.peraverageviewers,\n" +
+                        "                    g.gf_per_average_channels = gf.peraveragechannels,\n" +
+                        "                    g.gf_per_recent_avg_viewers = gf.perrecentavgviewers,\n" +
+                        "                    g.gf_per_past_1_avg_viewers = gf.perpast1avgviewers,\n" +
+                        "                    g.gf_per_past_2_avg_viewers = gf.perpast2avgviewers,\n" +
+                        "                    g.gf_per_past3_avg_viewers = gf.perpast3avgviewers,\n" +
+                        "                    g.gf_per_recent_avg_channels = gf.perrecentavgchannels,\n" +
+                        "                    g.gf_per_past_1_avg_channels = gf.perpast1avgchannels,\n" +
+                        "                    g.gf_per_past_2_avg_channels = gf.perpast2avgchannels,\n" +
+                        "                    g.gf_per_past_3_avg_channels = gf.perpast3avgchannels,\n" +
+                        "                    g.gf_channels_above = gf.channelsabove,\n" +
+                        "                    g.gf_channels_same = gf.channelssame,\n" +
+                        "                    g.gf_channels_below = gf.channelsbelow,\n" +
+                        "                    g.gf_viewers_above = gf.viewersabove,\n" +
+                        "                    g.gf_viewers_same = gf.viewerssame,\n" +
+                        "                    g.gf_viewers_below = gf.viewersbelow,\n" +
+                        "                    g.gf_est_position = gf.estposition,\n" +
+                        "                    g.gf_viewer_ratio = gf.viewerratio,\n" +
+                        "                    g.gf_viewer_ratio_same_blow = gf.viewerratiosameblow,\n" +
+                        "                    g.gf_game_trend_channels_recent = gf.gametrendchannelsrecent,\n" +
+                        "                    g.gf_game_trend_channels_3_day = gf.gametrendchannels3day,\n" +
+                        "                    g.gf_game_trend_viewers_recent = gf.gametrendviewersrecent,\n" +
+                        "                    g.gf_game_trend_viewers_3_day = gf.gametrendviewers3day,\n" +
+                        "                    g.gf_twitch_game_trend_channels_recent = gf.twitchgametrendchannelsrecent,\n" +
+                        "                    g.gf_twitch_game_trend_channels_3_day = gf.twitchgametrendchannels3day,\n" +
+                        "                    g.gf_twitch_game_trend_viewers_recent = gf.twitchgametrendviewersrecent,\n" +
+                        "                    g.gf_twitch_game_trend_viewers_3_day = gf.twitchgametrendviewers3day;").in(database)
                 .bind(jsonMap).to("json")
                 .bind(jsonMap).to("channelLogin")
                 .run();
@@ -714,4 +750,8 @@ public class PersistenceService {
 
         logResultSummaries("persistTwitchGames", run);
     }
+
+    public void persistGamePicker(Map map) {
+    }
+
 }
