@@ -183,7 +183,7 @@ public class PersistenceService {
     public List<String> getLiveStreams() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        List<String> liveStreams = new HashSet<>();
+        List<String> liveStreams = new ArrayList<>();
         Collection<Map<String, Object>> all = client.query("MATCH (l:LiveStream)<-[:LIVE_STREAMING]-(c:Channel) RETURN c.login").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
