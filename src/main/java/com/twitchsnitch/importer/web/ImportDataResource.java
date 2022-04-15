@@ -15,31 +15,35 @@ public class ImportDataResource {
     private final TwitchDataService twitchDataService;
 
     @GetMapping("/phase/1")
-    public void phase1(){
+    public void phase1() throws InterruptedException {
 
         twitchDataService.dropDBConstraints();
         twitchDataService.addDBConstraints();
         twitchDataService.importLanguages();
 
         twitchDataService.importChannels();
+        Thread.sleep(5000);
         twitchDataService.importGames();
+        Thread.sleep(5000);
         twitchDataService.importTeams();
 
 
     }
 
     @GetMapping("/phase/2")
-    public void phase2() {
+    public void phase2() throws InterruptedException {
 
         twitchDataService.importFollowsTo();
         twitchDataService.importFollowsFrom();
-        
+
         twitchDataService.importTwitchUsers();
         twitchDataService.importTwitchGameData();
         twitchDataService.importTwitchTeams();
 
         twitchDataService.importChannelStreams();
+        Thread.sleep(5000);
         twitchDataService.importChannelGames();
+        Thread.sleep(5000);
 
         twitchDataService.importChattersOnDB();
         twitchDataService.importTwitchUsers();
