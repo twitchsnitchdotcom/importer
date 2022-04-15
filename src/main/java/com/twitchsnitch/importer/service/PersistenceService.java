@@ -240,10 +240,10 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsTo = new HashSet<>();
         Collection<Map<String, Object>> all;
         if (limit != null) {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL RETURN c.twitch_id ORDER BY c.followers DESC").in(database).fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL AND t.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC").in(database).fetch().all();
 
         } else {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL RETURN c.twitch_id ORDER BY c.followers DESC LIMIT " + limit).in(database).fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL AND t.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC LIMIT " + limit).in(database).fetch().all();
 
         }
         for (Map<String, Object> objectMap : all) {
@@ -262,10 +262,10 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsFrom = new HashSet<>();
         Collection<Map<String, Object>> all;
         if (limit != null) {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL RETURN c.twitch_id ORDER BY c.followers DESC").in(database).fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL AND t.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC").in(database).fetch().all();
 
         } else {
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL RETURN c.twitch_id ORDER BY c.followers DESC LIMIT " + limit).in(database).fetch().all();
+            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL AND t.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC LIMIT " + limit).in(database).fetch().all();
 
         }
         for (Map<String, Object> objectMap : all) {

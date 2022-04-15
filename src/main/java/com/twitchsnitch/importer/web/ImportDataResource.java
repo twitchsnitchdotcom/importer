@@ -101,6 +101,15 @@ public class ImportDataResource {
         twitchDataService.importTwitchGameData();
     }
 
+    @GetMapping("/import/follows/to")
+    public void importFollowsTo() {
+        twitchDataService.importFollowsTo();
+    }
+
+    @GetMapping("/import/follows/from")
+    public void importFollowsFrom() {
+        twitchDataService.importFollowsFrom();
+    }
 
 
     @GetMapping("/import/channels/games")
@@ -128,14 +137,6 @@ public class ImportDataResource {
         twitchDataService.importLiveStreams(100);
     }
 
-    @GetMapping("/import/follows/to")
-    public void importFollowsTo() {
-        twitchDataService.importFollowsTo();
-    }
 
-    @GetMapping("/import/follows/from")
-    public void importFollowsFrom() {
-        twitchDataService.importFollowsFrom();
-    }
 
 }
