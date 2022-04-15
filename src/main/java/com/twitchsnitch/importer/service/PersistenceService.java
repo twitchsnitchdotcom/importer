@@ -703,7 +703,7 @@ public class PersistenceService {
                         "                    r.overlapping_ended_after = rf.overlappingEndedAfter\n" +
                 "WITH rf, r \n" +
                         "MATCH (c:Channel{login:$channelLogin})\n" +
-                        "WITH c, raided, r\n" +
+                        "WITH c, rf , r\n" +
                         "MATCH (raided:Channel{login:rf.url})\n" +
                         "                    MERGE (raided)<-[:RAID_RECIPIENT]-(r)-[:RAID_DONOR]->(c);").in(database)
                 .bind(jsonMap).to("json")
