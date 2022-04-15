@@ -178,10 +178,16 @@ public class TwitchDataService {
         long pages = resultSize / 100;
         log.debug("Original result size is: " + resultSize);
         log.debug("Total number of pages is: " + pages);
-        for (int i = 0; i < pages; i++) {
-            Integer pagination = i * 100;
-            urls.add(prefix + pagination.toString() + suffix);
+        if(pages == 0){
+            urls.add(prefix + 0 + suffix);
         }
+        else{
+            for (int i = 0; i < pages; i++) {
+                Integer pagination = i * 100;
+                urls.add(prefix + pagination.toString() + suffix);
+            }
+        }
+
         return urls;
     }
 
