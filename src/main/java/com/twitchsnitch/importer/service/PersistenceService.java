@@ -693,7 +693,7 @@ public class PersistenceService {
 
     @Async
     public void persistSullyChannelRaidFinder(String channelLogin, Map jsonMap) {
-        ResultSummary run = client.query("UNWIND $json as rf\n" +
+        ResultSummary run = client.query("UNWIND $json.data as rf\n" +
                         "MATCH (c:Channel{login:$channelLogin})\n" +
                         //"WITH c, rf\n" +
                         "MATCH (c2:Channel{login:rf.url})\n" +
