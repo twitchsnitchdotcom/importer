@@ -696,7 +696,7 @@ public class PersistenceService {
         ResultSummary run = client.query("UNWIND $json.data as rf\n" +
                         "MATCH (c:Channel{login:$channelLogin})\n" +
                         //"WITH c, rf\n" +
-                        "MATCH (c2:Channel{login:rf.url}) WHERE NOT c.login = c.login\n" +
+                        "MATCH (c2:Channel{login:rf.url}) WHERE NOT c.login = c2.login\n" +
                         "                    MERGE (c2)<-[cr:CAN_RAID]-(c)\n" +
                         "            SET     cr.live_minutes = rf.liveMinutes,\n" +
                         "                    cr.live_viewers = rf.liveViewers,\n" +
