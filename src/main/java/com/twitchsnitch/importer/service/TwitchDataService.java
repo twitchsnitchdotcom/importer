@@ -179,7 +179,7 @@ public class TwitchDataService {
         log.debug("Original result size is: " + resultSize);
         log.debug("Total number of pages is: " + pages);
         if(pages == 0){
-            urls.add(prefix + 0 + suffix);
+            urls.add(prefix + suffix.replace("/", ""));
         }
         else{
             for (int i = 0; i < pages; i++) {

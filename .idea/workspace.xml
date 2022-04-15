@@ -140,7 +140,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>810</line>
+          <line>816</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
