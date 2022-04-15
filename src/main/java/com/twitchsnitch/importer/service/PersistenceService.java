@@ -375,7 +375,8 @@ public class PersistenceService {
                         "    t.twitch_id = row.id\n" +
                         "    WITH row,t\n" +
                         "    UNWIND row.users as member\n" +
-                        "MERGE (u:User{login:member.user_login})-[:MEMBER_OF]->(t) ;").in(database)
+                "MERGE (u:User{login:member.user_login})\n" +
+                        "MERGE (u)-[:MEMBER_OF]->(t);").in(database)
                 .bind(json).to("json")
                 .bind(login).to("login")
                 .run();
