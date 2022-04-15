@@ -698,7 +698,7 @@ public class PersistenceService {
                         //"WITH c, rf\n" +
                         "MATCH (c2:Channel{login:rf.url})\n" +
                         "                    MERGE (c2)<-[cr:CAN_RAID]-(c)\n" +
-                        "            ON CREATE SET     cr.live_minutes = rf.liveMinutes,\n" +
+                        "            SET     cr.live_minutes = rf.liveMinutes,\n" +
                         "                    cr.live_viewers = rf.liveViewers,\n" +
                         "                    cr.overlapping_streams = rf.overlappingStreams,\n" +
                         "                    cr.other_channel_streams = rf.otherChannelStreams,\n" +
