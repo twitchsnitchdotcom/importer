@@ -122,11 +122,6 @@ public class ImportDataResource {
         twitchDataService.importChannelStreams();
     }
 
-    @GetMapping("/import/channels/streams/detail")
-    public void importChannelStreamsDetail() {
-        twitchDataService.importChannelStreamsDetail();
-    }
-
     @GetMapping("/import/teams")
     public void importTeams() {
         twitchDataService.importTeams();

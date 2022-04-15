@@ -171,7 +171,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Set<Long> sullyChannelStreams = new HashSet<>();
-        Collection<Map<String, Object>> all = client.query("MATCH (cs:ChannelStream) WHERE NOT (cs)-[:STREAM_METADATA]->() RETURN cs.sully_id").in(database).fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH (cs:ChannelStream) WHERE NOT (cs)-[:STREAM_METADATA]->() RETURN cs.sully_id, ").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 sullyChannelStreams.add((Long) entry.getValue());

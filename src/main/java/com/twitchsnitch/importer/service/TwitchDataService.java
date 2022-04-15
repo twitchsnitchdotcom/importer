@@ -149,6 +149,18 @@ public class TwitchDataService {
         return jsonList;
     }
 
+    public String goToWebSiteHTML(String url) {
+        ChromeDriver driver = driverService.getAvailableDriver();
+            try {
+                driver.get(url);
+                return driver.getPageSource();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        driverService.returnDriverAfterUse(driver);
+        return null;
+    }
+
     public List<String> goToWebSitesHTML(List<String> urls) {
         ChromeDriver driver = driverService.getAvailableDriver();
         List<String> htmlList = new ArrayList<>();
@@ -160,7 +172,6 @@ public class TwitchDataService {
             } catch (Exception e) {
                 try {
                     driver.get(url);
-                    Thread.sleep(2000);
                     htmlList.add(driver.getPageSource());
 
                 } catch (Exception e2) {
@@ -295,53 +306,6 @@ public class TwitchDataService {
         }
     }
 
-    public void importChannelStreamsDetail() {
-        Set<Long> streamIdSet = persistenceService.getChannelStreamsWithoutIndividualData();
-        try {
-            for (Long id : streamIdSet) {
-                String suffix = "/" + numberOfRecords;
-                String channelStreamDetailScaffoldUrl = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc/10";
-                String channelStreamDetailPrefix = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc";
-
-                long streamsDetailTotalSize;
-                ChannelStreamList channelStreamList = objectMapper().readValue(goToWebSiteJSON(channelStreamDetailScaffoldUrl), ChannelStreamList.class);
-                streamsDetailTotalSize = channelStreamList.getRecordsTotal();
-                log.debug("Actual channel stream detail size: " + streamsDetailTotalSize);
-                if (testing) {
-                    streamsDetailTotalSize = 10; //todo remove when read for prod
-                }
-                List<String> streamsUrls = buildUpSubSequentUrls(channelStreamDetailPrefix, suffix, streamsDetailTotalSize);
-                for (String html : goToWebSitesHTML(streamsUrls)) {
-                    IndividualStreamDTO individualStreamDTO = new IndividualStreamDTO();
-                    Document doc = Jsoup.parse(html);
-                    individualStreamDTO.setAverageViewers(Long.parseLong(doc.select("body > div.RightContent > div.MainContent > div.PageContentContainer > div.StandardPageContainer > div > div.MiniPanelContainer > div:nth-child(1) > div > div.MiniPanelTop > div.MiniPanelTopRight").get(0).text().replace(",", "")));
-                    individualStreamDTO.setViewsPerHour(Double.parseDouble(doc.select("body > div.RightContent > div.MainContent > div.PageContentContainer > div.StandardPageContainer > div > div.MiniPanelContainer > div:nth-child(2) > div > div.MiniPanelTop > div.MiniPanelTopRight").get(0).text().replace(",", "")));
-                    Elements streamSummaryPanels = doc.getElementsByClass("StreamGameSummaryPanel");
-                    for (Element panel : streamSummaryPanels) {
-                        IndividualStreamDataDTO individualStreamDataDTO = new IndividualStreamDataDTO();
-                        Elements pannelItems = panel.getElementsByClass("StreamGameSummaryPanelItemValue");
-                        individualStreamDataDTO.setGameName(pannelItems.get(0).text());
-                        individualStreamDataDTO.setWatchTime(Long.parseLong(pannelItems.get(1).text().replace(",", "").replace(" hours", "")));
-                        individualStreamDataDTO.setStreamLength(pannelItems.get(2).text());
-                        Elements miniPanelOuter = panel.getElementsByClass("MiniPanelOuter");
-
-                        individualStreamDataDTO.setAverageViewers(Long.parseLong(miniPanelOuter.get(0).getElementsByClass("MiniPanelTop").get(0).getElementsByClass("MiniPanelTopRight").get(0).text().replace(",", "")));
-                        individualStreamDataDTO.setMaxViewers(Long.parseLong(miniPanelOuter.get(0).getElementsByClass("MiniPanelMiddle").get(0).getElementsByClass("MiniPanelMiddleRight").get(0).text().replace(",", "")));
-                        individualStreamDataDTO.setMaxViewersPerformance(miniPanelOuter.get(0).getElementsByClass("MiniPanelBottom").get(0).getElementsByClass("MiniPanelBottomRight").get(0).text());
-                        individualStreamDataDTO.setViewsPerHour(Double.parseDouble(miniPanelOuter.get(1).getElementsByClass("MiniPanelTop").get(0).getElementsByClass("MiniPanelTopRight").get(0).text().replace(",", "")));
-                        individualStreamDataDTO.setViews(Long.parseLong(miniPanelOuter.get(1).getElementsByClass("MiniPanelMiddle").get(0).getElementsByClass("MiniPanelMiddleRight").get(0).text().replace(",", "")));
-                        individualStreamDataDTO.setViewsPerformance(miniPanelOuter.get(1).getElementsByClass("MiniPanelBottom").get(0).getElementsByClass("MiniPanelBottomRight").get(0).text());
-                        individualStreamDTO.getGamesPlayed().add(individualStreamDataDTO);
-                    }
-                    persistenceService.persistSullyChannelIndividualStream(id, individualStreamDTO);
-                }
-
-            }
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage());
-        }
-    }
-
     public void importTwitchGameData() {
         Set<String> allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds();
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
@@ -383,6 +347,34 @@ public class TwitchDataService {
                     List<String> streamsUrls = buildUpSubSequentUrls(channelStreamPrefix, suffix, streamsTotalSize);
                     for (String json : goToWebSitesJSON(streamsUrls)) {
                         persistenceService.persistSullyChannelStreams(objectMapper().readValue(json, Map.class));
+                        ChannelStreamList channelStreams = objectMapper().readValue(json, ChannelStreamList.class);
+                        for(ChannelStreamListDatum data : channelStreams.getData()){
+                            String url = "https://sullygnome.com/channel/" + data.getChannelurl() + "/stream/" + data.getStreamId();
+                            String html = goToWebSiteHTML(url);
+                            IndividualStreamDTO individualStreamDTO = new IndividualStreamDTO();
+                            Document doc = Jsoup.parse(html);
+                            individualStreamDTO.setAverageViewers(Long.parseLong(doc.select("body > div.RightContent > div.MainContent > div.PageContentContainer > div.StandardPageContainer > div > div.MiniPanelContainer > div:nth-child(1) > div > div.MiniPanelTop > div.MiniPanelTopRight").get(0).text().replace(",", "")));
+                            individualStreamDTO.setViewsPerHour(Double.parseDouble(doc.select("body > div.RightContent > div.MainContent > div.PageContentContainer > div.StandardPageContainer > div > div.MiniPanelContainer > div:nth-child(2) > div > div.MiniPanelTop > div.MiniPanelTopRight").get(0).text().replace(",", "")));
+                            Elements streamSummaryPanels = doc.getElementsByClass("StreamGameSummaryPanel");
+                            for (Element panel : streamSummaryPanels) {
+                                IndividualStreamDataDTO individualStreamDataDTO = new IndividualStreamDataDTO();
+                                Elements pannelItems = panel.getElementsByClass("StreamGameSummaryPanelItemValue");
+                                individualStreamDataDTO.setGameName(pannelItems.get(0).text());
+                                individualStreamDataDTO.setWatchTime(Long.parseLong(pannelItems.get(1).text().replace(",", "").replace(" hours", "")));
+                                individualStreamDataDTO.setStreamLength(pannelItems.get(2).text());
+                                Elements miniPanelOuter = panel.getElementsByClass("MiniPanelOuter");
+
+                                individualStreamDataDTO.setAverageViewers(Long.parseLong(miniPanelOuter.get(0).getElementsByClass("MiniPanelTop").get(0).getElementsByClass("MiniPanelTopRight").get(0).text().replace(",", "")));
+                                individualStreamDataDTO.setMaxViewers(Long.parseLong(miniPanelOuter.get(0).getElementsByClass("MiniPanelMiddle").get(0).getElementsByClass("MiniPanelMiddleRight").get(0).text().replace(",", "")));
+                                individualStreamDataDTO.setMaxViewersPerformance(miniPanelOuter.get(0).getElementsByClass("MiniPanelBottom").get(0).getElementsByClass("MiniPanelBottomRight").get(0).text());
+                                individualStreamDataDTO.setViewsPerHour(Double.parseDouble(miniPanelOuter.get(1).getElementsByClass("MiniPanelTop").get(0).getElementsByClass("MiniPanelTopRight").get(0).text().replace(",", "")));
+                                individualStreamDataDTO.setViews(Long.parseLong(miniPanelOuter.get(1).getElementsByClass("MiniPanelMiddle").get(0).getElementsByClass("MiniPanelMiddleRight").get(0).text().replace(",", "")));
+                                individualStreamDataDTO.setViewsPerformance(miniPanelOuter.get(1).getElementsByClass("MiniPanelBottom").get(0).getElementsByClass("MiniPanelBottomRight").get(0).text());
+                                individualStreamDTO.getGamesPlayed().add(individualStreamDataDTO);
+                            }
+                            persistenceService.persistSullyChannelIndividualStream(id, individualStreamDTO);
+                        }
+
                     }
                 }
 
