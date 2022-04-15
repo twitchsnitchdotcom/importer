@@ -157,6 +157,7 @@ public class PersistenceService {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 if (entry.getKey().equalsIgnoreCase("id")) {
                     raidFinderDTO.getGameIds().add((String) entry.getValue());
+                    raidFinderDTO.setDataIsSet(true);
                 }
                 if (entry.getKey().equalsIgnoreCase("lowRange")) {
                     Integer value = (Integer) entry.getValue();

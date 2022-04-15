@@ -7,9 +7,19 @@ public class RaidFinderDTO {
 
     private List<String> gameIds = new ArrayList<>();
 
+    private boolean dataIsSet = false;
+
     private int lowRange;
 
     private int highRange;
+
+    public boolean isDataIsSet() {
+        return dataIsSet;
+    }
+
+    public void setDataIsSet(boolean dataIsSet) {
+        this.dataIsSet = dataIsSet;
+    }
 
     public List<String> getGameIds() {
         return gameIds;

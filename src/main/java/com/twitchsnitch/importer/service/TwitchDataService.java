@@ -443,18 +443,21 @@ public class TwitchDataService {
                 RaidFinderDTO raidDTO = persistenceService.getRaidFinder(login);
                 boolean secondValue = false;
                 String gameString = "";
-                for(String gameId : raidDTO.getGameIds()){
-                    if(secondValue){
-                        gameString = gameString + "," + gameId;
+                if(raidDTO.isDataIsSet()){
+                    for(String gameId : raidDTO.getGameIds()){
+                        if(secondValue){
+                            gameString = gameString + "," + gameId;
+                        }
+                        else{
+                            gameString = gameString + gameId;
+                            secondValue = true;
+                        }
                     }
-                    else{
-                        gameString = gameString + gameId;
-                        secondValue = true;
-                    }
+                    String url = "https://sullygnome.com/api/tables/channeltables/raidfinder/30/2215977/%20" + gameString + "/0/0/9999999/" + raidDTO.getLowRange() +"/" + raidDTO.getHighRange() + "/011/11/false/1/4/desc/0/100";
+                    String json = goToWebSiteJSON(url);
+                    persistenceService.persistSullyChannelRaidFinder(login, objectMapper().readValue(json, Map.class));
                 }
-                String url = "https://sullygnome.com/api/tables/channeltables/raidfinder/30/2215977/%20" + gameString + "/0/0/9999999/" + raidDTO.getLowRange() +"/" + raidDTO.getHighRange() + "/011/11/false/1/4/desc/0/100";
-                String json = goToWebSiteJSON(url);
-                persistenceService.persistSullyChannelRaidFinder(login, objectMapper().readValue(json, Map.class));
+
             }
         }
         catch (JsonProcessingException e) {
