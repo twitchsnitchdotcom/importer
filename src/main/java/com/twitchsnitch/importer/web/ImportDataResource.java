@@ -146,7 +146,6 @@ public class ImportDataResource {
 
     @GetMapping("/import/raid/finder")
     public void importRaidFinder() {
-        twitchDataService.importLiveStreams(1000);
         twitchDataService.importRaidPicker();
     }
 }
