@@ -636,7 +636,7 @@ public class PersistenceService {
                         "                    m.games_played = game.gamesplayed,\n" +
                         "                    m.views_per_hour = game.viewsperhour\n").in(database)
                 .bind(jsonMap).to("json")
-                .bind(channelId).to("$channelId")
+                .bind(channelId).to("channelId")
                 .run();
         logResultSummaries("persistSullyChannelGames", run);
 
