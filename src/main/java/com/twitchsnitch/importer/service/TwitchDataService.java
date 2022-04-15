@@ -645,7 +645,7 @@ public class TwitchDataService {
     //REST METHODS
 
     public StreamListDTO runGetLiveStreams(OAuthTokenDTO oAuthTokenDTO, String cursor) {
-        String url = "https://api.twitch.tv/helix/streams?limit=100";
+        String url = "https://api.twitch.tv/helix/streams?first=100";
         if (cursor != null) {
             url = url + "&after=" + cursor;
         }
