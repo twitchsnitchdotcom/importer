@@ -63,7 +63,7 @@ public class PersistenceService {
         ResultSummary run = client.query("call apoc.periodic.iterate(\n" +
                 "\"MATCH (p) return id(p) AS id\", \n" +
                 "\"MATCH (n) WHERE id(n) = id DETACH DELETE n\", \n" +
-                "{batchSize:100, parallel:true})").in(database).run();
+                "{batchSize:1000})").in(database).run();
         log.debug("Nodes deleted from the DB: " + run.counters().nodesDeleted());
     }
 
