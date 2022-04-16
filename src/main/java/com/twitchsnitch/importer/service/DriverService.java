@@ -37,7 +37,7 @@ public class DriverService {
         options.addArguments("--no-sandbox"); // Bypass OS security model
         System.setProperty("webdriver.chrome.silentOutput", "true");
 
-        for(int i =1; i <= webDriversSize; i++){
+        for(int i =0; i < webDriversSize; i++){
             ChromeDriver driver = new ChromeDriver(options);
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             driver.manage().window().setPosition(new Point(-2000, 0));
@@ -54,7 +54,7 @@ public class DriverService {
     }
 
     public ChromeDriver getCorrectDriver(){
-        return availableDrivers.get(1);
+        return availableDrivers.get(0);
     }
 
     public Integer getAvailableDriversSize(){

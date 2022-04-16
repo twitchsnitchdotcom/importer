@@ -241,7 +241,7 @@ public class TwitchDataService {
             log.debug("Actual Game size: " + gamesTotalSize);
             Set<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(gamesUrls, 10);
-            for(int i = 0; i< sets.size(); i++){
+            for(int i = 0; i < sets.size(); i++){
                 asyncPersistenceService.persistGamesAsync(i, sets.get(i));
             }
         } catch (JsonProcessingException e) {
