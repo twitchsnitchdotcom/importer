@@ -420,7 +420,7 @@ public class PersistenceService {
                 "  FOREACH (chatter in chatters.viewers | \n" +
                 "          MERGE (u:User{login:chatter}) \n" +
                 "          MERGE (u)-[c:CHATTER]->(s))',\n" +
-                "{batchSize:10, parallel:true})").in(database).run();
+                "{batchSize:1})").in(database).run();
         logResultSummaries("runChattersOnDB", run);
     }
 
