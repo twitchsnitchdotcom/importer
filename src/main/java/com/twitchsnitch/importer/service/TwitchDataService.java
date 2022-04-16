@@ -241,7 +241,7 @@ public class TwitchDataService {
             log.debug("Actual Game size: " + gamesTotalSize);
             Set<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(gamesUrls, 10);
-            for(int i = 1; i<= sets.size(); i++){
+            for(int i = 0; i<= sets.size(); i++){
                 asyncPersistenceService.persistGamesAsync(i, sets.get(i));
             }
         } catch (JsonProcessingException e) {
@@ -274,7 +274,7 @@ public class TwitchDataService {
             log.debug("Actual Channel size: " + channelTotalSize);
             Set<String> channelUrls = buildUpSubSequentUrls(channelPrefix, suffix, channelTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelUrls, 10);
-            for(int i = 1; i<= sets.size(); i++){
+            for(int i = 0; i<= sets.size(); i++){
                 asyncPersistenceService.persistChannelsAsync(i, sets.get(i));
             }
         } catch (JsonProcessingException e) {
@@ -296,7 +296,7 @@ public class TwitchDataService {
             log.debug("Actual Teams size: " + teamTotalSize);
             Set<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(teamsUrls, 10);
-            for(int i = 1; i<= sets.size(); i++){
+            for(int i = 0; i<= sets.size(); i++){
                 asyncPersistenceService.persistTeamsAsync(i, sets.get(i));
             }
         } catch (JsonProcessingException e) {
