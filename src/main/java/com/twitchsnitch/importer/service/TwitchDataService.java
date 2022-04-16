@@ -59,6 +59,7 @@ public class TwitchDataService {
     private final OAuthService oAuthService;
     private final PersistenceService persistenceService;
     private final DriverService driverService;
+    private final AsyncPersistenceService asyncPersistenceService;
 
     private RestTemplate restTemplate = new RestTemplate();
     private Set<String> liveStreamers = new HashSet<>();
@@ -71,10 +72,11 @@ public class TwitchDataService {
                 .registerModule(module);
     }
 
-    public TwitchDataService(OAuthService oAuthService, TwitchClientService twitchClientService, PersistenceService persistenceService, DriverService driverService) {
+    public TwitchDataService(OAuthService oAuthService, PersistenceService persistenceService, DriverService driverService, AsyncPersistenceService asyncPersistenceService) {
         this.oAuthService = oAuthService;
         this.persistenceService = persistenceService;
         this.driverService = driverService;
+        this.asyncPersistenceService = asyncPersistenceService;
     }
 
     private final static Logger log = LoggerFactory.getLogger(TwitchDataService.class);
@@ -117,7 +119,7 @@ public class TwitchDataService {
         return null;
     }
 
-    public List<String> goToWebSitesJSON(List<String> urls) {
+    public List<String> goToWebSitesJSON(Set<String> urls) {
         List<String> jsonList = new ArrayList<>();
         ChromeDriver driver = driverService.getAvailableDriver();
         for (String url : urls) {
@@ -177,8 +179,8 @@ public class TwitchDataService {
         return htmlList;
     }
 
-    private List<String> buildUpSubSequentUrls(String prefix, String suffix, long resultSize) {
-        List<String> urls = new ArrayList<>();
+    private Set<String> buildUpSubSequentUrls(String prefix, String suffix, long resultSize) {
+        HashSet<String> urls = new HashSet<>();
         long pages = resultSize / 100;
         log.debug("Original result size is: " + resultSize);
         log.debug("Total number of pages is: " + pages);
@@ -231,12 +233,11 @@ public class TwitchDataService {
 
     //MAIN METHODS
 
-    @Async
+
     public void importChattersOnDB() {
         persistenceService.persistChattersOnDB();
     }
 
-    @Async
     public void importGames() {
         String suffix = "/" + numberOfRecords;
         String gameScaffoldUrl = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc/0/" + numberOfRecords;
@@ -246,9 +247,10 @@ public class TwitchDataService {
             GamesTable gamesTable = objectMapper().readValue(goToWebSiteJSON(gameScaffoldUrl), GamesTable.class);
             gamesTotalSize = gamesTable.getRecordsTotal();
             log.debug("Actual Game size: " + gamesTotalSize);
-            List<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
-            for (String json : goToWebSitesJSON(gamesUrls)) {
-                persistenceService.persistSullyGames(gamesDaysPerspective, objectMapper().readValue(json, Map.class));
+            Set<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
+            List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(gamesUrls, 10);
+            for(Set<String> set: sets){
+                asyncPersistenceService.persistGamesAsync(set);
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());
@@ -278,9 +280,10 @@ public class TwitchDataService {
             ChannelsTable channelsTable = objectMapper().readValue(goToWebSiteJSON(channelsScaffoldUrl), ChannelsTable.class);
             channelTotalSize = channelsTable.getRecordsTotal();
             log.debug("Actual Channel size: " + channelTotalSize);
-            List<String> channelUrls = buildUpSubSequentUrls(channelPrefix, suffix, channelTotalSize);
-            for (String json : goToWebSitesJSON(channelUrls)) {
-                persistenceService.persistSullyChannels(channelDaysPerspective, objectMapper().readValue(json, Map.class));
+            Set<String> channelUrls = buildUpSubSequentUrls(channelPrefix, suffix, channelTotalSize);
+            List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelUrls, 10);
+            for(Set<String> set: sets){
+                asyncPersistenceService.persistChannelsAsync(set);
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());
@@ -300,9 +303,10 @@ public class TwitchDataService {
             TeamsTable teamsTable = objectMapper().readValue(goToWebSiteJSON(teamsScaffoldUrl), TeamsTable.class);
             teamTotalSize = teamsTable.getRecordsTotal();
             log.debug("Actual Teams size: " + teamTotalSize);
-            List<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
-            for (String json : goToWebSitesJSON(teamsUrls)) {
-                persistenceService.persistSullyTeams(teamsDaysPerspective, objectMapper().readValue(json, Map.class));
+            Set<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
+            List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(teamsUrls, 10);
+            for(Set<String> set: sets){
+                asyncPersistenceService.persistTeamsAsync(set);
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());
@@ -463,7 +467,7 @@ public class TwitchDataService {
             if (jsonScaffold != null) {
                 ChannelGamePicker channelGamePicker = objectMapper().readValue(jsonScaffold, ChannelGamePicker.class);
                 gamePickerTotalSize = channelGamePicker.getRecordsTotal();
-                List<String> gamePickerUrls = buildUpSubSequentUrls(gamePickerPrefix, suffix, gamePickerTotalSize);
+                Set<String> gamePickerUrls = buildUpSubSequentUrls(gamePickerPrefix, suffix, gamePickerTotalSize);
                 for (String json : goToWebSitesJSON(gamePickerUrls)) {
                     persistenceService.persistSullyChannelGameFinder(objectMapper().readValue(json, Map.class));
                 }
@@ -554,7 +558,7 @@ public class TwitchDataService {
                 if (jsonScaffold != null) {
                     ChannelStreamList channelStreamList = objectMapper().readValue(jsonScaffold, ChannelStreamList.class);
                     streamsTotalSize = channelStreamList.getRecordsTotal();
-                    List<String> streamsUrls = buildUpSubSequentUrls(channelStreamPrefix, suffix, streamsTotalSize);
+                    Set<String> streamsUrls = buildUpSubSequentUrls(channelStreamPrefix, suffix, streamsTotalSize);
                     for (String json : goToWebSitesJSON(streamsUrls)) {
                         persistenceService.persistSullyChannelStreams(objectMapper().readValue(json, Map.class));
                         ChannelStreamList channelStreams = objectMapper().readValue(json, ChannelStreamList.class);

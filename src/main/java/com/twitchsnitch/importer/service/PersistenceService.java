@@ -503,7 +503,7 @@ public class PersistenceService {
     }
 
     @Async
-    public void persistSullyChannels(Integer daysPerspective, Map jsonMap) {
+    public void persistSullyChannels(Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         ResultSummary run = client.query("UNWIND $json.data as channel\n" +
@@ -542,7 +542,7 @@ public class PersistenceService {
     }
 
     @Async
-    public void persistSullyTeams(Integer daysPerspective, Map jsonMap) {
+    public void persistSullyTeams(Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         ResultSummary run = client.query("UNWIND $json.data as team\n" +
@@ -566,7 +566,7 @@ public class PersistenceService {
     }
 
     @Async
-    public void persistSullyGames(Integer daysPerspective, Map jsonMap) {
+    public void persistSullyGames(Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         ResultSummary run = client.query("UNWIND $json.data as game\n" +

@@ -46,17 +46,17 @@ public class DriverService {
     }
 
     public ChromeDriver getAvailableDriver(){
-        if(availableDrivers.size() == 0){
-            ChromeDriver driver = new ChromeDriver(options);
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            driver.manage().window().setPosition(new Point(-2000, 0));
-            return driver;
+        while(availableDrivers.size() == 0){
+            log.debug("WAITING 2 minutes for webdrivers to become available ");
+            try {
+                Thread.sleep(120000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        else{
             ChromeDriver chromeDriver = availableDrivers.get(0);
             availableDrivers.remove(chromeDriver);
             return chromeDriver;
-        }
     }
 
     public void returnDriverAfterUse(ChromeDriver driver){
