@@ -21,7 +21,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.neo4j.core.Neo4jClient;
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -98,30 +97,27 @@ public class TwitchDataService {
     }
 
     public String goToWebSiteJSON(String url) {
-        ChromeDriver driver = driverService.getAvailableDriver();
+        ChromeDriver driver = driverService.getCorrectDriver();
         try {
             driver.get("view-source:" + url);
             String json = driver.findElement(By.className("line-content")).getText();
-            driverService.returnDriverAfterUse(driver);
             return json;
         } catch (Exception e) {
             try {
                 driver.get("view-source:" + url);
                 //Thread.sleep(2000);
                 String json = driver.findElement(By.className("line-content")).getText();
-                driverService.returnDriverAfterUse(driver);
                 return json;
             } catch (Exception e2) {
                 log.error("FAILED COLLECTING: " + url);
             }
         }
-        driverService.returnDriverAfterUse(driver);
         return null;
     }
 
     public List<String> goToWebSitesJSON(Set<String> urls) {
         List<String> jsonList = new ArrayList<>();
-        ChromeDriver driver = driverService.getAvailableDriver();
+        ChromeDriver driver = driverService.getCorrectDriver();
         for (String url : urls) {
             try {
                 driver.get("view-source:" + url);
@@ -139,25 +135,22 @@ public class TwitchDataService {
 
             }
         }
-        driverService.returnDriverAfterUse(driver);
         return jsonList;
     }
 
     public String goToWebSiteHTML(String url) {
-        ChromeDriver driver = driverService.getAvailableDriver();
+        ChromeDriver driver = driverService.getCorrectDriver();
         try {
             driver.get(url);
-            driverService.returnDriverAfterUse(driver);
             return driver.getPageSource();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        driverService.returnDriverAfterUse(driver);
         return null;
     }
 
     public List<String> goToWebSitesHTML(List<String> urls) {
-        ChromeDriver driver = driverService.getAvailableDriver();
+        ChromeDriver driver = driverService.getCorrectDriver();
         List<String> htmlList = new ArrayList<>();
         for (String url : urls) {
             try {
@@ -175,7 +168,6 @@ public class TwitchDataService {
 
             }
         }
-        driverService.returnDriverAfterUse(driver);
         return htmlList;
     }
 
@@ -249,8 +241,8 @@ public class TwitchDataService {
             log.debug("Actual Game size: " + gamesTotalSize);
             Set<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(gamesUrls, 10);
-            for(Set<String> set: sets){
-                asyncPersistenceService.persistGamesAsync(set);
+            for(int i = 0; i<= sets.size(); i++){
+                asyncPersistenceService.persistGamesAsync(i, sets.get(i));
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());
@@ -282,8 +274,8 @@ public class TwitchDataService {
             log.debug("Actual Channel size: " + channelTotalSize);
             Set<String> channelUrls = buildUpSubSequentUrls(channelPrefix, suffix, channelTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelUrls, 10);
-            for(Set<String> set: sets){
-                asyncPersistenceService.persistChannelsAsync(set);
+            for(int i = 0; i<= sets.size(); i++){
+                asyncPersistenceService.persistChannelsAsync(i, sets.get(i));
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());
@@ -294,7 +286,6 @@ public class TwitchDataService {
     @Async
     public void importTeams() {
         String suffix = "/" + numberOfRecords;
-        Set<TeamsTable> allTeams = new HashSet<>();
         //teams result list
         String teamsScaffoldUrl = "https://sullygnome.com/api/tables/teamtables/getteams/" + teamsDaysPerspective + "/0/1/3/desc/0/" + numberOfRecords;
         String teamsprefix = "https://sullygnome.com/api/tables/teamtables/getteams/" + teamsDaysPerspective + "/0/1/3/desc/";
@@ -305,8 +296,8 @@ public class TwitchDataService {
             log.debug("Actual Teams size: " + teamTotalSize);
             Set<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(teamsUrls, 10);
-            for(Set<String> set: sets){
-                asyncPersistenceService.persistTeamsAsync(set);
+            for(int i = 0; i<= sets.size(); i++){
+                asyncPersistenceService.persistTeamsAsync(i, sets.get(i));
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());

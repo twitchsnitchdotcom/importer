@@ -21,8 +21,9 @@ public class DriverService {
 
     @Value("${webdrivers.size.max}")
     private Integer webDriversSize;
-    private List<ChromeDriver> availableDrivers = new ArrayList<>();
+    private Map<Integer, ChromeDriver> availableDrivers = new HashMap<>();
     ChromeOptions options = new ChromeOptions();
+    private boolean areDriversAvailable = false;
     //GENERIC METHODS
     @PostConstruct
     public void initWebDriver() throws URISyntaxException {
@@ -36,31 +37,24 @@ public class DriverService {
         options.addArguments("--no-sandbox"); // Bypass OS security model
         System.setProperty("webdriver.chrome.silentOutput", "true");
 
-        for(int i =0; i < webDriversSize; i++){
+        for(int i =1; i <= webDriversSize; i++){
             ChromeDriver driver = new ChromeDriver(options);
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             driver.manage().window().setPosition(new Point(-2000, 0));
-            availableDrivers.add(driver);
+            availableDrivers.put(i,driver);
         }
+
+        areDriversAvailable = true;
 
     }
 
-    public ChromeDriver getAvailableDriver(){
-        while(availableDrivers.size() == 0){
-            log.debug("WAITING 2 minutes for webdrivers to become available ");
-            try {
-                Thread.sleep(120000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-            ChromeDriver chromeDriver = availableDrivers.get(0);
-            availableDrivers.remove(chromeDriver);
-            return chromeDriver;
+
+    public ChromeDriver getCorrectDriver(int index){
+        return availableDrivers.get(index);
     }
 
-    public void returnDriverAfterUse(ChromeDriver driver){
-        availableDrivers.add(driver);
+    public ChromeDriver getCorrectDriver(){
+        return availableDrivers.get(0);
     }
 
     public Integer getAvailableDriversSize(){

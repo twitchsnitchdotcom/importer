@@ -36,10 +36,10 @@ public class AsyncPersistenceService {
     private final static Logger log = LoggerFactory.getLogger(AsyncPersistenceService.class);
 
     @Async
-    public void persistChannelsAsync(Set<String> urls){
+    public void persistChannelsAsync(Integer index, Set<String> urls){
         for (String url : urls) {
             try {
-                persistenceService.persistSullyChannels(objectMapper().readValue(goToWebSiteJSON(url), Map.class));
+                persistenceService.persistSullyChannels(objectMapper().readValue(goToWebSiteJSON(index, url), Map.class));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -47,10 +47,10 @@ public class AsyncPersistenceService {
     }
 
     @Async
-    public void persistTeamsAsync(Set<String> urls){
+    public void persistTeamsAsync(Integer index, Set<String> urls){
         for (String url : urls) {
             try {
-                persistenceService.persistSullyTeams(objectMapper().readValue(goToWebSiteJSON(url), Map.class));
+                persistenceService.persistSullyTeams(objectMapper().readValue(goToWebSiteJSON(index, url), Map.class));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -58,10 +58,10 @@ public class AsyncPersistenceService {
     }
 
     @Async
-    public void persistGamesAsync(Set<String> urls){
+    public void persistGamesAsync(Integer index, Set<String> urls){
         for (String url : urls) {
             try {
-                persistenceService.persistSullyGames(objectMapper().readValue(goToWebSiteJSON(url), Map.class));
+                persistenceService.persistSullyGames(objectMapper().readValue(goToWebSiteJSON(index, url), Map.class));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -88,31 +88,28 @@ public class AsyncPersistenceService {
         
     }
 
-    public String goToWebSiteJSON(String url) {
-        ChromeDriver driver = driverService.getAvailableDriver();
+    public String goToWebSiteJSON(Integer index, String url) {
+        ChromeDriver driver = driverService.getCorrectDriver(index);
         try {
             driver.get("view-source:" + url);
             String json = driver.findElement(By.className("line-content")).getText();
-            driverService.returnDriverAfterUse(driver);
             return json;
         } catch (Exception e) {
             try {
                 driver.get("view-source:" + url);
                 //Thread.sleep(2000);
                 String json = driver.findElement(By.className("line-content")).getText();
-                driverService.returnDriverAfterUse(driver);
                 return json;
             } catch (Exception e2) {
                 log.error("FAILED COLLECTING: " + url);
             }
         }
-        driverService.returnDriverAfterUse(driver);
         return null;
     }
 
-    public Set<String> goToWebSitesJSON(Set<String> urls) {
+    public Set<String> goToWebSitesJSON(Integer index, Set<String> urls) {
         Set<String> jsonList = new HashSet<>();
-        ChromeDriver driver = driverService.getAvailableDriver();
+        ChromeDriver driver = driverService.getCorrectDriver(index);
         for (String url : urls) {
             try {
                 driver.get("view-source:" + url);
@@ -130,7 +127,6 @@ public class AsyncPersistenceService {
 
             }
         }
-        driverService.returnDriverAfterUse(driver);
         return jsonList;
     }
 }

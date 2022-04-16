@@ -110,7 +110,6 @@ public class PersistenceService {
     }
 
     private void logResultSummaries(String key, ResultSummary resultSummary) {
-        System.out.println("-------------------------------------------------------------------------");
         log.trace("RESULT SUMMARY FOR: " + key);
 
         if (resultSummary.counters().nodesCreated() > 0) {
@@ -140,8 +139,6 @@ public class PersistenceService {
         if (resultSummary.counters().propertiesSet() > 0) {
             log.trace("Properties set: " + resultSummary.counters().propertiesSet());
         }
-
-        System.out.println("-------------------------------------------------------------------------");
 
     }
 
