@@ -369,21 +369,20 @@ public class PersistenceService {
 
     //updates
 
-    @Async
+
     public void updateGameWithTwitchData(Map json) {
         ResultSummary run = client.query("UNWIND $json.data as game " +
                 "MATCH (g:Game) WHERE g.name = game.name SET g.twitch_id = game.id;").in(database).bind(json).to("json").run();
         logResultSummaries("updateGameWithTwitchData", run);
     }
 
-    @Async
+
     public void updateUserWithTwitchData(Map json) {
         ResultSummary run = client.query("UNWIND $json.data as user " +
                 "MATCH (u:User) WHERE u.login = user.login SET u.twitch_id = user.id, u.created_at = datetime(user.created_at), u.total_view_count = user.view_count;").in(database).bind(json).to("json").run();
         logResultSummaries("updateUserWithTwitchData", run);
     }
 
-    @Async
     public void updateTeamWithTwitchData(String login, Map json) {
         ResultSummary run = client.query("UNWIND $json.data as row \n" +
                         "MATCH (t:Team{login:$login})\n" +
@@ -402,7 +401,7 @@ public class PersistenceService {
     }
 
     //persists
-    @Async
+
     public void persistChattersOnDB() {
         ResultSummary run = client.query("// Import mods/vip/chatters for each stream\n" +
                 "CALL apoc.periodic.iterate(\n" +
@@ -428,7 +427,7 @@ public class PersistenceService {
         logResultSummaries("runChattersOnDB", run);
     }
 
-    @Async
+
     public void persistTwitchStreams(Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as stream\n" +
                         "                    MERGE (l:LiveStream{twitch_id:stream.id})\n" +
@@ -449,7 +448,7 @@ public class PersistenceService {
         logResultSummaries("persistTwitchStreams", run);
     }
 
-    @Async
+
     public void persistTwitchChatters(String login, Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.chatters as chatters\n" +
                         "                    FOREACH(vip in chatters.vips| MERGE(u:User {login:vip}) MERGE(u)-[:VIP]->(s:User{login:$login}))\n" +
@@ -464,7 +463,7 @@ public class PersistenceService {
         logResultSummaries("persistTwitchChatters", run);
     }
 
-    @Async
+
     public void persistTwitchLanguage(String key, String name) {
         ResultSummary run = client.query(
                         "CREATE (l:Language{key:$key}) SET l.name = $name").in(database)
@@ -474,7 +473,7 @@ public class PersistenceService {
         logResultSummaries("persistTwitchLanguage", run);
     }
 
-    @Async
+
     public void persistTwitchFollowersTo(Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as follower\n" +
                         "                    MERGE (f:User{login:follower.from_login})\n" +
@@ -488,7 +487,7 @@ public class PersistenceService {
         logResultSummaries("persistTwitchFollowersTo", run);
     }
 
-    @Async
+
     public void persistTwitchFollowersFrom(Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as follower\n" +
                         "                    MERGE (f:User{login:follower.from_login})\n" +
@@ -502,7 +501,7 @@ public class PersistenceService {
         logResultSummaries("persistTwitchFollowersFrom", run);
     }
 
-    @Async
+
     public void persistSullyChannels(Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -541,7 +540,7 @@ public class PersistenceService {
         log.debug("Persisting Sully Channels took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
     }
 
-    @Async
+
     public void persistSullyTeams(Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -565,7 +564,7 @@ public class PersistenceService {
         log.debug("Persisting Sully Teams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
     }
 
-    @Async
+
     public void persistSullyGames(Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -602,7 +601,7 @@ public class PersistenceService {
         log.debug("Persisting Sully Games took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
     }
 
-    @Async
+
     public void persistSullyChannelStreams(Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as stream\n" +
                         "MERGE (s:ChannelStream{sully_id:stream.streamId})\n" +
@@ -629,7 +628,7 @@ public class PersistenceService {
 
     }
 
-    @Async
+
     public void persistSullyChannelIndividualStream(Long channelStreamId, IndividualStreamDTO individualStreamDTO) {
         //MATCH (cs:ChannelStream) WHERE NOT (cs)-[:METADATA]->() RETURN cs.sully_id
 
@@ -663,7 +662,7 @@ public class PersistenceService {
 
     }
 
-    @Async
+
     public void persistSullyChannelGames(Long channelId, Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
                         "MATCH (g:Game{name:split(game.gamesplayed,\"|\")[0]})\n" +
@@ -685,7 +684,7 @@ public class PersistenceService {
 
     }
 
-    @Async
+
     public void persistSullyChannelRaidFinder(String channelLogin, Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as rf\n" +
                         "MATCH (c:Channel{login:$channelLogin})\n" +
@@ -705,7 +704,7 @@ public class PersistenceService {
         logResultSummaries("persistSullyChannelRaidFinder", run);
     }
 
-    @Async
+
     public void persistSullyChannelGameFinder(Map jsonMap) {
 
         ResultSummary run = client.query("UNWIND $json.data as gf\n" +
@@ -747,7 +746,7 @@ public class PersistenceService {
         logResultSummaries("persistSullyChannelGameFinder", run);
     }
 
-    @Async
+
     public void persistTwitchGames(Map map) {
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
                         "MERGE (g:Game{name:game.name})\n" +
