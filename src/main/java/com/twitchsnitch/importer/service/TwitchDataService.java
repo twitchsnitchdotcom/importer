@@ -283,7 +283,7 @@ public class TwitchDataService {
 
     }
 
-    @Async
+
     public void importTeams() {
         String suffix = "/" + numberOfRecords;
         //teams result list
@@ -304,7 +304,7 @@ public class TwitchDataService {
         }
     }
 
-    @Async
+
     public void importFollowsTo() {
         Set<String> usersWithoutTwitchFollowsTo;
         usersWithoutTwitchFollowsTo = persistenceService.getUsersWithoutTwitchFollowsTo();
@@ -334,7 +334,7 @@ public class TwitchDataService {
         }
     }
 
-    @Async
+
     public void importFollowsFrom() {
         Set<String> usersWithoutTwitchFollowsFrom;
 

@@ -35,7 +35,7 @@ public class AsyncPersistenceService {
 
     private final static Logger log = LoggerFactory.getLogger(AsyncPersistenceService.class);
 
-    @Async
+    
     public void persistChannelsAsync(Integer index, Set<String> urls){
         for (String url : urls) {
             try {
@@ -46,7 +46,7 @@ public class AsyncPersistenceService {
         }
     }
 
-    @Async
+
     public void persistTeamsAsync(Integer index, Set<String> urls){
         for (String url : urls) {
             try {
@@ -57,7 +57,7 @@ public class AsyncPersistenceService {
         }
     }
 
-    @Async
+
     public void persistGamesAsync(Integer index, Set<String> urls){
         for (String url : urls) {
             try {
