@@ -425,7 +425,7 @@ public class TwitchDataService {
         }
     }
 
-    @Async
+    //todo 4
     public void importRaidPicker() {
         try {
             for (String login : persistenceService.getLiveStreams()) {
@@ -455,7 +455,7 @@ public class TwitchDataService {
         }
     }
 
-    @Async
+    //todo 3
     public void importGameFinder() {
         try {
             String suffix = "/" + numberOfRecords;
@@ -477,32 +477,8 @@ public class TwitchDataService {
         }
     }
 
-//    public void importTopGames() {
-//        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
-//        try {
-//            TopGameDTO resultList = runGetTopGame(randomToken, null);
-//            persistenceService.persistTwitchGames(resultList.getMap());
-//            if (resultList.getData() != null) {
-//                String cursor = resultList.getPagination().getCursor();
-//                while (cursor != null) {
-//                    TopGameDTO loopList = runGetTopGame(randomToken, cursor);
-//                    persistenceService.persistTwitchGames(loopList.getMap());
-//                    if (loopList != null && loopList.getData() != null) {
-//                        String newCursor = loopList.getPagination().getCursor();
-//                        if (newCursor == null) {
-//                            break;
-//                        } else {
-//                            cursor = newCursor;
-//                        }
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            log.error(e.getLocalizedMessage());
-//        }
-//    }
 
-    @Async
+    //todo 2
     public void importChannelGames() {
         try {
             String urlPrefix = "https://sullygnome.com/api/tables/channeltables/games/" + gamesDaysPerspective + "/";
@@ -517,7 +493,7 @@ public class TwitchDataService {
         }
     }
 
-    @Async
+
     public void importTwitchGameData() {
         Set<String> allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds();
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
@@ -529,7 +505,6 @@ public class TwitchDataService {
         persistenceService.getTwitchIdNotSetCountGame();
     }
 
-    @Async
     public void importTwitchUsers() {
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
         Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId();
@@ -541,12 +516,9 @@ public class TwitchDataService {
         persistenceService.getTwitchIdNotSetCountUser();
     }
 
-    @Async
+    //todo 1
     public void importChannelStreams() {
         Set<Long> allSullyChannels = persistenceService.getAllSullyChannels();
-
-            allSullyChannels = SplittingUtils.splitIntoMultipleSets(allSullyChannels, 10).get(0); //reduce it by 10x
-
         try {
             for (Long id : allSullyChannels) {
                 String suffix = "/" + numberOfRecords;

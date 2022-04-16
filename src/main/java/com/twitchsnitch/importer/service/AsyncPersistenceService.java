@@ -68,6 +68,26 @@ public class AsyncPersistenceService {
         }
     }
 
+    @Async
+    public void channelStreamsAsync(){
+
+    }
+
+    @Async
+    public void channelGamesAsync(){
+
+    }
+
+    @Async
+    public void raidFinderAsync(){
+
+    }
+
+    @Async
+    public void raidPickerAsync(){
+        
+    }
+
     public String goToWebSiteJSON(String url) {
         ChromeDriver driver = driverService.getAvailableDriver();
         try {
