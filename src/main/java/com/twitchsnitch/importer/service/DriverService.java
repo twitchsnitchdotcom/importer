@@ -54,7 +54,7 @@ public class DriverService {
     }
 
     public ChromeDriver getCorrectDriver(){
-        return availableDrivers.get(0);
+        return availableDrivers.get(1);
     }
 
     public Integer getAvailableDriversSize(){
