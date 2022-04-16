@@ -37,9 +37,10 @@ public class AsyncPersistenceService {
 
     @Async
     public void persistChannelsAsync(Set<String> urls){
-        for (String json : goToWebSitesJSON(urls)) {
+
+        for (String url : urls) {
             try {
-                persistenceService.persistSullyChannels(objectMapper().readValue(json, Map.class));
+                persistenceService.persistSullyChannels(objectMapper().readValue(goToWebSiteJSON(url), Map.class));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -48,9 +49,9 @@ public class AsyncPersistenceService {
 
     @Async
     public void persistTeamsAsync(Set<String> urls){
-        for (String json : goToWebSitesJSON(urls)) {
+        for (String url : urls) {
             try {
-                persistenceService.persistSullyTeams(objectMapper().readValue(json, Map.class));
+                persistenceService.persistSullyTeams(objectMapper().readValue(goToWebSiteJSON(url), Map.class));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -59,9 +60,9 @@ public class AsyncPersistenceService {
 
     @Async
     public void persistGamesAsync(Set<String> urls){
-        for (String json : goToWebSitesJSON(urls)) {
+        for (String url : urls) {
             try {
-                persistenceService.persistSullyGames(objectMapper().readValue(json, Map.class));
+                persistenceService.persistSullyGames(objectMapper().readValue(goToWebSiteJSON(url), Map.class));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
