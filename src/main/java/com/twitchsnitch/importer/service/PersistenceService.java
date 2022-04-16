@@ -64,7 +64,7 @@ public class PersistenceService {
                 "\"MATCH (p) return id(p) AS id\", \n" +
                 "\"MATCH (n) WHERE id(n) = id DETACH DELETE n\", \n" +
                 "{batchSize:1000})").in(database).run();
-        log.debug("Nodes deleted from the DB: " + run.counters().nodesDeleted());
+        log.trace("Nodes deleted from the DB: " + run.counters().nodesDeleted());
     }
 
     public void dropDBConstraints() {
@@ -111,34 +111,34 @@ public class PersistenceService {
 
     private void logResultSummaries(String key, ResultSummary resultSummary) {
         System.out.println("-------------------------------------------------------------------------");
-        log.debug("RESULT SUMMARY FOR: " + key);
+        log.trace("RESULT SUMMARY FOR: " + key);
 
         if (resultSummary.counters().nodesCreated() > 0) {
-            log.debug("Nodes created: " + resultSummary.counters().nodesCreated());
+            log.trace("Nodes created: " + resultSummary.counters().nodesCreated());
         }
         if (resultSummary.counters().labelsAdded() > 0) {
-            log.debug("Labels added: " + resultSummary.counters().labelsAdded());
+            log.trace("Labels added: " + resultSummary.counters().labelsAdded());
         }
         if (resultSummary.counters().relationshipsCreated() > 0) {
-            log.debug("Relationships added: " + resultSummary.counters().relationshipsCreated());
+            log.trace("Relationships added: " + resultSummary.counters().relationshipsCreated());
         }
         if (resultSummary.counters().relationshipsDeleted() > 0) {
-            log.debug("Relationships deleted: " + resultSummary.counters().relationshipsDeleted());
+            log.trace("Relationships deleted: " + resultSummary.counters().relationshipsDeleted());
         }
         if (resultSummary.counters().indexesAdded() > 0) {
-            log.debug("Indexes added: " + resultSummary.counters().indexesAdded());
+            log.trace("Indexes added: " + resultSummary.counters().indexesAdded());
         }
         if (resultSummary.counters().indexesRemoved() > 0) {
-            log.debug("Indexes removed: " + resultSummary.counters().indexesRemoved());
+            log.trace("Indexes removed: " + resultSummary.counters().indexesRemoved());
         }
         if (resultSummary.counters().constraintsAdded() > 0) {
-            log.debug("Constraints added: " + resultSummary.counters().constraintsAdded());
+            log.trace("Constraints added: " + resultSummary.counters().constraintsAdded());
         }
         if (resultSummary.counters().constraintsRemoved() > 0) {
-            log.debug("Constraints added: " + resultSummary.counters().constraintsRemoved());
+            log.trace("Constraints added: " + resultSummary.counters().constraintsRemoved());
         }
         if (resultSummary.counters().propertiesSet() > 0) {
-            log.debug("Properties set: " + resultSummary.counters().propertiesSet());
+            log.trace("Properties set: " + resultSummary.counters().propertiesSet());
         }
 
         System.out.println("-------------------------------------------------------------------------");
@@ -178,7 +178,7 @@ public class PersistenceService {
         raidFinderDTO.setLowRange(lowRange);
         raidFinderDTO.setHighRange(highRange);
         stopWatch.stop();
-        log.debug("Get All Raid finders took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.trace("Get All Raid finders took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         return raidFinderDTO;
     }
 
@@ -193,7 +193,7 @@ public class PersistenceService {
             }
         }
         stopWatch.stop();
-        log.debug("Get All live streams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.trace("Get All live streams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         return liveStreams;
     }
 
@@ -208,7 +208,7 @@ public class PersistenceService {
             }
         }
         stopWatch.stop();
-        log.debug("Get All Sully channel streams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.trace("Get All Sully channel streams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         return sullyChannelStreams;
     }
 
@@ -223,7 +223,7 @@ public class PersistenceService {
             }
         }
         stopWatch.stop();
-        log.debug("Get All Sully channel streams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.trace("Get All Sully channel streams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         return sullyChannelStreams;
     }
 
@@ -238,7 +238,7 @@ public class PersistenceService {
             }
         }
         stopWatch.stop();
-        log.debug("Get All Sully channels  took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.trace("Get All Sully channels  took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         return sullyChannels;
     }
 
@@ -253,8 +253,8 @@ public class PersistenceService {
             }
         }
         stopWatch.stop();
-        log.debug("Get All Games Without TwitchIds took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
-        log.debug("FOUND:" + gamesWithoutTwitchIds.size() + " Games Without TwitchIds");
+        log.trace("Get All Games Without TwitchIds took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.trace("FOUND:" + gamesWithoutTwitchIds.size() + " Games Without TwitchIds");
         return gamesWithoutTwitchIds;
     }
 
@@ -270,8 +270,8 @@ public class PersistenceService {
             }
         }
         stopWatch.stop();
-        log.debug("FOUND:" + usersWithoutTwitchId.size() + " Users Without TwitchIds");
-        log.debug("Get All Users without twitch_id took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.trace("FOUND:" + usersWithoutTwitchId.size() + " Users Without TwitchIds");
+        log.trace("Get All Users without twitch_id took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         return usersWithoutTwitchId;
     }
 
@@ -290,7 +290,7 @@ public class PersistenceService {
             }
         }
         stopWatch.stop();
-        log.debug("Get All Users without twitch_follows_to took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.trace("Get All Users without twitch_follows_to took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         return usersWithoutFollowsTo;
     }
 
@@ -309,7 +309,7 @@ public class PersistenceService {
             }
         }
         stopWatch.stop();
-        log.debug("Get All Users without twitch_follows_from took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.trace("Get All Users without twitch_follows_from took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         return usersWithoutFollowsFrom;
     }
 
@@ -325,7 +325,7 @@ public class PersistenceService {
             }
         }
         stopWatch.stop();
-        log.debug("Get All teams without twitch_id took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.trace("Get All teams without twitch_id took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         return teamsWithoutTwitchId;
     }
 
@@ -334,7 +334,7 @@ public class PersistenceService {
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 long notsetcount = (Long) entry.getValue();
-                log.debug("Get All Users without twitch_id is : " + notsetcount);
+                log.trace("Get All Users without twitch_id is : " + notsetcount);
                 return notsetcount;
             }
         }
@@ -347,7 +347,7 @@ public class PersistenceService {
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 long notsetcount = (Long) entry.getValue();
-                log.debug("Get All Games without twitch_id is : " + notsetcount);
+                log.trace("Get All Games without twitch_id is : " + notsetcount);
                 return notsetcount;
             }
         }
@@ -360,7 +360,7 @@ public class PersistenceService {
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 long notsetcount = (Long) entry.getValue();
-                log.debug("Get All Users without twitch_id is : " + notsetcount);
+                log.trace("Get All Users without twitch_id is : " + notsetcount);
                 return notsetcount;
             }
         }
@@ -537,7 +537,7 @@ public class PersistenceService {
                 .run();
         logResultSummaries("persistSullyChannels", run);
         stopWatch.stop();
-        log.debug("Persisting Sully Channels took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.trace("Persisting Sully Channels took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
     }
 
 
@@ -561,7 +561,7 @@ public class PersistenceService {
                 .run();
         logResultSummaries("persistSullyTeams", run);
         stopWatch.stop();
-        log.debug("Persisting Sully Teams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.trace("Persisting Sully Teams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
     }
 
 
@@ -598,7 +598,7 @@ public class PersistenceService {
                 .run();
         logResultSummaries("persistSullyGames", run);
         stopWatch.stop();
-        log.debug("Persisting Sully Games took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        log.trace("Persisting Sully Games took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
     }
 
 

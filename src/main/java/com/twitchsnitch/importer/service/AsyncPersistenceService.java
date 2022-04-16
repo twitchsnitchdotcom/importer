@@ -37,7 +37,6 @@ public class AsyncPersistenceService {
 
     @Async
     public void persistChannelsAsync(Set<String> urls){
-
         for (String url : urls) {
             try {
                 persistenceService.persistSullyChannels(objectMapper().readValue(goToWebSiteJSON(url), Map.class));
