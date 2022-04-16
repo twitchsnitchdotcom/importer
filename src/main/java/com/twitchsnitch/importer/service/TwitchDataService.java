@@ -236,15 +236,15 @@ public class TwitchDataService {
         String gamePrefix = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc/";
         long gamesTotalSize;
         try {
-            GamesTable gamesTable = objectMapper().readValue(goToWebSiteJSON(gameScaffoldUrl), GamesTable.class);
-            gamesTotalSize = gamesTable.getRecordsTotal();
+            //GamesTable gamesTable = objectMapper().readValue(goToWebSiteJSON(gameScaffoldUrl), GamesTable.class);
+            gamesTotalSize = 5100;
             log.debug("Actual Game size: " + gamesTotalSize);
             Set<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(gamesUrls, 10);
             for(int i = 0; i < sets.size(); i++){
                 asyncPersistenceService.persistGamesAsync(i, sets.get(i));
             }
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
 
@@ -269,15 +269,15 @@ public class TwitchDataService {
         String channelPrefix = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/3/desc/";
         long channelTotalSize;
         try {
-            ChannelsTable channelsTable = objectMapper().readValue(goToWebSiteJSON(channelsScaffoldUrl), ChannelsTable.class);
-            channelTotalSize = channelsTable.getRecordsTotal();
+            //ChannelsTable channelsTable = objectMapper().readValue(goToWebSiteJSON(channelsScaffoldUrl), ChannelsTable.class);
+            channelTotalSize = 5100;
             log.debug("Actual Channel size: " + channelTotalSize);
             Set<String> channelUrls = buildUpSubSequentUrls(channelPrefix, suffix, channelTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelUrls, 10);
             for(int i = 0; i< sets.size(); i++){
                 asyncPersistenceService.persistChannelsAsync(i, sets.get(i));
             }
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
 
@@ -291,15 +291,15 @@ public class TwitchDataService {
         String teamsprefix = "https://sullygnome.com/api/tables/teamtables/getteams/" + teamsDaysPerspective + "/0/1/3/desc/";
         long teamTotalSize;
         try {
-            TeamsTable teamsTable = objectMapper().readValue(goToWebSiteJSON(teamsScaffoldUrl), TeamsTable.class);
-            teamTotalSize = teamsTable.getRecordsTotal();
+            //TeamsTable teamsTable = objectMapper().readValue(goToWebSiteJSON(teamsScaffoldUrl), TeamsTable.class);
+            teamTotalSize = 5100;
             log.debug("Actual Teams size: " + teamTotalSize);
             Set<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(teamsUrls, 10);
             for(int i = 0; i< sets.size(); i++){
                 asyncPersistenceService.persistTeamsAsync(i, sets.get(i));
             }
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
     }
