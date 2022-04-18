@@ -5,7 +5,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.twitchsnitch.importer.dto.sully.ChannelSearchDTO;
 import com.twitchsnitch.importer.dto.sully.RaidFinderDTO;
+import com.twitchsnitch.importer.dto.sully.SearchDTO;
 import com.twitchsnitch.importer.dto.sully.channels.*;
 import com.twitchsnitch.importer.dto.twitch.*;
 import com.twitchsnitch.importer.dto.sully.games.GamesTable;
@@ -225,6 +227,161 @@ public class TwitchDataService {
 
     //MAIN METHODS
 
+    //its a gimic for marketing
+    public void newPartnersImport(){
+        String url = "https://sullygnome.com/api/tables/channeltables/newpartners/30/0/000/1/7/desc/0/100";
+    }
+
+    public void sullySearch(){
+        List<String> allUsersWithoutSullyId = persistenceService.getAllUsersWithoutSullyId();
+        for(String login: allUsersWithoutSullyId){
+            try {
+                String url = "https://sullygnome.com/api/standardsearch/" + login + "/true/true/false/true";
+                String json = goToWebSiteJSON(url);
+                SearchDTO searchDTO = objectMapper().readValue(json, SearchDTO.class);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void sullyDeepSearchPhase1(){
+        List<Long> allSullyLanguageIds = persistenceService.getAllSullyLanguageIds();
+        int firstPhaseLowerBound = 0;
+        int firstPhaseUpperBound = 250;
+        String suffix = "/" + numberOfRecords;
+        //first phase
+        for(int i=firstPhaseLowerBound; i <= firstPhaseUpperBound; i++){
+            for(Long languageId : allSullyLanguageIds){
+                String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/" +languageId + "/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
+                String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/" +languageId + "/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
+                try {
+                    ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
+                    Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
+                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, 10);
+                    for(int j = 0; j < sets.size(); j++){
+                        asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                    }
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void sullyDeepSearchPhase2(){
+        String suffix = "/" + numberOfRecords;
+        int firstPhaseLowerBound = 0;
+        int firstPhaseUpperBound = 250;
+        int secondPhaseUpperBound = 2500;
+        //second phase
+        for(int i = firstPhaseUpperBound; i<= secondPhaseUpperBound; i++){
+            String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
+            String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
+            try {
+                ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
+                Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
+                List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, 10);
+                for(int j = 0; j < sets.size(); j++){
+                    asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                }
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void sullyDeepSearchPhase3(){
+        String suffix = "/" + numberOfRecords;
+        int secondPhaseUpperBound = 2500;
+        int thirdPhaseUpperBound = 10000;
+        //third phase
+        for(int i = secondPhaseUpperBound; i<= thirdPhaseUpperBound; i++){
+            if(i % 10 == 0){
+                String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
+                String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
+                try {
+                    ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
+                    Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
+                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, 10);
+                    for(int j = 0; j < sets.size(); j++){
+                        asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                    }
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void sullyDeepSearchPhase4(){
+        String suffix = "/" + numberOfRecords;
+        int thirdPhaseUpperBound = 10000;
+        int fourthPhaseUpperBound = 100000;
+        //fourth phase
+        for(int i = thirdPhaseUpperBound; i<= fourthPhaseUpperBound; i++){
+            if(i % 100 == 0){
+                String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
+                String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
+                try {
+                    ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
+                    Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
+                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, 10);
+                    for(int j = 0; j < sets.size(); j++){
+                        asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                    }
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void sullyDeepSearchPhase5(){
+        int fourthPhaseUpperBound = 100000;
+        int fifthPhaseUpperBound = 10000000;
+        String suffix = "/" + numberOfRecords;
+        //fifth phase
+        for(int i = fourthPhaseUpperBound; i<= fifthPhaseUpperBound; i++){
+            if(i % 1000 == 0){
+                String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
+                String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
+                try {
+                    ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
+                    Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
+                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, 10);
+                    for(int j = 0; j < sets.size(); j++){
+                        asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                    }
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+    public void sullyDeepSearchAll(){
+        sullyDeepSearchPhase1();
+        sullyDeepSearchPhase2();
+        sullyDeepSearchPhase3();
+        sullyDeepSearchPhase4();
+        sullyDeepSearchPhase5();
+    }
+
+    public void importAllUsersWithoutSullyData(){
+        List<String> allUsersWithoutSullyId = persistenceService.getAllUsersWithoutSullyId();
+        for(String login: allUsersWithoutSullyId){
+            try {
+                String url = "https://sullygnome.com/channel/" + login;
+                String html = goToWebSiteHTML(url);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
     public void importChattersOnDB() {
         persistenceService.persistChattersOnDB();
@@ -265,24 +422,41 @@ public class TwitchDataService {
     @Async
     public void importChannels() {
         String suffix = "/" + numberOfRecords;
-        String channelsScaffoldUrl = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/3/desc/0/" + numberOfRecords;
-        String channelPrefix = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/3/desc/";
+        String channelMostViewedPrefix = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/3/desc/";
+        String channelPeakViewersPrefix = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/5/desc/";
+        String channelMostFollowsPrefix = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/7/desc/";
+        String channelFollowerGrowthPrefix = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/8/desc/";
+
         long channelTotalSize;
         try {
-            //ChannelsTable channelsTable = objectMapper().readValue(goToWebSiteJSON(channelsScaffoldUrl), ChannelsTable.class);
-            channelTotalSize = 5100;
-            log.debug("Actual Channel size: " + channelTotalSize);
-            Set<String> channelUrls = buildUpSubSequentUrls(channelPrefix, suffix, channelTotalSize);
-            List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelUrls, 10);
+            channelTotalSize = 5000;
+
+            Set<String> channelMostViewedUrls = buildUpSubSequentUrls(channelMostViewedPrefix, suffix, channelTotalSize);
+            Set<String> channelPeakViewersUrls = buildUpSubSequentUrls(channelPeakViewersPrefix, suffix, channelTotalSize);
+            Set<String> channelMostFollowsUrls = buildUpSubSequentUrls(channelMostFollowsPrefix, suffix, channelTotalSize);
+            Set<String> channelFollowerGrowthUrls = buildUpSubSequentUrls(channelFollowerGrowthPrefix, suffix, channelTotalSize);
+
+            Set<String> allSets = new HashSet<>();
+            allSets.addAll(channelMostViewedUrls);
+            allSets.addAll(channelPeakViewersUrls);
+            allSets.addAll(channelMostFollowsUrls);
+            allSets.addAll(channelFollowerGrowthUrls);
+
+            List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(allSets, 10);
             for(int i = 0; i< sets.size(); i++){
                 asyncPersistenceService.persistChannelsAsync(i, sets.get(i));
             }
         } catch (Exception e) {
             log.error(e.getMessage());
         }
+    }
+    /**
+     "/api/tables/channeltables/advancedsearch/" + days + "/" + -1 + "/" + languageId.toString() + "/" + minfollowers + "/" + minfollowers + "/" + minviewers + "/" + maxviewers + "/" + games + "/" + matchall + "/" + c.toString() + "/" + l.onlineonly() + "/" + a.cType_Community() + "/" + v.cType_Aff() + "/" + y.cType_Partnered() + "/" + p.cTypeMat_Mature() + "/" + w.cTypeMat_NotMature() + "/" 2022-04-17T00:00:00.000Z/-1/1/0/desc/0/100
+     */
+    //a way of importing all channels, kinda I think
+    public void channelSearch(){
 
     }
-
 
     public void importTeams() {
         String suffix = "/" + numberOfRecords;
@@ -292,7 +466,7 @@ public class TwitchDataService {
         long teamTotalSize;
         try {
             //TeamsTable teamsTable = objectMapper().readValue(goToWebSiteJSON(teamsScaffoldUrl), TeamsTable.class);
-            teamTotalSize = 5100;
+            teamTotalSize = 5000;
             log.debug("Actual Teams size: " + teamTotalSize);
             Set<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(teamsUrls, 10);
@@ -367,48 +541,53 @@ public class TwitchDataService {
         }
     }
 
+    /**
+
+     */
+
     public void importLanguages() {
         try {
             URL resource = getClass().getClassLoader().getResource("language-english.json");
             File tokensFile = new File(resource.toURI());
             LanguageKeyDTO languageKeyDTO = objectMapper().readValue(tokensFile, LanguageKeyDTO.class);
-            persistenceService.persistTwitchLanguage("en", languageKeyDTO.getEn());
-            persistenceService.persistTwitchLanguage("zh", languageKeyDTO.getZh());
-            persistenceService.persistTwitchLanguage("ja", languageKeyDTO.getJa());
-            persistenceService.persistTwitchLanguage("ko", languageKeyDTO.getKo());
-            persistenceService.persistTwitchLanguage("es", languageKeyDTO.getEs());
-            persistenceService.persistTwitchLanguage("fr", languageKeyDTO.getFr());
-            persistenceService.persistTwitchLanguage("de", languageKeyDTO.getDe());
-            persistenceService.persistTwitchLanguage("it", languageKeyDTO.getIt());
-            persistenceService.persistTwitchLanguage("pt", languageKeyDTO.getPt());
-            persistenceService.persistTwitchLanguage("sv", languageKeyDTO.getSv());
-            persistenceService.persistTwitchLanguage("no", languageKeyDTO.getNo());
-            persistenceService.persistTwitchLanguage("nl", languageKeyDTO.getNl());
-            persistenceService.persistTwitchLanguage("fi", languageKeyDTO.getFi());
-            persistenceService.persistTwitchLanguage("el", languageKeyDTO.getEl());
-            persistenceService.persistTwitchLanguage("ru", languageKeyDTO.getRu());
-            persistenceService.persistTwitchLanguage("tr", languageKeyDTO.getTr());
-            persistenceService.persistTwitchLanguage("cs", languageKeyDTO.getCs());
-            persistenceService.persistTwitchLanguage("hu", languageKeyDTO.getHu());
-            persistenceService.persistTwitchLanguage("ar", languageKeyDTO.getAr());
-            persistenceService.persistTwitchLanguage("bg", languageKeyDTO.getBg());
-            persistenceService.persistTwitchLanguage("th", languageKeyDTO.getTh());
-            persistenceService.persistTwitchLanguage("vi", languageKeyDTO.getVi());
-            persistenceService.persistTwitchLanguage("asl", languageKeyDTO.getAsl());
-            persistenceService.persistTwitchLanguage("other", languageKeyDTO.getOther());
-            persistenceService.persistTwitchLanguage("uk", languageKeyDTO.getUk());
-            persistenceService.persistTwitchLanguage("pl", languageKeyDTO.getPl());
-            persistenceService.persistTwitchLanguage("hi", languageKeyDTO.getHi());
-            persistenceService.persistTwitchLanguage("ca", languageKeyDTO.getCa());
-            persistenceService.persistTwitchLanguage("zh-HK", languageKeyDTO.getZhHK());
-            persistenceService.persistTwitchLanguage("zh-TW", languageKeyDTO.getZhTW());
-            persistenceService.persistTwitchLanguage("da", languageKeyDTO.getDa());
-            persistenceService.persistTwitchLanguage("id", languageKeyDTO.getId());
-            persistenceService.persistTwitchLanguage("ms", languageKeyDTO.getMs());
-            persistenceService.persistTwitchLanguage("pt-BR", languageKeyDTO.getPtBR());
-            persistenceService.persistTwitchLanguage("ro", languageKeyDTO.getRo());
-            persistenceService.persistTwitchLanguage("sk", languageKeyDTO.getSk());
-            persistenceService.persistTwitchLanguage("es-MX", languageKeyDTO.getEsMX());
+            persistenceService.persistTwitchLanguage("any", "Any Language", -1);
+            persistenceService.persistTwitchLanguage("en", languageKeyDTO.getEn(), 217);
+            persistenceService.persistTwitchLanguage("zh", languageKeyDTO.getZh(), 241);
+            persistenceService.persistTwitchLanguage("ja", languageKeyDTO.getJa(), 226);
+            persistenceService.persistTwitchLanguage("ko", languageKeyDTO.getKo(), 231);
+            persistenceService.persistTwitchLanguage("es", languageKeyDTO.getEs(), 228);
+            persistenceService.persistTwitchLanguage("fr", languageKeyDTO.getFr(), 214);
+            persistenceService.persistTwitchLanguage("de", languageKeyDTO.getDe(), 220);
+            persistenceService.persistTwitchLanguage("it", languageKeyDTO.getIt(), 230);
+            persistenceService.persistTwitchLanguage("pt", languageKeyDTO.getPt(), 232);
+            persistenceService.persistTwitchLanguage("sv", languageKeyDTO.getSv(), 238);
+            persistenceService.persistTwitchLanguage("no", languageKeyDTO.getNo(), 234);
+            persistenceService.persistTwitchLanguage("nl", languageKeyDTO.getNl(), 235);
+            persistenceService.persistTwitchLanguage("fi", languageKeyDTO.getFi(), 229);
+            persistenceService.persistTwitchLanguage("el", languageKeyDTO.getEl(), 245);
+            persistenceService.persistTwitchLanguage("ru", languageKeyDTO.getRu(), 227);
+            persistenceService.persistTwitchLanguage("tr", languageKeyDTO.getTr(), 236);
+            persistenceService.persistTwitchLanguage("cs", languageKeyDTO.getCs(), 216);
+            persistenceService.persistTwitchLanguage("hu", languageKeyDTO.getHu(), 218);
+            persistenceService.persistTwitchLanguage("ar", languageKeyDTO.getAr(), 213);
+            persistenceService.persistTwitchLanguage("bg", languageKeyDTO.getBg(), 215);
+            persistenceService.persistTwitchLanguage("th", languageKeyDTO.getTh(), 224);
+            persistenceService.persistTwitchLanguage("vi", languageKeyDTO.getVi(), 243);
+            persistenceService.persistTwitchLanguage("asl", languageKeyDTO.getAsl(), 244);
+            persistenceService.persistTwitchLanguage("other", languageKeyDTO.getOther(), 222);
+            persistenceService.persistTwitchLanguage("uk", languageKeyDTO.getUk(), 249);
+            persistenceService.persistTwitchLanguage("pl", languageKeyDTO.getPl(), 242);
+            persistenceService.persistTwitchLanguage("hi", languageKeyDTO.getHi(), 247);
+            persistenceService.persistTwitchLanguage("ca", languageKeyDTO.getCa(), 250);
+            persistenceService.persistTwitchLanguage("zh-HK", languageKeyDTO.getZhHK(), 225);
+            persistenceService.persistTwitchLanguage("zh-TW", languageKeyDTO.getZhTW(), 223);
+            persistenceService.persistTwitchLanguage("da", languageKeyDTO.getDa(), 240);
+            persistenceService.persistTwitchLanguage("id", languageKeyDTO.getId(), 248);
+            persistenceService.persistTwitchLanguage("ms", languageKeyDTO.getMs(), 252);
+            persistenceService.persistTwitchLanguage("pt-BR", languageKeyDTO.getPtBR(), 233);
+            persistenceService.persistTwitchLanguage("ro", languageKeyDTO.getRo(), 246);
+            persistenceService.persistTwitchLanguage("sk", languageKeyDTO.getSk(), 237);
+            persistenceService.persistTwitchLanguage("es-MX", languageKeyDTO.getEsMX(), 221);
         } catch (IOException e) {
             log.error(e.getLocalizedMessage());
         } catch (URISyntaxException e) {

@@ -179,6 +179,36 @@ public class PersistenceService {
         return raidFinderDTO;
     }
 
+    public List<Long> getAllSullyLanguageIds(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        List<Long> allSullyLanguageIds = new ArrayList<>();
+        Collection<Map<String, Object>> all = client.query("MATCH (l:Language) WHERE NOT l.sully_id = -1 RETURN l.sully_id").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                allSullyLanguageIds.add((Long) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("Get all language sully ids: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return allSullyLanguageIds;
+    }
+
+    public List<String> getAllUsersWithoutSullyId(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        List<String> getAllUsersWithoutSullyId = new ArrayList<>();
+        Collection<Map<String, Object>> all = client.query("MATCH (u:User) where u.sully_id IS NULL RETURN u.login").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                getAllUsersWithoutSullyId.add((String) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("Get All Users without sully id: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return getAllUsersWithoutSullyId;
+    }
+
     public List<String> getLiveStreams() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -461,11 +491,12 @@ public class PersistenceService {
     }
 
 
-    public void persistTwitchLanguage(String key, String name) {
+    public void persistTwitchLanguage(String key, String name, Integer sullyId) {
         ResultSummary run = client.query(
-                        "CREATE (l:Language{key:$key}) SET l.name = $name").in(database)
+                        "CREATE (l:Language{key:$key}) SET l.name = $name, l.sully_id = $sullyId").in(database)
                 .bind(key).to("key")
                 .bind(name).to("name")
+                .bind(sullyId).to("sullyId")
                 .run();
         logResultSummaries("persistTwitchLanguage", run);
     }
@@ -513,13 +544,6 @@ public class PersistenceService {
                         "                    c.avg_viewers = channel.avgviewers,\n" +
                         "                    c.followers_gained = channel.followersgained,\n" +
                         "                    c.views_gained = channel.viewsgained,\n" +
-                        "                    c.followers_gained_while_playing = channel.followersgainedwhileplaying,\n" +
-                        "                    c.previous_view_minutes = channel.previousviewminutes,\n" +
-                        "                    c.previous_streamed_minutes = channel.previousstreamedminutes,\n" +
-                        "                    c.previous_max_viewers = channel.previousmaxviewers,\n" +
-                        "                    c.previous_avg_viewers = channel.previousavgviewers,\n" +
-                        "                    c.previous_follower_gain = channel.previousfollowergain,\n" +
-                        "                    c.previous_views_gained = channel.previousviewsgained,\n" +
                         "                    c.partner = channel.partner,\n" +
                         "                    c.affiliate = channel.affiliate,\n" +
                         "                    c.mature = channel.mature,\n" +
@@ -538,6 +562,18 @@ public class PersistenceService {
     }
 
 
+    /**
+
+     "watchtime", "Watch time (hours)", "M", 1));
+     "streamtime", "Stream time (hours)", "M", 1));
+     "maxviewers", "Peak viewers", "N", 1));
+     "avgviewers", "Average viewers", "N", 1));
+     "maxchannels", "Peak members", "N", 1));
+     "avgchannels", "Average members", "N", 1));
+     "members", "Members", "N", 1));
+
+     * @param jsonMap
+     */
     public void persistSullyTeams(Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -561,7 +597,42 @@ public class PersistenceService {
         log.trace("Persisting Sully Teams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
     }
 
+    /**
 
+   "viewminutes", "Watch time (hours)", "M", 5));
+     "streamedminutes", "Stream time (hours)", "M", 5));
+     "maxviewers", "Peak viewers", "N", 5));
+     "maxchannels", "Peak channels", "N", 5));
+     "uniquechannels", "Streamers", "N", 5));
+     "avgviewers", "Average viewers", "N", 5));
+     "avgchannels", "Average channels", "N", 5));
+     "avgratio", "Average viewer ratio", "D", 5, null, null, null, null));
+      hviewsgained", "Views gained", "N", 1)),
+     "vphs", "VPR", "Number of views gained per hour streamed by all channels"
+
+     "changeviewerminutes", "Change watch time (hours)", "M", 5));
+     "changestreamedminutes", "Change stream time (hours)", "M", 5));
+     "changemaxviewers", "Change peak viewers", "N", 5));
+     "changemaxchannels", "Change peak channels", "N", 5));
+     "changeuniquechannels", "Change streamers", "N", 5));
+     "changeaverageviewers", "Change average viewers", "N", 5));
+     "changeaveragechannels", "Change average channels", "N", 5));
+     "changeaverageratio", "Change average viewer ratio", "D", 5));
+     "name", "", "https://www.twitch.tv/directory/game/{0}",
+
+     viewminutes", "Watch time (hours)", "M", 1));
+     "streamedminutes", "Stream time (hours)", "M", 1));
+     "maxviewers", "Peak viewers", "N", 1));
+     "avgviewers", "Average viewers", "N", 1));
+     "followers", "Followers", "N", 1));
+     "partner", "Partnered", "B", null, null, "Partnered"));
+     "mature", "Mature", "B", null, null, "Mature"));
+     "language", "Language"));
+     "displayname", "", "{0}", "twitchurl", "/images/TwitchIcon.png", null, null, null, null, !0));
+
+
+     * @param jsonMap
+     */
     public void persistSullyGames(Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -598,6 +669,43 @@ public class PersistenceService {
         log.trace("Persisting Sully Games took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
     }
 
+
+    /**
+
+     //NOT CORRECT
+     "displayname", "Channel", SullyJS.Tables.AppendDayRange("/channel/{0}", h), "url", "displayname"));
+     "viewminutes", "Watch time (hours)", "M", 5));
+     "streamedminutes", "Stream time (hours)", "M", 5));
+     "maxviewers", "Peak viewers", "N", 5));
+     "avgviewers", "Average viewers", "N", 5));
+     "followers", "Followers", "N", 5));
+     "followersgained", "Followers gained", "N", 5));
+     "viewsgained", "Views gained", "N", 5));
+     "partner", "Partnered", "B", null, null, "Partnered", null, null, null, !0));
+     "mature", "Mature", "B", null, null, "Mature", null, null, null, !0));
+     "language", "Language", null, null, null, null, null, null, null, !0));
+     "displayname", "", "{0}", "twitchurl", "/images/TwitchIcon.png"));
+
+     * @param jsonMap
+     */
+
+    /**
+
+     channeldisplayname", "Channel", SullyJS.Tables.AppendDayRange("/channel/{0}", t, "channel"), "channelurl", "channeldisplayname"));
+     "starttime", "Stream start time", c, "channelurl", "starttime", "channeldisplayname", "View detailed stream stats", "streamId", "endtime", "to:"));
+     "streamUrl", "Stream URL"));
+     "length", "Stream length", "MM", 1));
+     "viewminutes", "Watch time (hours)", "M", 1));
+     "avgviewers", "Avg viewers", "N", 1));
+     "maxviewers", "Peak viewers", "N", 1));
+     "followergain", "Followers gained", "N", 1));
+     "followersperhour", "Followers per hour", "D", 1));
+     "viewgain", "Views", "N", 1));
+     "viewsperhour", "Views per hour", "D", 1));
+     "gamesplayed", "Games", SullyJS.Tables.AppendDayRange("/game/{0}", t, "game")));
+
+     * @param jsonMap
+     */
 
     public void persistSullyChannelStreams(Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as stream\n" +
@@ -660,6 +768,20 @@ public class PersistenceService {
     }
 
 
+    /**
+
+
+     "gamesplayed", "Game", SullyJS.Tables.AppendDayRange("/game/{0}", t, "game")));
+     "streamtime", "Stream time (hours)", "M", 1));
+     "viewtime", "Total watch time (hours)", "M", 1));
+     "avgviewers", "Average viewers", "N", 1));
+     "maxviewers", "Peak viewers", "N", 1));
+     "viewsgained", "Views", "N", 1));
+     "viewsperhour", "Views per hour", "D", 1));
+
+     * @param channelId
+     * @param jsonMap
+     */
     public void persistSullyChannelGames(Long channelId, Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as game\n" +
                         "MATCH (g:Game{name:split(game.gamesplayed,\"|\")[0]})\n" +
@@ -682,6 +804,35 @@ public class PersistenceService {
     }
 
 
+    /**
+
+
+     "logo", "", SullyJS.Tables.AppendDayRange("/channel/{0}", t), "url", "", "DataTableChannelIcon", "logo", "displayname"));
+    "displayname", "Channel", SullyJS.Tables.AppendDayRange("/channel/{0}", t), "url", "displayname"));
+     "liveMinutes", "Live for", "MM", 1, null, null, "avgLengthMins", "liveMinutes", {
+     tooltip: "Length of time the channel has been live. Percentage progress is an estimate based on previous streams.",
+     "liveViewers", "Current viewers", "N", 1, null, null, null, null, {
+     tooltip: "Current viewership of the channel.",
+     "avgviewers", "Avg viewers", "N", 1, null, null, null, null, {
+     tooltip: "The channels average viewers in recent history.",
+     "overlappingStreams", "Overlapping streams", "N", 1, null, null, "streams", "overlappingStreams", {
+     tooltip: "The number of streams were both channels were live at the same time.",
+     "overlappingEndedDuring", "Ended during", "N", 1, null, null, null, null, {
+     "The number of streams where the result channels stream ended during " + a + "s stream.",
+     "overlappingEndedAfter", "Ended after", "N", 1, null, null, null, null, {
+     tooltip: "The number of streams where the result channels stream ended after " + a + "s stream.",
+     "status", "Status"));
+     "mature", "Mature", "B", null, null, "Mature"));
+     "language", "Language"));
+     "currentGame", "Streaming", SullyJS.Tables.AppendDayRange("/game/{0}", t, "game")));
+     "gamesPlayed", "Recently streamed", SullyJS.Tables.AppendDayRange("/game/{0}", t, "game")));
+     "displayname", "Preview", "preview", "previewLarge", "", ""));
+     "displayname", "", "{0}", "twitchurl", "/images/TwitchIcon.png", null, null, null, null, !0));
+
+
+     * @param channelLogin
+     * @param jsonMap
+     */
     public void persistSullyChannelRaidFinder(String channelLogin, Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as rf\n" +
                         "MATCH (c:Channel{login:$channelLogin})\n" +
@@ -702,6 +853,32 @@ public class PersistenceService {
     }
 
 
+    /**
+
+     "estimatedposition", "Estimated directory position", "", 4));
+     "historicfollowersperhour", b, "D", 1));
+     "standardisedfollowergain", "Followers per hour (estimated)", "D", 1));
+     "aboveviewers", "Viewers in larger channels", "N", 3, p));
+     "inrangeviewers", "Viewers in similar viewership", "N", 2, p));
+     "belowviewers", "Viewers in equal/smaller", "N", 1, p));
+     "abovechannels", "Larger channels", "N", 3, y));
+     "inrangechannels", "Channels with similar viewership", "N", 2, y));
+     "belowchanels", "Equal/Smaller channels", "N", 1, y));
+     estposition", "Estimated position", "N", 1);
+     "viewerratio", "Viewer ratio", "D1", 1);
+     "averageviewers", "Average viewers", "N", 1);
+     "peraverageviewers", "% Twitch viewers", "P", 1));
+     "gametrendviewersrecent", "Viewer recent trend", null, s);
+     "viewersabove", "Above/Below", ["viewersabove", "viewerssame", "viewersbelow"], ""));
+     "gametrendviewers3day", "3 day trend", null, s);
+     "averagechannels", "Average channels", "N", 1);
+     "peraveragechannels", "% Twitch channels", "P", 1));
+     "gametrendchannelsrecent", "Channel recent trend", null, s);
+     "channelsabove", "Above/Below", ["channelsabove", "channelssame", "channelsbelow"], ""));
+     "gametrendchannels3day", "3 day trend", null, s);
+
+     * @param jsonMap
+     */
     public void persistSullyChannelGameFinder(Map jsonMap) {
 
         ResultSummary run = client.query("UNWIND $json.data as gf\n" +

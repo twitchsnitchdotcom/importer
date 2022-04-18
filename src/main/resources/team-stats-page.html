@@ -1,0 +1,725 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+        let isDarkMode = false;
+        if (prefersDarkScheme.matches) {
+            isDarkMode = true;
+        }
+
+        try {
+            let cookieValue = '';
+            const parts = document.cookie.split('SullyGnomeDarkMode=');
+
+            if (parts.length === 2)
+            {
+                cookieValue = parts.pop().split(';').shift();
+            }
+
+            if(cookieValue === 'dark')
+            {
+                isDarkMode = true;
+            }
+            else if(cookieValue === 'light')
+            {
+                isDarkMode = false;
+            }
+        }
+        catch(ex) {
+
+        }
+        if (isDarkMode) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', '');
+        }
+
+
+    </script>
+
+
+  <script type="text/javascript">
+            var sg_a_scCode = "c03de72a";
+            var sg_a_scProject = "10710394";
+            var sg_a_gaCode = "UA-69840346-1";
+        </script>
+
+
+
+
+  <script type="text/javascript">
+                try {
+                    (function (i, s, o, g, r, a, m) {
+                        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+                    ga('create', sg_a_gaCode , 'auto');
+                    ga('send', 'pageview');
+                }
+                catch (ex) {
+
+                }
+
+                var sc_project = sg_a_scProject; //Update url
+                var sc_invisible = 1;
+                var sc_security = sg_a_scCode;
+                var scJsHost = "https://secure.";
+
+
+            </script>
+  <script async type='text/javascript' src='https://secure.statcounter.com/counter/counter.js'></script>
+
+
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Twitch team statistics - SullyGnome.com - SullyGnome</title>
+  <meta name="description" content="Summary statistics for Twitch teams" />
+
+
+
+  <link rel="stylesheet" href="/css/sullystyle.min.css?v=TxoQjmqDrK99n0k0aypFZnXpp9f86wgu8joUmJIW0JA" />
+  <link rel="stylesheet" href="/lib/jquery-ui-1.12.1.custom/jquery-ui.min.css" />
+
+
+
+
+</head>
+<body>
+<script type="text/javascript">
+        var PageInfo = {"dayranges":[{"Key":3,"Value":"3 days"},{"Key":7,"Value":"7 days"},{"Key":14,"Value":"14 days"},{"Key":30,"Value":"30 days"}],"defaultsection":"summary","urlpart":null,"id":0,"name":null,"logo":null,"defaultpagesize":100,"defaultLanguageId":0,"additionalparams":"","compareIds":null,"timezoneText":"Timezone (UTC)","timezoneOffset":0,"sitedefaultdayrange":7,"dayRange":7,"dayRangeOffset":0,"latestDayId":2768,"twitchUrl":null,"latestUpdateDay":1650153600000,"lateUpdateTime":1650276000000,"rangeInfo":null,"filterInfo":null,"tablePageSizes":[["10","25","50","100"],["10","25","50","100"]],"timecode":"125748_4/18/2022 12:13:08 PM_8e6fadc6-22c5-4a0b-9c85-e464a622a368_64fa415668e1b59e9181fef1b24f61f1","language":null,"timezone":"(UTC) Coordinated Universal Time"};
+        var PageData = {"name":"","id":0};
+
+        var RedirectToUrl = function (Url) {
+            window.location.href = Url;
+        }
+
+        var ToggleMoreRangeLinks = function (Container) {
+            var el = document.getElementById(Container);
+
+            if (el.style.display == 'none') {
+                el.style.display = 'block';
+            }
+            else {
+                el.style.display = 'none';
+            }
+        }
+
+
+    </script>
+
+<div class="LeftMenu">
+  <div class="LeftMenuHeader">
+    <div class="LeftMenuHeaderTopImage">
+      <a href="/">
+        <img src="/Images/gnome.png" alt="Hi I'm SullyGnome!" height="48" width="40" />
+      </a>
+    </div>
+  </div>
+
+  <div class="MenuItemWrapper" title="Back to the home page">
+    <a href="/">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/home.svg" class="FontAweIcon MenuItemHome" alt="Home" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Home
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="MenuItemWrapper" title="View stats on the channels which stream on Twitch">
+    <a href="/channels">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/tv.svg" class="FontAweIcon" alt="Channels" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Channels
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="MenuItemWrapper" title="View stats on the games streamed on Twitch">
+    <a href="/games">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/gamepad.svg" class="FontAweIcon" alt="Game" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Games
+        </div>
+      </div>
+    </a>
+  </div>
+
+
+
+
+  <div class="MenuItemWrapper" title="View stats on the teams which stream on Twitch">
+    <a href="/teams">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/user-plus.svg" class="FontAweIcon" alt="Teams" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Teams
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="MenuItemWrapper" title="Search for channels by the games they play and broadcast language">
+    <a href="/channelsearch">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/search.svg" class="FontAweIcon" alt="Search" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Search
+        </div>
+      </div>
+    </a>
+  </div>
+
+
+  <div class="MenuItemWrapper" title="See channels which have reached milestones">
+    <a href="/milestones">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/tasks.svg" class="FontAweIcon" alt="Channel milestones" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Milestones
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="MenuItemWrapper" title="Detailed analysis articles on Twitch">
+    <a href="/articlesanalysis">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/newspaper.svg" class="FontAweIcon" alt="Articles" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Articles
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="MenuItemWrapper" title="All about me and the site">
+    <a href="/about">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/male.svg" class="FontAweIcon" alt="About" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          About
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="MenuItemWrapper" title="Support me :)">
+    <a href="https://www.patreon.com/sullygnome" target="_blank">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/Patreon_Mark_Primary.png" class="PatreonIcon" alt="Patreon" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Patreon
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="LeftMenuFooter">
+    <div class='DarkModeHeader'>Dark mode</div>
+    <div class="DarkmodeWrapper notransition" id='dmWrapper'>
+      <input type="checkbox" id="dmChk" class="notransition"/>
+      <label for="dmChk" class="DarkmodeToggle notransition" onclick='SullyJS.Util.SwitchDarkMode(); return true;'>
+                <span class="DarkmodeSpan notransition" id='dmSpan'>
+                </span>
+      </label>
+    </div>
+
+    <script type='text/javascript'>
+                if(isDarkMode)
+                {
+                    document.getElementById('dmChk').checked = true;
+                }
+            </script>
+    <div class="LeftMenuFooterContact">
+      <div class="LeftMenuFooterContact">
+        <div class="LeftMenuFooterIcon">
+          <a href="https://twitter.com/SullyGnome" target='_blank' title="Twitter">
+            <img height="22" width="22" src="/Images/twitterlatest.png" style="border:0" alt="Message me on Twitter" />
+          </a>
+        </div>
+        <div class="LeftMenuFooterIcon">
+          <a href="/cdn-cgi/l/email-protection#5a3935342e3b392e1a292f3636233d3435373f74393537" target='_blank' title="Email">
+            <img src="/Images/Email.png" style="border:0" alt="Send me an email" />
+          </a>
+        </div>
+        <div class="LeftMenuFooterIcon">
+          <a href="https://www.twitch.tv/sullygnome" title="Twitch PM" target='_blank'>
+            <img src="/Images/TwitchIcon.png" style="border:0" alt="Send me a Twitch PM" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="RightContent">
+  <div class="TopMenu">
+    <div class="SiteTileBar">
+      <div class="SiteTitleBarHeader">
+        <h2>SullyGnome - Twitch stats and analysis</h2>
+      </div>
+      <div class="SiteTitleBarTimezone">
+        <a href="" onclick="SullyJS.Util.ShowTimezonePicker(); return false;">Timezone: (UTC) Coordinated Universal Time</a>
+      </div>
+      <div class="SiteTitleBarSearch">
+        <div id="SearchContainer" class="SiteTitleItem SiteTitleItemSearch" style="position:relative">
+          <img src="/images/sidebar/cog.svg" class="SearchToggleMenuIcon" onclick="SullyJS.Search.CreateSearchCombo.ToggleOptions();" style="display:none" id="showSearchIcon" />
+          <input id="HeaderChannelGameSearch" placeholder="Search for a game or channel">
+          <div id="SearchToggleMenu" style="display:none" class="SearchToggleMenu">
+            <div class="SearchToggleMenuText" id="idSearchFilterLabel">Filter: </div>
+            <div class="SearchToggleMenuOption" data-search-item-type="1"><img src="/images/sidebar/tv.svg" alt="Search for channels" title="Search for channels" onmouseenter="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel(1);" onmouseleave="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel();" onclick="SullyJS.Search.CreateSearchCombo.SetSearchFilter(1);" /></div>
+            <div class="SearchToggleMenuOption" data-search-item-type="2"><img src="/images/sidebar/gamepad.svg" alt="Search for games" title="Search for games" onmouseenter="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel(2);" onmouseleave="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel();" onclick="SullyJS.Search.CreateSearchCombo.SetSearchFilter(2);" /></div>
+            <div class="SearchToggleMenuOption" data-search-item-type="4"><img src="/images/sidebar/user-plus.svg" alt="Search for teams" title="Search for teams" onmouseenter="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel(4);" onmouseleave="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel();" onclick="SullyJS.Search.CreateSearchCombo.SetSearchFilter(4);" /></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="MainContent">
+    <div class="PageHeader">
+      <div class="PageHeaderInner">
+        <div class="PageHeaderLeft" id="pageHeaderLeft" style="display:none">
+
+          <div class='RelatedLinksItemSmall FL'>
+            <a href='/team/awkward' style="display:block" title='View stats for Awkward'>
+              <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/team-awkward-team_logo_image-4ea8116a53374cb691d03b553fbc307c-600x600.jpeg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Awkward' data-isteamlink='' data-teamname='Awkward'  />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+
+          <div class='RelatedLinksItemSmall FL'>
+            <a href='/team/pubgpartners' style="display:block" title='View stats for PUBG Partners'>
+              <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/team-pubgpartners-team_logo_image-4adc72d6db64fd67-600x600.jpeg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for PUBG Partners' data-isteamlink='' data-teamname='PUBG Partners'  />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+
+          <div class='RelatedLinksItemSmall FL'>
+            <a href='/team/creatives' style="display:block" title='View stats for Creatives'>
+              <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/team-creatives-team_logo_image-3f3ad3b2d2804777bc58e74988eab73f-600x600.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Creatives' data-isteamlink='' data-teamname='Creatives'  />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+
+          <div class='RelatedLinksItemSmall FL'>
+            <a href='/team/teamnvidiatw' style="display:block" title='View stats for Team NVIDIA TW'>
+              <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/team-teamnvidiatw-team_logo_image-51b3701509dc9568-600x600.jpeg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Team NVIDIA TW' data-isteamlink='' data-teamname='Team NVIDIA TW'  />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+
+          <div class='RelatedLinksItemSmall FL'>
+            <a href='/team/lolq' style="display:block" title='View stats for &#xB864;&#xD050;'>
+              <img src='https://static-cdn.jtvnw.net/ttv-boxart/404_boxart.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for &#xB864;&#xD050;' data-isteamlink='' data-teamname='&#xB864;&#xD050;'  />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+        </div>
+        <div class="PageHeaderMiddle" id="pageHeaderMiddle">
+          <div class="PageHeaderMiddleTop">
+
+            <div class="PageHeaderMiddleConBasic">
+
+              <h1 class="PageHeaderMiddleTopH">Twitch team stats over the past 7 days</h1>
+
+              <span></span>
+
+            </div>
+
+
+
+          </div>
+
+
+        </div>
+
+        <div class="PageHeaderRight" id="pageHeaderRight" style="display:none">
+
+          <div class='RelatedLinksItemSmall FR'>
+            <a href='/channel/bloodthunder' style="display:block" title='View stats for BloodThunder'>
+              <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/5ea79bd0e4e6a1b7-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for BloodThunder' data-ischannellink='' data-channelname='BloodThunder' />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+
+          <div class='RelatedLinksItemSmall FR'>
+            <a href='/channel/burkeblack' style="display:block" title='View stats for BurkeBlack'>
+              <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/4a1bff3c-a5b2-45d7-90cd-499dffe5fa8a-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for BurkeBlack' data-ischannellink='' data-channelname='BurkeBlack' />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+
+          <div class='RelatedLinksItemSmall FR'>
+            <a href='/channel/xxbrandy' style="display:block" title='View stats for xxBrandy'>
+              <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/9ea26b0f-2e5c-4205-9478-5324d2f441a5-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for xxBrandy' data-ischannellink='' data-channelname='xxBrandy' />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+
+          <div class='RelatedLinksItemSmall FR'>
+            <a href='/channel/kungfufruitcup' style="display:block" title='View stats for kungfufruitcup'>
+              <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/df1edfbf-8953-40d5-9564-9a03a84ffb3d-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for kungfufruitcup' data-ischannellink='' data-channelname='kungfufruitcup' />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+
+          <div class='RelatedLinksItemSmall FR'>
+            <a href='/channel/sykoplayz' style="display:block" title='View stats for SykoPlayz'>
+              <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/da70b326-9761-4440-97d1-77baf9cbc3c9-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for SykoPlayz' data-ischannellink='' data-channelname='SykoPlayz' />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="PageSubHeader" id="pageSubHeaderOuter">
+      <div class="PageSubHeaderInner">
+        <div class="PageSubHeaderLeft" id="pageSubHeaderLeft">
+          <div title='View Twitch team stats over the past 7 days' class='PageSubHeaderTabFirst PageSubHeaderTab SelectedLink SelectedTab' onclick='RedirectToUrl("/teams"); return false;'><div class='SubheaderLinkContainer'><a href='/teams'>Summary</a></div></div>
+          <div title='View the most watched Teams in the past 7 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/teams/mostwatched"); return false;'><div class='SubheaderLinkContainer'><a href='/teams/mostwatched'>Most watched</a></div></div>
+          <div title='View the most active Teams in the past 7 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/teams/mostactive"); return false;'><div class='SubheaderLinkContainer'><a href='/teams/mostactive'>Most active</a></div></div>
+          <div title='View the teams with the highest (peak) viewership in the past 7 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/teams/peakviewers"); return false;'><div class='SubheaderLinkContainer'><a href='/teams/peakviewers'>Peak viewership</a></div></div>
+        </div>
+        <div class="PageSubHeaderMiddle" id="pageSubHeaderMiddle">
+          <div title='View Twitch team stats over the past 3 days' class='PageSubHeaderTabFirst PageSubHeaderTabAlt PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/teams/3"); return false;'><div class='SubheaderLinkContainer'><a href='/teams/3'>3 days</a></div></div>
+          <div title='View Twitch team stats over the past 7 days' class='PageSubHeaderTab PageSubHeaderTabAlt SelectedLink SelectedTabAlt' onclick='RedirectToUrl("/teams/"); return false;'><div class='SubheaderLinkContainer'><a href='/teams/'>7 days</a></div></div>
+          <div title='View Twitch team stats over the past 14 days' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/teams/14"); return false;'><div class='SubheaderLinkContainer'><a href='/teams/14'>14 days</a></div></div>
+          <div title='View Twitch team stats over the past 30 days' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/teams/30"); return false;'><div class='SubheaderLinkContainer'><a href='/teams/30'>30 days</a></div></div>
+
+          <div class="PageSubHeaderRight" id="pageSubHeaderRight">
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <div class="InfoStatPanelContainerTop InfoStatPanelContainerTopSpacer">
+      <div class="InfoStatPanelContainer">
+
+
+        <div class="InfoStatPanelWrapper InfoStatPanelSpacerLeft">
+          <div class="InfoStatPanelOuter" title="Average teams on Twitch in the in the past 7 days">
+            <div class="InfoStatPanelInner">
+              <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Average teams</h4></div></div>
+              <div class="InfoStatPanelTL" title="Average live teams on Twitch"><div class="InfoStatPanelTLCell">3,333</div></div>
+              <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Negative">0</div></div>
+              <div class="InfoStatPanelTR" title="Average teams compared to previous 7 days"><div class="InfoStatPanelTRCell Negative"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='Average teams compared to previous 7 days' ></div><span class='Negative'>0.4%</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+          <div class="InfoStatPanelOuter" title="Active teams on Twitch in the in the past 7 days">
+            <div class="InfoStatPanelInner">
+              <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Active teams</h4></div></div>
+              <div class="InfoStatPanelTL" title="Number of active teams on Twitch"><div class="InfoStatPanelTLCell">8,333</div></div>
+              <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Negative">-23</div></div>
+              <div class="InfoStatPanelTR" title="Active teams compared to previous 7 days"><div class="InfoStatPanelTRCell Negative"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='Active teams compared to previous 7 days' ></div><span class='Negative'>0.3%</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+          <div class="InfoStatPanelOuter" title="Peak individual team viewers on Twitch in the in the past 7 days">
+            <div class="InfoStatPanelInner">
+              <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Peak team viewers</h4></div></div>
+              <div class="InfoStatPanelTL" title="Peak individual team viewers"><div class="InfoStatPanelTLCell">205,565</div></div>
+              <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Negative">-280,424</div></div>
+              <div class="InfoStatPanelTR" title="Peak individual team viewers compared to previous 7 days"><div class="InfoStatPanelTRCell Negative"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='Peak individual team viewers compared to previous 7 days' ></div><span class='Negative'>57.7%</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+          <div class="InfoStatPanelOuter" title="Peak teams on Twitch in the in the past 7 days">
+            <div class="InfoStatPanelInner">
+              <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Peak teams</h4></div></div>
+              <div class="InfoStatPanelTL" title="Peak live teams on Twitch"><div class="InfoStatPanelTLCell">4,249</div></div>
+              <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Positive">+20</div></div>
+              <div class="InfoStatPanelTR" title="Peak teams compared to previous 7 days"><div class="InfoStatPanelTRCell Positive"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='Peak teams compared to previous 7 days' ></div><span class='Positive'>0.5%</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+          <div class="InfoStatPanelOuter" title="Peak individual team members on Twitch in the in the past 7 days">
+            <div class="InfoStatPanelInner">
+              <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Peak live members</h4></div></div>
+              <div class="InfoStatPanelTL" title="Peak individual team members"><div class="InfoStatPanelTLCell">679</div></div>
+              <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Negative">-42</div></div>
+              <div class="InfoStatPanelTR" title="Peak individual team members compared to previous 7 days"><div class="InfoStatPanelTRCell Negative"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='Peak individual team members compared to previous 7 days' ></div><span class='Negative'>5.8%</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+          <div class="InfoStatPanelOuter" title="Most active team on Twitch in the in the past 7 days">
+            <div class="InfoStatPanelInner">
+              <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Most active</h4></div></div>
+              <div class="InfoStatPanelTL" title="Most active team on Twitch"><div class="InfoStatPanelTLCell">36,679 hrs</div></div>
+              <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Negative">-846</div></div>
+              <div class="InfoStatPanelTR" title="Most active team compared to previous 7 days"><div class="InfoStatPanelTRCell Negative"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='Most active team compared to previous 7 days' ></div><span class='Negative'>2.3%</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="InfoStatPanelWrapper InfoStatPanelSpacerMiddle">
+          <div class="InfoStatPanelOuter" title="Most watched team on Twitch in the in the past 7 days">
+            <div class="InfoStatPanelInner">
+              <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Most watched</h4></div></div>
+              <div class="InfoStatPanelTL" title="Most watched team on Twitch"><div class="InfoStatPanelTLCell InfoStatPanelSmallText">9,355,917 hrs</div></div>
+              <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Positive">+2,203,031</div></div>
+              <div class="InfoStatPanelTR" title="Most watched team  compared to previous 7 days"><div class="InfoStatPanelTRCell Positive"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='Most watched team  compared to previous 7 days' ></div><span class='Positive'>30.8%</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="PageContentContainer">
+
+      <div class="StandardPageContainer">
+        <div class="SetMinScrollable">
+          <div class="InfoPanelContainer">
+
+            <div class="ChartPanel">
+              <div id="teamsonline" class="LineChartContainer">
+                <div class="ChartHeader">
+                  <div class="ChartTitleText">
+                    <h3 class="ChartTitle" id="lblChartTitle"></h3>
+                  </div>
+                  <div class="ChartOptions">
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.ExpandCollapseChart(this,'ChartPanel','CanvasWrap'); return false;">Expand</a>
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.SaveChart(this); return false;">Image</a>
+                    <a href="" class="ChartResize ChartStyleOption" onclick="SullyJS.Charts.RestyleChart(this,2); return false;" id="lineStyleOption" style="display:none">Show offline</a>
+                  </div>
+                </div>
+                <div class="ChartRangeRow">
+                  <div id="pnlChartDescription" style="display:none">
+                    <div class="ChartRangeLabel" id="litDescriptionLabel"></div>
+                  </div>
+                  <div id="pnlChartMinLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMinLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMinValue"></div>
+                  </div>
+                  <div id="pnlChartMaxLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMaxLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMaxValue"></div>
+                  </div>&nbsp;
+                </div>
+                <div class="ChartRangeRowHidden" style="display:none">
+                </div>
+                <div class="CanvasWrap" id="chartwrappanel">
+                  <canvas id="canvasLineChart" class="LineChart"></canvas>
+                </div>
+                <div id="ChartSlider" style="display:none" class="ChartSliderContainer ChartFooter">
+                  <input id="inSliderLeft_0577482e-12b3-46bd-8f16-eadce4771492" style="display:none" />
+                  <a id="LeftText" class="ChartSliderLeft" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'Start'); return false;">Start Text</a>
+                  <div class="ChartSliderMiddle">
+                    <div id="MiddleContainer" class="ChartSliderWrapper"></div>
+                  </div>
+                  <input id="inSliderRight_5b9341a5-a89d-412a-8709-84d0325a132b" style="display:none" />
+                  <a id="RightText" class="ChartSliderRight" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'End'); return false;">End Text</a>
+                </div>
+                <div id="LineChartLegend"></div>
+              </div>
+            </div>
+
+            <div class="ChartPanel">
+              <div id="teamschannels" class="LineChartContainer">
+                <div class="ChartHeader">
+                  <div class="ChartTitleText">
+                    <h3 class="ChartTitle" id="lblChartTitle"></h3>
+                  </div>
+                  <div class="ChartOptions">
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.ExpandCollapseChart(this,'ChartPanel','CanvasWrap'); return false;">Expand</a>
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.SaveChart(this); return false;">Image</a>
+                    <a href="" class="ChartResize ChartStyleOption" onclick="SullyJS.Charts.RestyleChart(this,2); return false;" id="lineStyleOption" style="display:none">Show offline</a>
+                  </div>
+                </div>
+                <div class="ChartRangeRow">
+                  <div id="pnlChartDescription" style="display:none">
+                    <div class="ChartRangeLabel" id="litDescriptionLabel"></div>
+                  </div>
+                  <div id="pnlChartMinLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMinLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMinValue"></div>
+                  </div>
+                  <div id="pnlChartMaxLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMaxLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMaxValue"></div>
+                  </div>&nbsp;
+                </div>
+                <div class="ChartRangeRowHidden" style="display:none">
+                </div>
+                <div class="CanvasWrap" id="chartwrappanel">
+                  <canvas id="canvasLineChart" class="LineChart"></canvas>
+                </div>
+                <div id="ChartSlider" style="display:none" class="ChartSliderContainer ChartFooter">
+                  <input id="inSliderLeft_b08bc038-969b-4b80-b074-f3b5e5102ff2" style="display:none" />
+                  <a id="LeftText" class="ChartSliderLeft" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'Start'); return false;">Start Text</a>
+                  <div class="ChartSliderMiddle">
+                    <div id="MiddleContainer" class="ChartSliderWrapper"></div>
+                  </div>
+                  <input id="inSliderRight_14b5ec56-f192-4557-8fb1-00cefca71dc7" style="display:none" />
+                  <a id="RightText" class="ChartSliderRight" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'End'); return false;">End Text</a>
+                </div>
+                <div id="LineChartLegend"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="LineBreakWithSpace"></div>
+
+          <div class="InfoPanelContainer InfoPanelContainerNext">
+
+            <div class="ChartPanel">
+              <div id="teamsviewers" class="LineChartContainer">
+                <div class="ChartHeader">
+                  <div class="ChartTitleText">
+                    <h3 class="ChartTitle" id="lblChartTitle"></h3>
+                  </div>
+                  <div class="ChartOptions">
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.ExpandCollapseChart(this,'ChartPanel','CanvasWrap'); return false;">Expand</a>
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.SaveChart(this); return false;">Image</a>
+                    <a href="" class="ChartResize ChartStyleOption" onclick="SullyJS.Charts.RestyleChart(this,2); return false;" id="lineStyleOption" style="display:none">Show offline</a>
+                  </div>
+                </div>
+                <div class="ChartRangeRow">
+                  <div id="pnlChartDescription" style="display:none">
+                    <div class="ChartRangeLabel" id="litDescriptionLabel"></div>
+                  </div>
+                  <div id="pnlChartMinLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMinLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMinValue"></div>
+                  </div>
+                  <div id="pnlChartMaxLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMaxLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMaxValue"></div>
+                  </div>&nbsp;
+                </div>
+                <div class="ChartRangeRowHidden" style="display:none">
+                </div>
+                <div class="CanvasWrap" id="chartwrappanel">
+                  <canvas id="canvasLineChart" class="LineChart"></canvas>
+                </div>
+                <div id="ChartSlider" style="display:none" class="ChartSliderContainer ChartFooter">
+                  <input id="inSliderLeft_2a4b35f6-a39c-4b1c-b894-3f1d0d6d0041" style="display:none" />
+                  <a id="LeftText" class="ChartSliderLeft" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'Start'); return false;">Start Text</a>
+                  <div class="ChartSliderMiddle">
+                    <div id="MiddleContainer" class="ChartSliderWrapper"></div>
+                  </div>
+                  <input id="inSliderRight_23e11972-3cf8-4162-95b4-12e6071dbb3b" style="display:none" />
+                  <a id="RightText" class="ChartSliderRight" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'End'); return false;">End Text</a>
+                </div>
+                <div id="LineChartLegend"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ContentFooter"></div>
+
+
+    </div>
+  </div>
+  <div style="clear:both"></div>
+
+  <div id="TimezonePicker" class="TimezonePicker" style="display:none" onclick="SullyJS.Util.ShowTimezonePicker(); return false;">
+    <div class="TimezonePickerContent" onclick="SullyJS.Util.ShowTimezonePrevent(event);">
+      <span class="TimezonePickerClose" onclick="SullyJS.Util.ShowTimezonePicker(); return false;">&times;</span>
+      <p id="TimezonePickerHeader"></p>
+      <hr />
+      <select class="TimezonePickerSelect" id="TimezonePickerSelect" onchange="SullyJS.Util.TimezonePickerSelected();">
+        <option value="">Loading...</option>
+      </select>
+    </div>
+  </div>
+
+
+  <div id="LanguagePicker" class="TimezonePicker" style="display:none" onclick="SullyJS.Util.ShowLanguagePicker(); return false;">
+    <div class="TimezonePickerContent" onclick="SullyJS.Util.ShowLanguagePrevent(event);">
+      <span class="TimezonePickerClose" onclick="SullyJS.Util.ShowLanguagePicker(); return false;">&times;</span>
+      <p id="LanguagePickerHeader"></p>
+      <hr />
+      <select class="TimezonePickerSelect" id="LanguagePickerSelect" onchange="SullyJS.Util.LanguagePickerSelected();">
+      </select>
+    </div>
+  </div>
+
+  <div class="FooterContainer">
+    <div class="PageFooter">
+      <a href="https://SullyGnome.com">SullyGnome.com</a> © is in no way affiliated with <a href="https://www.twitch.tv/" target="_blank">Twitch</a>. Please do not scrape this site, it's a hobby project with limited resources.
+      <a href="/policy/tos">Terms</a>
+      <a href="/policy/cookie">Cookies</a>
+    </div>
+
+  </div>
+</div>
+
+<link rel="icon" type="image/x-icon" href="https://www.sullygnome.com/images/fav/favicon.ico" />
+
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/lib/jquery/jquery-3.2.1.min.js"></script>
+<script src="/lib/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="/js/sully/sully.bundle.min.js?v=gZjkEj6Ay02onJ0x2VW-Vn-QKF106ovWOHe_6dlKT3Y"></script>
+<script src="/js/sully/chart.bundle.js"></script>
+<script src="/lib/nouislider/nouislider.min.js"></script>
+<link rel="stylesheet" href="/lib/nouislider/nouislider.min.css" />
+
+
+
+<script>
+            var ShowAnalytics = true;
+        </script>
+
+
+<script>
+
+        if(isDarkMode)
+        {
+            SullyJS.Util.SetDarkMode();
+        }
+
+        var wrapper = $('[id=dmWrapper]');
+        wrapper.removeClass('notransition');
+        wrapper.find('.notransition').removeClass('notransition');
+
+    </script>
+
+
+<script type="text/javascript">
+    SullyJS.Charts.Line.CreateLineChart("teamsonline", "TeamsOnline", 7, 0, 0, "", null, null, null, null, null, true,2768+1);
+    SullyJS.Charts.Line.CreateLineChart("teamsviewers", "TeamsViewers", 7, 0, 0, "",null,null,null,null,null,true,2768+1);
+    SullyJS.Charts.Line.CreateLineChart("teamschannels", "TeamsChannels", 7, 0, 0, "",null,null,null,null,null,true,2768+1);
+</script>
+
+
+
+<script>
+            $('[id*=showSearchIcon]').show();
+            SullyJS.Util.RunStartEvents();
+            $(function () {
+                SullyJS.Search.CreateSearchCombo();
+                SullyJS.Pages.CreateToolTips();
+            });
+        </script>
+
+</body>
+</html>

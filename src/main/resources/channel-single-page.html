@@ -1,0 +1,1228 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+        let isDarkMode = false;
+        if (prefersDarkScheme.matches) {
+            isDarkMode = true;
+        }
+
+        try {
+            let cookieValue = '';
+            const parts = document.cookie.split('SullyGnomeDarkMode=');
+
+            if (parts.length === 2)
+            {
+                cookieValue = parts.pop().split(';').shift();
+            }
+
+            if(cookieValue === 'dark')
+            {
+                isDarkMode = true;
+            }
+            else if(cookieValue === 'light')
+            {
+                isDarkMode = false;
+            }
+        }
+        catch(ex) {
+
+        }
+        if (isDarkMode) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', '');
+        }
+
+
+    </script>
+
+
+  <script type="text/javascript">
+            var sg_a_scCode = "c03de72a";
+            var sg_a_scProject = "10710394";
+            var sg_a_gaCode = "UA-69840346-1";
+        </script>
+
+
+
+
+  <script type="text/javascript">
+                try {
+                    (function (i, s, o, g, r, a, m) {
+                        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+                    ga('create', sg_a_gaCode , 'auto');
+                    ga('send', 'pageview');
+                }
+                catch (ex) {
+
+                }
+
+                var sc_project = sg_a_scProject; //Update url
+                var sc_invisible = 1;
+                var sc_security = sg_a_scCode;
+                var scJsHost = "https://secure.";
+
+
+            </script>
+  <script async type='text/javascript' src='https://secure.statcounter.com/counter/counter.js'></script>
+
+
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Holly - statistics and analytics over the past 30 days - SullyGnome</title>
+  <meta name="description" content="Twitch stats for Holly. Stream summary, max viewers, average viewers and follower growth information. over the past 30 days" />
+
+
+
+  <link rel="stylesheet" href="/css/sullystyle.min.css?v=TxoQjmqDrK99n0k0aypFZnXpp9f86wgu8joUmJIW0JA" />
+  <link rel="stylesheet" href="/lib/jquery-ui-1.12.1.custom/jquery-ui.min.css" />
+
+
+
+
+</head>
+<body>
+<script type="text/javascript">
+        var PageInfo = {"dayranges":[{"Key":3,"Value":"3 days"},{"Key":7,"Value":"7 days"},{"Key":14,"Value":"14 days"},{"Key":30,"Value":"30 days"},{"Key":90,"Value":"90 days"},{"Key":180,"Value":"180 days"},{"Key":365,"Value":"365 days"},{"Key":0,"Value":"More"}],"defaultsection":"summary","urlpart":"holly","id":2215977,"name":"Holly","logo":null,"defaultpagesize":100,"defaultLanguageId":0,"additionalparams":"","compareIds":null,"timezoneText":"Timezone (UTC)","timezoneOffset":0,"sitedefaultdayrange":7,"dayRange":30,"dayRangeOffset":0,"latestDayId":2768,"twitchUrl":"https://www.twitch.tv/holly","latestUpdateDay":1650153600000,"lateUpdateTime":1650268800000,"rangeInfo":{"dayRange":30,"dayRangeOffset":0,"isNamedRange":false,"namedRange":"","month":0,"year":0,"range":"30","startDayId":2739,"endDayId":2769},"filterInfo":{"minYear":2015,"maxYear":2022,"minYearMonth":10,"maxYearMonth":3,"filterUrl":"/channel/holly/{RANGE}"},"tablePageSizes":[["10","25","50","100"],["10","25","50","100"]],"timecode":"125740_4/18/2022 10:11:23 AM_d8d9dbc0-0d80-439c-bf5b-a1fbe5c3c6e3_db0092874d9dc70bdb4be464ec8819b1","language":null,"timezone":"(UTC) Coordinated Universal Time"};
+        var PageData = {"name":"","id":0};
+
+        var RedirectToUrl = function (Url) {
+            window.location.href = Url;
+        }
+
+        var ToggleMoreRangeLinks = function (Container) {
+            var el = document.getElementById(Container);
+
+            if (el.style.display == 'none') {
+                el.style.display = 'block';
+            }
+            else {
+                el.style.display = 'none';
+            }
+        }
+
+
+    </script>
+
+<div class="LeftMenu">
+  <div class="LeftMenuHeader">
+    <div class="LeftMenuHeaderTopImage">
+      <a href="/">
+        <img src="/Images/gnome.png" alt="Hi I'm SullyGnome!" height="48" width="40" />
+      </a>
+    </div>
+  </div>
+
+  <div class="MenuItemWrapper" title="Back to the home page">
+    <a href="/30">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/home.svg" class="FontAweIcon MenuItemHome" alt="Home" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Home
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="MenuItemWrapper" title="View stats on the channels which stream on Twitch">
+    <a href="/channels/30">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/tv.svg" class="FontAweIcon" alt="Channels" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Channels
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="MenuItemWrapper" title="View stats on the games streamed on Twitch">
+    <a href="/games/30">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/gamepad.svg" class="FontAweIcon" alt="Game" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Games
+        </div>
+      </div>
+    </a>
+  </div>
+
+
+
+
+  <div class="MenuItemWrapper" title="View stats on the teams which stream on Twitch">
+    <a href="/teams/30">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/user-plus.svg" class="FontAweIcon" alt="Teams" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Teams
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="MenuItemWrapper" title="Search for channels by the games they play and broadcast language">
+    <a href="/channelsearch/30">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/search.svg" class="FontAweIcon" alt="Search" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Search
+        </div>
+      </div>
+    </a>
+  </div>
+
+
+  <div class="MenuItemWrapper" title="See channels which have reached milestones">
+    <a href="/milestones/30">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/tasks.svg" class="FontAweIcon" alt="Channel milestones" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Milestones
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="MenuItemWrapper" title="Detailed analysis articles on Twitch">
+    <a href="/articlesanalysis">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/newspaper.svg" class="FontAweIcon" alt="Articles" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Articles
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="MenuItemWrapper" title="All about me and the site">
+    <a href="/about">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/male.svg" class="FontAweIcon" alt="About" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          About
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="MenuItemWrapper" title="Support me :)">
+    <a href="https://www.patreon.com/sullygnome" target="_blank">
+      <div class="MenuItem">
+        <div class="MenuItemPart"><img src="/images/sidebar/Patreon_Mark_Primary.png" class="PatreonIcon" alt="Patreon" /></div>
+        <div class="MenuItemPart MenuItemPartText">
+          Patreon
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="LeftMenuFooter">
+    <div class='DarkModeHeader'>Dark mode</div>
+    <div class="DarkmodeWrapper notransition" id='dmWrapper'>
+      <input type="checkbox" id="dmChk" class="notransition"/>
+      <label for="dmChk" class="DarkmodeToggle notransition" onclick='SullyJS.Util.SwitchDarkMode(); return true;'>
+                <span class="DarkmodeSpan notransition" id='dmSpan'>
+                </span>
+      </label>
+    </div>
+
+    <script type='text/javascript'>
+                if(isDarkMode)
+                {
+                    document.getElementById('dmChk').checked = true;
+                }
+            </script>
+    <div class="LeftMenuFooterContact">
+      <div class="LeftMenuFooterContact">
+        <div class="LeftMenuFooterIcon">
+          <a href="https://twitter.com/SullyGnome" target='_blank' title="Twitter">
+            <img height="22" width="22" src="/Images/twitterlatest.png" style="border:0" alt="Message me on Twitter" />
+          </a>
+        </div>
+        <div class="LeftMenuFooterIcon">
+          <a href="/cdn-cgi/l/email-protection#80e3efeef4e1e3f4c0f3f5ececf9e7eeefede5aee3efed" target='_blank' title="Email">
+            <img src="/Images/Email.png" style="border:0" alt="Send me an email" />
+          </a>
+        </div>
+        <div class="LeftMenuFooterIcon">
+          <a href="https://www.twitch.tv/sullygnome" title="Twitch PM" target='_blank'>
+            <img src="/Images/TwitchIcon.png" style="border:0" alt="Send me a Twitch PM" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="RightContent">
+  <div class="TopMenu">
+    <div class="SiteTileBar">
+      <div class="SiteTitleBarHeader">
+        <h2>SullyGnome - Twitch stats and analysis</h2>
+      </div>
+      <div class="SiteTitleBarTimezone">
+        <a href="" onclick="SullyJS.Util.ShowTimezonePicker(); return false;">Timezone: (UTC) Coordinated Universal Time</a>
+      </div>
+      <div class="SiteTitleBarSearch">
+        <div id="SearchContainer" class="SiteTitleItem SiteTitleItemSearch" style="position:relative">
+          <img src="/images/sidebar/cog.svg" class="SearchToggleMenuIcon" onclick="SullyJS.Search.CreateSearchCombo.ToggleOptions();" style="display:none" id="showSearchIcon" />
+          <input id="HeaderChannelGameSearch" placeholder="Search for a game or channel">
+          <div id="SearchToggleMenu" style="display:none" class="SearchToggleMenu">
+            <div class="SearchToggleMenuText" id="idSearchFilterLabel">Filter: </div>
+            <div class="SearchToggleMenuOption" data-search-item-type="1"><img src="/images/sidebar/tv.svg" alt="Search for channels" title="Search for channels" onmouseenter="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel(1);" onmouseleave="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel();" onclick="SullyJS.Search.CreateSearchCombo.SetSearchFilter(1);" /></div>
+            <div class="SearchToggleMenuOption" data-search-item-type="2"><img src="/images/sidebar/gamepad.svg" alt="Search for games" title="Search for games" onmouseenter="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel(2);" onmouseleave="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel();" onclick="SullyJS.Search.CreateSearchCombo.SetSearchFilter(2);" /></div>
+            <div class="SearchToggleMenuOption" data-search-item-type="4"><img src="/images/sidebar/user-plus.svg" alt="Search for teams" title="Search for teams" onmouseenter="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel(4);" onmouseleave="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel();" onclick="SullyJS.Search.CreateSearchCombo.SetSearchFilter(4);" /></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="MainContent">
+    <div class="PageHeader">
+      <div class="PageHeaderInner">
+        <div class="PageHeaderLeft" id="pageHeaderLeft" style="display:none">
+
+          <div class='RelatedLinksItemSmall FL'>
+            <a href='/game/7_Days_to_Die/30' style="display:block" title='View stats for 7 Days to Die'>
+              <img src='https://static-cdn.jtvnw.net/ttv-boxart/271304_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for 7 Days to Die' data-isgamelink='' data-gamename='7 Days to Die' />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+
+          <div class='RelatedLinksItemSmall FL'>
+            <a href='/game/Cyberpunk_2077/30' style="display:block" title='View stats for Cyberpunk 2077'>
+              <img src='https://static-cdn.jtvnw.net/ttv-boxart/65876_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Cyberpunk 2077' data-isgamelink='' data-gamename='Cyberpunk 2077' />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+
+          <div class='RelatedLinksItemSmall FL'>
+            <a href='/game/The_Last_of_Us_Part_II/30' style="display:block" title='View stats for The Last of Us Part II'>
+              <img src='https://static-cdn.jtvnw.net/ttv-boxart/494552_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for The Last of Us Part II' data-isgamelink='' data-gamename='The Last of Us Part II' />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+
+          <div class='RelatedLinksItemSmall FL'>
+            <a href='/game/Days_Gone/30' style="display:block" title='View stats for Days Gone'>
+              <img src='https://static-cdn.jtvnw.net/ttv-boxart/497456_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Days Gone' data-isgamelink='' data-gamename='Days Gone' />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+
+          <div class='RelatedLinksItemSmall FL'>
+            <a href='/game/BioMutant/30' style="display:block" title='View stats for Biomutant'>
+              <img src='https://static-cdn.jtvnw.net/ttv-boxart/498483_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Biomutant' data-isgamelink='' data-gamename='Biomutant' />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+        </div>
+        <div class="PageHeaderMiddle" id="pageHeaderMiddle">
+          <div class="PageHeaderMiddleTop">
+
+            <div class="PageHeaderMiddleCon">
+              <div class="PageHeaderMiddleConInner">
+
+                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/bd93d140-7102-407f-ae37-e061b6293930-profile_image-150x150.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="PageHeaderMiddleTopImage" />
+
+                <div class="PageHeaderMiddleWithImageHeader">
+                  <h1>
+                    <span class="PageHeaderMiddleWithImageHeaderP1">Holly</span>
+                    <span class="PageHeaderMiddleWithImageHeaderP2">Summary stats over the past 30 days</span>
+                  </h1>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+
+          <div class='MiddleSubHeaderContainer'><div class='MiddleSubHeaderRow'><div class='MiddleSubHeaderItem' title='Total number of followers'>Followers:</div><div class='MiddleSubHeaderItemValue'>79,560</div><div class='MiddleSubHeaderItem' title='Total number of views'>Views:</div><div class='MiddleSubHeaderItemValue'>1,506,022</div><div class='MiddleSubHeaderItem'>Status:</div><div class='MiddleSubHeaderItemValue'>Partnered</div><div class='MiddleSubHeaderItem'>Mature:</div><div class='MiddleSubHeaderItemValue'>Yes</div><div class='MiddleSubHeaderItem' title='Broadcast language'>Language:</div><div class='MiddleSubHeaderItemValue'>English</div><div class='MiddleSubHeaderItem'>Created:</div><div class='MiddleSubHeaderItemValue' title='Channel was created on this date'>16th Dec 2013</div></div></div>
+        </div>
+
+        <div class="PageHeaderRight" id="pageHeaderRight" style="display:none">
+
+          <div class='RelatedLinksItemSmall FR'>
+            <a href='/channel/di3sel/30' style="display:block" title='View stats for Di3seL'>
+              <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/d9bc439c-8cb7-44c9-bc70-ccc3641f7c37-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Di3seL' data-ischannellink='' data-channelname='Di3seL' />
+            </a>
+            <div class='RelatedLinksButtomText'></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="PageSubHeader" id="pageSubHeaderOuter">
+      <div class="PageSubHeaderInner">
+        <div class="PageSubHeaderLeft" id="pageSubHeaderLeft">
+          <div title='View summary stats for Holly over the past 30 days' class='PageSubHeaderTabFirst PageSubHeaderTab SelectedLink SelectedTab' onclick='RedirectToUrl("/channel/holly/30"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly/30'>Summary</a></div></div>
+          <div title='View streams for Holly over the past 30 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/channel/holly/30/streams"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly/30/streams'>Streams</a></div></div>
+          <div title='View games played by Holly over the past 30 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/channel/holly/30/games"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly/30/games'>Games</a></div></div>
+          <div title='View activity stats for Holly over the past 30 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/channel/holly/30/activitystats"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly/30/activitystats'>Activity</a></div></div>
+          <div title='View a stream calendar for Holly' class='PageSubHeaderTab' onclick='RedirectToUrl("/channel/holly/30/calendar"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly/30/calendar'>Calendar</a></div></div>
+          <div title='CompareHolly to other Twitch channels' class='PageSubHeaderTab' onclick='RedirectToUrl("/channel/holly/30/compare"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly/30/compare'>Compare</a></div></div>
+          <div title='View Holly stats over the long term' class='PageSubHeaderTab' onclick='RedirectToUrl("/channel/holly/30/longtermstats"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly/30/longtermstats'>Long-term stats</a></div></div>
+          <div title='Tool to help choose a game to stream' class='PageSubHeaderTab TabLinkLeftPadded' onclick='RedirectToUrl("/tools/gamepicker?timerange=30&amp;channel=holly"); return false;'><div class='SubheaderLinkContainer'><a href='/tools/gamepicker?timerange=30&amp;channel=holly'>Game Picker</a></div></div>
+          <div title='Use this tool to help build relationships by raiding channels after your finish streaming' class='PageSubHeaderTab' onclick='RedirectToUrl("/tools/raidfinder?timerange=30&amp;channel=holly"); return false;'><div class='SubheaderLinkContainer'><a href='/tools/raidfinder?timerange=30&amp;channel=holly'>Raid Finder</a></div></div>
+        </div>
+        <div class="PageSubHeaderMiddle" id="pageSubHeaderMiddle">
+          <div title='View Holly stats over the past 3 days days' class='PageSubHeaderTabFirst PageSubHeaderTabAlt PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/channel/holly/3"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly/3'>3 days</a></div></div>
+          <div title='View Holly stats over the past 7 days days' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/channel/holly"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly'>7 days</a></div></div>
+          <div title='View Holly stats over the past 14 days days' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/channel/holly/14"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly/14'>14 days</a></div></div>
+          <div title='View Holly stats over the past 30 days days' class='PageSubHeaderTab PageSubHeaderTabAlt SelectedLink SelectedTabAlt' onclick='RedirectToUrl("/channel/holly/30"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly/30'>30 days</a></div></div>
+          <div title='View Holly stats over the past 90 days days' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/channel/holly/90"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly/90'>90 days</a></div></div>
+          <div title='View Holly stats over the past 180 days days' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/channel/holly/180"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly/180'>180 days</a></div></div>
+          <div title='View Holly stats over the past 365 days days' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/channel/holly/365"); return false;'><div class='SubheaderLinkContainer'><a href='/channel/holly/365'>365 days</a></div></div>
+          <div title='View more ranges' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='ToggleMoreRangeLinks("AdditionalRangePickerMiddle");'>
+            <div class='SubheaderLinkContainer'>
+              <a href='#' onclick="return false;">More</a>
+            </div>
+            <div class="RangeFilterToggleMenu" id="AdditionalRangePickerMiddle" style="display: none;">
+              <div class="RangeFilterToggleMenuContainer">
+                <div class="RangeFilterToggleMenuHeader">Available ranges:<div class="RangeFilterToggleLink"><a href="" onclick="return false;">Close</a></div></div>
+
+                <div class="RangeFilterToggleMenuRow  RangeFilterToggleMenuRowNotlast">
+
+                  <div class="RangeFilterToggleMenuYear ">2022</div>
+
+
+
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2022january">Jan</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2022february">Feb</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2022march">Mar</a></div>
+
+                </div>
+                <div class="RangeFilterToggleMenuRow  RangeFilterToggleMenuRowNotlast RangeFilterToggleMenuRowAlt">
+
+                  <div class="RangeFilterToggleMenuYear "><a rel="nofollow" href="/channel/holly/2021">2021</a></div>
+
+
+
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2021january">Jan</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2021february">Feb</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2021march">Mar</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2021april">Apr</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2021may">May</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2021june">Jun</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2021july">Jul</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2021august">Aug</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2021september">Sep</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2021october">Oct</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2021november">Nov</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2021december">Dec</a></div>
+
+                </div>
+                <div class="RangeFilterToggleMenuRow  RangeFilterToggleMenuRowNotlast">
+
+                  <div class="RangeFilterToggleMenuYear "><a rel="nofollow" href="/channel/holly/2020">2020</a></div>
+
+
+
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2020january">Jan</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2020february">Feb</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2020march">Mar</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2020april">Apr</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2020may">May</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2020june">Jun</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2020july">Jul</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2020august">Aug</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2020september">Sep</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2020october">Oct</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2020november">Nov</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2020december">Dec</a></div>
+
+                </div>
+                <div class="RangeFilterToggleMenuRow  RangeFilterToggleMenuRowNotlast RangeFilterToggleMenuRowAlt">
+
+                  <div class="RangeFilterToggleMenuYear "><a rel="nofollow" href="/channel/holly/2019">2019</a></div>
+
+
+
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2019january">Jan</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2019february">Feb</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2019march">Mar</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2019april">Apr</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2019may">May</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2019june">Jun</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2019july">Jul</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2019august">Aug</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2019september">Sep</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2019october">Oct</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2019november">Nov</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2019december">Dec</a></div>
+
+                </div>
+                <div class="RangeFilterToggleMenuRow  RangeFilterToggleMenuRowNotlast">
+
+                  <div class="RangeFilterToggleMenuYear "><a rel="nofollow" href="/channel/holly/2018">2018</a></div>
+
+
+
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2018january">Jan</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2018february">Feb</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2018march">Mar</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2018april">Apr</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2018may">May</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2018june">Jun</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2018july">Jul</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2018august">Aug</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2018september">Sep</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2018october">Oct</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2018november">Nov</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2018december">Dec</a></div>
+
+                </div>
+                <div class="RangeFilterToggleMenuRow  RangeFilterToggleMenuRowNotlast RangeFilterToggleMenuRowAlt">
+
+                  <div class="RangeFilterToggleMenuYear "><a rel="nofollow" href="/channel/holly/2017">2017</a></div>
+
+
+
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2017january">Jan</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2017february">Feb</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2017march">Mar</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2017april">Apr</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2017may">May</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2017june">Jun</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2017july">Jul</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2017august">Aug</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2017september">Sep</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2017october">Oct</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2017november">Nov</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2017december">Dec</a></div>
+
+                </div>
+                <div class="RangeFilterToggleMenuRow  RangeFilterToggleMenuRowNotlast">
+
+                  <div class="RangeFilterToggleMenuYear "><a rel="nofollow" href="/channel/holly/2016">2016</a></div>
+
+
+
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2016january">Jan</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2016february">Feb</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2016march">Mar</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2016april">Apr</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2016may">May</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2016june">Jun</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2016july">Jul</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2016august">Aug</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2016september">Sep</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2016october">Oct</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2016november">Nov</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2016december">Dec</a></div>
+
+                </div>
+                <div class="RangeFilterToggleMenuRow   RangeFilterToggleMenuRowAlt">
+
+                  <div class="RangeFilterToggleMenuYear "><a rel="nofollow" href="/channel/holly/2015">2015</a></div>
+
+
+
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2015october">Oct</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2015november">Nov</a></div>
+                  <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channel/holly/2015december">Dec</a></div>
+
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="PageSubHeaderRight" id="pageSubHeaderRight">
+            <a href='https://www.twitch.tv/holly' title='View Holly on Twitch' target='_blank' ><img src='/images/TwitchIcon.png'/></a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class='PageContentSubHeader' id="pageContentSubHeader">
+      <div class="MiddleSubHeaderItemCont">
+
+        <div class='MiddleSubHeaderItem PageContentSubHeaderItem' title='When Holly last streamed'>Last online:</div>
+
+        <div class='MiddleSubHeaderItemValue'>3 days</div>
+
+      </div>
+
+      <div class="MiddleSubHeaderItemCont">
+        <div class='MiddleSubHeaderItem PageContentSubHeaderItem'>Follower rank:</div>
+        <div class='MiddleSubHeaderItemValue'>6,000th  <span title='Change from previous 30 days (61 followers gained)' class='Negative'>(<div class='NegativeChange'><img src='/images/fa/angle-down-solid-negative.svg' ></div>70)</span></div>
+      </div>
+      <div class="MiddleSubHeaderItemCont" title=' Holly - follower gain rank compared to all channels which streamed in the past 30 days (61 followers gained)'>
+        <div class='MiddleSubHeaderItem PageContentSubHeaderItem'>Follower gain rank:</div>
+        <div class='MiddleSubHeaderItemValue'>116,534th  <span title='Change from previous 30 days (61 followers gained)' class='Positive'>(<div class='PositiveChange'><img src='/images/fa/angle-up-solid-positive.svg' ></div>1,841,755)</span></div>
+      </div>
+      <div class="MiddleSubHeaderItemCont" title='Holly - peak viewer rank compared to all channels which streamed in the past 30 days (482 peak viewers)'>
+        <div class='MiddleSubHeaderItem PageContentSubHeaderItem'>Peak viewer rank:</div>
+        <div class='MiddleSubHeaderItemValue'>21,100th  <span title='Change from previous 30 days (482 peak viewers)' class='Positive'>(<div class='PositiveChange'><img src='/images/fa/angle-up-solid-positive.svg' ></div>60,372)</span></div>
+      </div>
+      <div class="MiddleSubHeaderItemCont" title='Holly - average viewer rank compared to all channels which streamed in the past 30 days (54 average viewers)'>
+        <div class='MiddleSubHeaderItem PageContentSubHeaderItem'>Average viewer rank:</div>
+        <div class='MiddleSubHeaderItemValue'>42,882nd  <span title='Change from previous 30 days (54 average viewers)' class='Positive'>(<div class='PositiveChange'><img src='/images/fa/angle-up-solid-positive.svg' ></div>15,352)</span></div>
+      </div>
+      <div class="MiddleSubHeaderItemCont" title='Holly - view rank for compared to channels which streamed in the past 30 days (11,343 views gained)'>
+        <div class='MiddleSubHeaderItem PageContentSubHeaderItem'>View rank:</div>
+        <div class='MiddleSubHeaderItemValue'>10,106th  <span title='Change from previous 30 days (11,343 views gained)' class='Negative'>(<div class='NegativeChange'><img src='/images/fa/angle-down-solid-negative.svg' ></div>110)</span></div>
+      </div>
+      <div class="MiddleSubHeaderItemCont" title='Holly - view gain rank compared to all channels which streamed in the past 30 days (11,343 views gained)'>
+        <div class='MiddleSubHeaderItem PageContentSubHeaderItem'>View gain rank:</div>
+        <div class='MiddleSubHeaderItemValue'>23,194th  <span title='Change from previous 30 days (11,343 views gained)' class='Positive'>(<div class='PositiveChange'><img src='/images/fa/angle-up-solid-positive.svg' ></div>13,738)</span></div>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="InfoStatPanelContainerTop ">
+      <div class="InfoStatPanelContainer">
+
+
+        <div class="InfoStatPanelWrapper InfoStatPanelSpacerLeft">
+          <div class="InfoStatPanelOuter" title="Average viewers in the past 30 days">
+            <div class="InfoStatPanelInner">
+              <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Average viewers</h4></div></div>
+              <div class="InfoStatPanelTL" title="Average number of viewers"><div class="InfoStatPanelTLCell">54</div></div>
+              <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Positive">+17</div></div>
+              <div class="InfoStatPanelTR" title="Average viewers compared to the previous 30 days"><div class="InfoStatPanelTRCell Positive"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='Average viewers compared to the previous 30 days' ></div><span class='Positive'>45.9%</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+          <div class="InfoStatPanelOuter" title="Total watch time in the past 30 days">
+            <div class="InfoStatPanelInner">
+              <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Hours watched</h4></div></div>
+              <div class="InfoStatPanelTL" title="Number of hours watched"><div class="InfoStatPanelTLCell">5,863</div></div>
+              <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Positive">+3,123</div></div>
+              <div class="InfoStatPanelTR" title="Total watch time compared to the previous 30 days"><div class="InfoStatPanelTRCell Positive"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='Total watch time compared to the previous 30 days' ></div><span class='Positive'>114.0%</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+          <div class="InfoStatPanelOuter" title="Followers gained in the past 30 days">
+            <div class="InfoStatPanelInner">
+              <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Followers gained</h4></div></div>
+              <div class="InfoStatPanelTL" title="Number of followers gained"><div class="InfoStatPanelTLCell">61</div></div>
+              <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Positive">+145</div></div>
+              <div class="InfoStatPanelTR" title="Followers gained compared to the previous 30 days"><div class="InfoStatPanelTRCell Positive"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='Followers gained compared to the previous 30 days' ></div><span class='Positive'>172.6%</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+          <div class="InfoStatPanelOuter" title="Views gained in the past 30 days">
+            <div class="InfoStatPanelInner">
+              <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Views gained</h4></div></div>
+              <div class="InfoStatPanelTL" title="Number of views gained "><div class="InfoStatPanelTLCell">11,343</div></div>
+              <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Positive">+5,300</div></div>
+              <div class="InfoStatPanelTR" title="Views gained compared to the previous 30 days"><div class="InfoStatPanelTRCell Positive"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='Views gained compared to the previous 30 days' ></div><span class='Positive'>87.7%</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+          <div class="InfoStatPanelOuter" title="Max viewers in the past 30 days">
+            <div class="InfoStatPanelInner">
+              <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Peak viewers</h4></div></div>
+              <div class="InfoStatPanelTL" title="Peak number of viewers"><div class="InfoStatPanelTLCell">482</div></div>
+              <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Positive">+382</div></div>
+              <div class="InfoStatPanelTR" title="Peak viewers compared to the previous 30 days"><div class="InfoStatPanelTRCell Positive"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='Peak viewers compared to the previous 30 days' ></div><span class='Positive'>382.0%</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="InfoStatPanelWrapper InfoStatPanelSpacerMiddle">
+          <div class="InfoStatPanelOuter" title="Total time streamed in the past 30 days">
+            <div class="InfoStatPanelInner">
+              <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Hours streamed</h4></div></div>
+              <div class="InfoStatPanelTL" title="Amount of time streamed"><div class="InfoStatPanelTLCell">107</div></div>
+              <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Positive">+33</div></div>
+              <div class="InfoStatPanelTR" title="Total time streamed compared to the previous 30 days"><div class="InfoStatPanelTRCell Positive"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='Total time streamed compared to the previous 30 days' ></div><span class='Positive'>44.9%</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="PageQuickLinksPanel" id="channelQuickLinks">
+      <div style="float:left">
+        <a href="/team/astro" style="padding-right:5px">A&#x2605;Star Collective</a>
+        <a href="/team/gfuel" style="padding-right:5px">G FUEL: The Official Energy Drink of Esports&#xAE;</a>
+        <a href="/team/mostwanted" style="padding-right:5px">Most Wanted eSports</a>
+      </div>
+    </div>
+
+    <div class="PageContentContainer">
+
+
+      <div class="StandardPageContainer">
+        <div class="SetMinScrollable">
+
+
+          <div class="InfoPanelContainer">
+
+            <div class="ChartPanel">
+              <div id="channelviewers" class="LineChartContainer">
+                <div class="ChartHeader">
+                  <div class="ChartTitleText">
+                    <h3 class="ChartTitle" id="lblChartTitle">Holly&#x27;s viewers between Saturday 19th March and Monday 18th April</h3>
+                  </div>
+                  <div class="ChartOptions">
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.ExpandCollapseChart(this,'ChartPanel','CanvasWrap'); return false;">Expand</a>
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.SaveChart(this); return false;">Image</a>
+                    <a href="" class="ChartResize ChartStyleOption" onclick="SullyJS.Charts.RestyleChart(this,2); return false;" id="lineStyleOption" style="display:none">Show offline</a>
+                  </div>
+                </div>
+                <div class="ChartRangeRow">
+                  <div id="pnlChartDescription" style="display:none">
+                    <div class="ChartRangeLabel" id="litDescriptionLabel"></div>
+                  </div>
+                  <div id="pnlChartMinLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMinLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMinValue"></div>
+                  </div>
+                  <div id="pnlChartMaxLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMaxLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMaxValue"></div>
+                  </div>&nbsp;
+                </div>
+                <div class="ChartRangeRowHidden" style="display:none">
+                </div>
+                <div class="CanvasWrap" id="chartwrappanel">
+                  <canvas id="canvasLineChart" class="LineChart"></canvas>
+                </div>
+                <div id="ChartSlider" style="display:none" class="ChartSliderContainer ChartFooter">
+                  <input id="inSliderLeft_45923dbf-8029-43c2-8a00-d80d166f0f40" style="display:none" />
+                  <a id="LeftText" class="ChartSliderLeft" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'Start'); return false;">Start Text</a>
+                  <div class="ChartSliderMiddle">
+                    <div id="MiddleContainer" class="ChartSliderWrapper"></div>
+                  </div>
+                  <input id="inSliderRight_dff7213f-e386-44e0-9102-4d11a6ed84f5" style="display:none" />
+                  <a id="RightText" class="ChartSliderRight" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'End'); return false;">End Text</a>
+                </div>
+                <div id="LineChartLegend"></div>
+              </div>
+            </div>
+
+            <div class="InfoPanelOuterCombined "  id="combinedPanel">
+              <div class="InfoPanelCombined">
+                <div class="InfoPanelCombinedTop">
+                  <div class="InfoPanelTopLinkContainer" id="divtoplinkcontainer">
+                    <div title="View a summary of Holly&#x27;s streams" class="PageSubHeaderTab SelectedTab SelectedLink InfoPanelCombineHeaderFirst" onclick="return UpdateCombinedPanel(this,'streamgames','streams','30','2215977','holly','start','desc');">
+                      <div class="">
+                        <a href="">Streams</a>
+                      </div>
+                    </div>
+                    <div title="View a summary of Holly&#x27;s games played" class="PageSubHeaderTab" onclick="return UpdateCombinedPanel(this,'streamgames','games','30','2215977','holly','avgviewers','desc');">
+                      <div class="">
+                        <a href="">Games</a>
+                      </div>
+                    </div>
+                    <div class="InfoPanelTopHeaderContainer"><h3>Stream summary</h3></div>
+                  </div>
+                </div>
+                <div class="PageBackgroundColor InfoPanelCombinedMiddle">
+                  <div class="InfoPanelCombinedMiddleInner">
+                    <div class="InfoPanelCombinedRow">
+                      <div class="InfoPanelCombinedRowCell InfoPanelCombineFirst Handy InfoPanelCombinedHeaderSelected" onclick="return UpdateCombinedPanel(this,'streamgames','streamgames','30','2215977','holly','start','asc');">
+                        <a href="">Start</a>
+                        <div class="InfoPanelCombinedSortImageCon">
+                          <img src="/images/fa/angle-down-solid.svg" />
+                        </div>
+                      </div>
+                      <div class="InfoPanelCombinedRowCell Handy" onclick="return UpdateCombinedPanel(this,'streamgames','streamgames','30','2215977','holly','length','desc');">
+                        <a href="">Stream length</a>
+                      </div>
+                      <div class="InfoPanelCombinedRowCell Handy" onclick="return UpdateCombinedPanel(this,'streamgames','streamgames','30','2215977','holly','avgviewers','desc');">
+                        <a href="">Avg Viewers</a>
+                      </div>
+                      <div class="InfoPanelCombinedRowCell Handy" onclick="return UpdateCombinedPanel(this,'streamgames','streamgames','30','2215977','holly','maxviewers','desc');">
+                        <a href="">Peak Viewers</a>
+                      </div>
+                      <div class="InfoPanelCombinedRowCell Handy" onclick="return UpdateCombinedPanel(this,'streamgames','streamgames','30','2215977','holly','watchtime','desc');">
+                        <a href="">Watch time</a>
+                      </div>
+                      <div class="InfoPanelCombinedRowCell Handy" onclick="return UpdateCombinedPanel(this,'streamgames','streamgames','30','2215977','holly','followersgained','desc');">
+                        <a href="">Followers</a>
+                      </div>
+                      <div class="Handy InfoPanelCombinedRowCell Handy" onclick="return UpdateCombinedPanel(this,'streamgames','streamgames','30','2215977','holly','views','desc');">
+                        <a href="">Views</a>
+                      </div>
+                      <div class="Handy InfoPanelCombinedRowCellMedium Handy" onclick="return UpdateCombinedPanel(this,'streamgames','streamgames','30','2215977','holly','games','desc');">
+                        <a href="">Games</a>
+                      </div>
+                    </div>
+                    <div class="InfoPanelCombinedRowAlt">
+                      <div class="InfoPanelCombinedRowCell InfoPanelCombineFirst"><a href='/channel/holly/30/stream/46171271069'>Thu Apr 14th 21:50</a></div>
+                      <div class="InfoPanelCombinedRowCell">2.7 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">20</div>
+                      <div class="InfoPanelCombinedRowCell">32</div>
+                      <div class="InfoPanelCombinedRowCell">53.3 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">-7</div>
+                      <div class="Handy InfoPanelCombinedRowCell">244</div>
+                      <div class="Handy InfoPanelCombinedRowCellMedium"><div class='InfoPanelCellImagePanel'><a href='/game/ROBLOX' title='View stats for Roblox'><img src='https://static-cdn.jtvnw.net/ttv-boxart/23020_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div></div>
+                    </div>
+                    <div class="InfoPanelCombinedRow">
+                      <div class="InfoPanelCombinedRowCell InfoPanelCombineFirst"><a href='/channel/holly/30/stream/46168506141'>Thu Apr 14th 14:20</a></div>
+                      <div class="InfoPanelCombinedRowCell">1.2 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">22</div>
+                      <div class="InfoPanelCombinedRowCell">33</div>
+                      <div class="InfoPanelCombinedRowCell">25.7 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">-1</div>
+                      <div class="Handy InfoPanelCombinedRowCell">76</div>
+                      <div class="Handy InfoPanelCombinedRowCellMedium"><div class='InfoPanelCellImagePanel'><a href='/game/The_Dark_Pictures_anthology_House_of_ashes' title='View stats for The Dark Pictures Anthology: House of Ashes'><img src='https://static-cdn.jtvnw.net/ttv-boxart/1274531553_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div></div>
+                    </div>
+                    <div class="InfoPanelCombinedRowAlt">
+                      <div class="InfoPanelCombinedRowCell InfoPanelCombineFirst"><a href='/channel/holly/30/stream/46139379197'>Mon Apr 11th 12:13</a></div>
+                      <div class="InfoPanelCombinedRowCell">7 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">39</div>
+                      <div class="InfoPanelCombinedRowCell">57</div>
+                      <div class="InfoPanelCombinedRowCell">274.3 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">-10</div>
+                      <div class="Handy InfoPanelCombinedRowCell">542</div>
+                      <div class="Handy InfoPanelCombinedRowCellMedium"><div class='InfoPanelCellImagePanel'><a href='/game/Tick_Tock_a_Tale_for_Two' title='View stats for Tick Tock: A Tale for Two'><img src='https://static-cdn.jtvnw.net/ttv-boxart/508757_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div><div class='InfoPanelCellImagePanel'><a href='/game/The_Dark_Pictures_anthology_House_of_ashes' title='View stats for The Dark Pictures Anthology: House of Ashes'><img src='https://static-cdn.jtvnw.net/ttv-boxart/1274531553_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div></div>
+                    </div>
+                    <div class="InfoPanelCombinedRow">
+                      <div class="InfoPanelCombinedRowCell InfoPanelCombineFirst"><a href='/channel/holly/30/stream/46133624685'>Sun Apr 10th 20:43</a></div>
+                      <div class="InfoPanelCombinedRowCell">3.5 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">117</div>
+                      <div class="InfoPanelCombinedRowCell">379</div>
+                      <div class="InfoPanelCombinedRowCell">413.4 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">13</div>
+                      <div class="Handy InfoPanelCombinedRowCell">616</div>
+                      <div class="Handy InfoPanelCombinedRowCellMedium"><div class='InfoPanelCellImagePanel'><a href='/game/Fortnite' title='View stats for Fortnite'><img src='https://static-cdn.jtvnw.net/ttv-boxart/33214-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div></div>
+                    </div>
+                    <div class="InfoPanelCombinedRowAlt">
+                      <div class="InfoPanelCombinedRowCell InfoPanelCombineFirst"><a href='/channel/holly/30/stream/46129743757'>Sun Apr 10th 12:59</a></div>
+                      <div class="InfoPanelCombinedRowCell">5 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">43</div>
+                      <div class="InfoPanelCombinedRowCell">72</div>
+                      <div class="InfoPanelCombinedRowCell">215.7 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">-6</div>
+                      <div class="Handy InfoPanelCombinedRowCell">370</div>
+                      <div class="Handy InfoPanelCombinedRowCellMedium"><div class='InfoPanelCellImagePanel'><a href='/game/It_Takes_Two' title='View stats for It Takes Two'><img src='https://static-cdn.jtvnw.net/ttv-boxart/518213_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div></div>
+                    </div>
+                    <div class="InfoPanelCombinedRow">
+                      <div class="InfoPanelCombinedRowCell InfoPanelCombineFirst"><a href='/channel/holly/30/stream/46118196093'>Sat Apr 9th 11:15</a></div>
+                      <div class="InfoPanelCombinedRowCell">5.2 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">57</div>
+                      <div class="InfoPanelCombinedRowCell">101</div>
+                      <div class="InfoPanelCombinedRowCell">299.2 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">-7</div>
+                      <div class="Handy InfoPanelCombinedRowCell">551</div>
+                      <div class="Handy InfoPanelCombinedRowCellMedium"><div class='InfoPanelCellImagePanel'><a href='/game/It_Takes_Two' title='View stats for It Takes Two'><img src='https://static-cdn.jtvnw.net/ttv-boxart/518213_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div><div class='InfoPanelCellImagePanel'><a href='/game/Whos_Your_Daddy' title='View stats for Who's Your Daddy'><img src='https://static-cdn.jtvnw.net/ttv-boxart/491169_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div><div class='InfoPanelCellImagePanel'><a href='/game/Gartic_Phone' title='View stats for Gartic Phone'><img src='https://static-cdn.jtvnw.net/ttv-boxart/278888515_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div></div>
+                    </div>
+                    <div class="InfoPanelCombinedRowAlt">
+                      <div class="InfoPanelCombinedRowCell InfoPanelCombineFirst"><a href='/channel/holly/30/stream/46107355325'>Fri Apr 8th 10:02</a></div>
+                      <div class="InfoPanelCombinedRowCell">5.5 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">48</div>
+                      <div class="InfoPanelCombinedRowCell">62</div>
+                      <div class="InfoPanelCombinedRowCell">262.4 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">-6</div>
+                      <div class="Handy InfoPanelCombinedRowCell">462</div>
+                      <div class="Handy InfoPanelCombinedRowCellMedium"><div class='InfoPanelCellImagePanel'><a href='/game/Surgeon_Simulator_2' title='View stats for Surgeon Simulator 2'><img src='https://static-cdn.jtvnw.net/ttv-boxart/515471_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div></div>
+                    </div>
+                    <div class="InfoPanelCombinedRow">
+                      <div class="InfoPanelCombinedRowCell InfoPanelCombineFirst"><a href='/channel/holly/30/stream/46098358349'>Thu Apr 7th 12:16</a></div>
+                      <div class="InfoPanelCombinedRowCell">4.2 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">40</div>
+                      <div class="InfoPanelCombinedRowCell">58</div>
+                      <div class="InfoPanelCombinedRowCell">169.3 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">5</div>
+                      <div class="Handy InfoPanelCombinedRowCell">394</div>
+                      <div class="Handy InfoPanelCombinedRowCellMedium"><div class='InfoPanelCellImagePanel'><a href='/game/Surgeon_Simulator_2' title='View stats for Surgeon Simulator 2'><img src='https://static-cdn.jtvnw.net/ttv-boxart/515471_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div><div class='InfoPanelCellImagePanel'><a href='/game/Fortnite' title='View stats for Fortnite'><img src='https://static-cdn.jtvnw.net/ttv-boxart/33214-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div></div>
+                    </div>
+                    <div class="InfoPanelCombinedRowAlt">
+                      <div class="InfoPanelCombinedRowCell InfoPanelCombineFirst"><a href='/channel/holly/30/stream/46088096349'>Wed Apr 6th 10:55</a></div>
+                      <div class="InfoPanelCombinedRowCell">8.6 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">47</div>
+                      <div class="InfoPanelCombinedRowCell">68</div>
+                      <div class="InfoPanelCombinedRowCell">403.4 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">-5</div>
+                      <div class="Handy InfoPanelCombinedRowCell">598</div>
+                      <div class="Handy InfoPanelCombinedRowCellMedium"><div class='InfoPanelCellImagePanel'><a href='/game/Fortnite' title='View stats for Fortnite'><img src='https://static-cdn.jtvnw.net/ttv-boxart/33214-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div><div class='InfoPanelCellImagePanel'><a href='/game/The_Cycle_Frontier' title='View stats for The Cycle: Frontier'><img src='https://static-cdn.jtvnw.net/ttv-boxart/470840663_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div></div>
+                    </div>
+                    <div class="InfoPanelCombinedRow InfoPanelCombinedRowLast">
+                      <div class="InfoPanelCombinedRowCell InfoPanelCombineFirst"><a href='/channel/holly/30/stream/46063446365'>Sun Apr 3rd 21:03</a></div>
+                      <div class="InfoPanelCombinedRowCell">5.7 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">28</div>
+                      <div class="InfoPanelCombinedRowCell">50</div>
+                      <div class="InfoPanelCombinedRowCell">159.6 hrs</div>
+                      <div class="InfoPanelCombinedRowCell">-12</div>
+                      <div class="Handy InfoPanelCombinedRowCell">480</div>
+                      <div class="Handy InfoPanelCombinedRowCellMedium"><div class='InfoPanelCellImagePanel'><a href='/game/Call_of_Duty_Modern_Warfare' title='View stats for Call of Duty: Warzone'><img src='https://static-cdn.jtvnw.net/ttv-boxart/512710-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div><div class='InfoPanelCellImagePanel'><a href='/game/The_Cycle_Frontier' title='View stats for The Cycle: Frontier'><img src='https://static-cdn.jtvnw.net/ttv-boxart/470840663_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100'/></a></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="InfoPanelCombinedBottom" title="View streams for Holly over the past 30 days"><a href="/channel/holly/30/streams">More stream stats (20 streams)</a></div>
+              </div>
+
+              <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        function UpdateCombinedPanel(sender, paneltype, panel, dayid, id, url, sortcol, sortdir) {
+            if (window.jQuery) {
+
+                $.ajax({
+                    url: "/api/panelviews/updatepanel/" + paneltype + "/" + panel + "/" + dayid + "/" + id + "/" + url + "/" + sortcol + "/" + sortdir,
+                    type: "GET"
+                })
+                    .done(function (partialViewResult) {
+                        $(sender).parents('[id=combinedPanel]').replaceWith(partialViewResult);
+                    });
+
+                return false;
+            }
+            else {
+                //jquery not loaded
+                setTimeout(function () { UpdateCombinedPanel(sender, paneltype, panel, dayid, id, url, sortcol, sortdir); }, 1000);
+            }
+        }
+    </script>
+
+            </div>
+
+
+
+
+          </div>
+
+          <div class="LineBreakWithSpace">
+          </div>
+
+          <div class="InfoPanelContainer">
+
+            <div class="ChartPanel">
+              <div id="channelfollowers" class="LineChartContainer">
+                <div class="ChartHeader">
+                  <div class="ChartTitleText">
+                    <h3 class="ChartTitle" id="lblChartTitle">Holly&#x27;s followers between Saturday 19th March and Monday 18th April</h3>
+                  </div>
+                  <div class="ChartOptions">
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.ExpandCollapseChart(this,'ChartPanel','CanvasWrap'); return false;">Expand</a>
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.SaveChart(this); return false;">Image</a>
+                    <a href="" class="ChartResize ChartStyleOption" onclick="SullyJS.Charts.RestyleChart(this,2); return false;" id="lineStyleOption" style="display:none">Show offline</a>
+                  </div>
+                </div>
+                <div class="ChartRangeRow">
+                  <div id="pnlChartDescription" style="display:none">
+                    <div class="ChartRangeLabel" id="litDescriptionLabel"></div>
+                  </div>
+                  <div id="pnlChartMinLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMinLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMinValue"></div>
+                  </div>
+                  <div id="pnlChartMaxLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMaxLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMaxValue"></div>
+                  </div>&nbsp;
+                </div>
+                <div class="ChartRangeRowHidden" style="display:none">
+                </div>
+                <div class="CanvasWrap" id="chartwrappanel">
+                  <canvas id="canvasLineChart" class="LineChart"></canvas>
+                </div>
+                <div id="ChartSlider" style="display:none" class="ChartSliderContainer ChartFooter">
+                  <input id="inSliderLeft_9c774a6a-72bc-41c8-adc8-a6bcb2cfb2fa" style="display:none" />
+                  <a id="LeftText" class="ChartSliderLeft" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'Start'); return false;">Start Text</a>
+                  <div class="ChartSliderMiddle">
+                    <div id="MiddleContainer" class="ChartSliderWrapper"></div>
+                  </div>
+                  <input id="inSliderRight_9d4d71f0-58ab-4820-827a-8e589c1f67ee" style="display:none" />
+                  <a id="RightText" class="ChartSliderRight" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'End'); return false;">End Text</a>
+                </div>
+                <div id="LineChartLegend"></div>
+              </div>
+            </div>
+
+            <div class="ChartPanel">
+              <div id="channelviews" class="LineChartContainer">
+                <div class="ChartHeader">
+                  <div class="ChartTitleText">
+                    <h3 class="ChartTitle" id="lblChartTitle">Holly&#x27;s views between Saturday 19th March and Monday 18th April</h3>
+                  </div>
+                  <div class="ChartOptions">
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.ExpandCollapseChart(this,'ChartPanel','CanvasWrap'); return false;">Expand</a>
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.SaveChart(this); return false;">Image</a>
+                    <a href="" class="ChartResize ChartStyleOption" onclick="SullyJS.Charts.RestyleChart(this,2); return false;" id="lineStyleOption" style="display:none">Show offline</a>
+                  </div>
+                </div>
+                <div class="ChartRangeRow">
+                  <div id="pnlChartDescription" style="display:none">
+                    <div class="ChartRangeLabel" id="litDescriptionLabel"></div>
+                  </div>
+                  <div id="pnlChartMinLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMinLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMinValue"></div>
+                  </div>
+                  <div id="pnlChartMaxLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMaxLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMaxValue"></div>
+                  </div>&nbsp;
+                </div>
+                <div class="ChartRangeRowHidden" style="display:none">
+                </div>
+                <div class="CanvasWrap" id="chartwrappanel">
+                  <canvas id="canvasLineChart" class="LineChart"></canvas>
+                </div>
+                <div id="ChartSlider" style="display:none" class="ChartSliderContainer ChartFooter">
+                  <input id="inSliderLeft_6e9cdc3e-d119-4888-ab03-48d9a4f418b1" style="display:none" />
+                  <a id="LeftText" class="ChartSliderLeft" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'Start'); return false;">Start Text</a>
+                  <div class="ChartSliderMiddle">
+                    <div id="MiddleContainer" class="ChartSliderWrapper"></div>
+                  </div>
+                  <input id="inSliderRight_0d4925d7-1177-41cd-8082-bd5557391974" style="display:none" />
+                  <a id="RightText" class="ChartSliderRight" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'End'); return false;">End Text</a>
+                </div>
+                <div id="LineChartLegend"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="LineBreakWithSpace">
+          </div>
+
+          <div class="InfoPanelContainer">
+
+            <div class="ChartPanel">
+              <div id="channelgamestreamedtime" class="LineChartContainer">
+                <div class="ChartHeader">
+                  <div class="ChartTitleText">
+                    <h3 class="ChartTitle" id="lblChartTitle">Time streamed by game over the past 30 days</h3>
+                  </div>
+                  <div class="ChartOptions">
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.ExpandCollapseChart(this,'ChartPanel'); return false;">Expand</a>
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.SaveChart(this); return false;">Image</a>
+                  </div>
+                </div>
+                <div class="ChartRangeRow">
+                  <div>
+                    <div id="pnlChartDescription" runat="server" style="display:none">
+                      <div class="ChartRangeLabel" id="litDescriptionLabel"></div>
+                    </div>
+                    <div id="pnlChartMinLabel" runat="server" style="display:inline">
+                      <div class="ChartRangeLabel" id="litRangeMinLabel"></div>
+                      <div class="ChartRangeValue" id="litRangeMinValue"></div>
+                    </div>
+                    <div id="pnlChartMaxLabel" style="display:inline">
+                      <div class="ChartRangeLabel" id="litRangeMaxLabel"></div>
+                      <div class="ChartRangeValue" id="litRangeMaxValue"></div>
+                    </div>&nbsp;
+                  </div>
+                </div>
+                <div class="ChartRangeRowHidden" style="display:none">
+                </div>
+                <div class="CanvasWrap">
+                  <canvas id="canvasPieChart" class="LineChart"></canvas>
+                </div>
+                <div id="PieChartLegend"></div>
+              </div>
+            </div>
+
+            <div class="ChartPanel">
+              <div id="channelgameavgviewers" class="LineChartContainer">
+                <div class="ChartHeader">
+                  <div class="ChartTitleText">
+                    <h3 class="ChartTitle" id="lblChartTitle">Game average viewers over the past 30 days</h3>
+                  </div>
+                  <div class="ChartOptions">
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.ExpandCollapseChart(this,'ChartPanel'); return false;">Expand</a>
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.SaveChart(this); return false;">Image</a>
+                  </div>
+                </div>
+                <div class="ChartRangeRow">
+                  <div>
+                    <div id="pnlChartDescription" runat="server" style="display:none">
+                      <div class="ChartRangeLabel" id="litDescriptionLabel"></div>
+                    </div>
+                    <div id="pnlChartMinLabel" runat="server" style="display:inline">
+                      <div class="ChartRangeLabel" id="litRangeMinLabel"></div>
+                      <div class="ChartRangeValue" id="litRangeMinValue"></div>
+                    </div>
+                    <div id="pnlChartMaxLabel" style="display:inline">
+                      <div class="ChartRangeLabel" id="litRangeMaxLabel"></div>
+                      <div class="ChartRangeValue" id="litRangeMaxValue"></div>
+                    </div>&nbsp;
+                  </div>
+                </div>
+                <div class="ChartRangeRowHidden" style="display:none">
+                </div>
+                <div class="CanvasWrap">
+                  <canvas id="canvasPieChart" class="LineChart"></canvas>
+                </div>
+                <div id="PieChartLegend"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="LineBreakWithSpace"></div>
+
+          <div class="InfoPanelContainer">
+
+            <div class="ChartPanel">
+              <div id="channelrank" class="LineChartContainer">
+                <div class="ChartHeader">
+                  <div class="ChartTitleText">
+                    <h3 class="ChartTitle" id="lblChartTitle">Holly&#x27;s Twitch/Game directory position</h3>
+                  </div>
+                  <div class="ChartOptions">
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.ExpandCollapseChart(this,'ChartPanel','CanvasWrap'); return false;">Expand</a>
+                    <a href="" class="ChartResize" onclick="SullyJS.Charts.SaveChart(this); return false;">Image</a>
+                    <a href="" class="ChartResize ChartStyleOption" onclick="SullyJS.Charts.RestyleChart(this,2); return false;" id="lineStyleOption" style="display:none">Show offline</a>
+                  </div>
+                </div>
+                <div class="ChartRangeRow">
+                  <div id="pnlChartDescription" style="display:none">
+                    <div class="ChartRangeLabel" id="litDescriptionLabel"></div>
+                  </div>
+                  <div id="pnlChartMinLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMinLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMinValue"></div>
+                  </div>
+                  <div id="pnlChartMaxLabel" style="display:inline">
+                    <div class="ChartRangeLabel" id="litRangeMaxLabel"></div>
+                    <div class="ChartRangeValue" id="litRangeMaxValue"></div>
+                  </div>&nbsp;
+                </div>
+                <div class="ChartRangeRowHidden" style="display:none">
+                </div>
+                <div class="CanvasWrap" id="chartwrappanel">
+                  <canvas id="canvasLineChart" class="LineChart"></canvas>
+                </div>
+                <div id="ChartSlider" style="display:none" class="ChartSliderContainer ChartFooter">
+                  <input id="inSliderLeft_44bb306e-58d0-4ffb-9f6f-d85ec667070d" style="display:none" />
+                  <a id="LeftText" class="ChartSliderLeft" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'Start'); return false;">Start Text</a>
+                  <div class="ChartSliderMiddle">
+                    <div id="MiddleContainer" class="ChartSliderWrapper"></div>
+                  </div>
+                  <input id="inSliderRight_6e1c097a-2fa1-4aee-93e6-d12b2939b894" style="display:none" />
+                  <a id="RightText" class="ChartSliderRight" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'End'); return false;">End Text</a>
+                </div>
+                <div id="LineChartLegend"></div>
+              </div>
+            </div>        </div>
+
+          <div class="LineBreakWithSpace"></div>
+
+
+          <div class="LineBreak">
+            <div class="ChannelStatusContainer"><div class="ChannelStatus">Latest status - Ragin&#x27; on Caldera w/ OpTic Holly</div></div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+
+      <div class="ContentFooter"></div>
+
+
+    </div>
+  </div>
+  <div style="clear:both"></div>
+
+  <div id="TimezonePicker" class="TimezonePicker" style="display:none" onclick="SullyJS.Util.ShowTimezonePicker(); return false;">
+    <div class="TimezonePickerContent" onclick="SullyJS.Util.ShowTimezonePrevent(event);">
+      <span class="TimezonePickerClose" onclick="SullyJS.Util.ShowTimezonePicker(); return false;">&times;</span>
+      <p id="TimezonePickerHeader"></p>
+      <hr />
+      <select class="TimezonePickerSelect" id="TimezonePickerSelect" onchange="SullyJS.Util.TimezonePickerSelected();">
+        <option value="">Loading...</option>
+      </select>
+    </div>
+  </div>
+
+
+  <div id="LanguagePicker" class="TimezonePicker" style="display:none" onclick="SullyJS.Util.ShowLanguagePicker(); return false;">
+    <div class="TimezonePickerContent" onclick="SullyJS.Util.ShowLanguagePrevent(event);">
+      <span class="TimezonePickerClose" onclick="SullyJS.Util.ShowLanguagePicker(); return false;">&times;</span>
+      <p id="LanguagePickerHeader"></p>
+      <hr />
+      <select class="TimezonePickerSelect" id="LanguagePickerSelect" onchange="SullyJS.Util.LanguagePickerSelected();">
+      </select>
+    </div>
+  </div>
+
+  <div class="FooterContainer">
+    <div class="PageFooter">
+      <a href="https://SullyGnome.com">SullyGnome.com</a> © is in no way affiliated with <a href="https://www.twitch.tv/" target="_blank">Twitch</a>. Please do not scrape this site, it's a hobby project with limited resources.
+      <a href="/policy/tos">Terms</a>
+      <a href="/policy/cookie">Cookies</a>
+    </div>
+
+  </div>
+</div>
+
+<link rel="icon" type="image/x-icon" href="https://www.sullygnome.com/images/fav/favicon.ico" />
+
+
+
+<script src="/lib/jquery/jquery-3.2.1.min.js"></script>
+<script src="/lib/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="/js/sully/sully.bundle.min.js?v=gZjkEj6Ay02onJ0x2VW-Vn-QKF106ovWOHe_6dlKT3Y"></script>
+<script src="/js/sully/chart.bundle.js"></script>
+<script src="/lib/nouislider/nouislider.min.js"></script>
+<link rel="stylesheet" href="/lib/nouislider/nouislider.min.css" />
+
+
+
+<script>
+            var ShowAnalytics = true;
+        </script>
+
+
+<script>
+
+        if(isDarkMode)
+        {
+            SullyJS.Util.SetDarkMode();
+        }
+
+        var wrapper = $('[id=dmWrapper]');
+        wrapper.removeClass('notransition');
+        wrapper.find('.notransition').removeClass('notransition');
+
+    </script>
+
+
+<script type="text/javascript">
+        SullyJS.Charts.Line.CreateLineChart("channelviewers", "ChannelViewers", 30, 0, 2215977, "Holly",null,null,0,0,null,true,2768+1,2);
+        SullyJS.Charts.Line.CreateLineChart("channelfollowers", "ChannelFollowers", 30, 0, 2215977, "Holly",null,null,0,0,null,true,2768+1);
+        SullyJS.Charts.Line.CreateLineChart("channelviews", "ChannelViews", 30, 0, 2215977, "Holly",null,null,0,0,null,true,2768)+1;
+        SullyJS.Charts.Line.CreateLineChart("channelrank", "ChannelRank", 30, 0, 2215977, "Holly",null,null,0,0,null,true,2768+1,2);
+
+        SullyJS.Charts.Pie.CreatePieChart("channelgameavgviewers", "channelgameavgviewers", 30, 0, 2215977, "Holly","","",0,0);
+        SullyJS.Charts.Pie.CreatePieChart("channelgamestreamedtime", "channelgamestreamedtime", 30, 0, 2215977, "Holly","","",0,0);
+        //SullyJS.Charts.Pie.CreatePieChart("channelgamefollowersperhour", "channelgamefollowersperhour", 30, 0, 2215977, "Holly","","",0,0);
+
+        //SullyJS.Charts.Bar.CreateBarChart("channelfollowergain", "channelfollowergain", 30, 0, 2215977, "Holly","","",0,0);
+    </script>
+
+
+
+<script>
+            $('[id*=showSearchIcon]').show();
+            SullyJS.Util.RunStartEvents();
+            $(function () {
+                SullyJS.Search.CreateSearchCombo();
+                SullyJS.Pages.CreateToolTips();
+            });
+        </script>
+
+</body>
+</html>

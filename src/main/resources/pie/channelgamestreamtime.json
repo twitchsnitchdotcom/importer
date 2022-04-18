@@ -1,0 +1,112 @@
+{
+  "type": "pie",
+  "options": {
+    "responsive": true,
+    "animation": {
+      "duration": 0
+    },
+    "legend": {
+      "display": false,
+      "position": "right"
+    },
+    "valueformat": "Q"
+  },
+  "data": {
+    "labels": [
+      "Call of Duty: Warzone",
+      "Fortnite",
+      "Surgeon Simulator 2",
+      "It Takes Two",
+      "The Cycle: Frontier",
+      "Tick Tock: A Tale for Two",
+      "The Dark Pictures Anthology: House of Ashes",
+      "Roblox",
+      "Who's Your Daddy",
+      "Gartic Phone"
+    ],
+    "xLabels": null,
+    "yLabels": null,
+    "datasets": [
+      {
+        "label": "Time",
+        "data": [
+          205.0,
+          61.0,
+          38.0,
+          35.0,
+          35.0,
+          18.0,
+          17.0,
+          12.0,
+          6.0,
+          2.0
+        ],
+        "borderColor": [
+          "rgba(137,138,234,1)",
+          "rgba(137,183,90,1)",
+          "rgba(128,133,233,1)",
+          "rgba(247,163,92,1)",
+          "rgba(255,117,153,1)",
+          "rgba(241,92,128,1)",
+          "rgba(165,204,242,1)",
+          "rgba(43,143,143,1)",
+          "rgba(151,151,214,1)",
+          "rgba(244,91,91,1)"
+        ],
+        "borderWidth": 0.5,
+        "backgroundColor": [
+          "rgba(137,138,234,1)",
+          "rgba(137,183,90,1)",
+          "rgba(128,133,233,1)",
+          "rgba(247,163,92,1)",
+          "rgba(255,117,153,1)",
+          "rgba(241,92,128,1)",
+          "rgba(165,204,242,1)",
+          "rgba(43,143,143,1)",
+          "rgba(151,151,214,1)",
+          "rgba(244,91,91,1)"
+        ],
+        "hoverBackgroundColor": [
+          "rgba(137,138,234,1)",
+          "rgba(137,183,90,1)",
+          "rgba(128,133,233,1)",
+          "rgba(247,163,92,1)",
+          "rgba(255,117,153,1)",
+          "rgba(241,92,128,1)",
+          "rgba(165,204,242,1)",
+          "rgba(43,143,143,1)",
+          "rgba(151,151,214,1)",
+          "rgba(244,91,91,1)"
+        ],
+        "hoverBorderColor": [
+          "rgba(137,138,234,1)",
+          "rgba(137,183,90,1)",
+          "rgba(128,133,233,1)",
+          "rgba(247,163,92,1)",
+          "rgba(255,117,153,1)",
+          "rgba(241,92,128,1)",
+          "rgba(165,204,242,1)",
+          "rgba(43,143,143,1)",
+          "rgba(151,151,214,1)",
+          "rgba(244,91,91,1)"
+        ]
+      }
+    ]
+  },
+  "custom": {
+    "minvalue": "",
+    "maxvalue": "",
+    "title": "Time streamed by game over the past 30 days",
+    "description": "",
+    "tooltiplabels": null,
+    "footerLabels": null,
+    "colourLookup": {},
+    "footerLabelIndex": null,
+    "reverseTooltips": false,
+    "enabledFooterLabels": true,
+    "labelLookup": {},
+    "secondLabelLookup": {},
+    "hideRangeRow": false,
+    "range": null
+  }
+}

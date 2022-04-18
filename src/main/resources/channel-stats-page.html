@@ -1,0 +1,1145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+        let isDarkMode = false;
+        if (prefersDarkScheme.matches) {
+            isDarkMode = true;
+        }
+
+        try {
+            let cookieValue = '';
+            const parts = document.cookie.split('SullyGnomeDarkMode=');
+        
+            if (parts.length === 2) 
+            {
+                cookieValue = parts.pop().split(';').shift();
+            }
+
+            if(cookieValue === 'dark')
+            {
+                isDarkMode = true;
+            }
+            else if(cookieValue === 'light')
+            {
+                isDarkMode = false;
+            }
+        }
+        catch(ex) {
+          
+        }
+        if (isDarkMode) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', '');
+        }
+
+        
+    </script>
+
+
+    <script type="text/javascript">
+            var sg_a_scCode = "c03de72a";
+            var sg_a_scProject = "10710394";
+            var sg_a_gaCode = "UA-69840346-1";
+        </script>
+
+
+
+
+    <script type="text/javascript">
+                try {
+                    (function (i, s, o, g, r, a, m) {
+                        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+                    ga('create', sg_a_gaCode , 'auto');
+                    ga('send', 'pageview');
+                }
+                catch (ex) {
+
+                }
+
+                var sc_project = sg_a_scProject; //Update url
+                var sc_invisible = 1;
+                var sc_security = sg_a_scCode;
+                var scJsHost = "https://secure.";
+
+
+            </script>
+    <script async type='text/javascript' src='https://secure.statcounter.com/counter/counter.js'></script>
+
+
+
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twitch Channel Stats and Analytics - SullyGnome</title>
+    <meta name="description" content="Detailed stats for Twitch streamers over the past 30 days - most followed, fastest growing and highest peak viewership" />
+
+
+
+    <link rel="stylesheet" href="/css/sullystyle.min.css?v=TxoQjmqDrK99n0k0aypFZnXpp9f86wgu8joUmJIW0JA" />
+    <link rel="stylesheet" href="/lib/jquery-ui-1.12.1.custom/jquery-ui.min.css" />
+
+
+
+
+</head>
+<body>
+<script type="text/javascript">
+        var PageInfo = {"dayranges":[{"Key":3,"Value":"3 days"},{"Key":7,"Value":"7 days"},{"Key":14,"Value":"14 days"},{"Key":30,"Value":"30 days"},{"Key":90,"Value":"90 days"},{"Key":180,"Value":"180 days"},{"Key":365,"Value":"365 days"},{"Key":0,"Value":"More"}],"defaultsection":"","urlpart":"","id":0,"name":null,"logo":null,"defaultpagesize":100,"defaultLanguageId":0,"additionalparams":"","compareIds":null,"timezoneText":"Timezone (UTC)","timezoneOffset":0,"sitedefaultdayrange":7,"dayRange":30,"dayRangeOffset":0,"latestDayId":2768,"twitchUrl":null,"latestUpdateDay":1650153600000,"lateUpdateTime":1650276000000,"rangeInfo":{"dayRange":30,"dayRangeOffset":0,"isNamedRange":false,"namedRange":"","month":0,"year":0,"range":"30","startDayId":2739,"endDayId":2769},"filterInfo":{"minYear":2016,"maxYear":2022,"minYearMonth":1,"maxYearMonth":3,"filterUrl":"/channels/{RANGE}"},"tablePageSizes":[["10","25","50","100"],["10","25","50","100"]],"timecode":"125748_4/18/2022 12:10:59 PM_aef64e43-01dc-4e72-bdf2-0ed46dd2f003_09e7acd087f9cf6ece1bbbf31629d572","language":{"id":0,"twitchText":"","displayName":""},"timezone":"(UTC) Coordinated Universal Time"};
+        var PageData = {"name":"","id":0};
+
+        var RedirectToUrl = function (Url) {
+            window.location.href = Url;
+        }
+
+        var ToggleMoreRangeLinks = function (Container) {
+            var el = document.getElementById(Container);
+
+            if (el.style.display == 'none') {
+                el.style.display = 'block';
+            }
+            else {
+                el.style.display = 'none';
+            }
+        }
+
+
+    </script>
+
+<div class="LeftMenu">
+    <div class="LeftMenuHeader">
+        <div class="LeftMenuHeaderTopImage">
+            <a href="/">
+                <img src="/Images/gnome.png" alt="Hi I'm SullyGnome!" height="48" width="40" />
+            </a>
+        </div>
+    </div>
+
+    <div class="MenuItemWrapper" title="Back to the home page">
+        <a href="/30">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/home.svg" class="FontAweIcon MenuItemHome" alt="Home" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Home
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="MenuItemWrapper" title="View stats on the channels which stream on Twitch">
+        <a href="/channels/30">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/tv.svg" class="FontAweIcon" alt="Channels" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Channels
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="MenuItemWrapper" title="View stats on the games streamed on Twitch">
+        <a href="/games/30">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/gamepad.svg" class="FontAweIcon" alt="Game" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Games
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+
+
+    <div class="MenuItemWrapper" title="View stats on the teams which stream on Twitch">
+        <a href="/teams/30">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/user-plus.svg" class="FontAweIcon" alt="Teams" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Teams
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="MenuItemWrapper" title="Search for channels by the games they play and broadcast language">
+        <a href="/channelsearch/30">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/search.svg" class="FontAweIcon" alt="Search" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Search
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <div class="MenuItemWrapper" title="See channels which have reached milestones">
+        <a href="/milestones/30">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/tasks.svg" class="FontAweIcon" alt="Channel milestones" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Milestones
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="MenuItemWrapper" title="Detailed analysis articles on Twitch">
+        <a href="/articlesanalysis">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/newspaper.svg" class="FontAweIcon" alt="Articles" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Articles
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="MenuItemWrapper" title="All about me and the site">
+        <a href="/about">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/male.svg" class="FontAweIcon" alt="About" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    About
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="MenuItemWrapper" title="Support me :)">
+        <a href="https://www.patreon.com/sullygnome" target="_blank">
+            <div class="MenuItem">
+                <div class="MenuItemPart"><img src="/images/sidebar/Patreon_Mark_Primary.png" class="PatreonIcon" alt="Patreon" /></div>
+                <div class="MenuItemPart MenuItemPartText">
+                    Patreon
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="LeftMenuFooter">
+        <div class='DarkModeHeader'>Dark mode</div>
+        <div class="DarkmodeWrapper notransition" id='dmWrapper'>
+            <input type="checkbox" id="dmChk" class="notransition"/>
+            <label for="dmChk" class="DarkmodeToggle notransition" onclick='SullyJS.Util.SwitchDarkMode(); return true;'>
+                <span class="DarkmodeSpan notransition" id='dmSpan'>
+                </span>
+            </label>
+        </div>
+
+        <script type='text/javascript'>
+                if(isDarkMode)
+                {
+                    document.getElementById('dmChk').checked = true;
+                }
+            </script>
+        <div class="LeftMenuFooterContact">
+            <div class="LeftMenuFooterContact">
+                <div class="LeftMenuFooterIcon">
+                    <a href="https://twitter.com/SullyGnome" target='_blank' title="Twitter">
+                        <img height="22" width="22" src="/Images/twitterlatest.png" style="border:0" alt="Message me on Twitter" />
+                    </a>
+                </div>
+                <div class="LeftMenuFooterIcon">
+                    <a href="/cdn-cgi/l/email-protection#d1b2bebfa5b0b2a591a2a4bdbda8b6bfbebcb4ffb2bebc" target='_blank' title="Email">
+                        <img src="/Images/Email.png" style="border:0" alt="Send me an email" />
+                    </a>
+                </div>
+                <div class="LeftMenuFooterIcon">
+                    <a href="https://www.twitch.tv/sullygnome" title="Twitch PM" target='_blank'>
+                        <img src="/Images/TwitchIcon.png" style="border:0" alt="Send me a Twitch PM" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="RightContent">
+    <div class="TopMenu">
+        <div class="SiteTileBar">
+            <div class="SiteTitleBarHeader">
+                <h2>SullyGnome - Twitch stats and analysis</h2>
+            </div>
+            <div class="SiteTitleBarTimezone">
+                <a href="" onclick="SullyJS.Util.ShowTimezonePicker(); return false;">Timezone: (UTC) Coordinated Universal Time</a>
+            </div>
+            <div class="SiteTitleBarSearch">
+                <div id="SearchContainer" class="SiteTitleItem SiteTitleItemSearch" style="position:relative">
+                    <img src="/images/sidebar/cog.svg" class="SearchToggleMenuIcon" onclick="SullyJS.Search.CreateSearchCombo.ToggleOptions();" style="display:none" id="showSearchIcon" />
+                    <input id="HeaderChannelGameSearch" placeholder="Search for a game or channel">
+                    <div id="SearchToggleMenu" style="display:none" class="SearchToggleMenu">
+                        <div class="SearchToggleMenuText" id="idSearchFilterLabel">Filter: </div>
+                        <div class="SearchToggleMenuOption" data-search-item-type="1"><img src="/images/sidebar/tv.svg" alt="Search for channels" title="Search for channels" onmouseenter="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel(1);" onmouseleave="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel();" onclick="SullyJS.Search.CreateSearchCombo.SetSearchFilter(1);" /></div>
+                        <div class="SearchToggleMenuOption" data-search-item-type="2"><img src="/images/sidebar/gamepad.svg" alt="Search for games" title="Search for games" onmouseenter="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel(2);" onmouseleave="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel();" onclick="SullyJS.Search.CreateSearchCombo.SetSearchFilter(2);" /></div>
+                        <div class="SearchToggleMenuOption" data-search-item-type="4"><img src="/images/sidebar/user-plus.svg" alt="Search for teams" title="Search for teams" onmouseenter="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel(4);" onmouseleave="SullyJS.Search.CreateSearchCombo.SetSearchFilterLabel();" onclick="SullyJS.Search.CreateSearchCombo.SetSearchFilter(4);" /></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="MainContent">
+        <div class="PageHeader">
+            <div class="PageHeaderInner">
+                <div class="PageHeaderLeft" id="pageHeaderLeft" style="display:none">
+
+                    <div class='RelatedLinksItemSmall FL'>
+                        <a href='/game/Subnautica_Below_Zero/30' style="display:block" title='View stats for Subnautica: Below Zero'>
+                            <img src='https://static-cdn.jtvnw.net/ttv-boxart/511212_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Subnautica: Below Zero' data-isgamelink='' data-gamename='Subnautica: Below Zero' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+
+                    <div class='RelatedLinksItemSmall FL'>
+                        <a href='/game/The_Lost_and_The_Wicked/30' style="display:block" title='View stats for The Lost and The Wicked'>
+                            <img src='https://static-cdn.jtvnw.net/ttv-boxart/1710032076_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for The Lost and The Wicked' data-isgamelink='' data-gamename='The Lost and The Wicked' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+
+                    <div class='RelatedLinksItemSmall FL'>
+                        <a href='/game/World_of_Warships_Legends/30' style="display:block" title='View stats for World of Warships: Legends'>
+                            <img src='https://static-cdn.jtvnw.net/ttv-boxart/512226_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for World of Warships: Legends' data-isgamelink='' data-gamename='World of Warships: Legends' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+
+                    <div class='RelatedLinksItemSmall FL'>
+                        <a href='/game/Dead_Space_3/30' style="display:block" title='View stats for Dead Space 3'>
+                            <img src='https://static-cdn.jtvnw.net/ttv-boxart/65706_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Dead Space 3' data-isgamelink='' data-gamename='Dead Space 3' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+
+                    <div class='RelatedLinksItemSmall FL'>
+                        <a href='/game/Payday_2/30' style="display:block" title='View stats for PAYDAY 2'>
+                            <img src='https://static-cdn.jtvnw.net/ttv-boxart/65997_IGDB-136x190.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for PAYDAY 2' data-isgamelink='' data-gamename='PAYDAY 2' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+                </div>
+                <div class="PageHeaderMiddle" id="pageHeaderMiddle">
+                    <div class="PageHeaderMiddleTop">
+
+                        <div class="PageHeaderMiddleConBasic">
+
+                            <h1 class="PageHeaderMiddleTopH">Twitch Channel Statistics &amp; Analysis</h1>
+
+                            <span>past 30 days</span>
+
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+                <div class="PageHeaderRight" id="pageHeaderRight" style="display:none">
+
+                    <div class='RelatedLinksItemSmall FR'>
+                        <a href='/channel/zonezzzzzz/30' style="display:block" title='View stats for Zonezzzzzz'>
+                            <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/d55c492e-82d5-49fe-a58b-b4717bd301cb-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Zonezzzzzz' data-ischannellink='' data-channelname='Zonezzzzzz' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+
+                    <div class='RelatedLinksItemSmall FR'>
+                        <a href='/channel/pingfanlolz/30' style="display:block" title='View stats for &#x4E0D;&#x51E1;&#x5E73;&#x51E1; (pingfanlolz)'>
+                            <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/e324ce8d-fb32-4bff-a314-cf10a4290a59-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for &#x4E0D;&#x51E1;&#x5E73;&#x51E1; (pingfanlolz)' data-ischannellink='' data-channelname='&#x4E0D;&#x51E1;&#x5E73;&#x51E1; (pingfanlolz)' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+
+                    <div class='RelatedLinksItemSmall FR'>
+                        <a href='/channel/nathansnacks/30' style="display:block" title='View stats for NathanSnacks'>
+                            <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/e682aeac-5025-4b14-b27a-e3333ac06e14-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for NathanSnacks' data-ischannellink='' data-channelname='NathanSnacks' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+
+                    <div class='RelatedLinksItemSmall FR'>
+                        <a href='/channel/menturm13/30' style="display:block" title='View stats for Menturm13'>
+                            <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/2cb4414a-27d1-4073-9eac-b3443ad86e2b-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for Menturm13' data-ischannellink='' data-channelname='Menturm13' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+
+                    <div class='RelatedLinksItemSmall FR'>
+                        <a href='/channel/whateverdudeiwillnap/30' style="display:block" title='View stats for WhateverDudeIWillNap'>
+                            <img src='https://static-cdn.jtvnw.net/jtv_user_pictures/3b39464f-b6a6-41d9-bb9b-cabe11c5b8e0-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100' alt='View stats for WhateverDudeIWillNap' data-ischannellink='' data-channelname='WhateverDudeIWillNap' />
+                        </a>
+                        <div class='RelatedLinksButtomText'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="PageSubHeader" id="pageSubHeaderOuter">
+            <div class="PageSubHeaderInner">
+                <div class="PageSubHeaderLeft" id="pageSubHeaderLeft">
+                    <div title='View summary channel stats over the past 30 days' class='PageSubHeaderTabFirst PageSubHeaderTab SelectedLink SelectedTab' onclick='RedirectToUrl("/channels/30"); return false;'><div class='SubheaderLinkContainer'><a href='/channels/30'>Summary</a></div></div>
+                    <div title='View overall stats for channels in the past 30 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/channels/30/metadata"); return false;'><div class='SubheaderLinkContainer'><a href='/channels/30/metadata'>Overall stats</a></div></div>
+                    <div title='View the most watched channels in the past 30 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/channels/30/watched"); return false;'><div class='SubheaderLinkContainer'><a href='/channels/30/watched'>Most watched</a></div></div>
+                    <div title='View channels with the highest peak viewership in the past 30 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/channels/30/peakviewers"); return false;'><div class='SubheaderLinkContainer'><a href='/channels/30/peakviewers'>Peak viewers</a></div></div>
+                    <div title='View channels with the largest follower counts in the past 30 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/channels/30/mostfollowers"); return false;'><div class='SubheaderLinkContainer'><a href='/channels/30/mostfollowers'>Most followers</a></div></div>
+                    <div title='View the fastest growing channels in the past 30 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/channels/30/followergrowth"); return false;'><div class='SubheaderLinkContainer'><a href='/channels/30/followergrowth'>Fastest growing</a></div></div>
+                    <div title='View the distribution of viewership on Twitch in the past 30 days' class='PageSubHeaderTab' onclick='RedirectToUrl("/channels/30/viewerdistribution"); return false;'><div class='SubheaderLinkContainer'><a href='/channels/30/viewerdistribution'>Viewer distribution</a></div></div>
+                </div>
+                <div class="PageSubHeaderMiddle" id="pageSubHeaderMiddle">
+                    <div title='View channel stats over the past 30 days' class='PageSubHeaderTabFirst PageSubHeaderTabAlt PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/channels/3"); return false;'><div class='SubheaderLinkContainer'><a href='/channels/3'>3 days</a></div></div>
+                    <div title='View channel stats over the past 30 days' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/channels"); return false;'><div class='SubheaderLinkContainer'><a href='/channels'>7 days</a></div></div>
+                    <div title='View channel stats over the past 30 days' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/channels/14"); return false;'><div class='SubheaderLinkContainer'><a href='/channels/14'>14 days</a></div></div>
+                    <div title='View channel stats over the past 30 days' class='PageSubHeaderTab PageSubHeaderTabAlt SelectedLink SelectedTabAlt' onclick='RedirectToUrl("/channels/30"); return false;'><div class='SubheaderLinkContainer'><a href='/channels/30'>30 days</a></div></div>
+                    <div title='View channel stats over the past 30 days' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/channels/90"); return false;'><div class='SubheaderLinkContainer'><a href='/channels/90'>90 days</a></div></div>
+                    <div title='View channel stats over the past 30 days' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/channels/180"); return false;'><div class='SubheaderLinkContainer'><a href='/channels/180'>180 days</a></div></div>
+                    <div title='View channel stats over the past 30 days' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='RedirectToUrl("/channels/365"); return false;'><div class='SubheaderLinkContainer'><a href='/channels/365'>365 days</a></div></div>
+                    <div title='View more ranges' class='PageSubHeaderTab PageSubHeaderTabAlt' onclick='ToggleMoreRangeLinks("AdditionalRangePickerMiddle");'>
+                        <div class='SubheaderLinkContainer'>
+                            <a href='#' onclick="return false;">More</a>
+                        </div>
+                        <div class="RangeFilterToggleMenu" id="AdditionalRangePickerMiddle" style="display: none;">
+                            <div class="RangeFilterToggleMenuContainer">
+                                <div class="RangeFilterToggleMenuHeader">Available ranges:<div class="RangeFilterToggleLink"><a href="" onclick="return false;">Close</a></div></div>
+
+                                <div class="RangeFilterToggleMenuRow  RangeFilterToggleMenuRowNotlast">
+
+                                    <div class="RangeFilterToggleMenuYear ">2022</div>
+
+
+
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2022january">Jan</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2022february">Feb</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2022march">Mar</a></div>
+
+                                </div>
+                                <div class="RangeFilterToggleMenuRow  RangeFilterToggleMenuRowNotlast RangeFilterToggleMenuRowAlt">
+
+                                    <div class="RangeFilterToggleMenuYear "><a rel="nofollow" href="/channels/2021">2021</a></div>
+
+
+
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2021january">Jan</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2021february">Feb</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2021march">Mar</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2021april">Apr</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2021may">May</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2021june">Jun</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2021july">Jul</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2021august">Aug</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2021september">Sep</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2021october">Oct</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2021november">Nov</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2021december">Dec</a></div>
+
+                                </div>
+                                <div class="RangeFilterToggleMenuRow  RangeFilterToggleMenuRowNotlast">
+
+                                    <div class="RangeFilterToggleMenuYear "><a rel="nofollow" href="/channels/2020">2020</a></div>
+
+
+
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2020january">Jan</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2020february">Feb</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2020march">Mar</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2020april">Apr</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2020may">May</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2020june">Jun</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2020july">Jul</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2020august">Aug</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2020september">Sep</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2020october">Oct</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2020november">Nov</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2020december">Dec</a></div>
+
+                                </div>
+                                <div class="RangeFilterToggleMenuRow  RangeFilterToggleMenuRowNotlast RangeFilterToggleMenuRowAlt">
+
+                                    <div class="RangeFilterToggleMenuYear "><a rel="nofollow" href="/channels/2019">2019</a></div>
+
+
+
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2019january">Jan</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2019february">Feb</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2019march">Mar</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2019april">Apr</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2019may">May</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2019june">Jun</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2019july">Jul</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2019august">Aug</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2019september">Sep</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2019october">Oct</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2019november">Nov</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2019december">Dec</a></div>
+
+                                </div>
+                                <div class="RangeFilterToggleMenuRow  RangeFilterToggleMenuRowNotlast">
+
+                                    <div class="RangeFilterToggleMenuYear "><a rel="nofollow" href="/channels/2018">2018</a></div>
+
+
+
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2018january">Jan</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2018february">Feb</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2018march">Mar</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2018april">Apr</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2018may">May</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2018june">Jun</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2018july">Jul</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2018august">Aug</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2018september">Sep</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2018october">Oct</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2018november">Nov</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2018december">Dec</a></div>
+
+                                </div>
+                                <div class="RangeFilterToggleMenuRow  RangeFilterToggleMenuRowNotlast RangeFilterToggleMenuRowAlt">
+
+                                    <div class="RangeFilterToggleMenuYear "><a rel="nofollow" href="/channels/2017">2017</a></div>
+
+
+
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2017january">Jan</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2017february">Feb</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2017march">Mar</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2017april">Apr</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2017may">May</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2017june">Jun</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2017july">Jul</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2017august">Aug</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2017september">Sep</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2017october">Oct</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2017november">Nov</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2017december">Dec</a></div>
+
+                                </div>
+                                <div class="RangeFilterToggleMenuRow  ">
+
+                                    <div class="RangeFilterToggleMenuYear "><a rel="nofollow" href="/channels/2016">2016</a></div>
+
+
+
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2016january">Jan</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2016february">Feb</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2016march">Mar</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2016april">Apr</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2016may">May</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2016june">Jun</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2016july">Jul</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2016august">Aug</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2016september">Sep</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2016october">Oct</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2016november">Nov</a></div>
+                                    <div class="RangeFilterToggleMenuMonth "><a rel="nofollow" href="/channels/2016december">Dec</a></div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="PageSubHeaderRight" id="pageSubHeaderRight">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div id="pageLanguageChooser" class="LanguageChooser">
+            <div class="LanguageChooserInner">
+                <a href="" onclick="SullyJS.Util.ShowLanguagePicker(); return false;">Currently showing stats for all languages (filter by language)</a>
+            </div>
+        </div>
+
+        <div class="InfoStatPanelContainerTop InfoStatPanelContainerTopSpacer">
+            <div class="InfoStatPanelContainer">
+
+
+                <div class="InfoStatPanelWrapper InfoStatPanelSpacerLeft">
+                    <div class="InfoStatPanelOuter" title="Total time broadcast on Twitch in the past 30 days">
+                        <div class="InfoStatPanelInner">
+                            <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Hours streamed</h4></div></div>
+                            <div class="InfoStatPanelTL" title="Hours streamed on Twitch"><div class="InfoStatPanelTLCell">69,019,021</div></div>
+                            <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Negative">-3,666,918</div></div>
+                            <div class="InfoStatPanelTR" title="Total time streamed compared to previous 30 days"><div class="InfoStatPanelTRCell Negative"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='Total time streamed compared to previous 30 days' ></div><span class='Negative'>5.0%</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+                    <div class="InfoStatPanelOuter" title="Average channels streaming on Twitch in the past 30 days">
+                        <div class="InfoStatPanelInner">
+                            <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Average channels</h4></div></div>
+                            <div class="InfoStatPanelTL" title="Average number of Twitch channels"><div class="InfoStatPanelTLCell">95,859</div></div>
+                            <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Negative">-5,093</div></div>
+                            <div class="InfoStatPanelTR" title="Average channels compared to previous 30 days"><div class="InfoStatPanelTRCell Negative"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='Average channels compared to previous 30 days' ></div><span class='Negative'>5.0%</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+                    <div class="InfoStatPanelOuter" title="Peak channels streaming on Twitch in the past 30 days">
+                        <div class="InfoStatPanelInner">
+                            <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Peak channels</h4></div></div>
+                            <div class="InfoStatPanelTL" title="Peak number of Twitch channels"><div class="InfoStatPanelTLCell">144,086</div></div>
+                            <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Negative">-1,387</div></div>
+                            <div class="InfoStatPanelTR" title="Peak channels compared to previous 30 days"><div class="InfoStatPanelTRCell Negative"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='Peak channels compared to previous 30 days' ></div><span class='Negative'>1.0%</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+                    <div class="InfoStatPanelOuter" title="Total number of streams on Twitch in the past 30 days">
+                        <div class="InfoStatPanelInner">
+                            <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Streams</h4></div></div>
+                            <div class="InfoStatPanelTL" title="Number of streams on Twitch"><div class="InfoStatPanelTLCell">24,209,894</div></div>
+                            <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell"></div></div>
+                            <div class="InfoStatPanelTR"><div class="InfoStatPanelTRCell"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+                    <div class="InfoStatPanelOuter" title="Total channels which streamed on Twitch in the past 30 days">
+                        <div class="InfoStatPanelInner">
+                            <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Active channels</h4></div></div>
+                            <div class="InfoStatPanelTL" title="Number of broadcasters on Twitch"><div class="InfoStatPanelTLCell">5,424,441</div></div>
+                            <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell"></div></div>
+                            <div class="InfoStatPanelTR"><div class="InfoStatPanelTRCell"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="InfoStatPanelWrapper InfoStatPanelSpacerRight">
+                    <div class="InfoStatPanelOuter" title="Number of active affiliates on Twitch in the past 30 days">
+                        <div class="InfoStatPanelInner">
+                            <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Active affiliates</h4></div></div>
+                            <div class="InfoStatPanelTL" title="Number of active affiliates on Twitch"><div class="InfoStatPanelTLCell">1,003,110</div></div>
+                            <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Negative">-63,041</div></div>
+                            <div class="InfoStatPanelTR" title="Number of active affiliates on Twitch compared to previous 30 days"><div class="InfoStatPanelTRCell Negative"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='Number of active affiliates on Twitch compared to previous 30 days' ></div><span class='Negative'>5.9%</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="InfoStatPanelWrapper InfoStatPanelSpacerMiddle">
+                    <div class="InfoStatPanelOuter" title="Number of active partners on Twitch in the past 30 days">
+                        <div class="InfoStatPanelInner">
+                            <div class="InfoStatPanelBR"><div class="InfoStatPanelBRCell"><h4 style="margin:0;display:inline;font-size:inherit; font-weight:normal">Active partners</h4></div></div>
+                            <div class="InfoStatPanelTL" title="Number of active partners on Twitch"><div class="InfoStatPanelTLCell">35,478</div></div>
+                            <div class="InfoStatPanelBL"><div class="InfoStatPanelBLCell Negative">-697</div></div>
+                            <div class="InfoStatPanelTR" title="Number of active partners on Twitch compared to previous 30 days"><div class="InfoStatPanelTRCell Negative"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='Number of active partners on Twitch compared to previous 30 days' ></div><span class='Negative'>1.9%</span></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="PageContentContainer">
+
+            <div class="StandardPageContainer">
+                <div class="SetMinScrollable">
+                    <div class="InfoPanelContainer">
+
+                        <div class="InfoStatPanelLongContainer">
+
+
+                            <div class="InfoStatPanelLong ">
+
+                                <div class="InfoStatPanelLongWrapper">
+
+                                    <div class="InfoStatPanelLongHeader" title="Most watched channels over the past 30 days">
+                                        <div class="InfoStatPanelLongHeaderInner">
+                                            <h4>Most watched channels</h4>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="InfoStatPanelLongRow  " title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/xqcow/30" title="View more stats for xQcOW"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/xqcow-profile_image-9298dca608632101-150x150.jpeg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for xQcOW" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/xqcow/30" title="View more stats for xQcOW">xQcOW</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Most watched channels over the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">21,849,096</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Hours watched</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Positive" title="View the most watched channels in the past 30 days"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='View the most watched channels in the past 30 days' ></div><span class='Positive'>9.1%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Positive" title="View the most watched channels in the past 30 days">+1,827,380</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="InfoStatPanelLongRow  InfoStatPanelLongRowAlt" title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/gaules/30" title="View more stats for Gaules"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/f4b12683-57ff-4b57-926a-67512b43a7ff-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for Gaules" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/gaules/30" title="View more stats for Gaules">Gaules</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Most watched channels over the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">14,655,778</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Hours watched</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Positive" title="View the most watched channels in the past 30 days"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='View the most watched channels in the past 30 days' ></div><span class='Positive'>3.6%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Positive" title="View the most watched channels in the past 30 days">+511,754</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="InfoStatPanelLongRow  " title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/esl_csgo/30" title="View more stats for ESL_CSGO"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/1975b18f-fa7d-443f-b191-fba08f92f3a2-profile_image-150x150.jpeg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for ESL_CSGO" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/esl_csgo/30" title="View more stats for ESL_CSGO">ESL_CSGO</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Most watched channels over the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">12,052,189</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Hours watched</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Negative" title="View the most watched channels in the past 30 days"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='View the most watched channels in the past 30 days' ></div><span class='Negative'>21.0%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Negative" title="View the most watched channels in the past 30 days">-3,201,170</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="InfoStatPanelLongRow  InfoStatPanelLongRowAlt" title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/ibai/30" title="View more stats for ibai"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/574228be-01ef-4eab-bc0e-a4f6b68bedba-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for ibai" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/ibai/30" title="View more stats for ibai">ibai</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Most watched channels over the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">10,499,443</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Hours watched</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Positive" title="View the most watched channels in the past 30 days"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='View the most watched channels in the past 30 days' ></div><span class='Positive'>6.5%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Positive" title="View the most watched channels in the past 30 days">+640,612</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="InfoStatPanelLongRow  " title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/asmongold/30" title="View more stats for Asmongold"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/asmongold-profile_image-f7ddcbd0332f5d28-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for Asmongold" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/asmongold/30" title="View more stats for Asmongold">Asmongold</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Most watched channels over the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">10,285,209</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Hours watched</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Negative" title="View the most watched channels in the past 30 days"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='View the most watched channels in the past 30 days' ></div><span class='Negative'>17.9%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Negative" title="View the most watched channels in the past 30 days">-2,241,288</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="InfoStatPanelLongFooter" title="View the most watch channels on Twitch">
+                                        <div class="InfoStatPanelLongFooterInner">
+                                            <a href="/channels/30/watched">More most watched channels</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="InfoStatPanelLong InfoStatPanelLongMiddle">
+
+                                <div class="InfoStatPanelLongWrapper">
+
+                                    <div class="InfoStatPanelLongHeader" title="Followers gained the past 30 days">
+                                        <div class="InfoStatPanelLongHeaderInner">
+                                            <h4>Fastest growing channels</h4>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="InfoStatPanelLongRow  " title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/auronplay/30" title="View more stats for auronplay"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/ec898e4a-e0df-4dc0-a99d-7540c6dbe1e8-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for auronplay" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/auronplay/30" title="View more stats for auronplay">auronplay</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Followers gained the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">355,785</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Followers gained</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Positive" title="View the fasting growing channels in the past 30 days"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='View the fasting growing channels in the past 30 days' ></div><span class='Positive'>54.2%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Positive" title="View the fasting growing channels in the past 30 days">+125,031</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="InfoStatPanelLongRow  InfoStatPanelLongRowAlt" title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/juansguarnizo/30" title="View more stats for juansguarnizo"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/74586414-e27b-4347-89c5-109e42ac3e1d-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for juansguarnizo" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/juansguarnizo/30" title="View more stats for juansguarnizo">juansguarnizo</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Followers gained the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">329,081</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Followers gained</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Positive" title="View the fasting growing channels in the past 30 days"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='View the fasting growing channels in the past 30 days' ></div><span class='Positive'>12.4%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Positive" title="View the fasting growing channels in the past 30 days">+36,347</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="InfoStatPanelLongRow  " title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/moty201/30" title="View more stats for Moty201"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/cb27381d-3863-4b7f-8562-cfb0f1d9a6ee-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for Moty201" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/moty201/30" title="View more stats for Moty201">Moty201</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Followers gained the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">314,326</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Followers gained</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop" title="View the fasting growing channels in the past 30 days"></div>
+                                                <div class="InfoStatPanelLongRightBottom Positive" title="View the fasting growing channels in the past 30 days">+313,672</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="InfoStatPanelLongRow  InfoStatPanelLongRowAlt" title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/xqcow/30" title="View more stats for xQcOW"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/xqcow-profile_image-9298dca608632101-150x150.jpeg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for xQcOW" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/xqcow/30" title="View more stats for xQcOW">xQcOW</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Followers gained the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">301,570</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Followers gained</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Positive" title="View the fasting growing channels in the past 30 days"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='View the fasting growing channels in the past 30 days' ></div><span class='Positive'>148.6%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Positive" title="View the fasting growing channels in the past 30 days">+180,281</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="InfoStatPanelLongRow  " title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/ibai/30" title="View more stats for ibai"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/574228be-01ef-4eab-bc0e-a4f6b68bedba-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for ibai" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/ibai/30" title="View more stats for ibai">ibai</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Followers gained the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">296,093</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Followers gained</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Positive" title="View the fasting growing channels in the past 30 days"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='View the fasting growing channels in the past 30 days' ></div><span class='Positive'>49.3%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Positive" title="View the fasting growing channels in the past 30 days">+97,782</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="InfoStatPanelLongFooter" title="View channels with the highest fastest growth">
+                                        <div class="InfoStatPanelLongFooterInner">
+                                            <a href="/channels/30/followergrowth">View more fast growing channels</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="InfoStatPanelLong ">
+
+                                <div class="InfoStatPanelLongWrapper">
+
+                                    <div class="InfoStatPanelLongHeader" title="Channel peak viewers the past 30 days">
+                                        <div class="InfoStatPanelLongHeaderInner">
+                                            <h4>Most viewed streams</h4>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="InfoStatPanelLongRow  " title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/kamet0/30" title="View more stats for Kamet0"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/9e12862d-a8d0-4df2-81aa-e2241022dc98-profile_image-150x150.jpg?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for Kamet0" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/kamet0/30" title="View more stats for Kamet0">Kamet0</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Channel peak viewers the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">419,458</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Peak viewers</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Positive" title="Peak viewers compared to the past 30 days"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='Peak viewers compared to the past 30 days' ></div><span class='Positive'>473.6%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Positive" title="Peak viewers compared to the past 30 days">+346,326</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="InfoStatPanelLongRow  InfoStatPanelLongRowAlt" title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/lck_korea/30" title="View more stats for LCK_Korea"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/7a701887-d5fa-4ee8-b277-766d37d3df4b-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for LCK_Korea" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/lck_korea/30" title="View more stats for LCK_Korea">LCK_Korea</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Channel peak viewers the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">343,683</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Peak viewers</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Positive" title="Peak viewers compared to the past 30 days"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='Peak viewers compared to the past 30 days' ></div><span class='Positive'>69.4%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Positive" title="Peak viewers compared to the past 30 days">+140,792</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="InfoStatPanelLongRow  " title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/ibai/30" title="View more stats for ibai"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/574228be-01ef-4eab-bc0e-a4f6b68bedba-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for ibai" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/ibai/30" title="View more stats for ibai">ibai</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Channel peak viewers the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">343,287</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Peak viewers</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Negative" title="Peak viewers compared to the past 30 days"><div class='NegativeChangeCompare'><img src='/images/fa/angle-down-solid-negative.svg' alt='Peak viewers compared to the past 30 days' ></div><span class='Negative'>36.3%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Negative" title="Peak viewers compared to the past 30 days">-195,999</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="InfoStatPanelLongRow  InfoStatPanelLongRowAlt" title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/lec/30" title="View more stats for LEC"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/25e9e7c6-4b59-4d5e-8651-89f355078ce0-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for LEC" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/lec/30" title="View more stats for LEC">LEC</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Channel peak viewers the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">339,696</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Peak viewers</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Positive" title="Peak viewers compared to the past 30 days"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='Peak viewers compared to the past 30 days' ></div><span class='Positive'>102.7%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Positive" title="Peak viewers compared to the past 30 days">+172,133</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="InfoStatPanelLongRow  " title="">
+                                        <div class="InfoStatPanelLongInner">
+                                            <a href="/channel/lck/30" title="View more stats for LCK"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/04b097ac-9a71-409e-b30e-570175b39caf-profile_image-150x150.png?imenable=1&amp;impolicy=user-profile-picture&amp;imwidth=100" class="InfoStatPanelLongLeftImage" alt="View more stats for LCK" /></a>
+                                            <div class="InfoStatPanelLongLabelLeft"><a href="/channel/lck/30" title="View more stats for LCK">LCK</a></div>
+                                            <div class="InfoStatPanelLongLabelMiddle" title="Channel peak viewers the past 30 days">
+                                                <div class="InfoStatPanelLongLabelMiddleTop">307,586</div>
+                                                <div class="InfoStatPanelLongLabelMiddleBottom">Peak viewers</div>
+                                            </div>
+                                            <div class="InfoStatPanelLongRight">
+                                                <div class="InfoStatPanelLongRightTop Positive" title="Peak viewers compared to the past 30 days"><div class='PositiveChangeCompare'><img src='/images/fa/angle-up-solid-positive.svg' alt='Peak viewers compared to the past 30 days' ></div><span class='Positive'>126.1%</span></div>
+                                                <div class="InfoStatPanelLongRightBottom Positive" title="Peak viewers compared to the past 30 days">+171,533</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="InfoStatPanelLongFooter" title="View channels with the highest peak viewership">
+                                        <div class="InfoStatPanelLongFooterInner">
+                                            <a href="/channels/30/peakviewers">More most viewed</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="LineBreakWithSpace"></div>
+
+                        <div class="InfoPanelContainer">
+
+                            <div class="ChartPanelWide">
+                                <div id="twitchchannels" class="LineChartContainer">
+                                    <div class="ChartHeader">
+                                        <div class="ChartTitleText">
+                                            <h3 class="ChartTitle" id="lblChartTitle">Live Twitch channels and channel/viewer ratio between Saturday 19th March and Monday 18th April</h3>
+                                        </div>
+                                        <div class="ChartOptions">
+                                            <a href="" class="ChartResize" onclick="SullyJS.Charts.ExpandCollapseChart(this,'ChartPanelWide','CanvasWrapWide'); return false;">Expand</a>
+                                            <a href="" class="ChartResize" onclick="SullyJS.Charts.SaveChart(this); return false;">Image</a>
+                                            <a href="" class="ChartResize ChartStyleOption" onclick="SullyJS.Charts.RestyleChart(this,2); return false;" id="lineStyleOption" style="display:none">Show offline</a>
+                                        </div>
+                                    </div>
+                                    <div class="ChartRangeRow">
+                                        <div id="pnlChartDescription" style="display:none">
+                                            <div class="ChartRangeLabel" id="litDescriptionLabel"></div>
+                                        </div>
+                                        <div id="pnlChartMinLabel" style="display:inline">
+                                            <div class="ChartRangeLabel" id="litRangeMinLabel"></div>
+                                            <div class="ChartRangeValue" id="litRangeMinValue"></div>
+                                        </div>
+                                        <div id="pnlChartMaxLabel" style="display:inline">
+                                            <div class="ChartRangeLabel" id="litRangeMaxLabel"></div>
+                                            <div class="ChartRangeValue" id="litRangeMaxValue"></div>
+                                        </div>&nbsp;
+                                    </div>
+                                    <div class="ChartRangeRowHidden" style="display:none">
+                                    </div>
+                                    <div class="CanvasWrapWide" id="chartwrappanel">
+                                        <canvas id="canvasLineChart" class="LineChart"></canvas>
+                                    </div>
+                                    <div id="ChartSlider" style="display:none" class="ChartSliderContainer ChartFooter">
+                                        <input id="inSliderLeft_caefb420-c290-473b-b908-731322c9091f" style="display:none" />
+                                        <a id="LeftText" class="ChartSliderLeft" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'Start'); return false;">Start Text</a>
+                                        <div class="ChartSliderMiddle">
+                                            <div id="MiddleContainer" class="ChartSliderWrapper"></div>
+                                        </div>
+                                        <input id="inSliderRight_ca7f3402-ede2-4aa7-b486-9cbc0772a70c" style="display:none" />
+                                        <a id="RightText" class="ChartSliderRight" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'End'); return false;">End Text</a>
+                                    </div>
+                                    <div id="LineChartLegend"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="LineBreakWithSpace"></div>
+                        <div style="margin-left:auto; margin-right:auto; padding-bottom:5px;">*Data collection method changed in January 1st 2022</div>
+                        <div class="InfoPanelContainer">
+
+                            <div class="ChartPanelWide">
+                                <div id="twitchchannelbreakdown" class="LineChartContainer">
+                                    <div class="ChartHeader">
+                                        <div class="ChartTitleText">
+                                            <h3 class="ChartTitle" id="lblChartTitle">Live channels grouped by follower size between Saturday 19th March and Monday 18th April</h3>
+                                        </div>
+                                        <div class="ChartOptions">
+                                            <a href="" class="ChartResize" onclick="SullyJS.Charts.ExpandCollapseChart(this,'ChartPanelWide','CanvasWrapWide'); return false;">Expand</a>
+                                            <a href="" class="ChartResize" onclick="SullyJS.Charts.SaveChart(this); return false;">Image</a>
+                                            <a href="" class="ChartResize ChartStyleOption" onclick="SullyJS.Charts.RestyleChart(this,2); return false;" id="lineStyleOption" style="display:none">Show offline</a>
+                                        </div>
+                                    </div>
+                                    <div class="ChartRangeRow">
+                                        <div id="pnlChartDescription" style="display:none">
+                                            <div class="ChartRangeLabel" id="litDescriptionLabel"></div>
+                                        </div>
+                                        <div id="pnlChartMinLabel" style="display:inline">
+                                            <div class="ChartRangeLabel" id="litRangeMinLabel"></div>
+                                            <div class="ChartRangeValue" id="litRangeMinValue"></div>
+                                        </div>
+                                        <div id="pnlChartMaxLabel" style="display:inline">
+                                            <div class="ChartRangeLabel" id="litRangeMaxLabel"></div>
+                                            <div class="ChartRangeValue" id="litRangeMaxValue"></div>
+                                        </div>&nbsp;
+                                    </div>
+                                    <div class="ChartRangeRowHidden" style="display:none">
+                                    </div>
+                                    <div class="CanvasWrapWide" id="chartwrappanel">
+                                        <canvas id="canvasLineChart" class="LineChart"></canvas>
+                                    </div>
+                                    <div id="ChartSlider" style="display:none" class="ChartSliderContainer ChartFooter">
+                                        <input id="inSliderLeft_c23d7932-ae66-46c3-ab6d-3f745a6fd49e" style="display:none" />
+                                        <a id="LeftText" class="ChartSliderLeft" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'Start'); return false;">Start Text</a>
+                                        <div class="ChartSliderMiddle">
+                                            <div id="MiddleContainer" class="ChartSliderWrapper"></div>
+                                        </div>
+                                        <input id="inSliderRight_ec6d1c27-b0e4-4605-8340-9396aa96fce0" style="display:none" />
+                                        <a id="RightText" class="ChartSliderRight" onclick="SullyJS.Charts.Line.ShowSliderCalendar(this,'End'); return false;">End Text</a>
+                                    </div>
+                                    <div id="LineChartLegend"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="LineBreakWithSpace"></div>
+            </div>
+            <div class="ContentFooter"></div>
+
+        </div>
+    </div>
+    <div style="clear:both"></div>
+
+    <div id="TimezonePicker" class="TimezonePicker" style="display:none" onclick="SullyJS.Util.ShowTimezonePicker(); return false;">
+        <div class="TimezonePickerContent" onclick="SullyJS.Util.ShowTimezonePrevent(event);">
+            <span class="TimezonePickerClose" onclick="SullyJS.Util.ShowTimezonePicker(); return false;">&times;</span>
+            <p id="TimezonePickerHeader"></p>
+            <hr />
+            <select class="TimezonePickerSelect" id="TimezonePickerSelect" onchange="SullyJS.Util.TimezonePickerSelected();">
+                <option value="">Loading...</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div id="LanguagePicker" class="TimezonePicker" style="display:none" onclick="SullyJS.Util.ShowLanguagePicker(); return false;">
+        <div class="TimezonePickerContent" onclick="SullyJS.Util.ShowLanguagePrevent(event);">
+            <span class="TimezonePickerClose" onclick="SullyJS.Util.ShowLanguagePicker(); return false;">&times;</span>
+            <p id="LanguagePickerHeader"></p>
+            <hr />
+            <select class="TimezonePickerSelect" id="LanguagePickerSelect" onchange="SullyJS.Util.LanguagePickerSelected();">
+            </select>
+        </div>
+    </div>
+
+    <div class="FooterContainer">
+        <div class="PageFooter">
+            <a href="https://SullyGnome.com">SullyGnome.com</a> © is in no way affiliated with <a href="https://www.twitch.tv/" target="_blank">Twitch</a>. Please do not scrape this site, it's a hobby project with limited resources.
+            <a href="/policy/tos">Terms</a>
+            <a href="/policy/cookie">Cookies</a>
+        </div>
+
+    </div>
+</div>
+
+<link rel="icon" type="image/x-icon" href="https://www.sullygnome.com/images/fav/favicon.ico" />
+
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/lib/jquery/jquery-3.2.1.min.js"></script>
+<script src="/lib/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="/js/sully/sully.bundle.min.js?v=gZjkEj6Ay02onJ0x2VW-Vn-QKF106ovWOHe_6dlKT3Y"></script>
+<script src="/js/sully/chart.bundle.js"></script>
+<script src="/lib/nouislider/nouislider.min.js"></script>
+<link rel="stylesheet" href="/lib/nouislider/nouislider.min.css" />
+
+
+
+<script>
+            var ShowAnalytics = true;
+        </script>
+
+
+<script>
+
+        if(isDarkMode)
+        {
+            SullyJS.Util.SetDarkMode();
+        }
+
+        var wrapper = $('[id=dmWrapper]');
+        wrapper.removeClass('notransition');
+        wrapper.find('.notransition').removeClass('notransition');
+
+    </script>
+
+
+<script type="text/javascript">
+        SullyJS.Charts.Line.CreateLineChart("twitchchannels", "TwitchChannels", 30, 0, 0, "",null,null,0,0,null,true,2768+1, null, 0);
+        //SullyJS.Charts.Line.CreateLineChart("viewersontwitch", "ViewersOnTwitch", 30, 0, 0, "", null, null,0,0, null, true,2768+1, null, 0);
+
+        if (0 == 0) {
+            SullyJS.Charts.Line.CreateLineChart("twitchchannelbreakdown", "TwitchChannelBreakdown", 30, 0, 0, "", null, null,0,0, null, true,2768+1, null, 0);
+        }
+
+    </script>
+
+
+
+<script>
+            $('[id*=showSearchIcon]').show();
+            SullyJS.Util.RunStartEvents();
+            $(function () {
+                SullyJS.Search.CreateSearchCombo();
+                SullyJS.Pages.CreateToolTips();
+            });
+        </script>
+
+</body>
+</html>
