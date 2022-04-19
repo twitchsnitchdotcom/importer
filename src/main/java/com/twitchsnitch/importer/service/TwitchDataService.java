@@ -255,9 +255,11 @@ public class TwitchDataService {
                     String json = goToWebSiteJSON(scaffoldUrl);
                     if (json != null) {
                         ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
-                        Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                        if (channelSearchUrls.size() > 0) {
-                            asyncPersistenceService.persistChannelsAsync(channelSearchUrls);
+                        if(channelSearchDTO.getRecordsTotal() > 0){
+                            Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
+                            if (channelSearchUrls.size() > 0) {
+                                asyncPersistenceService.persistChannelsAsync(channelSearchUrls);
+                            }
                         }
                     }
                 } catch (JsonProcessingException e) {
@@ -308,9 +310,11 @@ public class TwitchDataService {
                     String json = goToWebSiteJSON(scaffoldUrl);
                     if (json != null) {
                         ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
-                        Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                        if (channelSearchUrls.size() > 0) {
-                            asyncPersistenceService.persistChannelsAsync( channelSearchUrls);
+                        if(channelSearchDTO.getRecordsTotal() > 0){
+                            Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
+                            if (channelSearchUrls.size() > 0) {
+                                asyncPersistenceService.persistChannelsAsync( channelSearchUrls);
+                            }
                         }
                     }
                 } catch (JsonProcessingException e) {
