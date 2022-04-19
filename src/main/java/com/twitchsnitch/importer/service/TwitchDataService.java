@@ -343,7 +343,7 @@ public class TwitchDataService {
         String suffix = "/" + numberOfRecords;
         //fifth phase
         for(int i = fourthPhaseUpperBound; i<= fifthPhaseUpperBound; i++){
-            if(i % 1000 == 0){
+            if(i % 10000 == 0){
                 String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
                 String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
                 try {

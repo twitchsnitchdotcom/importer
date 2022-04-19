@@ -5,62 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/ChannelSearchDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/ChannelSearchDatum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/ChannelStatsSummaryDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/IndividualChannelPageDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/SearchDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/TeamsStatsSummaryDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Animation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/ColourLookup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Custom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Data.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Dataset.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/DisplayFormats.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/FooterLabels.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Hover.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/LabelIndex.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/LabelLookup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Legend.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/LineChartDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Options.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Range.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Scales.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/SecondLabelLookup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Ticks.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Ticks__1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Time.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Title.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/Tooltips.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/VerticalLabels.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/XAxis.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/linechart/YAxis.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/piechart/Animation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/piechart/ColourLookup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/piechart/Custom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/piechart/Data.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/piechart/Dataset.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/piechart/LabelLookup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/piechart/Legend.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/piechart/Options.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/piechart/SecondLabelLookup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/piechart/TimeZoneDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/timezone/TimeZoneDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/timezone/Zone.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/channel-single-page.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/channel-stats-page.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/line/channelrank.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pie/channelgameaverageviewers.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/pie/channelgamestreamtime.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/team-stats-page.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/JsoupTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/LineChartTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/AsyncPersistenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/AsyncPersistenceService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/JsoupTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/web/ImportDataResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/web/ImportDataResource.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

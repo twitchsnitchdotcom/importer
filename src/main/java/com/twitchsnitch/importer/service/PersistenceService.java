@@ -60,11 +60,15 @@ public class PersistenceService {
     public void deleteDBData() {
         //drop db development
         //create db development
-        ResultSummary run = client.query("call apoc.periodic.iterate(\n" +
-                "\"MATCH (p) return id(p) AS id\", \n" +
-                "\"MATCH (n) WHERE id(n) = id DETACH DELETE n\", \n" +
-                "{batchSize:1000})").in(database).run();
-        log.trace("Nodes deleted from the DB: " + run.counters().nodesDeleted());
+        ResultSummary run = client.query("CALL apoc.periodic.iterate(\n" +
+                "'MATCH ()-[r]->() RETURN id(r) AS id', \n" +
+                "'MATCH ()-[r]->() WHERE id(r)=id DELETE r', \n" +
+                "{batchSize: 1000});").in(database).run();
+        ResultSummary run2 = client.query("CALL apoc.periodic.iterate(\n" +
+                "'MATCH (n) RETURN id(n) AS id', \n" +
+                "'MATCH (n) WHERE id(n)=id DELETE n', \n" +
+                "{batchSize: 1000});").in(database).run();
+        log.trace("Nodes deleted from the DB: " + run.counters().nodesDeleted() + run2.counters().nodesDeleted());
     }
 
     public void dropDBConstraints() {

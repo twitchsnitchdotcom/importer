@@ -14,6 +14,33 @@ public class ImportDataResource {
 
     private final TwitchDataService twitchDataService;
 
+
+    @GetMapping("/search/1")
+    public void search1() {
+        twitchDataService.sullyDeepSearchPhase1();
+    }
+
+    @GetMapping("/search/2")
+    public void search2() {
+        twitchDataService.sullyDeepSearchPhase2();
+    }
+
+    @GetMapping("/search/3")
+    public void search3() {
+        twitchDataService.sullyDeepSearchPhase3();
+    }
+
+    @GetMapping("/search/4")
+    public void search4() {
+        twitchDataService.sullyDeepSearchPhase4();
+    }
+
+    @GetMapping("/search/5")
+    public void search5() {
+        twitchDataService.sullyDeepSearchPhase5();
+    }
+
+
     @GetMapping("/phase/1")
     public void phase1() throws InterruptedException {
 
