@@ -56,9 +56,10 @@ public class TwitchDataService {
     @Value("${database}")
     private String database;
     @Value("${split.driver.workload}")
+
+    private boolean splitDriverWorkload;
     @Value("${webdrivers.size.max}")
     private Integer webDriversSize;
-    private boolean splitDriverWorkload;
     private final OAuthService oAuthService;
     private final PersistenceService persistenceService;
     private final DriverService driverService;
