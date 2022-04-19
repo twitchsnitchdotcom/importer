@@ -254,18 +254,22 @@ public class TwitchDataService {
                 String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/" +languageId + "/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
                 String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/" +languageId + "/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
                 try {
-                    ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
-                    Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                    if(channelSearchUrls.size() > 0 ) {
-                        List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
-                        for (int j = 0; j < sets.size(); j++) {
-                            if (sets.get(j).size() > 0) {
-                                asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                    String json = goToWebSiteJSON(scaffoldUrl);
+                    if(json!= null){
+                        ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
+                        Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
+                        if(channelSearchUrls.size() > 0 ) {
+                            List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
+                            for (int j = 0; j < sets.size(); j++) {
+                                if (sets.get(j).size() > 0) {
+                                    asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                                }
                             }
                         }
                     }
+
                 } catch (JsonProcessingException e) {
-                    e.printStackTrace();
+                    log.error("");
                 }
             }
         }
@@ -281,13 +285,16 @@ public class TwitchDataService {
             String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
             String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
             try {
-                ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
-                Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                if(channelSearchUrls.size() > 0 ){
-                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
-                    for(int j = 0; j < sets.size(); j++){
-                        if(sets.get(j).size() > 0){
-                            asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                String json = goToWebSiteJSON(scaffoldUrl);
+                if(json!= null) {
+                    ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
+                    Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
+                    if (channelSearchUrls.size() > 0) {
+                        List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
+                        for (int j = 0; j < sets.size(); j++) {
+                            if (sets.get(j).size() > 0) {
+                                asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                            }
                         }
                     }
                 }
@@ -308,13 +315,16 @@ public class TwitchDataService {
                 String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
                 String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
                 try {
-                    ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
-                    Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                    if(channelSearchUrls.size() > 0 ) {
-                        List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
-                        for (int j = 0; j < sets.size(); j++) {
-                            if (sets.get(j).size() > 0) {
-                                asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                    String json = goToWebSiteJSON(scaffoldUrl);
+                    if(json!= null) {
+                        ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
+                        Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
+                        if (channelSearchUrls.size() > 0) {
+                            List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
+                            for (int j = 0; j < sets.size(); j++) {
+                                if (sets.get(j).size() > 0) {
+                                    asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                                }
                             }
                         }
                     }
@@ -335,13 +345,16 @@ public class TwitchDataService {
                 String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
                 String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
                 try {
-                    ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
-                    Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                    if(channelSearchUrls.size() > 0 ) {
-                        List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
-                        for (int j = 0; j < sets.size(); j++) {
-                            if (sets.get(j).size() > 0) {
-                                asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                    String json = goToWebSiteJSON(scaffoldUrl);
+                    if(json!= null) {
+                        ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
+                        Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
+                        if (channelSearchUrls.size() > 0) {
+                            List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
+                            for (int j = 0; j < sets.size(); j++) {
+                                if (sets.get(j).size() > 0) {
+                                    asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                                }
                             }
                         }
                     }
@@ -362,13 +375,16 @@ public class TwitchDataService {
                 String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
                 String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
                 try {
-                    ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
-                    Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                    if(channelSearchUrls.size() > 0 ) {
-                        List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
-                        for (int j = 0; j < sets.size(); j++) {
-                            if (sets.get(j).size() > 0) {
-                                asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                    String json = goToWebSiteJSON(scaffoldUrl);
+                    if(json!= null) {
+                        ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
+                        Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
+                        if (channelSearchUrls.size() > 0) {
+                            List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
+                            for (int j = 0; j < sets.size(); j++) {
+                                if (sets.get(j).size() > 0) {
+                                    asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                                }
                             }
                         }
                     }
