@@ -50,9 +50,11 @@ public class DriverService {
 
     public void returnWebDriver(ChromeDriver driver){
         availableDrivers.add(driver);
+        log.debug("Driver being returned is: " + driver.hashCode());
     }
 
     public ChromeDriver getRandomDriver(){
+        log.debug("Current size of available drivers is: " + availableDrivers.size());
         while(availableDrivers.size() == 0){
             try {
                 Thread.sleep(2000);
@@ -61,6 +63,7 @@ public class DriverService {
             }
             log.debug("Waiting for a web driver to become available before continuing");
         }
+
     return availableDrivers.stream().skip(new Random().nextInt(availableDrivers.size())).findFirst().orElse(null);
 
 }

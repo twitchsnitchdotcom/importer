@@ -36,6 +36,7 @@ public class AsyncPersistenceService {
     private final static Logger log = LoggerFactory.getLogger(AsyncPersistenceService.class);
 
 
+    @Async
     public void persistChannelsAsync(Set<String> urls){
         for (String url : urls) {
             try {
