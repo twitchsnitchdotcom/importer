@@ -10,8 +10,6 @@ import com.twitchsnitch.importer.dto.sully.RaidFinderDTO;
 import com.twitchsnitch.importer.dto.sully.SearchDTO;
 import com.twitchsnitch.importer.dto.sully.channels.*;
 import com.twitchsnitch.importer.dto.twitch.*;
-import com.twitchsnitch.importer.dto.sully.games.GamesTable;
-import com.twitchsnitch.importer.dto.sully.teams.TeamsTable;
 import com.twitchsnitch.importer.utils.SplittingUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -102,7 +100,7 @@ public class TwitchDataService {
     }
 
     public String goToWebSiteJSON(String url) {
-        ChromeDriver driver = driverService.getCorrectDriver();
+        ChromeDriver driver = driverService.getRandomDriver();
         try {
             driver.get("view-source:" + url);
             String json = driver.findElement(By.className("line-content")).getText();
@@ -122,7 +120,7 @@ public class TwitchDataService {
 
     public List<String> goToWebSitesJSON(Set<String> urls) {
         List<String> jsonList = new ArrayList<>();
-        ChromeDriver driver = driverService.getCorrectDriver();
+        ChromeDriver driver = driverService.getRandomDriver();
         for (String url : urls) {
             try {
                 driver.get("view-source:" + url);
@@ -144,7 +142,7 @@ public class TwitchDataService {
     }
 
     public String goToWebSiteHTML(String url) {
-        ChromeDriver driver = driverService.getCorrectDriver();
+        ChromeDriver driver = driverService.getRandomDriver();
         try {
             driver.get(url);
             return driver.getPageSource();
@@ -155,7 +153,7 @@ public class TwitchDataService {
     }
 
     public List<String> goToWebSitesHTML(List<String> urls) {
-        ChromeDriver driver = driverService.getCorrectDriver();
+        ChromeDriver driver = driverService.getRandomDriver();
         List<String> htmlList = new ArrayList<>();
         for (String url : urls) {
             try {
@@ -312,7 +310,7 @@ public class TwitchDataService {
                         ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
                         Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
                         if (channelSearchUrls.size() > 0) {
-                            asyncPersistenceService.persistChannelsAsync(0, channelSearchUrls);
+                            asyncPersistenceService.persistChannelsAsync( channelSearchUrls);
                         }
                     }
                 } catch (JsonProcessingException e) {
@@ -406,7 +404,7 @@ public class TwitchDataService {
 
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(allSets, 10);
             for (int i = 0; i < sets.size(); i++) {
-                asyncPersistenceService.persistChannelsAsync(i, sets.get(i));
+                asyncPersistenceService.persistChannelsAsync(sets.get(i));
             }
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -561,7 +559,7 @@ public class TwitchDataService {
     //todo 4
     public void importRaidPicker() {
         try {
-            for (String login : persistenceService.getLiveStreams()) {
+            for (String login : persistenceService.getChannelsCurrentlyLiveStreaming()) {
                 RaidFinderDTO raidDTO = persistenceService.getRaidFinder(login);
                 boolean secondValue = false;
                 String gameString = "";

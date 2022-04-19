@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.neo4j.core.Neo4jClient;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 
@@ -153,7 +152,7 @@ public class PersistenceService {
         stopWatch.start();
         long lowRange = 999999999;
         long highRange = 0;
-        Collection<Map<String, Object>> all = client.query("MATCH p=(c:Channel{login:$login})-[r:GAME_METADATA]->(g:Game) RETURN g.sully_id as id,toInteger(r.avg_viewers * 0.5) as lowRange, toInteger(r.avg_viewers * 1.5) as highRange LIMIT 4").in(database).bind(login).to("login").fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH p=(c:Channel{login:$login})-[r:GAME_PICKER]->(g:Game) RETURN g.sully_id as id,toInteger(r.avg_viewers * 0.5) as lowRange, toInteger(r.avg_viewers * 1.5) as highRange LIMIT 4").in(database).bind(login).to("login").fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 if (entry.getKey().equalsIgnoreCase("id")) {
@@ -213,7 +212,7 @@ public class PersistenceService {
         return getAllUsersWithoutSullyId;
     }
 
-    public List<String> getLiveStreams() {
+    public List<String> getChannelsCurrentlyLiveStreaming() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         List<String> liveStreams = new ArrayList<>();
