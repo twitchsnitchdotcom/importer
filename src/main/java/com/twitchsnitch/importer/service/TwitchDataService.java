@@ -180,7 +180,7 @@ public class TwitchDataService {
         HashSet<String> urls = new HashSet<>();
         long pages = resultSize / 100;
         log.debug("Original result size is: " + resultSize);
-        log.debug("Total number of pages is: " + pages);
+        log.debug("Total number of pages is: " + pages + 1);
             for (int i = 0; i <= pages; i++) {
                 Integer pagination = i * 100;
                 urls.add(prefix + pagination.toString() + suffix);
@@ -256,9 +256,13 @@ public class TwitchDataService {
                 try {
                     ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
                     Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
-                    for(int j = 0; j < sets.size(); j++){
-                        asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                    if(channelSearchUrls.size() > 0 ) {
+                        List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
+                        for (int j = 0; j < sets.size(); j++) {
+                            if (sets.get(j).size() > 0) {
+                                asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                            }
+                        }
                     }
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -279,10 +283,15 @@ public class TwitchDataService {
             try {
                 ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
                 Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
-                for(int j = 0; j < sets.size(); j++){
-                    asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                if(channelSearchUrls.size() > 0 ){
+                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
+                    for(int j = 0; j < sets.size(); j++){
+                        if(sets.get(j).size() > 0){
+                            asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                        }
+                    }
                 }
+
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -301,9 +310,13 @@ public class TwitchDataService {
                 try {
                     ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
                     Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
-                    for(int j = 0; j < sets.size(); j++){
-                        asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                    if(channelSearchUrls.size() > 0 ) {
+                        List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
+                        for (int j = 0; j < sets.size(); j++) {
+                            if (sets.get(j).size() > 0) {
+                                asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                            }
+                        }
                     }
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -324,9 +337,13 @@ public class TwitchDataService {
                 try {
                     ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
                     Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
-                    for(int j = 0; j < sets.size(); j++){
-                        asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                    if(channelSearchUrls.size() > 0 ) {
+                        List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
+                        for (int j = 0; j < sets.size(); j++) {
+                            if (sets.get(j).size() > 0) {
+                                asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                            }
+                        }
                     }
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -347,9 +364,13 @@ public class TwitchDataService {
                 try {
                     ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
                     Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
-                    for(int j = 0; j < sets.size(); j++){
-                        asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                    if(channelSearchUrls.size() > 0 ) {
+                        List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
+                        for (int j = 0; j < sets.size(); j++) {
+                            if (sets.get(j).size() > 0) {
+                                asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                            }
+                        }
                     }
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
