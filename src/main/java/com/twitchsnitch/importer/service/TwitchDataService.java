@@ -249,6 +249,7 @@ public class TwitchDataService {
         String suffix = "/" + numberOfRecords;
         for (int i = lowerBound; i <= upperBound; i++) {
             for (Long languageId : allSullyLanguageIds) {
+                log.debug("Deep search for channels, index: " + i + " language key: " + languageId);
                 String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/" + languageId + "/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
                 String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/" + languageId + "/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
                 try {
@@ -303,6 +304,7 @@ public class TwitchDataService {
         String suffix = "/" + numberOfRecords;
         //fifth phase
         for (int i = lowerBound; i <= upperBound; i++) {
+            log.debug("Deep search for channels, index: " + i);
             if (i % modus == 0) {
                 String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
                 String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
