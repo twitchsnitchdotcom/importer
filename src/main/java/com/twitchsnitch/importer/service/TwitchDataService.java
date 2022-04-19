@@ -181,10 +181,10 @@ public class TwitchDataService {
         long pages = resultSize / 100;
         log.debug("Original result size is: " + resultSize);
         log.debug("Total number of pages is: " + pages + 1);
-            for (int i = 0; i <= pages; i++) {
-                Integer pagination = i * 100;
-                urls.add(prefix + pagination.toString() + suffix);
-            }
+        for (int i = 0; i <= pages; i++) {
+            Integer pagination = i * 100;
+            urls.add(prefix + pagination.toString() + suffix);
+        }
         return urls;
     }
 
@@ -226,13 +226,13 @@ public class TwitchDataService {
     //MAIN METHODS
 
     //its a gimic for marketing
-    public void newPartnersImport(){
+    public void newPartnersImport() {
         String url = "https://sullygnome.com/api/tables/channeltables/newpartners/30/0/000/1/7/desc/0/100";
     }
 
-    public void sullySearch(){
+    public void sullySearch() {
         List<String> allUsersWithoutSullyId = persistenceService.getAllUsersWithoutSullyId();
-        for(String login: allUsersWithoutSullyId){
+        for (String login : allUsersWithoutSullyId) {
             try {
                 String url = "https://sullygnome.com/api/standardsearch/" + login + "/true/true/false/true";
                 String json = goToWebSiteJSON(url);
@@ -243,31 +243,57 @@ public class TwitchDataService {
         }
     }
 
-    public void sullyDeepSearchPhase1(){
+    public void sullyDeepSearchPhase1() {
         List<Long> allSullyLanguageIds = persistenceService.getAllSullyLanguageIds();
         int lowerBound = 0;
         int upperBound = 250;
         int modus = 0;
-        for(Long languageId : allSullyLanguageIds){
-            genericSullyDeepSearch(lowerBound, upperBound, modus);
+        String suffix = "/" + numberOfRecords;
+        for (int i = lowerBound; i <= upperBound; i++) {
+            for (Long languageId : allSullyLanguageIds) {
+                String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/" + languageId + "/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
+                String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/" + languageId + "/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
+                try {
+                    String json = goToWebSiteJSON(scaffoldUrl);
+                    if (json != null) {
+                        ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
+                        Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
+                        if (channelSearchUrls.size() > 0) {
+                            if (channelSearchUrls.size() > webDriversSize) {
+                                List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
+                                for (int j = 0; j < sets.size(); j++) {
+                                    if (sets.get(j).size() > 0) {
+                                        asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
+                                    }
+                                }
+                            } else {
+                                asyncPersistenceService.persistChannelsAsync(0, channelSearchUrls);
+                            }
+                        }
+                    }
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
     }
 
-    public void sullyDeepSearchPhase2(){
+    public void sullyDeepSearchPhase2() {
         int lowerBound = 250;
         int upperBound = 2500;
         int modus = 0;
         genericSullyDeepSearch(lowerBound, upperBound, modus);
     }
 
-    public void sullyDeepSearchPhase3(){
+    public void sullyDeepSearchPhase3() {
         int lowerBound = 2500;
         int upperBound = 10000;
         int modus = 10;
         genericSullyDeepSearch(lowerBound, upperBound, modus);
     }
 
-    public void sullyDeepSearchPhase4(){
+    public void sullyDeepSearchPhase4() {
         int lowerBound = 10000;
         int upperBound = 100000;
         int modus = 100;
@@ -275,35 +301,34 @@ public class TwitchDataService {
 
     }
 
-    public void sullyDeepSearchPhase5(){
+    public void sullyDeepSearchPhase5() {
         int lowerBound = 100000;
         int upperBound = 10000000;
         int modus = 10000;
         genericSullyDeepSearch(lowerBound, upperBound, modus);
     }
 
-    public void genericSullyDeepSearch(Integer lowerBound, Integer upperBound, Integer modus){
+    public void genericSullyDeepSearch(Integer lowerBound, Integer upperBound, Integer modus) {
         String suffix = "/" + numberOfRecords;
         //fifth phase
-        for(int i = lowerBound; i<= upperBound; i++){
-            if(i % modus == 0){
-                String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
-                String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i  + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
+        for (int i = lowerBound; i <= upperBound; i++) {
+            if (i % modus == 0) {
+                String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
+                String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
                 try {
                     String json = goToWebSiteJSON(scaffoldUrl);
-                    if(json!= null) {
+                    if (json != null) {
                         ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
                         Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
                         if (channelSearchUrls.size() > 0) {
-                            if(channelSearchUrls.size() > webDriversSize){
+                            if (channelSearchUrls.size() > webDriversSize) {
                                 List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
                                 for (int j = 0; j < sets.size(); j++) {
                                     if (sets.get(j).size() > 0) {
                                         asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
                                     }
                                 }
-                            }
-                            else{
+                            } else {
                                 asyncPersistenceService.persistChannelsAsync(0, channelSearchUrls);
                             }
                         }
@@ -316,7 +341,7 @@ public class TwitchDataService {
     }
 
 
-    public void sullyDeepSearchAll(){
+    public void sullyDeepSearchAll() {
         sullyDeepSearchPhase1();
         sullyDeepSearchPhase2();
         sullyDeepSearchPhase3();
@@ -324,9 +349,9 @@ public class TwitchDataService {
         sullyDeepSearchPhase5();
     }
 
-    public void importAllUsersWithoutSullyData(){
+    public void importAllUsersWithoutSullyData() {
         List<String> allUsersWithoutSullyId = persistenceService.getAllUsersWithoutSullyId();
-        for(String login: allUsersWithoutSullyId){
+        for (String login : allUsersWithoutSullyId) {
             try {
                 String url = "https://sullygnome.com/channel/" + login;
                 String html = goToWebSiteHTML(url);
@@ -353,7 +378,7 @@ public class TwitchDataService {
             log.debug("Actual Game size: " + gamesTotalSize);
             Set<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(gamesUrls, 10);
-            for(int i = 0; i < sets.size(); i++){
+            for (int i = 0; i < sets.size(); i++) {
                 asyncPersistenceService.persistGamesAsync(i, sets.get(i));
             }
         } catch (Exception e) {
@@ -362,7 +387,7 @@ public class TwitchDataService {
 
     }
 
-    @Async
+
     public void importTwitchTeams() {
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
         Set<String> teamsWithoutTwitchId = persistenceService.getTeamsWithoutTwitchId();
@@ -374,7 +399,7 @@ public class TwitchDataService {
         }
     }
 
-    @Async
+
     public void importChannels() {
         String suffix = "/" + numberOfRecords;
         String channelMostViewedPrefix = "https://sullygnome.com/api/tables/channeltables/getchannels/" + channelDaysPerspective + "/0/11/3/desc/";
@@ -398,18 +423,19 @@ public class TwitchDataService {
             allSets.addAll(channelFollowerGrowthUrls);
 
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(allSets, 10);
-            for(int i = 0; i< sets.size(); i++){
+            for (int i = 0; i < sets.size(); i++) {
                 asyncPersistenceService.persistChannelsAsync(i, sets.get(i));
             }
         } catch (Exception e) {
             log.error(e.getMessage());
         }
     }
+
     /**
-     "/api/tables/channeltables/advancedsearch/" + days + "/" + -1 + "/" + languageId.toString() + "/" + minfollowers + "/" + minfollowers + "/" + minviewers + "/" + maxviewers + "/" + games + "/" + matchall + "/" + c.toString() + "/" + l.onlineonly() + "/" + a.cType_Community() + "/" + v.cType_Aff() + "/" + y.cType_Partnered() + "/" + p.cTypeMat_Mature() + "/" + w.cTypeMat_NotMature() + "/" 2022-04-17T00:00:00.000Z/-1/1/0/desc/0/100
+     * "/api/tables/channeltables/advancedsearch/" + days + "/" + -1 + "/" + languageId.toString() + "/" + minfollowers + "/" + minfollowers + "/" + minviewers + "/" + maxviewers + "/" + games + "/" + matchall + "/" + c.toString() + "/" + l.onlineonly() + "/" + a.cType_Community() + "/" + v.cType_Aff() + "/" + y.cType_Partnered() + "/" + p.cTypeMat_Mature() + "/" + w.cTypeMat_NotMature() + "/" 2022-04-17T00:00:00.000Z/-1/1/0/desc/0/100
      */
     //a way of importing all channels, kinda I think
-    public void channelSearch(){
+    public void channelSearch() {
 
     }
 
@@ -425,7 +451,7 @@ public class TwitchDataService {
             log.debug("Actual Teams size: " + teamTotalSize);
             Set<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(teamsUrls, 10);
-            for(int i = 0; i< sets.size(); i++){
+            for (int i = 0; i < sets.size(); i++) {
                 asyncPersistenceService.persistTeamsAsync(i, sets.get(i));
             }
         } catch (Exception e) {
@@ -497,7 +523,7 @@ public class TwitchDataService {
     }
 
     /**
-
+     *
      */
 
     public void importLanguages() {
