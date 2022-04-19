@@ -56,6 +56,8 @@ public class TwitchDataService {
     @Value("${database}")
     private String database;
     @Value("${split.driver.workload}")
+    @Value("${webdrivers.size.max}")
+    private Integer webDriversSize;
     private boolean splitDriverWorkload;
     private final OAuthService oAuthService;
     private final PersistenceService persistenceService;
@@ -258,7 +260,7 @@ public class TwitchDataService {
                 try {
                     ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
                     Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, 10);
+                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
                     for(int j = 0; j < sets.size(); j++){
                         asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
                     }
@@ -281,7 +283,7 @@ public class TwitchDataService {
             try {
                 ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
                 Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, 10);
+                List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
                 for(int j = 0; j < sets.size(); j++){
                     asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
                 }
@@ -303,7 +305,7 @@ public class TwitchDataService {
                 try {
                     ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
                     Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, 10);
+                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
                     for(int j = 0; j < sets.size(); j++){
                         asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
                     }
@@ -326,7 +328,7 @@ public class TwitchDataService {
                 try {
                     ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
                     Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, 10);
+                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
                     for(int j = 0; j < sets.size(); j++){
                         asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
                     }
@@ -349,7 +351,7 @@ public class TwitchDataService {
                 try {
                     ChannelSearchDTO channelSearchDTO = objectMapper().readValue(goToWebSiteJSON(scaffoldUrl), ChannelSearchDTO.class);
                     Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
-                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, 10);
+                    List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
                     for(int j = 0; j < sets.size(); j++){
                         asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
                     }
