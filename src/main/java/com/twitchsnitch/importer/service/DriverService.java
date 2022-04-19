@@ -21,7 +21,7 @@ public class DriverService {
 
     @Value("${webdrivers.size.max}")
     private Integer webDriversSize;
-    private Map<Integer, ChromeDriver> availableDrivers = new HashMap<>();
+    private Set<ChromeDriver> availableDrivers = new HashSet<>();
     ChromeOptions options = new ChromeOptions();
     private boolean areDriversAvailable = false;
     //GENERIC METHODS
@@ -41,26 +41,33 @@ public class DriverService {
             ChromeDriver driver = new ChromeDriver(options);
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             driver.manage().window().setPosition(new Point(-2000, 0));
-            availableDrivers.put(i,driver);
+            availableDrivers.add(driver);
         }
 
         areDriversAvailable = true;
 
     }
 
-
-    public ChromeDriver getCorrectDriver(int index){
-        return availableDrivers.get(index);
+    public void returnWebDriver(ChromeDriver driver){
+        availableDrivers.add(driver);
     }
 
-    public ChromeDriver getCorrectDriver(){
-        return availableDrivers.get(0);
-    }
+    public ChromeDriver getRandomDriver(){
+        while(availableDrivers.size() == 0){
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            log.debug("Waiting for a web driver to become available before continuing");
+        }
+    return availableDrivers.stream().skip(new Random().nextInt(availableDrivers.size())).findFirst().orElse(null);
 
-    public Integer getAvailableDriversSize(){
-        return availableDrivers.size();
-    }
+}
 
+    public  <E> E getRandomSetElement(Set<E> set) {
+        return set.stream().skip(new Random().nextInt(set.size())).findFirst().orElse(null);
+    }
 
 
 }

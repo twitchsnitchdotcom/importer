@@ -259,16 +259,7 @@ public class TwitchDataService {
                         ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
                         Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
                         if (channelSearchUrls.size() > 0) {
-                            if (channelSearchUrls.size() > webDriversSize) {
-                                List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
-                                for (int j = 0; j < sets.size(); j++) {
-                                    if (sets.get(j).size() > 0) {
-                                        asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
-                                    }
-                                }
-                            } else {
-                                asyncPersistenceService.persistChannelsAsync(0, channelSearchUrls);
-                            }
+                            asyncPersistenceService.persistChannelsAsync(channelSearchUrls);
                         }
                     }
                 } catch (JsonProcessingException e) {
@@ -321,16 +312,7 @@ public class TwitchDataService {
                         ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
                         Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
                         if (channelSearchUrls.size() > 0) {
-                            if (channelSearchUrls.size() > webDriversSize) {
-                                List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(channelSearchUrls, webDriversSize);
-                                for (int j = 0; j < sets.size(); j++) {
-                                    if (sets.get(j).size() > 0) {
-                                        asyncPersistenceService.persistChannelsAsync(j, sets.get(j));
-                                    }
-                                }
-                            } else {
-                                asyncPersistenceService.persistChannelsAsync(0, channelSearchUrls);
-                            }
+                            asyncPersistenceService.persistChannelsAsync(0, channelSearchUrls);
                         }
                     }
                 } catch (JsonProcessingException e) {

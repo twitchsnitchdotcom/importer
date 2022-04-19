@@ -36,10 +36,10 @@ public class AsyncPersistenceService {
     private final static Logger log = LoggerFactory.getLogger(AsyncPersistenceService.class);
 
 
-    public void persistChannelsAsync(Integer index, Set<String> urls){
+    public void persistChannelsAsync(Set<String> urls){
         for (String url : urls) {
             try {
-                persistenceService.persistSullyChannels(objectMapper().readValue(goToWebSiteJSON(index, url), Map.class));
+                persistenceService.persistSullyChannels(objectMapper().readValue(goToWebSiteJSON(url), Map.class));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -50,7 +50,7 @@ public class AsyncPersistenceService {
     public void persistTeamsAsync(Integer index, Set<String> urls){
         for (String url : urls) {
             try {
-                persistenceService.persistSullyTeams(objectMapper().readValue(goToWebSiteJSON(index, url), Map.class));
+                persistenceService.persistSullyTeams(objectMapper().readValue(goToWebSiteJSON(url), Map.class));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -61,7 +61,7 @@ public class AsyncPersistenceService {
     public void persistGamesAsync(Integer index, Set<String> urls){
         for (String url : urls) {
             try {
-                persistenceService.persistSullyGames(objectMapper().readValue(goToWebSiteJSON(index, url), Map.class));
+                persistenceService.persistSullyGames(objectMapper().readValue(goToWebSiteJSON(url), Map.class));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -89,45 +89,33 @@ public class AsyncPersistenceService {
         
     }
 
-    public String goToWebSiteJSON(Integer index, String url) {
-        ChromeDriver driver = driverService.getCorrectDriver(index);
+    public String goToWebSiteJSON(String url) {
+        ChromeDriver driver = driverService.getRandomDriver();
         try {
             driver.get("view-source:" + url);
             String json = driver.findElement(By.className("line-content")).getText();
+            driverService.returnWebDriver(driver);
             return json;
         } catch (Exception e) {
-            try {
-                driver.get("view-source:" + url);
-                //Thread.sleep(2000);
-                String json = driver.findElement(By.className("line-content")).getText();
-                return json;
-            } catch (Exception e2) {
-                log.error("FAILED COLLECTING: " + url);
-            }
+            log.error("FAILED COLLECTING: " + url);
         }
+        driverService.returnWebDriver(driver);
         return null;
     }
 
-    public Set<String> goToWebSitesJSON(Integer index, Set<String> urls) {
+    public Set<String> goToWebSitesJSON(Set<String> urls) {
         Set<String> jsonList = new HashSet<>();
-        ChromeDriver driver = driverService.getCorrectDriver(index);
+        ChromeDriver driver = driverService.getRandomDriver();
         for (String url : urls) {
             try {
                 driver.get("view-source:" + url);
                 jsonList.add(driver.findElement(By.className("line-content")).getText());
                 log.debug("Pages collected so far is: " + jsonList.size());
             } catch (Exception e) {
-                try {
-                    driver.get("view-source:" + url);
-                    //Thread.sleep(2000);
-                    jsonList.add(driver.findElement(By.className("line-content")).getText());
-
-                } catch (Exception e2) {
-                    log.error("FAILED COLLECTING: " + url);
-                }
-
+                log.error("FAILED COLLECTING: " + url);
             }
         }
+        driverService.returnWebDriver(driver);
         return jsonList;
     }
 
