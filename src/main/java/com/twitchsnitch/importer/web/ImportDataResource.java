@@ -14,10 +14,17 @@ public class ImportDataResource {
 
     private final TwitchDataService twitchDataService;
 
-
     @GetMapping("/search/1")
     public void search1() {
         twitchDataService.sullyDeepSearchPhase1();
+    }
+
+
+    @GetMapping("/prep")
+    public void prep() {
+        twitchDataService.dropDBConstraints();
+        twitchDataService.addDBConstraints();
+        twitchDataService.importLanguages();
     }
 
     @GetMapping("/search/2")
