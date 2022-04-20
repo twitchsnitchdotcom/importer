@@ -14,6 +14,7 @@ public class CSVDownloader {
     public void downloadCSV() throws InterruptedException {
         ChromeOptions options = new ChromeOptions();
         File webDriverFile = new File("/usr/lib/chromium-browser/chromedriver");
+        //File webDriverFile = new File("/Users/horizondeep/Desktop/importer/src/main/resources/chromedriver");
         System.setProperty("webdriver.chrome.driver", webDriverFile.getAbsolutePath());
         options.addArguments("start-maximized"); // open Browser in maximized mode
         options.addArguments("disable-infobars"); // disabling infobars
@@ -24,7 +25,8 @@ public class CSVDownloader {
         System.setProperty("webdriver.chrome.silentOutput", "true");
         ChromeDriver driver = new ChromeDriver(options);
         driver.get("https://sam.gov/data-services/Assistance%20Listings/grantsgov/historical?privacy=Public");
-        List<WebElement> elementsByClassName = driver.findElementsByClassName("data-service-file-link ng-star-inserted");
+        Thread.sleep(200);
+        List<WebElement> elementsByClassName = driver.findElementsByClassName("data-service-file-link");
         for(WebElement element: elementsByClassName){
             element.click();
             Thread.sleep(2000);
