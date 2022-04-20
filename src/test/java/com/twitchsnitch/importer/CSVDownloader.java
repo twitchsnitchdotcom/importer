@@ -13,8 +13,8 @@ public class CSVDownloader {
     @Test
     public void downloadCSV() throws InterruptedException {
         ChromeOptions options = new ChromeOptions();
-        File webDriverFile = new File("/usr/lib/chromium-browser/chromedriver");
-        //File webDriverFile = new File("/Users/horizondeep/Desktop/importer/src/main/resources/chromedriver");
+        //File webDriverFile = new File("/usr/lib/chromium-browser/chromedriver");
+        File webDriverFile = new File("/Users/horizondeep/Desktop/importer/src/main/resources/chromedriver");
         System.setProperty("webdriver.chrome.driver", webDriverFile.getAbsolutePath());
         options.addArguments("start-maximized"); // open Browser in maximized mode
         options.addArguments("disable-infobars"); // disabling infobars
@@ -23,6 +23,7 @@ public class CSVDownloader {
         options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
         options.addArguments("--no-sandbox"); // Bypass OS security model
         System.setProperty("webdriver.chrome.silentOutput", "true");
+        options.addArguments("--disable-dev-shm-usage");
         ChromeDriver driver = new ChromeDriver(options);
 
         driver.get("https://sam.gov/data-services/Assistance%20Listings/grantsgov/historical?privacy=Public");
