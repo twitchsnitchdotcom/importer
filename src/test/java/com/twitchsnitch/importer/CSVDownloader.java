@@ -24,9 +24,10 @@ public class CSVDownloader {
         options.addArguments("--no-sandbox"); // Bypass OS security model
         System.setProperty("webdriver.chrome.silentOutput", "true");
         ChromeDriver driver = new ChromeDriver(options);
-        driver.get("https://sam.gov");
+
         driver.get("https://sam.gov/data-services/Assistance%20Listings/grantsgov/historical?privacy=Public");
-        Thread.sleep(200);
+        driver.get("https://sam.gov/data-services/Assistance%20Listings/grantsgov/historical?privacy=Public");
+
         List<WebElement> elementsByClassName = driver.findElementsByClassName("data-service-file-link");
         for(WebElement element: elementsByClassName){
             element.click();
