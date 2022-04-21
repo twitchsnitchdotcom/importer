@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/CSVDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/CSVDownloader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/ContractsDailyHistorical.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/FBORecovery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/FBORecoveryAwards.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/SpendingDotGov.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
