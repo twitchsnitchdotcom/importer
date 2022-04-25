@@ -466,9 +466,9 @@ public class PersistenceService {
                         "                    l.twitch_started_at = datetime(stream.started_at),\n" +
                         "                    l.thumbnail_url = stream.thumbnail_url,\n" +
                         "                    l.is_mature = stream.is_mature WITH l, stream\n" +
-                        "                    MERGE (u:User{login:stream.user_login, twitch_id:stream.user_id, name:stream.user_name})\n" +
+                        "                    MERGE (u:User{login:stream.user_login}) ON CREATE SET u.twitch_id = stream.user_id, u.name = stream.user_name WITH l, stream, u\n" +
                         "                    MERGE (u)-[:LIVE_STREAMING]->(l)\n" +
-                        "                    MERGE (l)-[:PLAYS]->(g:Game{twitch_id:stream.game_id, name:stream.game_name})\n" +
+                        "                    MERGE (l)-[:PLAYS]->(g:Game{twitch_id:stream.game_id}) ON CREATE SET g.name:stream.game_name\n" +
                         "                    MERGE (lang:Language{key:stream.language})\n" +
                         "                    MERGE (l)-[:HAS_LANGUAGE]->(lang)\n" +
                         "                    SET u:Channel\n"
@@ -478,22 +478,6 @@ public class PersistenceService {
 
         logResultSummaries("persistTwitchStreams", run);
     }
-
-
-    public void persistTwitchChatters(String login, Map jsonMap) {
-        ResultSummary run = client.query("UNWIND $json.chatters as chatters\n" +
-                        "                    FOREACH(vip in chatters.vips| MERGE(u:User {login:vip}) MERGE(u)-[:VIP]->(s:User{login:$login}))\n" +
-                        "                    FOREACH(mod in chatters.moderators | MERGE(s:User{login:$login})\n" +
-                        "                    MERGE(u)-[:MODERATOR]->(s:User{login:$login}))\n" +
-                        "                    FOREACH(chatter in chatters.viewers| MERGE(u:User {login:chatter})\n" +
-                        "                    MERGE(u)-[:CHATTER]->(s:User{login:$login}))").in(database)
-                .bind(jsonMap).to("json")
-                .bind(login).to("login")
-                .run();
-
-        logResultSummaries("persistTwitchChatters", run);
-    }
-
 
     public void persistTwitchLanguage(String key, String name, Integer sullyId) {
         ResultSummary run = client.query(
