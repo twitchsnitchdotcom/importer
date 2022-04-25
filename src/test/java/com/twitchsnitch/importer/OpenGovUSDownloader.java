@@ -96,8 +96,8 @@ public class OpenGovUSDownloader {
                         .userAgent("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2") //
                         .header("Content-Language", "en-US") //
                         .get();
-                log.debug("Proxy worked: " + proxy);
-                validProxies.add(proxy);
+                log.debug("Proxy worked: " + proxyDTO);
+                validProxies.add(proxyDTO);
 
 
             } catch (Exception e) {
