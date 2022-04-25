@@ -359,7 +359,7 @@ public class TwitchDataService {
         long gamesTotalSize;
         try {
             //GamesTable gamesTable = objectMapper().readValue(goToWebSiteJSON(gameScaffoldUrl), GamesTable.class);
-            gamesTotalSize = 5000;
+            gamesTotalSize = 1000;
             log.debug("Actual Game size: " + gamesTotalSize);
             Set<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(gamesUrls, 10);
@@ -379,7 +379,7 @@ public class TwitchDataService {
         long gamesTotalSize;
         try {
             //GamesTable gamesTable = objectMapper().readValue(goToWebSiteJSON(gameScaffoldUrl), GamesTable.class);
-            gamesTotalSize = 5000;
+            gamesTotalSize = 1000;
             log.debug("Actual Game size: " + gamesTotalSize);
             Set<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(gamesUrls, 10);
