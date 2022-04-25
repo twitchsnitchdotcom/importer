@@ -541,7 +541,6 @@ public class PersistenceService {
                         "          SET       c.followers = channel.followers,\n" +
                         "                    c.view_minutes = channel.viewminutes,\n" +
                         "                    c:User,\n" +
-                        "                    c.row_number = channel.rownum,\n" +
                         "                    c.streamed_minutes = channel.streamedminutes,\n" +
                         "                    c.max_viewers = channel.maxviewers,\n" +
                         "                    c.avg_viewers = channel.avgviewers,\n" +

@@ -5,20 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
-      <change afterPath="$PROJECT_DIR$/src/test/resources/database/corporates.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/database/corporates_errors.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/database/doctors.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/database/doctors_errors.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/database/estateagents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/database/estateagents_errors.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/database/insurers_errors.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/database/lawyers.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/database/lawyers_errors.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/database/motorcarriers_errors.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/OpenGovUSDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/OpenGovUSDownloader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/LawyerDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/LawyerDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/proxy/ProxyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/proxy/ProxyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/DriverService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/DriverService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
