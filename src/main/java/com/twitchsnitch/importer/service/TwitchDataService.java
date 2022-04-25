@@ -352,10 +352,30 @@ public class TwitchDataService {
         persistenceService.persistChattersOnDB();
     }
 
-    public void importGames() {
+    public void importGames1() {
         String suffix = "/" + numberOfRecords;
         String gameScaffoldUrl = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc/0/" + numberOfRecords;
         String gamePrefix = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc/";
+        long gamesTotalSize;
+        try {
+            //GamesTable gamesTable = objectMapper().readValue(goToWebSiteJSON(gameScaffoldUrl), GamesTable.class);
+            gamesTotalSize = 5000;
+            log.debug("Actual Game size: " + gamesTotalSize);
+            Set<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
+            List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(gamesUrls, 10);
+            for (int i = 0; i < sets.size(); i++) {
+                asyncPersistenceService.persistGamesAsync(i, sets.get(i));
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
+    }
+
+    public void importGames2() {
+        String suffix = "/" + numberOfRecords;
+        String gameScaffoldUrl = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/2/3/asc/0/" + numberOfRecords;
+        String gamePrefix = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/2/3/asc/";
         long gamesTotalSize;
         try {
             //GamesTable gamesTable = objectMapper().readValue(goToWebSiteJSON(gameScaffoldUrl), GamesTable.class);
