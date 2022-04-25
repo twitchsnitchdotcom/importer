@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.twitchsnitch.importer.dto.*;
 import com.twitchsnitch.importer.dto.twitch.OAuthTokenDTO;
 import com.twitchsnitch.importer.opentender.tendersearch.TenderSearchDTO;
+import com.twitchsnitch.importer.proxy.ProxyDTO;
 import com.twitchsnitch.importer.service.DriverService;
 import com.twitchsnitch.importer.utils.SplittingUtils;
 import org.jsoup.Jsoup;
@@ -17,21 +18,27 @@ import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.util.Assert;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class OpenGovUSDownloader {
 
     private final static Logger log = LoggerFactory.getLogger(OpenGovUSDownloader.class);
+    private RestTemplate restTemplate = new RestTemplate();
 
+    Set<ProxyDTO> validProxies = new HashSet<>();
 
     Set<PhysicianDTO> physicianDTOS = new HashSet<>();
     Set<String> physicianSearchResults = new HashSet<>();
@@ -61,9 +68,54 @@ public class OpenGovUSDownloader {
                 .registerModule(module);
     }
 
+     <E> E getRandomSetElement(Set<E> set) {
+        return set.stream().skip(new Random().nextInt(set.size())).findFirst().orElse(null);
+    }
+
+    public ProxyDTO getRandomProxy(){
+        return getRandomSetElement(validProxies);
+    }
+
+    public void buildProxies() throws IOException {
+        Set<ProxyDTO> untestedProxies = new HashSet<>();
+        for(int i = 0; i <= 100; i++){
+            ResponseEntity<ProxyDTO> response = restTemplate.exchange(
+                    "https://gimmeproxy.com/api/getProxy?get=true",
+                    HttpMethod.GET, null,
+                    ProxyDTO.class);
+            untestedProxies.add(response.getBody());
+        }
+
+        for(ProxyDTO proxyDTO: untestedProxies){
+            try{
+                Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyDTO.getIp(), Integer.parseInt(proxyDTO.getPort())));
+                SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+                RestTemplate restTemplate = new RestTemplate(requestFactory);
+                requestFactory.setProxy(proxy);
+                ResponseEntity<String> responseEntity = restTemplate.getForEntity("https://opengovus.com/motor-carrier/3665722", String.class);
+                if(responseEntity.getStatusCode().equals(HttpStatus.OK)){
+                    log.debug("Proxy worked: " + proxy);
+                    validProxies.add(proxyDTO);
+                }
+
+            }
+            catch(Exception e){
+                //log.error("Didint work: " + proxy.getIp());
+            }
+
+            for(ProxyDTO validProxy: validProxies){
+                log.debug(validProxy.getIp(), validProxy.getIpPort());
+            }
+
+        }
+
+    }
+
+
     @Test
     public void IowaInsuranceProviders() throws IOException, URISyntaxException {
 
+        buildProxies();
         int insurancePageSize = 1000;
         String iowaInsuranceURL = "https://opengovus.com/iowa-insurance-producer";
 
@@ -80,7 +132,8 @@ public class OpenGovUSDownloader {
                 log.trace("Completed list does not contain url, fetching it: " + url);
                 Document doc = null;
                 try {
-                    doc = Jsoup.connect(url).timeout(5000).get();
+                    ProxyDTO randomProxy = getRandomProxy();
+                    doc = Jsoup.connect(url).proxy(randomProxy.getIp(), Integer.parseInt(randomProxy.getPort())).timeout(5000).get();
                     Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
                     List<Element> rows = select.get(0).getElementsByTag("tr");
                     extractInsuranceProvider(url, rows, insuranceProviderDTOS);
@@ -103,7 +156,8 @@ public class OpenGovUSDownloader {
         for (String url : insuranceSearchDeltaResults) {
             Document doc = null;
             try {
-                doc = Jsoup.connect(url).timeout(5000).get();
+                ProxyDTO randomProxy = getRandomProxy();
+                doc = Jsoup.connect(url).proxy(randomProxy.getIp(), Integer.parseInt(randomProxy.getPort())).timeout(5000).get();
                 insuranceDeltaResults.addAll(extractExtraUrls(doc, insuranceSearchResults, insuranceCompletedResults, iowaInsuranceURL));
             } catch (Exception e) {
                 log.error("Issue with addin the delta search results: " + url);
@@ -122,7 +176,8 @@ public class OpenGovUSDownloader {
                 log.trace("Completed list does not contain url, fetching it: " + url);
                 Document doc = null;
                 try {
-                    doc = Jsoup.connect(url).timeout(5000).get();
+                    ProxyDTO randomProxy = getRandomProxy();
+                    doc = Jsoup.connect(url).proxy(randomProxy.getIp(), Integer.parseInt(randomProxy.getPort())).timeout(5000).get();
                     Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
                     List<Element> rows = select.get(0).getElementsByTag("tr");
                     extractInsuranceProvider(url, rows, insuranceProviderDTOS);
@@ -148,9 +203,11 @@ public class OpenGovUSDownloader {
         for (int i = 1; i <= pageSize; i++) {
             try {
                 if (i == 1) {
-                    doc = Jsoup.connect(url).timeout(5000).get();
+                    ProxyDTO randomProxy = getRandomProxy();
+                    doc = Jsoup.connect(url).proxy(randomProxy.getIp(), Integer.parseInt(randomProxy.getPort())).timeout(5000).get();
                 } else {
-                    doc = Jsoup.connect(url + "?page=" + i).timeout(5000).get();
+                    ProxyDTO randomProxy = getRandomProxy();
+                    doc = Jsoup.connect(url + "?page=" + i).proxy(randomProxy.getIp(), Integer.parseInt(randomProxy.getPort())).timeout(5000).get();
                 }
                 List<Element> trows = doc.select("tr");
                 boolean firstrow = true;
@@ -255,6 +312,7 @@ public class OpenGovUSDownloader {
     @Test
     public void motorCarrierSearch() throws InterruptedException, IOException {
 
+        buildProxies();
         String motorCarrierUrl = "https://opengovus.com/motor-carrier";
 
         Set<MotorCarrierDTO> motorCarrierDTOS = new HashSet<>();
@@ -263,7 +321,7 @@ public class OpenGovUSDownloader {
         Set<String> motorCarriersSearchDeltaResults = new HashSet<>();
         Set<String> motorCarriersCompletedResults = new HashSet<>();
 
-        genericSearch(motorCarrierUrl, 1, motorCarriersSearchResults);
+        genericSearch(motorCarrierUrl, 10, motorCarriersSearchResults);
 
         //all the general pages x 10
         for (String url : motorCarriersSearchResults) {
@@ -271,7 +329,8 @@ public class OpenGovUSDownloader {
                 log.trace("Completed list does not contain url, fetching it: " + url);
                 Document doc = null;
                 try {
-                    doc = Jsoup.connect(url).timeout(5000).get();
+                    ProxyDTO randomProxy = getRandomProxy();
+                    doc = Jsoup.connect(url).proxy(randomProxy.getIp(), Integer.parseInt(randomProxy.getPort())).timeout(5000).get();
                     Elements select = doc.select("#entity-overview > div.panel-body > div > table > tbody");
                     List<Element> rows = select.get(0).getElementsByTag("tr");
                     extractMotorCarrier(url, rows, motorCarrierDTOS);
@@ -292,13 +351,15 @@ public class OpenGovUSDownloader {
         log.debug("motorCarriersCompletedResults size: " + motorCarriersCompletedResults.size());
 
         for (String url : motorCarriersSearchDeltaResults) {
-            for (int i = 1; i <= 2; i++) {
+            for (int i = 1; i <= 10; i++) {
                 Document doc = null;
                 try {
                     if (i == 1) {
-                        doc = Jsoup.connect(url).timeout(5000).get();
+                        ProxyDTO randomProxy = getRandomProxy();
+                        doc = Jsoup.connect(url).proxy(randomProxy.getIp(), Integer.parseInt(randomProxy.getPort())).timeout(5000).get();
                     } else {
-                        doc = Jsoup.connect(url + "?page=" + i).timeout(5000).get();
+                        ProxyDTO randomProxy = getRandomProxy();
+                        doc = Jsoup.connect(url + "?page=" + i).proxy(randomProxy.getIp(), Integer.parseInt(randomProxy.getPort())).timeout(5000).get();
                     }
                     Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
                     List<Element> rows = select.get(0).getElementsByTag("tr");
@@ -324,7 +385,8 @@ public class OpenGovUSDownloader {
                 log.trace("Completed list does not contain url, fetching it: " + url);
                 Document doc = null;
                 try {
-                    doc = Jsoup.connect(url).timeout(5000).get();
+                    ProxyDTO randomProxy = getRandomProxy();
+                    doc = Jsoup.connect(url).proxy(randomProxy.getIp(), Integer.parseInt(randomProxy.getPort())).timeout(5000).get();
                     Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
                     List<Element> rows = select.get(0).getElementsByTag("tr");
                     extractMotorCarrier(url, rows, motorCarrierDTOS);
