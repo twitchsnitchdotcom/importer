@@ -142,7 +142,7 @@ public class OpenGovUSDownloader {
                 }
             }
         }
-        File insurersFile = new File ("/Users/horizondeep/Desktop/importer/src/test/resources/database/insurers.json");
+        File insurersFile = new File ("/root/IdeaProjects/importer/src/test/resources/database/insurers.json");
         objectMapper().writeValue(insurersFile, insuranceProviderDTOS);
 
     }
