@@ -266,7 +266,7 @@ public class OpenGovUSDownloader {
         //all the general pages x 10
         for (String url : motorCarriersSearchResults) {
             if (!motorCarriersCompletedResults.contains(url)) {
-                log.debug("Completed list does not contain url, fetching it: " + url);
+                log.trace("Completed list does not contain url, fetching it: " + url);
                 Document doc = null;
                 try {
                     doc = Jsoup.connect(url).timeout(5000).get();
@@ -276,7 +276,7 @@ public class OpenGovUSDownloader {
                     motorCarriersCompletedResults.add(url);
                     motorCarriersDeltaResults.addAll(extractExtraUrls(doc, motorCarriersSearchResults, motorCarriersCompletedResults, motorCarrierUrl));
                     motorCarriersSearchDeltaResults.addAll(extractExtraSearchUrls(doc, url));
-                } catch (IOException e) {
+                } catch (Exception e) {
                     log.error("Couldnt connect to url: " + url);
                 }
             }
@@ -325,7 +325,7 @@ public class OpenGovUSDownloader {
                     List<Element> rows = select.get(0).getElementsByTag("tr");
                     extractMotorCarrier(url, rows, motorCarrierDTOS);
                     motorCarriersCompletedResults.add(url);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     log.error("Couldnt connect to url: " + url);
                 }
             }
