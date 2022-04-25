@@ -471,7 +471,7 @@ public class PersistenceService {
                         "                    MERGE (u)-[:LIVE_STREAMING]->(l),\n" +
                         "                    MERGE (l)-[:PLAYS]->(g:Game{twitch_id:stream.game_id, name:stream.game_name}),\n" +
                         "                    MERGE (lang:Language{key:stream.language}),\n" +
-                        "                    MERGE (l)-[:HAS_LANGUAGE]->(lang)\n" +
+                        "                    MERGE (l)-[:HAS_LANGUAGE]->(lang)\n" 
 
                 ).in(database)
                 .bind(jsonMap).to("json")
