@@ -58,7 +58,7 @@ public class ImportDataResource {
         Thread.sleep(5000);
         twitchDataService.importGames();
         Thread.sleep(5000);
-        twitchDataService.importTeams();
+        //twitchDataService.importTeams();
     }
 
     @GetMapping("/phase/2")
@@ -170,7 +170,8 @@ public class ImportDataResource {
 
     @GetMapping("/import/teams")
     public void importTeams() {
-        twitchDataService.importTeams();
+        twitchDataService.importTeams1();
+        twitchDataService.importTeams2();
     }
 
     @GetMapping("/import/teams/twitch")

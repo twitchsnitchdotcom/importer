@@ -424,7 +424,7 @@ public class TwitchDataService {
 
     }
 
-    public void importTeams() {
+    public void importTeams1() {
         String suffix = "/" + numberOfRecords;
         //teams result list
         String teamsScaffoldUrl = "https://sullygnome.com/api/tables/teamtables/getteams/" + teamsDaysPerspective + "/0/1/3/desc/0/" + numberOfRecords;
@@ -444,6 +444,25 @@ public class TwitchDataService {
         }
     }
 
+    public void importTeams2() {
+        String suffix = "/" + numberOfRecords;
+        //teams result list
+        String teamsScaffoldUrl = "https://sullygnome.com/api/tables/teamtables/getteams/" + teamsDaysPerspective + "/0/4/5/asc/0/" + numberOfRecords;
+        String teamsprefix = "https://sullygnome.com/api/tables/teamtables/getteams/" + teamsDaysPerspective + "/0/4/5/asc/0/";
+        long teamTotalSize;
+        try {
+            //TeamsTable teamsTable = objectMapper().readValue(goToWebSiteJSON(teamsScaffoldUrl), TeamsTable.class);
+            teamTotalSize = 5000;
+            log.debug("Actual Teams size: " + teamTotalSize);
+            Set<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
+            List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(teamsUrls, 10);
+            for (int i = 0; i < sets.size(); i++) {
+                asyncPersistenceService.persistTeamsAsync(i, sets.get(i));
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
 
     public void importFollowsTo() {
         Set<String> usersWithoutTwitchFollowsTo;
