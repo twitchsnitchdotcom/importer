@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/motorcarriers.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/OpenGovUSDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/OpenGovUSDownloader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,7 +82,7 @@
       <recent name="com.twitchsnitch.importer.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.OpenGovUSDownloader.IowaInsuranceProviders">
+  <component name="RunManager" selected="JUnit.OpenGovUSDownloader.motorCarrierSearch">
     <configuration name="OpenGovUSDownloader.IowaInsuranceProviders" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="importer" />
       <extension name="coverage">
@@ -130,7 +131,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OpenGovUSDownloader.iowaInsuranceProducer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OpenGovUSDownloader.motorCarrierSearch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="importer" />
       <extension name="coverage">
         <pattern>
@@ -140,7 +141,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.twitchsnitch.importer" />
       <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.OpenGovUSDownloader" />
-      <option name="METHOD_NAME" value="iowaInsuranceProducer" />
+      <option name="METHOD_NAME" value="motorCarrierSearch" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -164,11 +165,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.OpenGovUSDownloader.motorCarrierSearch" />
         <item itemvalue="JUnit.OpenGovUSDownloader.IowaInsuranceProviders" />
         <item itemvalue="JUnit.OpenGovUSDownloader.insuranceProviderSearch" />
         <item itemvalue="JUnit.ReactiveWebClientTest.basicTest" />
         <item itemvalue="JUnit.OpenGovUSDownloader.insuranceProvider" />
-        <item itemvalue="JUnit.OpenGovUSDownloader.iowaInsuranceProducer" />
       </list>
     </recent_temporary>
   </component>

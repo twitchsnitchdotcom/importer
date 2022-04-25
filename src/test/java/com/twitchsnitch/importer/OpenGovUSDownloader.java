@@ -33,14 +33,6 @@ public class OpenGovUSDownloader {
     private final static Logger log = LoggerFactory.getLogger(OpenGovUSDownloader.class);
 
 
-
-    Set<MotorCarrierDTO> motorCarrierDTOS = new HashSet<>();
-    Set<String> motorCarriersSearchResults = new HashSet<>();
-    Set<String> motorCarriersDeltaResults = new HashSet<>();
-    Set<String> motorCarriersSearchDeltaResults = new HashSet<>();
-    Set<String> motorCarriersCompletedResults = new HashSet<>();
-
-
     Set<PhysicianDTO> physicianDTOS = new HashSet<>();
     Set<String> physicianSearchResults = new HashSet<>();
     Set<String> physicianDeltaResults = new HashSet<>();
@@ -69,14 +61,11 @@ public class OpenGovUSDownloader {
                 .registerModule(module);
     }
 
-
-    int pageSize = 1000;
-    int insurancePageSize = 1000;
-    private String iowaInsuranceURL = "https://opengovus.com/iowa-insurance-producer";
-    //Global IOWA SEARCH
-
     @Test
     public void IowaInsuranceProviders() throws IOException, URISyntaxException {
+
+        int insurancePageSize = 1000;
+        String iowaInsuranceURL = "https://opengovus.com/iowa-insurance-producer";
 
         Set<InsuranceProviderDTO> insuranceProviderDTOS = new HashSet<>();
         Set<String> insuranceSearchResults = new HashSet<>();
@@ -142,14 +131,13 @@ public class OpenGovUSDownloader {
                 }
             }
         }
-        File insurersFile = new File ("/root/IdeaProjects/importer/src/test/resources/database/insurers.json");
+        File insurersFile = new File("/root/IdeaProjects/importer/src/test/resources/database/insurers.json");
         objectMapper().writeValue(insurersFile, insuranceProviderDTOS);
 
         log.debug("insuranceSearchResults size: " + insuranceSearchResults.size());
         log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
         log.debug("insuranceSearchDeltaResults size: " + insuranceSearchDeltaResults.size());
         log.debug("insuranceCompletedResults size: " + insuranceCompletedResults.size());
-
     }
 
 
@@ -158,9 +146,9 @@ public class OpenGovUSDownloader {
         for (int i = 1; i <= pageSize; i++) {
             try {
                 if (i == 1) {
-                    doc = Jsoup.connect(url).get();
+                    doc = Jsoup.connect(url).timeout(5000).get();
                 } else {
-                    doc = Jsoup.connect(url + "?page=" + i).get();
+                    doc = Jsoup.connect(url + "?page=" + i).timeout(5000).get();
                 }
                 List<Element> trows = doc.select("tr");
                 boolean firstrow = true;
@@ -261,138 +249,153 @@ public class OpenGovUSDownloader {
 
 
     //MOTOR CARRIERS https://opengovus.com/motor-carrier
-//
-//    @Test
-//    public void motorCarrierSearch() throws InterruptedException {
-//
-//
-//        driver.get("https://opengovus.com/motor-carrier");
-//
-//        try{
-//            for(int i= 1; i < pageSize; i++){
-//                Thread.sleep(3000);
-//                System.out.println("Running Page: " + i);
-//                System.out.println("Search Results Size is: " + motorCarriersSearchResults.size());
-//                List<WebElement> trows = driver.findElementsByTagName("tr");
-//                extractMotorCarrierSearch(trows);
-//                WebElement nextPage = driver.findElementByCssSelector("body > div.container-fluid > div > div.col-sm-12.col-md-9 > div:nth-child(3) > div.panel-footer > ul > li > a");
-//                JavascriptExecutor executor = (JavascriptExecutor)driver;
-//                executor.executeScript("arguments[0].click();", nextPage);
-//            }
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//            driver.close();
-//        }
-//
-//
-//
-//    }
-//
-//    private void extractMotorCarrierSearch(List<WebElement> trows){
-//
-//        boolean firstrow = true;
-//        for(WebElement row: trows){
-//            if(firstrow){
-//                firstrow = false;
-//            }
-//            else{
-//                List<WebElement> tds = row.findElements(By.tagName("td"));
-//                EntitySearchResult entitySearchResult = new EntitySearchResult();
-//                entitySearchResult.setUrl(tds.get(0).findElement(By.tagName("a")).getAttribute("href"));
-//                entitySearchResult.setFullName(tds.get(0).getText());
-//                motorCarriersSearchResults.add(entitySearchResult);
-//                System.out.println(entitySearchResult.toString());
-//            }
-//
-//        }
-//    }
-//
-//    @Test
-//    public void motorCarrier() throws InterruptedException {
-//
-//
-//        String exampleIowaInsurance1 = "https://opengovus.com/iowa-insurance-producer/259413";
-//        String examplesIowaInsurance2 = "https://opengovus.com/iowa-insurance-producer/8848033";
-//        String exampleIowaInsurance3 = "https://opengovus.com/iowa-insurance-producer/18724548";
-//
-//        driver.get(exampleIowaInsurance1);
-//        WebElement detailsElement = driver.findElementByCssSelector("#overview > div.panel-body > div > table > tbody");
-//        List<WebElement> rows = detailsElement.findElements(By.tagName("tr"));
-//        extractInsuranceProvider(rows);
-//
-//        driver.get(examplesIowaInsurance2);
-//        WebElement detailsElement2 = driver.findElementByCssSelector("#overview > div.panel-body > div > table > tbody");
-//        List<WebElement> rows2 = detailsElement2.findElements(By.tagName("tr"));
-//        extractInsuranceProvider(rows2);
-//
-//        driver.get(exampleIowaInsurance3);
-//        WebElement detailsElement3 = driver.findElementByCssSelector("#overview > div.panel-body > div > table > tbody");
-//        List<WebElement> rows3 = detailsElement3.findElements(By.tagName("tr"));
-//        extractInsuranceProvider(rows3);
-//
-//        System.out.println("Details of the individualResults are: " + insuranceProviders.size());
-//    }
-//
-//    private void extractMotorCarrier(List<WebElement> trows){
-//
-//        boolean firstrow = true;
-//        MotorCarrier motorCarrier = new MotorCarrier();
-//        for(WebElement row: trows){
-//            if(firstrow){
-//                firstrow = false;
-//            }
-//            else{
-//                List<WebElement> variables = row.findElements(By.tagName("td"));
-//                if(variables.get(0).getText().equalsIgnoreCase("DOT Number")){
-//                    motorCarrier.setdOTNumber(variables.get(1).getText());
-//                }
-//                if(variables.get(0).getText().equalsIgnoreCase("Legal Name")){
-//                    motorCarrier.setLegalName(variables.get(1).getText());
-//                }
-//                if(variables.get(0).getText().equalsIgnoreCase("Physical Address")){
-//                    motorCarrier.setPhysicalAddress(variables.get(1).getText());
-//                }
-//                if(variables.get(0).getText().equalsIgnoreCase("Mailing Address")){
-//                    motorCarrier.setMailingAddress(variables.get(1).getText());
-//                }
-//                if(variables.get(0).getText().equalsIgnoreCase("Telephone")){
-//                    motorCarrier.setTelephone(variables.get(1).getText());
-//                }
-//                if(variables.get(0).getText().equalsIgnoreCase("Email")){
-//                    motorCarrier.setEmail(variables.get(1).getText());
-//                }
-//                if(variables.get(0).getText().equalsIgnoreCase("Carrier Operation")){
-//                    motorCarrier.setCarrierOperation(variables.get(1).getText());
-//                }
-//                if(variables.get(0).getText().equalsIgnoreCase("Placardable Hazardous Materials Threshold")){
-//                    motorCarrier.setPlacardableHazardousMaterialsThreshold(variables.get(1).getText());
-//                }
-//                if(variables.get(0).getText().equalsIgnoreCase("Passengercarrier Threshold")){
-//                    motorCarrier.setPassengercarrierThreshold(variables.get(1).getText());
-//                }
-//                if(variables.get(0).getText().equalsIgnoreCase("MCS150 Filed Date")){
-//                    motorCarrier.setmCS150FiledDate(variables.get(1).getText());
-//                }
-//                if(variables.get(0).getText().equalsIgnoreCase("Oversight State")){
-//                    motorCarrier.setOversightState(variables.get(1).getText());
-//                }
-//                if(variables.get(0).getText().equalsIgnoreCase("Number of Power Units")){
-//                    motorCarrier.setNumberOfPowerUnits(variables.get(1).getText());
-//                }
-//                if(variables.get(0).getText().equalsIgnoreCase("Number of Drivers")){
-//                    motorCarrier.setNumberOfDrivers(variables.get(1).getText());
-//                }
-//                if(variables.get(0).getText().equalsIgnoreCase("Add Date")){
-//                    motorCarrier.setAddDate(variables.get(1).getText());
-//                }
-//
-//            }
-//
-//        }
-//        motorCarriers.add(motorCarrier);
-//    }
-//
+
+    @Test
+    public void motorCarrierSearch() throws InterruptedException, IOException {
+
+        String motorCarrierUrl = "https://opengovus.com/motor-carrier";
+
+        Set<MotorCarrierDTO> motorCarrierDTOS = new HashSet<>();
+        Set<String> motorCarriersSearchResults = new HashSet<>();
+        Set<String> motorCarriersDeltaResults = new HashSet<>();
+        Set<String> motorCarriersSearchDeltaResults = new HashSet<>();
+        Set<String> motorCarriersCompletedResults = new HashSet<>();
+
+        genericSearch(motorCarrierUrl, 1, motorCarriersSearchResults);
+
+        //all the general pages x 10
+        for (String url : motorCarriersSearchResults) {
+            if (!motorCarriersCompletedResults.contains(url)) {
+                log.debug("Completed list does not contain url, fetching it: " + url);
+                Document doc = null;
+                try {
+                    doc = Jsoup.connect(url).timeout(5000).get();
+                    Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
+                    List<Element> rows = select.get(0).getElementsByTag("tr");
+                    extractMotorCarrier(url, rows, motorCarrierDTOS);
+                    motorCarriersCompletedResults.add(url);
+                    motorCarriersDeltaResults.addAll(extractExtraUrls(doc, motorCarriersSearchResults, motorCarriersCompletedResults, motorCarrierUrl));
+                    motorCarriersSearchDeltaResults.addAll(extractExtraSearchUrls(doc, url));
+                } catch (IOException e) {
+                    log.error("Couldnt connect to url: " + url);
+                }
+            }
+        }
+
+        log.debug("motorCarrierDTOS size: " + motorCarrierDTOS.size());
+        log.debug("motorCarriersSearchResults size: " + motorCarriersSearchResults.size());
+        log.debug("motorCarriersDeltaResults size: " + motorCarriersDeltaResults.size());
+        log.debug("motorCarriersSearchDeltaResults size: " + motorCarriersSearchDeltaResults.size());
+        log.debug("motorCarriersCompletedResults size: " + motorCarriersCompletedResults.size());
+
+        for (String url : motorCarriersSearchDeltaResults) {
+            for (int i = 1; i <= 2; i++) {
+                Document doc = null;
+                try {
+                    if (i == 1) {
+                        doc = Jsoup.connect(url).get();
+                    } else {
+                        doc = Jsoup.connect(url + "?page=" + i).get();
+                    }
+                    Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
+                    List<Element> rows = select.get(0).getElementsByTag("tr");
+                    extractMotorCarrier(url, rows, motorCarrierDTOS);
+                    motorCarriersCompletedResults.add(url);
+                    motorCarriersDeltaResults.addAll(extractExtraUrls(doc, motorCarriersSearchResults, motorCarriersCompletedResults, motorCarrierUrl));
+                } catch (Exception e) {
+                    log.error("Couldnt connect to url: " + url);
+                }
+
+            }
+        }
+
+        log.debug("motorCarrierDTOS size: " + motorCarrierDTOS.size());
+        log.debug("motorCarriersSearchResults size: " + motorCarriersSearchResults.size());
+        log.debug("motorCarriersDeltaResults size: " + motorCarriersDeltaResults.size());
+        log.debug("motorCarriersSearchDeltaResults size: " + motorCarriersSearchDeltaResults.size());
+        log.debug("motorCarriersCompletedResults size: " + motorCarriersCompletedResults.size());
+
+        for (String url : motorCarriersDeltaResults) {
+            if (!motorCarriersCompletedResults.contains(url)) {
+                log.trace("Completed list does not contain url, fetching it: " + url);
+                Document doc = null;
+                try {
+                    doc = Jsoup.connect(url).timeout(5000).get();
+                    Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
+                    List<Element> rows = select.get(0).getElementsByTag("tr");
+                    extractMotorCarrier(url, rows, motorCarrierDTOS);
+                    motorCarriersCompletedResults.add(url);
+                } catch (IOException e) {
+                    log.error("Couldnt connect to url: " + url);
+                }
+            }
+        }
+
+        log.debug("motorCarrierDTOS size: " + motorCarrierDTOS.size());
+        log.debug("motorCarriersSearchResults size: " + motorCarriersSearchResults.size());
+        log.debug("motorCarriersDeltaResults size: " + motorCarriersDeltaResults.size());
+        log.debug("motorCarriersSearchDeltaResults size: " + motorCarriersSearchDeltaResults.size());
+        log.debug("motorCarriersCompletedResults size: " + motorCarriersCompletedResults.size());
+
+        File motorCarriersFile = new File("/root/IdeaProjects/importer/src/test/resources/database/motorcarriers.json");
+        objectMapper().writeValue(motorCarriersFile, motorCarrierDTOS);
+
+    }
+
+
+    private void extractMotorCarrier(String url, List<Element> trows, Set<MotorCarrierDTO> motorCarrierDTOS) {
+
+        MotorCarrierDTO motorCarrier = new MotorCarrierDTO();
+        motorCarrier.setUrl(url);
+        for (Element row : trows) {
+            List<Element> variables = row.getElementsByTag("td");
+            if (variables.get(0).text().equalsIgnoreCase("DOT Number")) {
+                motorCarrier.setdOTNumber(variables.get(1).text());
+            }
+            if (variables.get(0).text().equalsIgnoreCase("Legal Name")) {
+                motorCarrier.setLegalName(variables.get(1).text());
+            }
+            if (variables.get(0).text().equalsIgnoreCase("Physical Address")) {
+                motorCarrier.setPhysicalAddress(variables.get(1).text());
+            }
+            if (variables.get(0).text().equalsIgnoreCase("Mailing Address")) {
+                motorCarrier.setMailingAddress(variables.get(1).text());
+            }
+            if (variables.get(0).text().equalsIgnoreCase("Telephone")) {
+                motorCarrier.setTelephone(variables.get(1).text());
+            }
+            if (variables.get(0).text().equalsIgnoreCase("Email")) {
+                motorCarrier.setEmail(variables.get(1).text());
+            }
+            if (variables.get(0).text().equalsIgnoreCase("Carrier Operation")) {
+                motorCarrier.setCarrierOperation(variables.get(1).text());
+            }
+            if (variables.get(0).text().equalsIgnoreCase("Placardable Hazardous Materials Threshold")) {
+                motorCarrier.setPlacardableHazardousMaterialsThreshold(variables.get(1).text());
+            }
+            if (variables.get(0).text().equalsIgnoreCase("Passengercarrier Threshold")) {
+                motorCarrier.setPassengercarrierThreshold(variables.get(1).text());
+            }
+            if (variables.get(0).text().equalsIgnoreCase("MCS150 Filed Date")) {
+                motorCarrier.setmCS150FiledDate(variables.get(1).text());
+            }
+            if (variables.get(0).text().equalsIgnoreCase("Oversight State")) {
+                motorCarrier.setOversightState(variables.get(1).text());
+            }
+            if (variables.get(0).text().equalsIgnoreCase("Number of Power Units")) {
+                motorCarrier.setNumberOfPowerUnits(variables.get(1).text());
+            }
+            if (variables.get(0).text().equalsIgnoreCase("Number of Drivers")) {
+                motorCarrier.setNumberOfDrivers(variables.get(1).text());
+            }
+            if (variables.get(0).text().equalsIgnoreCase("Add Date")) {
+                motorCarrier.setAddDate(variables.get(1).text());
+            }
+
+        }
+        motorCarrierDTOS.add(motorCarrier);
+    }
+
 //
 //
 //    //MEDICAL DOCTORS https://opengovus.com/physician
