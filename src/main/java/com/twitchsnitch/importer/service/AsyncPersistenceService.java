@@ -48,6 +48,7 @@ public class AsyncPersistenceService {
     }
 
 
+    @Async
     public void persistTeamsAsync(Integer index, Set<String> urls){
         for (String url : urls) {
             try {
@@ -59,6 +60,7 @@ public class AsyncPersistenceService {
     }
 
 
+    @Async
     public void persistGamesAsync(Integer index, Set<String> urls){
         for (String url : urls) {
             try {

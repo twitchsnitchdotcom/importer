@@ -644,11 +644,15 @@ public class TwitchDataService {
     public void importTwitchUsers() {
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
         Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId();
-        List<Set<String>> setsOf100 = SplittingUtils.choppedSet(usersWithoutTwitchId, 100);
-        for (Set<String> chunk : setsOf100) {
-            Map map = runGetUsers(chunk, localToken);
+        for (String user : usersWithoutTwitchId) {
+            Map map = runGetUser(user, localToken);
             persistenceService.updateUserWithTwitchData(map);
         }
+//        List<Set<String>> setsOf100 = SplittingUtils.choppedSet(usersWithoutTwitchId, 100);
+//        for (Set<String> chunk : setsOf100) {
+//            Map map = runGetUsers(chunk, localToken);
+//            persistenceService.updateUserWithTwitchData(map);
+//        }
         persistenceService.getTwitchIdNotSetCountUser();
     }
 
@@ -845,6 +849,24 @@ public class TwitchDataService {
             e.printStackTrace();
         }
         log.debug("");
+        return null;
+    }
+
+    public Map runGetUser(String loginName, OAuthTokenDTO oAuthTokenDTO) {
+        StringBuilder url = new StringBuilder("https://api.twitch.tv/helix/users?login=" + loginName);
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    url.toString(),
+                    HttpMethod.GET,
+                    getGenericHttpRequest(oAuthTokenDTO),
+                    String.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                return objectMapper().readValue(response.getBody(), Map.class);
+            }
+        } catch (HttpClientErrorException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
