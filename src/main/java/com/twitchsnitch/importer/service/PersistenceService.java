@@ -409,7 +409,7 @@ public class PersistenceService {
 
     public void updateUserWithTwitchData(Map json) {
         ResultSummary run = client.query("UNWIND $json.data as user " +
-                "MATCH (u:User) WHERE u.login = user.login SET u.twitch_id = user.id, u.created_at = datetime(user.created_at), u.total_view_count = user.view_count;").in(database).bind(json).to("json").run();
+                "MATCH (u:User) WHERE u.login = user.login SET u.twitch_id = user.id, u.twitch_created_at = datetime(user.created_at), u.twitch_total_view_count = user.view_count;").in(database).bind(json).to("json").run();
         logResultSummaries("updateUserWithTwitchData", run);
     }
 

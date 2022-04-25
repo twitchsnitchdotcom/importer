@@ -644,15 +644,15 @@ public class TwitchDataService {
     public void importTwitchUsers() {
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
         Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId();
-        for (String user : usersWithoutTwitchId) {
-            Map map = runGetUser(user, localToken);
-            persistenceService.updateUserWithTwitchData(map);
-        }
-//        List<Set<String>> setsOf100 = SplittingUtils.choppedSet(usersWithoutTwitchId, 100);
-//        for (Set<String> chunk : setsOf100) {
-//            Map map = runGetUsers(chunk, localToken);
+//        for (String user : usersWithoutTwitchId) {
+//            Map map = runGetUser(user, localToken);
 //            persistenceService.updateUserWithTwitchData(map);
 //        }
+        List<Set<String>> setsOf100 = SplittingUtils.choppedSet(usersWithoutTwitchId, 100);
+        for (Set<String> chunk : setsOf100) {
+            Map map = runGetUsers(chunk, localToken);
+            persistenceService.updateUserWithTwitchData(map);
+        }
         persistenceService.getTwitchIdNotSetCountUser();
     }
 
