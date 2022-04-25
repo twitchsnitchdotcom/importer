@@ -104,12 +104,13 @@ public class OpenGovUSDownloader {
                 //log.error("Didint work: " + proxy.getIp());
             }
 
-            for (ProxyDTO validProxy : validProxies) {
-                log.debug(validProxy.getIp(), validProxy.getIpPort());
-            }
+
 
         }
 
+        for (ProxyDTO validProxy : validProxies) {
+            log.debug(validProxy.getIp(), validProxy.getIpPort());
+        }
     }
 
 
@@ -122,6 +123,7 @@ public class OpenGovUSDownloader {
 
         Set<InsuranceProviderDTO> insuranceProviderDTOS = new HashSet<>();
         Set<String> insuranceSearchResults = new HashSet<>();
+        Set<String> insuranceErrorResults = new HashSet<>();
         Set<String> insuranceDeltaResults = new HashSet<>();
         Set<String> insuranceSearchDeltaResults = new HashSet<>();
         Set<String> insuranceCompletedResults = new HashSet<>();
@@ -144,6 +146,7 @@ public class OpenGovUSDownloader {
                     log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
                 } catch (Exception e) {
                     log.error("Issue adding all the general pages");
+                    insuranceErrorResults.add(url);
                 }
             }
         }
@@ -186,9 +189,30 @@ public class OpenGovUSDownloader {
                     log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
                 } catch (Exception e) {
                     log.error("Issue with final results: " + url);
+                    insuranceErrorResults.add(url);
                 }
             }
         }
+
+        //add all the final results
+        for (String url : insuranceErrorResults) {
+            if (!insuranceCompletedResults.contains(url)) {
+                log.trace("Completed list does not contain url, fetching it: " + url);
+                Document doc = null;
+                try {
+                    ProxyDTO randomProxy = getRandomProxy();
+                    doc = Jsoup.connect(url).proxy(randomProxy.getIp(), Integer.parseInt(randomProxy.getPort())).timeout(5000).get();
+                    Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
+                    List<Element> rows = select.get(0).getElementsByTag("tr");
+                    extractInsuranceProvider(url, rows, insuranceProviderDTOS);
+                    insuranceCompletedResults.add(url);
+                    log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
+                } catch (Exception e) {
+                    log.error("Issue with final results: " + url);
+                }
+            }
+        }
+
         File insurersFile = new File("/root/IdeaProjects/importer/src/test/resources/database/insurers.json");
         objectMapper().writeValue(insurersFile, insuranceProviderDTOS);
 
@@ -202,6 +226,7 @@ public class OpenGovUSDownloader {
     public void genericSearch(String url, int pageSize, Set<String> searchResults) {
         Document doc = null;
         for (int i = 1; i <= pageSize; i++) {
+            log.debug("Running page: " + i +  " searchResultsSize is: " + searchResults.size());
             try {
                 if (i == 1) {
                     ProxyDTO randomProxy = getRandomProxy();
@@ -319,6 +344,7 @@ public class OpenGovUSDownloader {
         Set<MotorCarrierDTO> motorCarrierDTOS = new HashSet<>();
         Set<String> motorCarriersSearchResults = new HashSet<>();
         Set<String> motorCarriersDeltaResults = new HashSet<>();
+        Set<String> motorCarrierErrorResults = new HashSet<>();
         Set<String> motorCarriersSearchDeltaResults = new HashSet<>();
         Set<String> motorCarriersCompletedResults = new HashSet<>();
 
@@ -341,6 +367,7 @@ public class OpenGovUSDownloader {
                     log.debug("motorCarrierDTOS size: " + motorCarrierDTOS.size());
                 } catch (Exception e) {
                     log.error("Issue in connect to url: " + url + " with the generic pages");
+                    motorCarrierErrorResults.add(url);
                 }
             }
         }
@@ -364,8 +391,6 @@ public class OpenGovUSDownloader {
                     }
                     Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
                     List<Element> rows = select.get(0).getElementsByTag("tr");
-                    extractMotorCarrier(url, rows, motorCarrierDTOS);
-                    motorCarriersCompletedResults.add(url);
                     motorCarriersDeltaResults.addAll(extractExtraUrls(doc, motorCarriersSearchResults, motorCarriersCompletedResults, motorCarrierUrl));
                     log.debug("motorCarrierDTOS size: " + motorCarrierDTOS.size());
                 } catch (Exception e) {
@@ -382,6 +407,25 @@ public class OpenGovUSDownloader {
         log.debug("motorCarriersCompletedResults size: " + motorCarriersCompletedResults.size());
 
         for (String url : motorCarriersDeltaResults) {
+            if (!motorCarriersCompletedResults.contains(url)) {
+                log.trace("Completed list does not contain url, fetching it: " + url);
+                Document doc = null;
+                try {
+                    ProxyDTO randomProxy = getRandomProxy();
+                    doc = Jsoup.connect(url).proxy(randomProxy.getIp(), Integer.parseInt(randomProxy.getPort())).timeout(5000).get();
+                    Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
+                    List<Element> rows = select.get(0).getElementsByTag("tr");
+                    extractMotorCarrier(url, rows, motorCarrierDTOS);
+                    motorCarriersCompletedResults.add(url);
+                    log.debug("motorCarrierDTOS size: " + motorCarrierDTOS.size());
+                } catch (Exception e) {
+                    log.error("Couldnt connect to url in the final collection loop: " + url);
+                    motorCarrierErrorResults.add(url);
+                }
+            }
+        }
+
+        for (String url : motorCarrierErrorResults) {
             if (!motorCarriersCompletedResults.contains(url)) {
                 log.trace("Completed list does not contain url, fetching it: " + url);
                 Document doc = null;
