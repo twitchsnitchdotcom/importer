@@ -88,8 +88,8 @@ public class OpenGovUSDownloader {
                     insuranceDeltaResults.addAll(extractExtraUrls(doc, insuranceSearchResults, insuranceCompletedResults, iowaInsuranceURL));
                     insuranceSearchDeltaResults.addAll(extractExtraSearchUrls(doc, url));
                     log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    log.error("Issue adding all the general pages");
                 }
             }
         }
@@ -106,7 +106,7 @@ public class OpenGovUSDownloader {
                 doc = Jsoup.connect(url).timeout(5000).get();
                 insuranceDeltaResults.addAll(extractExtraUrls(doc, insuranceSearchResults, insuranceCompletedResults, iowaInsuranceURL));
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error("Issue with addin the delta search results: " + url);
             }
         }
 
@@ -129,7 +129,7 @@ public class OpenGovUSDownloader {
                     insuranceCompletedResults.add(url);
                     log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    log.error("Issue with final results: " + url);
                 }
             }
         }
@@ -163,7 +163,7 @@ public class OpenGovUSDownloader {
                     }
                 }
             } catch (Exception e) {
-                log.error("Couldnt connect to url: " + url);
+                log.error("Error in generic search, connect to url: " + url);
             }
         }
     }
@@ -280,7 +280,7 @@ public class OpenGovUSDownloader {
                     motorCarriersSearchDeltaResults.addAll(extractExtraSearchUrls(doc, url));
                     log.debug("motorCarrierDTOS size: " + motorCarrierDTOS.size());
                 } catch (Exception e) {
-                    log.error("Couldnt connect to url: " + url);
+                    log.error("Issue in connect to url: " + url + " with the generic pages");
                 }
             }
         }
@@ -307,7 +307,7 @@ public class OpenGovUSDownloader {
                     motorCarriersDeltaResults.addAll(extractExtraUrls(doc, motorCarriersSearchResults, motorCarriersCompletedResults, motorCarrierUrl));
                     log.debug("motorCarrierDTOS size: " + motorCarrierDTOS.size());
                 } catch (Exception e) {
-                    log.error("Couldnt connect to url: " + url);
+                    log.error("Couldnt connect to url: " + url + "when looking in the delta search results");
                 }
 
             }
@@ -331,7 +331,7 @@ public class OpenGovUSDownloader {
                     motorCarriersCompletedResults.add(url);
                     log.debug("motorCarrierDTOS size: " + motorCarrierDTOS.size());
                 } catch (Exception e) {
-                    log.error("Couldnt connect to url: " + url);
+                    log.error("Couldnt connect to url in the final collection loop: " + url);
                 }
             }
         }
