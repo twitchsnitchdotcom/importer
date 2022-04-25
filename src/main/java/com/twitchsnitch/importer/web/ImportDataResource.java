@@ -59,8 +59,6 @@ public class ImportDataResource {
         twitchDataService.importGames();
         Thread.sleep(5000);
         twitchDataService.importTeams();
-
-
     }
 
     @GetMapping("/phase/2")
@@ -87,7 +85,7 @@ public class ImportDataResource {
 
         twitchDataService.importFollowsTo();
         twitchDataService.importFollowsFrom();
-        twitchDataService.importLiveStreams(null);
+        twitchDataService.importLiveStreams();
         twitchDataService.importGameFinder();
         twitchDataService.importRaidPicker();
         twitchDataService.importChattersOnDB();
@@ -140,7 +138,6 @@ public class ImportDataResource {
         twitchDataService.importChattersOnDB();
     }
 
-
     @GetMapping("/import/games")
     public void importGames() {
         twitchDataService.importGames();
@@ -160,7 +157,6 @@ public class ImportDataResource {
     public void importFollowsFrom() {
         twitchDataService.importFollowsFrom();
     }
-
 
     @GetMapping("/import/channels/games")
     public void importChannelGames() {
@@ -184,7 +180,7 @@ public class ImportDataResource {
 
     @GetMapping("/import/streams")
     public void importStreams() {
-        twitchDataService.importLiveStreams(100);
+        twitchDataService.importLiveStreams();
     }
 
     @GetMapping("/import/game/finder")

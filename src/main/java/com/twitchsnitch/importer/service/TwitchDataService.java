@@ -712,7 +712,7 @@ public class TwitchDataService {
     }
 
     @Async
-    public void importLiveStreams(Integer limit) {
+    public void importLiveStreams() {
         liveStreamers = new HashSet<>();
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
         try {
@@ -724,7 +724,7 @@ public class TwitchDataService {
                 }
             }
             String cursor = resultList.getPagination().getCursor();
-            while (cursor != null && liveStreamers.size() < limit) {
+            while (cursor != null) {
                 StreamListDTO loopList = runGetLiveStreams(randomToken, cursor);
                 persistenceService.persistTwitchStreams(resultList.getMap());
                 for (StreamDTO stream : loopList.getStreams()) {

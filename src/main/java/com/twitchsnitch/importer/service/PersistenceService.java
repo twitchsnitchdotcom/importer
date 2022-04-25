@@ -416,13 +416,13 @@ public class PersistenceService {
     public void updateTeamWithTwitchData(String login, Map json) {
         ResultSummary run = client.query("UNWIND $json.data as row \n" +
                         "MATCH (t:Team{login:$login})\n" +
-                        "SET t.created_at = datetime(replace(trim(split(row.created_at,\"+\")[0]), \" \", \"T\")),\n" +
-                        "    t.updated_at = datetime(replace(trim(split(row.updated_at,\"+\")[0]), \" \", \"T\")),\n" +
-                        "    t.info = row.info,\n" +
+                        "SET t.twitch_created_at = datetime(replace(trim(split(row.created_at,\"+\")[0]), \" \", \"T\")),\n" +
+                        "    t.twitch_updated_at = datetime(replace(trim(split(row.updated_at,\"+\")[0]), \" \", \"T\")),\n" +
+                        "    t.twitch_info = row.info,\n" +
                         "    t.twitch_id = row.id\n" +
                         "    WITH row,t\n" +
                         "    UNWIND row.users as member\n" +
-                        "MERGE (u:User{login:member.user_login})\n" +
+                        "MERGE (u:User{login:member.user_login, twitch_id:member.user_id, name:member.user_name})\n" +
                         "MERGE (u)-[:MEMBER_OF]->(t);").in(database)
                 .bind(json).to("json")
                 .bind(login).to("login")
@@ -510,7 +510,7 @@ public class PersistenceService {
                         "                    MERGE (f:User{login:follower.from_login})\n" +
                         "                    MERGE (t:User{login:follower.to_login})\n" +
                         "                    SET t.twitch_followers_to = $json.total\n" +
-                        "                    MERGE (f)-[:FOLLOWS{followed_at:datetime(follower.followed_at)}]->(t);\n"
+                        "                    MERGE (f)-[:FOLLOWS{twitch_followed_at:datetime(follower.followed_at)}]->(t);\n"
                 ).in(database)
                 .bind(jsonMap).to("json")
                 .run();
@@ -524,7 +524,7 @@ public class PersistenceService {
                         "                    MERGE (f:User{login:follower.from_login})\n" +
                         "                    SET f.twitch_followers_from = $json.total\n" +
                         "                    MERGE (t:User{login:follower.to_login})\n" +
-                        "                    MERGE (f)-[:FOLLOWS{followed_at:datetime(follower.followed_at)}]->(t);\n"
+                        "                    MERGE (f)-[:FOLLOWS{twitch_followed_at:datetime(follower.followed_at)}]->(t);\n"
                 ).in(database)
                 .bind(jsonMap).to("json")
                 .run();
