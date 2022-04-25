@@ -5,7 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/corporates.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/corporates_errors.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/doctors.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/doctors_errors.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/estateagents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/estateagents_errors.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/insurers_errors.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/lawyers.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/lawyers_errors.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/motorcarriers_errors.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/OpenGovUSDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/OpenGovUSDownloader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/LawyerDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/LawyerDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/proxy/ProxyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/proxy/ProxyDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +70,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/proxy" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/resources/database" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -65,11 +78,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources/database" />
       <recent name="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/proxy" />
       <recent name="$PROJECT_DIR$/src/test/resources" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
-      <recent name="$PROJECT_DIR$/src/main/resources/config" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender" />
@@ -82,7 +95,7 @@
       <recent name="com.twitchsnitch.importer.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.OpenGovUSDownloader.testProxies">
+  <component name="RunManager" selected="JUnit.OpenGovUSDownloader.buildProxies">
     <configuration name="OpenGovUSDownloader.IowaInsuranceProviders" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="importer" />
       <extension name="coverage">
@@ -94,6 +107,22 @@
       <option name="PACKAGE_NAME" value="com.twitchsnitch.importer" />
       <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.OpenGovUSDownloader" />
       <option name="METHOD_NAME" value="IowaInsuranceProviders" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OpenGovUSDownloader.buildProxies" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="importer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.twitchsnitch.importer" />
+      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.OpenGovUSDownloader" />
+      <option name="METHOD_NAME" value="buildProxies" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -147,29 +176,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ReactiveWebClientTest.basicTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="importer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.twitchsnitch.importer" />
-      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.ReactiveWebClientTest" />
-      <option name="METHOD_NAME" value="basicTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.OpenGovUSDownloader.buildProxies" />
         <item itemvalue="JUnit.OpenGovUSDownloader.testProxies" />
         <item itemvalue="JUnit.OpenGovUSDownloader.motorCarrierSearch" />
         <item itemvalue="JUnit.OpenGovUSDownloader.IowaInsuranceProviders" />
         <item itemvalue="JUnit.OpenGovUSDownloader.insuranceProviderSearch" />
-        <item itemvalue="JUnit.ReactiveWebClientTest.basicTest" />
       </list>
     </recent_temporary>
   </component>

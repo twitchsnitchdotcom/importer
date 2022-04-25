@@ -303,4 +303,31 @@ public class ProxyDTO {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public String toString() {
+        return "ProxyDTO{" +
+                "supportsHttps=" + supportsHttps +
+                ", protocol='" + protocol + '\'' +
+                ", ip='" + ip + '\'' +
+                ", port='" + port + '\'' +
+                ", get=" + get +
+                ", post=" + post +
+                ", cookies=" + cookies +
+                ", referer=" + referer +
+                ", userAgent=" + userAgent +
+                ", anonymityLevel=" + anonymityLevel +
+                ", websites=" + websites +
+                ", country='" + country + '\'' +
+                ", unixTimestampMs=" + unixTimestampMs +
+                ", tsChecked=" + tsChecked +
+                ", unixTimestamp=" + unixTimestamp +
+                ", curl='" + curl + '\'' +
+                ", ipPort='" + ipPort + '\'' +
+                ", type='" + type + '\'' +
+                ", speed=" + speed +
+                ", otherProtocols=" + otherProtocols +
+                ", verifiedSecondsAgo=" + verifiedSecondsAgo +
+                ", additionalProperties=" + additionalProperties +
+                '}';
+    }
 }

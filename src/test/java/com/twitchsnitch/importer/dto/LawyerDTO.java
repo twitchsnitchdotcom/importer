@@ -1,6 +1,8 @@
 package com.twitchsnitch.importer.dto;
 
 public class LawyerDTO {
+
+    private String url;
     private String wSBANumber; //59130
     private String fullName; //	Allyson Boney Evans
     private String lastName; //	Evans
@@ -16,6 +18,30 @@ public class LawyerDTO {
     private PracticeInformationDTO practiceInformationDTO;
 
     private CompanyPracticeDTO companyPracticeDTO;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public PracticeInformationDTO getPracticeInformationDTO() {
+        return practiceInformationDTO;
+    }
+
+    public void setPracticeInformationDTO(PracticeInformationDTO practiceInformationDTO) {
+        this.practiceInformationDTO = practiceInformationDTO;
+    }
+
+    public CompanyPracticeDTO getCompanyPracticeDTO() {
+        return companyPracticeDTO;
+    }
+
+    public void setCompanyPracticeDTO(CompanyPracticeDTO companyPracticeDTO) {
+        this.companyPracticeDTO = companyPracticeDTO;
+    }
 
     public CompanyPracticeDTO getCompanyPractice() {
         return companyPracticeDTO;
