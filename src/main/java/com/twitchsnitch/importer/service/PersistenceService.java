@@ -542,8 +542,8 @@ public class PersistenceService {
                         "                    c.view_minutes = channel.viewminutes,\n" +
                         "                    c:User,\n" +
                         "                    c.streamed_minutes = channel.streamedminutes,\n" +
-                        "                    c.max_viewers = channel.maxviewers,\n" +
-                        "                    c.avg_viewers = channel.avgviewers,\n" +
+                        "                    c.peak_viewers = channel.maxviewers,\n" +
+                        "                    c.average_viewers = channel.avgviewers,\n" +
                         "                    c.followers_gained = channel.followersgained,\n" +
                         "                    c.views_gained = channel.viewsgained,\n" +
                         "                    c.partner = channel.partner,\n" +
@@ -582,14 +582,13 @@ public class PersistenceService {
         ResultSummary run = client.query("UNWIND $json.data as team\n" +
                         "MERGE (t:Team{name:team.name})\n" +
                         "          SET       t.members = team.members,\n" +
-                        "                    t.stream_time = team.streamtime,\n" +
-                        "                    t.watch_time = team.watchtime,\n" +
-                        "                    t.max_viewers = team.maxviewers,\n" +
-                        "                    t.avg_viewers = team.avgviewers,\n" +
-                        "                    t.max_channels = team.maxchannels,\n" +
-                        "                    t.avg_channels = team.avgchannels,\n" +
+                        "                    t.stream_time_hours = team.streamtime,\n" +
+                        "                    t.watch_time_hours = team.watchtime,\n" +
+                        "                    t.peak_viewers = team.maxviewers,\n" +
+                        "                    t.average_viewers = team.avgviewers,\n" +
+                        "                    t.peak_channels = team.maxchannels,\n" +
+                        "                    t.average_channels = team.avgchannels,\n" +
                         "                    t.login = team.twitchurl,\n" +
-                        "                    t.row_number = team.rownum,\n" +
                         "                    t.sully_id = team.id,\n" +
                         "                    t.profile_image_url = team.logo;").in(database)
                 .bind(jsonMap).to("json")
@@ -642,26 +641,25 @@ public class PersistenceService {
                         "MERGE (g:Game{name:game.name})\n" +
                         "            SET     g.view_minutes = game.viewminutes,\n" +
                         "                    g.streamed_minutes = game.streamedminutes,\n" +
-                        "                    g.row_number = game.rownum,\n" +
-                        "                    g.max_channels = game.maxchannels,\n" +
+                        "                    g.peak_channels = game.maxchannels,\n" +
                         "                    g.unique_channels = game.uniquechannels,\n" +
-                        "                    g.avg_channels = game.avgchannels,\n" +
-                        "                    g.max_viewers = game.maxviewers,\n" +
-                        "                    g.avg_viewers = game.avgviewers,\n" +
-                        "                    g.avg_ratio = game.avgratio,\n" +
+                        "                    g.average_channels = game.avgchannels,\n" +
+                        "                    g.peak_viewers = game.maxviewers,\n" +
+                        "                    g.average_viewers = game.avgviewers,\n" +
+                        "                    g.average_ratio = game.avgratio,\n" +
                         "                    g.views_gained = game.viewsgained,\n" +
                         "                    g.followers_gained = game.followersgained,\n" +
                         "                    g.previous_view_minutes = game.previousviewminutes,\n" +
                         "                    g.previous_streamed_minutes = game.previousstreamedminutes,\n" +
-                        "                    g.previous_max_channels = game.previousmaxchannels,\n" +
+                        "                    g.previous_peak_channels = game.previousmaxchannels,\n" +
                         "                    g.previous_unique_channels = game.previousuniquechannels,\n" +
-                        "                    g.previous_avg_channels = game.previousavgchannels,\n" +
-                        "                    g.previous_max_viewers = game.previousmaxviewers,\n" +
-                        "                    g.previous_avg_viewers = game.previousavgviewers,\n" +
-                        "                    g.previous_avg_ratio = game.previousavgratio,\n" +
-                        "                    g.previous_vphs = game.previousvphs,\n" +
-                        "                    g.fphs = game.fphs,\n" +
-                        "                    g.vphs = game.vphs,\n" +
+                        "                    g.previous_average_channels = game.previousavgchannels,\n" +
+                        "                    g.previous_peak_viewers = game.previousmaxviewers,\n" +
+                        "                    g.previous_average_viewers = game.previousavgviewers,\n" +
+                        "                    g.previous_average_ratio = game.previousavgratio,\n" +
+                        "                    g.previous_views_gained_per_hour = game.previousvphs,\n" +
+                        "                    g.followers_gained_per_hour = game.fphs,\n" +
+                        "                    g.viewers_gained_per_hour = game.vphs,\n" +
                         "                    g.sully_id = game.id,\n" +
                         "                    g.logo = game.logo;").in(database)
                 .bind(jsonMap).to("json")
