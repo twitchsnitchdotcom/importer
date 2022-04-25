@@ -311,7 +311,7 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsTo = new HashSet<>();
         Collection<Map<String, Object>> all;
 
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_to IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC").in(database).fetch().all();
+            all = client.query("MATCH (c:User) WHERE c.twitch_follows_to IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC").in(database).fetch().all();
 
 
         for (Map<String, Object> objectMap : all) {
@@ -330,7 +330,7 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsFrom = new HashSet<>();
         Collection<Map<String, Object>> all;
 
-            all = client.query("MATCH (c:Channel) WHERE c.twitch_follows_from IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC").in(database).fetch().all();
+            all = client.query("MATCH (c:User) WHERE c.twitch_follows_from IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC").in(database).fetch().all();
 
 
         for (Map<String, Object> objectMap : all) {
