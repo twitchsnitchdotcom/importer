@@ -145,6 +145,11 @@ public class OpenGovUSDownloader {
         File insurersFile = new File ("/root/IdeaProjects/importer/src/test/resources/database/insurers.json");
         objectMapper().writeValue(insurersFile, insuranceProviderDTOS);
 
+        log.debug("insuranceSearchResults size: " + insuranceSearchResults.size());
+        log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
+        log.debug("insuranceSearchDeltaResults size: " + insuranceSearchDeltaResults.size());
+        log.debug("insuranceCompletedResults size: " + insuranceCompletedResults.size());
+
     }
 
 
