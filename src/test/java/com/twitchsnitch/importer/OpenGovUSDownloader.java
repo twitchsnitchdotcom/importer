@@ -270,7 +270,7 @@ public class OpenGovUSDownloader {
                 Document doc = null;
                 try {
                     doc = Jsoup.connect(url).timeout(5000).get();
-                    Elements select = doc.select("#search-result > div.panel-body > div > table > tbody");
+                    Elements select = doc.select("#entity-overview > div.panel-body > div > table > tbody");
                     List<Element> rows = select.get(0).getElementsByTag("tr");
                     extractMotorCarrier(url, rows, motorCarrierDTOS);
                     motorCarriersCompletedResults.add(url);
@@ -293,9 +293,9 @@ public class OpenGovUSDownloader {
                 Document doc = null;
                 try {
                     if (i == 1) {
-                        doc = Jsoup.connect(url).get();
+                        doc = Jsoup.connect(url).timeout(5000).get();
                     } else {
-                        doc = Jsoup.connect(url + "?page=" + i).get();
+                        doc = Jsoup.connect(url + "?page=" + i).timeout(5000).get();
                     }
                     Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
                     List<Element> rows = select.get(0).getElementsByTag("tr");
