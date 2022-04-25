@@ -68,17 +68,17 @@ public class OpenGovUSDownloader {
                 .registerModule(module);
     }
 
-     <E> E getRandomSetElement(Set<E> set) {
+    <E> E getRandomSetElement(Set<E> set) {
         return set.stream().skip(new Random().nextInt(set.size())).findFirst().orElse(null);
     }
 
-    public ProxyDTO getRandomProxy(){
+    public ProxyDTO getRandomProxy() {
         return getRandomSetElement(validProxies);
     }
 
     public void buildProxies() throws IOException {
         Set<ProxyDTO> untestedProxies = new HashSet<>();
-        for(int i = 0; i <= 100; i++){
+        for (int i = 0; i <= 50; i++) {
             ResponseEntity<ProxyDTO> response = restTemplate.exchange(
                     "https://gimmeproxy.com/api/getProxy?get=true",
                     HttpMethod.GET, null,
@@ -86,24 +86,25 @@ public class OpenGovUSDownloader {
             untestedProxies.add(response.getBody());
         }
 
-        for(ProxyDTO proxyDTO: untestedProxies){
-            try{
-                Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyDTO.getIp(), Integer.parseInt(proxyDTO.getPort())));
-                SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-                RestTemplate restTemplate = new RestTemplate(requestFactory);
-                requestFactory.setProxy(proxy);
-                ResponseEntity<String> responseEntity = restTemplate.getForEntity("https://opengovus.com/motor-carrier/3665722", String.class);
-                if(responseEntity.getStatusCode().equals(HttpStatus.OK)){
-                    log.debug("Proxy worked: " + proxy);
-                    validProxies.add(proxyDTO);
-                }
+        for (ProxyDTO proxyDTO : untestedProxies) {
+            try {
 
-            }
-            catch(Exception e){
+                Document test = Jsoup //
+                        .connect("https://opengovus.com/motor-carrier/3665722") //
+                        .timeout(5000)
+                        .proxy(proxyDTO.getIp(), Integer.parseInt(proxyDTO.getPort())) // sets a HTTP proxy
+                        .userAgent("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2") //
+                        .header("Content-Language", "en-US") //
+                        .get();
+                log.debug("Proxy worked: " + proxy);
+                validProxies.add(proxy);
+
+
+            } catch (Exception e) {
                 //log.error("Didint work: " + proxy.getIp());
             }
 
-            for(ProxyDTO validProxy: validProxies){
+            for (ProxyDTO validProxy : validProxies) {
                 log.debug(validProxy.getIp(), validProxy.getIpPort());
             }
 
