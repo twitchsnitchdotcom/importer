@@ -84,7 +84,7 @@ public class OpenGovUSDownloader {
         Set<String> insuranceSearchDeltaResults = new HashSet<>();
         Set<String> insuranceCompletedResults = new HashSet<>();
 
-        genericSearch(iowaInsuranceURL, 1, insuranceSearchResults);
+        genericSearch(iowaInsuranceURL, insurancePageSize, insuranceSearchResults);
         //all the general pages
         for (String url : insuranceSearchResults) {
             if (!insuranceCompletedResults.contains(url)) {
@@ -127,7 +127,7 @@ public class OpenGovUSDownloader {
 
 
         //add all the final results
-        for (String url : SplittingUtils.splitIntoMultipleSets(insuranceDeltaResults, 200).get(0)) {
+        for (String url : insuranceDeltaResults) {
             if (!insuranceCompletedResults.contains(url)) {
                 log.trace("Completed list does not contain url, fetching it: " + url);
                 Document doc = null;
