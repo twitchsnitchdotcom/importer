@@ -452,7 +452,7 @@ public class PersistenceService {
                 "  //Store information about regular users\n" +
                 "  FOREACH (chatter in chatters.viewers | \n" +
                 "          MERGE (u:User{login:chatter}) \n" +
-                "          MERGE (u)-[c:CHATTER]->(s))',\n" +
+                "          MERGE (u)-[c:CHATTER{date:datetime()}]->(s))',\n" +
                 "{batchSize:1})").in(database).run();
         logResultSummaries("runChattersOnDB", run);
     }
