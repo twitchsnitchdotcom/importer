@@ -1,0 +1,32 @@
+{
+  "data": {
+    "authority": {
+      "id": "LV_body_c4f6f114d4c38fc36aebbf433df294ef1e69e694dfb18b098500cf53900648cb",
+      "body": {
+        "processingOrder": "2021-02-04 13:34:27.77967500",
+        "name": "Balvu novada pašvaldība",
+        "address": {
+          "street": "Bērzpils iela 1A",
+          "city": "Balvi",
+          "postcode": "LV-4501",
+          "nuts": [
+            "LV005"
+          ],
+          "country": "LV",
+          "ot": {
+            "nutscode": "LV005"
+          }
+        },
+        "contactPoint": "Balvu novada pašvaldība",
+        "contactName": "Inga Puriņa - Eglīte",
+        "email": "blah",
+        "phone": "64522805",
+        "id": "LV_body_c4f6f114d4c38fc36aebbf433df294ef1e69e694dfb18b098500cf53900648cb"
+      },
+      "countries": [
+        "LV"
+      ],
+      "count": 2
+    }
+  }
+}

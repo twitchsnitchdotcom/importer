@@ -1,6 +1,6 @@
 package com.twitchsnitch.importer.dto;
 
-public class Lawyer {
+public class LawyerDTO {
     private String wSBANumber; //59130
     private String fullName; //	Allyson Boney Evans
     private String lastName; //	Evans
@@ -13,24 +13,24 @@ public class Lawyer {
     private String licenseStatus; //	Active
     private String eligibleToPractice; //	Yes
 
-    private PracticeInformation practiceInformation;
+    private PracticeInformationDTO practiceInformationDTO;
 
-    private CompanyPractice companyPractice;
+    private CompanyPracticeDTO companyPracticeDTO;
 
-    public CompanyPractice getCompanyPractice() {
-        return companyPractice;
+    public CompanyPracticeDTO getCompanyPractice() {
+        return companyPracticeDTO;
     }
 
-    public void setCompanyPractice(CompanyPractice companyPractice) {
-        this.companyPractice = companyPractice;
+    public void setCompanyPractice(CompanyPracticeDTO companyPracticeDTO) {
+        this.companyPracticeDTO = companyPracticeDTO;
     }
 
-    public PracticeInformation getPracticeInformation() {
-        return practiceInformation;
+    public PracticeInformationDTO getPracticeInformation() {
+        return practiceInformationDTO;
     }
 
-    public void setPracticeInformation(PracticeInformation practiceInformation) {
-        this.practiceInformation = practiceInformation;
+    public void setPracticeInformation(PracticeInformationDTO practiceInformationDTO) {
+        this.practiceInformationDTO = practiceInformationDTO;
     }
 
     public String getwSBANumber() {
@@ -135,7 +135,7 @@ public class Lawyer {
                 ", admitDate='" + admitDate + '\'' +
                 ", licenseStatus='" + licenseStatus + '\'' +
                 ", eligibleToPractice='" + eligibleToPractice + '\'' +
-                ", practiceInformation=" + practiceInformation.toString() +
+                ", practiceInformation=" + practiceInformationDTO.toString() +
                 '}';
     }
 }

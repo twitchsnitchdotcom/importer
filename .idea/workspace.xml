@@ -5,17 +5,75 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/openeutender/tendersearch.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/OpenGovUSDownloader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/CompanyPractice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/EntitySearchResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/EstateAgent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/InsuranceProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/Lawyer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/MotorCarrier.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/Physician.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/PracticeInformation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/database/insurers.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/openeutender/authoritybyid.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/openeutender/authoritysimilarsearch.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/openeutender/authoritystats.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/openeutender/ireland.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/OpenTenderTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/ReactiveWebClientTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/CorporationDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/file.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/BodyIdentifierScope.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/BodyIdentifierType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/BuyerActivityType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/BuyerType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/DisqualificationReason.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/DocumentType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/ExternalFundingSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/FormType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/LotStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/NPWPReason.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/ProcedureType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/QualificationType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/SelectionMethod.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/TenderSize.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/enums/TenderType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Address.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/AddressOfImplementation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Aggregations.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/AwardCriterium.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Bid.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Bidder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Bucket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Buyer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Cpv.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Data.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/DigiwhistPrice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Document.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Funding.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Hit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Hits.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Indicator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/IndicatorItems.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/IndicatorWithClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Lot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/LotsAwardDecisionDate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/MetaData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/MetaDataLot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Ot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/OtDetailed.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Price.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Publication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/RobustEstimatedPrice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/RobustPrice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/Score.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/ScoreIndicator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/SortBy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender/tendersearch/TenderSearchDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/insurers.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/openeutender/tendersearch.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/openeutender/tendersearch.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/OpenGovUSDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/OpenGovUSDownloader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/CompanyPractice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/CompanyPracticeDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/EntitySearchResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/EstateAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/EstateAgentDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/InsuranceProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/InsuranceProviderDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/Lawyer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/LawyerDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/MotorCarrier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/MotorCarrierDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/Physician.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/PhysicianDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/PracticeInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/PracticeInformationDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,28 +125,32 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/resources" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/config" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/opentender" />
       <recent name="$PROJECT_DIR$/src/main/resources/pie" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.twitchsnitch.importer.opentender" />
+      <recent name="com.twitchsnitch.importer.opentender.enums" />
       <recent name="com.twitchsnitch.importer" />
       <recent name="com.twitchsnitch.importer.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.OpenGovUSDownloader.insuranceProvider">
-    <configuration name="CSVDownloader.downloadCSV" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.OpenGovUSDownloader.IowaInsuranceProviders">
+    <configuration name="OpenGovUSDownloader.IowaInsuranceProviders" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="importer" />
       <extension name="coverage">
         <pattern>
@@ -97,40 +159,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.twitchsnitch.importer" />
-      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.CSVDownloader" />
-      <option name="METHOD_NAME" value="downloadCSV" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JsoupTests.channelStatsPage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="importer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.twitchsnitch.importer" />
-      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.JsoupTests" />
-      <option name="METHOD_NAME" value="channelStatsPage" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JsoupTests.teamStatsPage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="importer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.twitchsnitch.importer" />
-      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.JsoupTests" />
-      <option name="METHOD_NAME" value="teamStatsPage" />
+      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.OpenGovUSDownloader" />
+      <option name="METHOD_NAME" value="IowaInsuranceProviders" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -152,6 +182,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="OpenGovUSDownloader.insuranceProviderSearch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="importer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.twitchsnitch.importer" />
+      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.OpenGovUSDownloader" />
+      <option name="METHOD_NAME" value="insuranceProviderSearch" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="OpenGovUSDownloader.iowaInsuranceProducer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="importer" />
       <extension name="coverage">
@@ -168,13 +214,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ReactiveWebClientTest.basicTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="importer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.twitchsnitch.importer" />
+      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.ReactiveWebClientTest" />
+      <option name="METHOD_NAME" value="basicTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.OpenGovUSDownloader.IowaInsuranceProviders" />
+        <item itemvalue="JUnit.OpenGovUSDownloader.insuranceProviderSearch" />
+        <item itemvalue="JUnit.ReactiveWebClientTest.basicTest" />
         <item itemvalue="JUnit.OpenGovUSDownloader.insuranceProvider" />
         <item itemvalue="JUnit.OpenGovUSDownloader.iowaInsuranceProducer" />
-        <item itemvalue="JUnit.CSVDownloader.downloadCSV" />
-        <item itemvalue="JUnit.JsoupTests.teamStatsPage" />
-        <item itemvalue="JUnit.JsoupTests.channelStatsPage" />
       </list>
     </recent_temporary>
   </component>
@@ -216,11 +278,6 @@
           <url>file://$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/JsoupTests.java</url>
           <line>138</line>
           <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/OpenGovUSDownloader.java</url>
-          <line>128</line>
-          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

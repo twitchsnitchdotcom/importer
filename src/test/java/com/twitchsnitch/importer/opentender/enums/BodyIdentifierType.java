@@ -1,0 +1,17 @@
+package com.twitchsnitch.importer.opentender.enums;
+
+/**
+ BODY IDENTIFIER TYPE
+ ETALON_ID
+ BVD_ID
+ VAT
+ ORGANIZATION_ID
+ HEADER_ICO
+ TAX_ID
+ TRADE_REGISTER
+ STATISTICAL
+ SOURCE_ID
+ */
+public enum BodyIdentifierType {
+    ETALON_ID, BVD_ID, VAT, ORGANIZATION_ID, HEADER_ICO, TAX_ID, TRADE_REGISTER, STATISTICAL, SOURCE_ID
+}

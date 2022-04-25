@@ -1,7 +1,8 @@
 package com.twitchsnitch.importer.dto;
 
-public class Physician {
+public class PhysicianDTO {
 
+    private String url;
     private String nPI; //	1245797539 Nation Provider Identifier (NPI) National Plan and Provider Enumeration System (NPPES)
     private String pACID; //	4082949383 PECOS Associate Control (PAC) ID Medicare Provider Enrollment and Chain/Ownership System (PECOS)
     private String professionalEnrollmentID; //	I20220103001685
@@ -17,6 +18,14 @@ public class Physician {
     private String telephone; //	9377024500
     private String professionalAcceptsMedicareAssignment; //	Y - Accepts Medicare approved amount as payment in full
     private String groupAcceptsMedicareAssignment; //	Y - Accepts Medicare approved amount as payment in full
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getnPI() {
         return nPI;

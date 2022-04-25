@@ -1,0 +1,112 @@
+{
+  "data": {
+    "similar": [
+      {
+        "value": 1,
+        "body": {
+          "processingOrder": "2017-05-24 21:34:45.97700000",
+          "name": "Balvu novada pašvaldība",
+          "mainActivities": [
+            "GENERAL_PUBLIC_SERVICES"
+          ],
+          "buyerType": "REGIONAL_AUTHORITY",
+          "id": "EU_body_1ba9e701bd7bbc2feeb2a4accd1660b6555d15cf9393258d619129916061b040"
+        },
+        "country": null
+      },
+      {
+        "value": 1,
+        "body": {
+          "processingOrder": "2017-05-24 23:28:49.84300000",
+          "name": "Balvu novada pašvaldība",
+          "mainActivities": [
+            "GENERAL_PUBLIC_SERVICES"
+          ],
+          "buyerType": "REGIONAL_AUTHORITY",
+          "id": "EU_body_ffa0ca140ec4a6dd77e0a55bfc243dc6bdd2cc5449c1e27d8ebdbb21a4143421"
+        },
+        "country": null
+      },
+      {
+        "value": 1,
+        "body": {
+          "processingOrder": "2017-05-24 19:07:18.14900000",
+          "name": "Balvu novada pašvaldība",
+          "mainActivities": [
+            "GENERAL_PUBLIC_SERVICES"
+          ],
+          "buyerType": "REGIONAL_AUTHORITY",
+          "id": "EU_body_81f9f63f907f14ec64d60513fdb8bbaad10dd074ed8e9943f9e523ed457e8660"
+        },
+        "country": null
+      },
+      {
+        "value": 1,
+        "body": {
+          "processingOrder": "2017-05-24 18:57:45.59400000",
+          "name": "Balvu novada pašvaldība",
+          "mainActivities": [
+            "GENERAL_PUBLIC_SERVICES"
+          ],
+          "buyerType": "REGIONAL_AUTHORITY",
+          "id": "EU_body_5107e3526e2655d2e6c5ee0a2d0b61ac553b50358aecf4640fc96692b30d36fe"
+        },
+        "country": null
+      },
+      {
+        "value": 2,
+        "body": {
+          "processingOrder": "2021-02-04 17:14:02.04841200",
+          "name": "Balvu novada pašvaldība",
+          "address": {
+            "street": "Bērzpils iela 1A",
+            "city": "Balvi",
+            "postcode": "LV-4501",
+            "nuts": [
+              "LV00"
+            ],
+            "country": "LV",
+            "url": "http://www.balvi.lv",
+            "ot": {
+              "nutscode": "LV00"
+            }
+          },
+          "email": "inga.purina.eglite@balvi.lv",
+          "contactPoint": "Balvu novada pašvaldība",
+          "contactName": "Inga Puriņa-Eglīte",
+          "phone": "+371 64522805",
+          "mainActivities": [
+            "GENERAL_PUBLIC_SERVICES"
+          ],
+          "buyerType": "REGIONAL_AUTHORITY",
+          "id": "EU_body_08df5d77e27b6974394f58ac5f4a05fc5804a42f725248c9571168ace2bdad40"
+        },
+        "country": "LV"
+      },
+      {
+        "value": 1,
+        "body": {
+          "processingOrder": "2019-06-07 06:59:28.06317900",
+          "name": "Balvu novada pašvaldība Tilžas internātpamatskola",
+          "address": {
+            "street": "Pārupes iela-4, Tilžas pag. Balvu nov.",
+            "city": "Balvi",
+            "postcode": "LV-4572",
+            "nuts": [
+              "LV005"
+            ],
+            "country": "LV",
+            "ot": {
+              "nutscode": "LV005"
+            }
+          },
+          "contactPoint": "TILŽAS INTERNĀTPAMATSKOLA",
+          "contactName": "GUNTA KALNIŅA",
+          "phone": "26527123",
+          "id": "LV_body_7910f2fd7c957458276a88e2c650bc27ed3a5789897b686610ee923d5c4f478a"
+        },
+        "country": "LV"
+      }
+    ]
+  }
+}

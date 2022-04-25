@@ -1,6 +1,6 @@
 package com.twitchsnitch.importer.dto;
 
-public class PracticeInformation {
+public class PracticeInformationDTO {
 
     private String firmSize; //Not Specified
     private String practiceAreas;//	None Specified

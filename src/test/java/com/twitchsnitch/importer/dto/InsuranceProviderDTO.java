@@ -1,7 +1,8 @@
 package com.twitchsnitch.importer.dto;
 
-public class InsuranceProvider {
+public class InsuranceProviderDTO {
 
+    private String url;
     private String nationalProducerNumber;//	18703180
     private String lastName;//	BROWN
     private String firstName;//	HERBERT
@@ -11,7 +12,15 @@ public class InsuranceProvider {
     private String businessPhone;//	7034612878
     private String businessEmail;//	pescobar@geicomarine.com
     private String iowaResident;//	No
-    private String insuranceProductsProvided; //	Personal Lines
+    private String insuranceProductsProvided; //// 	Personal Lines
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getNationalProducerNumber() {
         return nationalProducerNumber;

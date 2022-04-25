@@ -1,7 +1,8 @@
 package com.twitchsnitch.importer.dto;
 
-public class MotorCarrier {
+public class MotorCarrierDTO {
 
+    private String url;
     private String dOTNumber;//	3665722
     private String legalName; //	WATCH DOG TOWING RECOVERY LLC
     private String physicalAddress;//	2598 Beech St Morrow  GA 30260 US
@@ -16,6 +17,15 @@ public class MotorCarrier {
     private String numberOfPowerUnits;//	1
     private String numberOfDrivers;//	4
     private String addDate;//	2021-06-25
+
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getdOTNumber() {
         return dOTNumber;

@@ -1,4 +1,4 @@
 package com.twitchsnitch.importer.dto;
 
-public class CompanyPractice {
+public class CompanyPracticeDTO {
 }

@@ -1,0 +1,1478 @@
+{
+  "data": {
+    "stats": {
+      "terms_main_cpv_divisions": {
+        "14": {
+          "name": "Mining, basic metals and related products",
+          "value": 3
+        },
+        "15": {
+          "name": "Food, beverages, tobacco and related products",
+          "value": 26
+        },
+        "16": {
+          "name": "Agricultural machinery",
+          "value": 1
+        },
+        "18": {
+          "name": "Clothing, footwear, luggage articles and accessories",
+          "value": 1
+        },
+        "22": {
+          "name": "Printed matter and related products",
+          "value": 1
+        },
+        "30": {
+          "name": "Office and computing machinery, equipment and supplies except furniture and software packages",
+          "value": 17
+        },
+        "31": {
+          "name": "Electrical machinery, apparatus, equipment and consumables; lighting",
+          "value": 11
+        },
+        "32": {
+          "name": "Radio, television, communication, telecommunication and related equipment",
+          "value": 4
+        },
+        "33": {
+          "name": "Medical equipments, pharmaceuticals and personal care products",
+          "value": 26
+        },
+        "34": {
+          "name": "Transport equipment and auxiliary products to transportation",
+          "value": 21
+        },
+        "37": {
+          "name": "Musical instruments, sport goods, games, toys, handicraft, art materials and accessories",
+          "value": 12
+        },
+        "39": {
+          "name": "Furniture (incl. office furniture), furnishings, domestic appliances (excl. lighting) and cleaning products",
+          "value": 21
+        },
+        "42": {
+          "name": "Industrial machinery",
+          "value": 4
+        },
+        "43": {
+          "name": "Machinery for mining, quarrying, construction equipment",
+          "value": 3
+        },
+        "44": {
+          "name": "Construction structures and materials; auxiliary products to construction (except electric apparatus)",
+          "value": 7
+        },
+        "45": {
+          "name": "Construction work",
+          "value": 167
+        },
+        "48": {
+          "name": "Software package and information systems",
+          "value": 1
+        },
+        "50": {
+          "name": "Repair and maintenance services",
+          "value": 12
+        },
+        "51": {
+          "name": "Installation services (except software)",
+          "value": 1
+        },
+        "55": {
+          "name": "Hotel, restaurant and retail trade services",
+          "value": 11
+        },
+        "60": {
+          "name": "Transport services (excl. Waste transport)",
+          "value": 1
+        },
+        "71": {
+          "name": "Architectural, construction, engineering and inspection services",
+          "value": 66
+        },
+        "72": {
+          "name": "IT services: consulting, software development, Internet and support",
+          "value": 3
+        },
+        "73": {
+          "name": "Research and development services and related consultancy services",
+          "value": 5
+        },
+        "77": {
+          "name": "Agricultural, forestry, horticultural, aquacultural and apicultural services",
+          "value": 3
+        },
+        "79": {
+          "name": "Business services: law, marketing, consulting, recruitment, printing and security",
+          "value": 15
+        },
+        "80": {
+          "name": "Education and training services",
+          "value": 2
+        },
+        "90": {
+          "name": "Sewage, refuse, cleaning and environmental services",
+          "value": 24
+        },
+        "92": {
+          "name": "Recreational, cultural and sporting services",
+          "value": 5
+        },
+        "98": {
+          "name": "Other community, social and personal services",
+          "value": 6
+        },
+        "09": {
+          "name": "Petroleum products, fuel, electricity and other sources of energy",
+          "value": 31
+        },
+        "03": {
+          "name": "Agricultural, farming, fishing, forestry and related products",
+          "value": 25
+        }
+      },
+      "top_terms_companies": {
+        "count": 924,
+        "top10": [
+          {
+            "value": 39,
+            "body": {
+              "processingOrder": "2021-02-04 13:34:18.02846400",
+              "name": "SIA \"Liepas Z\"",
+              "address": {
+                "street": "Liepas, Lazdulejas pag.,Balvu novads",
+                "city": "Balvu novads",
+                "postcode": "LV- 4592",
+                "country": "1",
+                "url": "http://-"
+              },
+              "email": "liepasz@inbox.lv",
+              "phone": "26427989",
+              "id": "LV_body_96e72ff5f3c525df6ef58c01618116086eb5d2f161b955cdd705575c828ec502"
+            }
+          },
+          {
+            "value": 37,
+            "body": {
+              "processingOrder": "2021-02-04 13:34:26.79039100",
+              "name": "Akciju sabiedrība \"Latvenergo\"",
+              "address": {
+                "street": "Rīga, Pulkveža Brieža iela 12",
+                "city": "Rīga",
+                "postcode": "1010",
+                "country": "1",
+                "url": "http://www.latvenergo.lv"
+              },
+              "email": "evija.melkerte@latvenergo.lv",
+              "contactPoint": "Akciju sabiedrība \"Latvenergo\"",
+              "contactName": "Tatjana Kromāne",
+              "phone": "67728222",
+              "id": "LV_body_986f4216bc7f18d416dd62d2ef3b7f13156234492177dbd9b9eb7784738fef3f"
+            }
+          },
+          {
+            "value": 34,
+            "body": {
+              "processingOrder": "2021-02-04 13:34:24.59915300",
+              "name": "SIA \"INTER RAO Latvia\"",
+              "address": {
+                "street": "Rīga, Gustava Zemgala gatve 76",
+                "city": "Rīga",
+                "postcode": "LV1039",
+                "country": "1",
+                "url": "http://www.interrao.lv"
+              },
+              "email": "info@interrao.lv",
+              "phone": "67114470",
+              "id": "LV_body_eda21347185133378dc0852ed156c4f3442fd29b88d3097bb0c3da4508f9f4d8"
+            }
+          },
+          {
+            "value": 31,
+            "body": {
+              "processingOrder": "2021-02-04 17:14:02.04841200",
+              "name": "SIA \"Senergo\"",
+              "address": {
+                "street": "Elizabetes iela 23",
+                "city": "Rīga",
+                "postcode": "LV-1010",
+                "nuts": [
+                  "LV00"
+                ],
+                "country": "LV",
+                "ot": {
+                  "nutscode": "LV00"
+                }
+              },
+              "email": "info@senergo.lv",
+              "phone": "+371 67775577",
+              "isSme": true,
+              "id": "EU_body_7ef251f0ea9d5cf13d3a4295ab41e8f862b22f5f27c0bcbfbcb18852eaf42fcd"
+            }
+          },
+          {
+            "value": 30,
+            "body": {
+              "processingOrder": "2021-02-04 17:14:33.93687400",
+              "name": "SIA \"Laki Fruit\"",
+              "address": {
+                "street": "Lubānas iela 82",
+                "city": "Rīga",
+                "postcode": "LV-1073",
+                "nuts": [
+                  "LV00"
+                ],
+                "country": "LV",
+                "ot": {
+                  "nutscode": "LV00"
+                }
+              },
+              "email": "lakifruit@inbox.lv",
+              "phone": "+371 67172832",
+              "isSme": true,
+              "id": "EU_body_ca96a6a7a8fd935fb557be067ef7ea43479ab22184d5f05e1e4f59518efdf89e"
+            }
+          },
+          {
+            "value": 21,
+            "body": {
+              "processingOrder": "2021-02-04 17:13:14.79449200",
+              "name": "SIA “Marijas centrs”",
+              "address": {
+                "street": "Varoņu iela 27B",
+                "city": "Rēzekne",
+                "postcode": "LV-4600",
+                "nuts": [
+                  "LV00"
+                ],
+                "country": "LV",
+                "ot": {
+                  "nutscode": "LV00"
+                }
+              },
+              "email": "marijascentrs@inbox.lv",
+              "phone": "+371 64632688",
+              "isSme": true,
+              "id": "EU_body_3f2473a2733e3f4e4f9efec627e30a4b3aa35ed179513e33fff6a4525cad82b0"
+            }
+          },
+          {
+            "value": 17,
+            "body": {
+              "processingOrder": "2021-02-04 13:34:23.87815400",
+              "name": "Latvijas-Vācijas kopuzņēmums \"HOLZWERKE LUBĀNA\" , SIA",
+              "address": {
+                "street": "Lubānas nov., Lubāna, Parka iela 1",
+                "city": "Lubāna, Lubānas nov.",
+                "postcode": "4830",
+                "country": "1",
+                "url": "http://-"
+              },
+              "email": "hl1@apollo.lv",
+              "phone": "64807620",
+              "id": "LV_body_0948959f567e35dad9e02ca40fdd653c4a611e1319fba2a503e41325b6fcce07"
+            }
+          },
+          {
+            "value": 15,
+            "body": {
+              "processingOrder": "2021-02-04 13:34:27.93777800",
+              "name": "VAS \"Latvijas autoceļu uzturētājs\"",
+              "address": {
+                "street": "Krustpils iela 4",
+                "city": "Rīga",
+                "postcode": "LV-1073",
+                "nuts": [
+                  "LV006"
+                ],
+                "country": "LV",
+                "ot": {
+                  "nutscode": "LV006"
+                }
+              },
+              "email": "lau@lau.lv",
+              "contactPoint": "VAS \"Latvijas autoceļu uzturētājs\"",
+              "contactName": "Jānis Padēls",
+              "phone": "67686930",
+              "id": "LV_body_4fd8d8c731e8ae8bbb01bff4257da699b1e2b0d8023151ccb6dbe347803efdc3"
+            }
+          },
+          {
+            "value": 15,
+            "body": {
+              "processingOrder": "2018-04-26 05:48:47.91200000",
+              "name": "SIA \"AGS AUTO\"",
+              "address": {
+                "street": "Nākotnes iela 4, Ziemera pagasts",
+                "city": "Alūksnes",
+                "postcode": "LV-4332",
+                "country": "1",
+                "url": "http://company.lursoft.lv/ags-auto/44103082660"
+              },
+              "email": "aire31@inbox.lv",
+              "phone": "29416860",
+              "id": "LV_body_b049392cc531cdb02ccf8b1fd72164640b0dc2aec235e31ea92c0b73ab00c020"
+            }
+          },
+          {
+            "value": 14,
+            "body": {
+              "processingOrder": "2020-07-24 14:44:56.27741500",
+              "name": "\"BILLERUDKORSNAS LATVIA\" SIA",
+              "address": {
+                "street": "Meža iela 4",
+                "city": "Jaunjelgava, Jaunjelgavas nov.",
+                "postcode": "LV-5134",
+                "country": "1",
+                "url": "http://www.billerudkorsnas.lv"
+              },
+              "email": "info@billerudkorsnas.lv",
+              "phone": "65152800",
+              "id": "LV_body_103d24336672e5d7b47eb4dfdd066591932c4130ea05cbc715f00681348eb457"
+            }
+          }
+        ]
+      },
+      "top_sum_finalPrice_companies": {
+        "count": 924,
+        "top10": [
+          {
+            "value": 1779228.26,
+            "body": {
+              "processingOrder": "2017-05-25 02:17:24.81800000",
+              "name": "SIA “SENDA DZ”",
+              "address": {
+                "street": "Brīvības iela 72",
+                "city": "Balvi",
+                "postcode": "4501",
+                "country": "LV"
+              },
+              "email": "sendadz@inbox.lv",
+              "phone": "+371 64521778",
+              "id": "EU_body_3259c6e8f2fa16084c3f57fba40e3a944399f0dfdff0df23c9dc3ff0accb2f10"
+            }
+          },
+          {
+            "value": 1249661.3,
+            "body": {
+              "processingOrder": "2020-03-24 07:09:28.92095100",
+              "name": "SIA “Pilsētvides serviss”",
+              "address": {
+                "street": "Ēdoles iela 8",
+                "city": "Rīga",
+                "postcode": "LV-1010",
+                "nuts": [
+                  "LV006"
+                ],
+                "country": "LV",
+                "ot": {
+                  "nutscode": "LV006"
+                }
+              },
+              "email": "info@pilsetvide.lv",
+              "phone": "+371 67461592",
+              "isSme": true,
+              "id": "EU_body_e89939d996d924f255cba3ef925e72470d12bb9edc89945d33c2c4437b69342c"
+            }
+          },
+          {
+            "value": 886596.03,
+            "body": {
+              "processingOrder": "2021-02-04 17:13:14.79449200",
+              "name": "SIA “Marijas centrs”",
+              "address": {
+                "street": "Varoņu iela 27B",
+                "city": "Rēzekne",
+                "postcode": "LV-4600",
+                "nuts": [
+                  "LV00"
+                ],
+                "country": "LV",
+                "ot": {
+                  "nutscode": "LV00"
+                }
+              },
+              "email": "marijascentrs@inbox.lv",
+              "phone": "+371 64632688",
+              "isSme": true,
+              "id": "EU_body_3f2473a2733e3f4e4f9efec627e30a4b3aa35ed179513e33fff6a4525cad82b0"
+            }
+          },
+          {
+            "value": 742132.76,
+            "body": {
+              "processingOrder": "2017-05-25 02:01:41.27900000",
+              "name": "IU “Valdogs”",
+              "address": {
+                "street": "Pļavu iela 1",
+                "city": "Balvi",
+                "postcode": "4501",
+                "country": "LV"
+              },
+              "email": "didzis67@inbox.lv",
+              "phone": "+371 27878580",
+              "id": "EU_body_0e62d7f8d9a0d3f43656195eee2a6a36655c8c2acbde0871626f49c28ef9d65d"
+            }
+          },
+          {
+            "value": 724105.77,
+            "body": {
+              "processingOrder": "2021-02-04 17:14:15.56723500",
+              "name": "SIA \"Rēzeknes gaļas kombināts\"",
+              "address": {
+                "street": "Rīgas iela 22",
+                "city": "Rēzekne",
+                "postcode": "LV-4601",
+                "nuts": [
+                  "LV005"
+                ],
+                "country": "LV",
+                "url": "http://www.rgk.lv",
+                "ot": {
+                  "nutscode": "LV005"
+                }
+              },
+              "email": "rgk@rgk.lv",
+              "phone": "+371 64607300",
+              "isSme": true,
+              "id": "EU_body_c5028167e6587fa38110c6b316c778c184d9b08464705e60ae6f2fc723395801"
+            }
+          },
+          {
+            "value": 611039.7,
+            "body": {
+              "processingOrder": "2021-02-04 17:14:15.56723500",
+              "name": "SIA “Futurus Food”",
+              "address": {
+                "street": "Vienības gatve 26A",
+                "city": "Rīga",
+                "postcode": "LV-1004",
+                "nuts": [
+                  "LV006"
+                ],
+                "country": "LV",
+                "url": "http://futurusfood.lv/",
+                "ot": {
+                  "nutscode": "LV006"
+                }
+              },
+              "email": "info@futurusfood.lv",
+              "phone": "+371 67622244",
+              "isSme": true,
+              "id": "EU_body_11ea4a0ccf1812106cc07e30c727e82ee63a471494de5e935e943f71df74ac47"
+            }
+          },
+          {
+            "value": 606878.69,
+            "body": {
+              "processingOrder": "2021-02-04 17:13:14.79449200",
+              "name": "AS \"Preiļu siers\"",
+              "address": {
+                "street": "Daugavpils iela 75",
+                "city": "Preiļi, Preiļu nov.",
+                "postcode": "LV-5301",
+                "nuts": [
+                  "LV00"
+                ],
+                "country": "LV",
+                "ot": {
+                  "nutscode": "LV00"
+                }
+              },
+              "email": "preilusiers@preilusiers.lv",
+              "phone": "+371 65307052",
+              "isSme": true,
+              "id": "EU_body_76a26ddb268d662b7303470af23cb2083122799f466794a0601d3f251625f2f7"
+            }
+          },
+          {
+            "value": 569801.19,
+            "body": {
+              "processingOrder": "2021-02-04 17:14:33.93687400",
+              "name": "SIA \"Laki Fruit\"",
+              "address": {
+                "street": "Lubānas iela 82",
+                "city": "Rīga",
+                "postcode": "LV-1073",
+                "nuts": [
+                  "LV00"
+                ],
+                "country": "LV",
+                "ot": {
+                  "nutscode": "LV00"
+                }
+              },
+              "email": "lakifruit@inbox.lv",
+              "phone": "+371 67172832",
+              "isSme": true,
+              "id": "EU_body_ca96a6a7a8fd935fb557be067ef7ea43479ab22184d5f05e1e4f59518efdf89e"
+            }
+          },
+          {
+            "value": 454316.05,
+            "body": {
+              "processingOrder": "2021-02-04 17:13:14.79449200",
+              "name": "SIA \"Vecā maiznīca\"",
+              "address": {
+                "street": "Brīvības iela 14K",
+                "city": "Rēzekne",
+                "postcode": "LV-4601",
+                "nuts": [
+                  "LV00"
+                ],
+                "country": "LV",
+                "ot": {
+                  "nutscode": "LV00"
+                }
+              },
+              "email": "veca.maiznica@apollo.lv",
+              "phone": "+371 64621055",
+              "isSme": true,
+              "id": "EU_body_4c1fa42b23056c731f2a2798ac24bb93c9a6d8267a15847971605243bcf7d89b"
+            }
+          },
+          {
+            "value": 441689,
+            "body": {
+              "processingOrder": "2021-02-04 17:15:05.06618400",
+              "name": "AS \"VIADA Baltija\"",
+              "address": {
+                "street": "Alīses iela 3",
+                "city": "Rīga",
+                "postcode": "LV-1046",
+                "nuts": [
+                  "LV006"
+                ],
+                "country": "LV",
+                "url": "https://www.viada.lv/",
+                "ot": {
+                  "nutscode": "LV006"
+                }
+              },
+              "email": "info@viadabaltija.lv",
+              "phone": "+371 67475500",
+              "isSme": true,
+              "id": "EU_body_86c9cec6d88d5dbe235f5a9708bfe9cb52999b65d76b5bb0b4effceea4c488d2"
+            }
+          }
+        ]
+      },
+      "terms_company_nuts": {
+        "lv00": 99,
+        "lv005": 37,
+        "lv006": 49,
+        "lv007": 11,
+        "lv008": 2
+      },
+      "histogram_finalPriceEUR": {
+        "2011": {
+          "value": 1,
+          "sum_finalPriceEUR": {
+            "value": 356940
+          },
+          "avg_finalPriceEUR": {
+            "value": 356940
+          }
+        },
+        "2012": {
+          "value": 7,
+          "sum_finalPriceEUR": {
+            "value": 0
+          },
+          "avg_finalPriceEUR": {
+            "value": null
+          }
+        },
+        "2013": {
+          "value": 59,
+          "sum_finalPriceEUR": {
+            "value": 0
+          },
+          "avg_finalPriceEUR": {
+            "value": null
+          }
+        },
+        "2014": {
+          "value": 70,
+          "sum_finalPriceEUR": {
+            "value": 144780
+          },
+          "avg_finalPriceEUR": {
+            "value": 144780
+          }
+        },
+        "2015": {
+          "value": 51,
+          "sum_finalPriceEUR": {
+            "value": 743865.08
+          },
+          "avg_finalPriceEUR": {
+            "value": 185966.27
+          }
+        },
+        "2016": {
+          "value": 78,
+          "sum_finalPriceEUR": {
+            "value": 1097185.52
+          },
+          "avg_finalPriceEUR": {
+            "value": 365728.51
+          }
+        },
+        "2017": {
+          "value": 72,
+          "sum_finalPriceEUR": {
+            "value": 287762.64
+          },
+          "avg_finalPriceEUR": {
+            "value": 143881.32
+          }
+        },
+        "2018": {
+          "value": 59,
+          "sum_finalPriceEUR": {
+            "value": 1692571.57
+          },
+          "avg_finalPriceEUR": {
+            "value": 423142.89
+          }
+        },
+        "2019": {
+          "value": 49,
+          "sum_finalPriceEUR": {
+            "value": 162490.26
+          },
+          "avg_finalPriceEUR": {
+            "value": 162490.26
+          }
+        },
+        "2020": {
+          "value": 84,
+          "sum_finalPriceEUR": {
+            "value": 438063.52
+          },
+          "avg_finalPriceEUR": {
+            "value": 146021.17
+          }
+        }
+      },
+      "histogram_indicators": {
+        "ADMINISTRATIVE_COVERED_BY_GPA": {
+          "2011": 100,
+          "2012": 100,
+          "2013": 100,
+          "2014": 100,
+          "2015": 100,
+          "2016": 100,
+          "2017": 100,
+          "2018": 100,
+          "2019": 100,
+          "2020": 100
+        },
+        "ADMINISTRATIVE_ELECTRONIC_AUCTION": {
+          "2011": 0,
+          "2012": 0,
+          "2013": 0,
+          "2014": 0,
+          "2015": 0,
+          "2016": 0,
+          "2017": 0,
+          "2018": 0,
+          "2019": 0,
+          "2020": 0
+        },
+        "ADMINISTRATIVE_FRAMEWORK_AGREEMENT": {
+          "2011": 0,
+          "2012": 0,
+          "2013": 0,
+          "2014": 16.67,
+          "2015": 20,
+          "2016": 17.65,
+          "2017": 30.43,
+          "2018": 3.7,
+          "2019": 0,
+          "2020": 0
+        },
+        "INTEGRITY_ADVERTISEMENT_PERIOD": {
+          "2011": 100,
+          "2012": 100,
+          "2013": 72.03,
+          "2014": 61.43,
+          "2015": 58.82,
+          "2016": 62.82,
+          "2017": 65.97,
+          "2018": 72.03,
+          "2019": 62.24,
+          "2020": 57.14
+        },
+        "INTEGRITY_CALL_FOR_TENDER_PUBLICATION": {
+          "2011": 0,
+          "2012": 0,
+          "2013": 83.05,
+          "2014": 94.29,
+          "2015": 94.12,
+          "2016": 91.03,
+          "2017": 95.83,
+          "2018": 98.31,
+          "2019": 100,
+          "2020": 98.81
+        },
+        "INTEGRITY_DECISION_PERIOD": {
+          "2011": 0,
+          "2012": 0,
+          "2013": 18.06,
+          "2014": 11,
+          "2015": 11.11,
+          "2016": 10.58,
+          "2017": 48.02,
+          "2018": 50.43,
+          "2019": 28.94,
+          "2020": 31.57
+        },
+        "INTEGRITY_PROCEDURE_TYPE": {
+          "2011": 50,
+          "2012": 78.57,
+          "2013": 65.25,
+          "2014": 57.14,
+          "2015": 55.88,
+          "2016": 57.69,
+          "2017": 60.42,
+          "2018": 72.88,
+          "2019": 79.59,
+          "2020": 77.98
+        },
+        "INTEGRITY_SINGLE_BID": {
+          "2011": 0,
+          "2012": 69.05,
+          "2013": 71.42,
+          "2014": 65.35,
+          "2015": 77.09,
+          "2016": 69.87,
+          "2017": 72.45,
+          "2018": 54.06,
+          "2019": 52.38,
+          "2020": 53.39
+        },
+        "INTEGRITY_TAX_HAVEN": {
+          "2011": 100,
+          "2012": 100,
+          "2013": 100,
+          "2014": 100,
+          "2015": 100,
+          "2016": 100,
+          "2017": 100,
+          "2018": 100,
+          "2019": 100,
+          "2020": 100
+        },
+        "TRANSPARENCY_BIDDER_NAME_MISSING": {
+          "2011": 100,
+          "2012": 95.24,
+          "2013": 100,
+          "2014": 100,
+          "2015": 100,
+          "2016": 100,
+          "2017": 100,
+          "2018": 100,
+          "2019": 100,
+          "2020": 100
+        },
+        "TRANSPARENCY_MISSING_ADDRESS_OF_IMPLEMENTATION_NUTS": {
+          "2011": 0,
+          "2012": 100,
+          "2013": 91.11,
+          "2014": 96,
+          "2015": 88.89,
+          "2016": 94.23,
+          "2017": 95.45,
+          "2018": 87.5,
+          "2019": 97.44,
+          "2020": 94.2
+        },
+        "TRANSPARENCY_MISSING_OR_INCOMPLETE_FUNDINGS_INFO": {
+          "2011": 100,
+          "2012": 100,
+          "2013": 100,
+          "2014": 100,
+          "2015": 100,
+          "2016": 100,
+          "2017": 100,
+          "2018": 100,
+          "2019": 100,
+          "2020": 100
+        },
+        "TRANSPARENCY_MISSING_SUBCONTRACTED_INFO": {
+          "2011": 100,
+          "2012": 57.14,
+          "2013": 33.33,
+          "2014": 20,
+          "2015": 22.22,
+          "2016": 21.15,
+          "2017": 31.82,
+          "2018": 52.17,
+          "2019": 48.72,
+          "2020": 47.06
+        },
+        "TRANSPARENCY_VALUE_MISSING": {
+          "2011": 100,
+          "2012": 95.24,
+          "2013": 78.6,
+          "2014": 73.53,
+          "2015": 69.43,
+          "2016": 65.9,
+          "2017": 50.23,
+          "2018": 37.89,
+          "2019": 26.08,
+          "2020": 33.82
+        },
+        "ADMINISTRATIVE": {
+          "2011": 33.33,
+          "2012": 33.33,
+          "2013": 28.59,
+          "2014": 26.95,
+          "2015": 25.21,
+          "2016": 24.49,
+          "2017": 22.5,
+          "2018": 25.34,
+          "2019": 22.44,
+          "2020": 17.77
+        },
+        "INTEGRITY": {
+          "2011": 41.67,
+          "2012": 57.94,
+          "2013": 69.28,
+          "2014": 65.99,
+          "2015": 66.75,
+          "2016": 67.06,
+          "2017": 73.45,
+          "2018": 75.75,
+          "2019": 73.84,
+          "2020": 72.15
+        },
+        "TENDER": {
+          "2011": 51.67,
+          "2012": 64.99,
+          "2013": 56.83,
+          "2014": 52.08,
+          "2015": 51.37,
+          "2016": 52.12,
+          "2017": 52.64,
+          "2018": 55.98,
+          "2019": 54.86,
+          "2020": 55.58
+        },
+        "TRANSPARENCY": {
+          "2011": 80,
+          "2012": 89.52,
+          "2013": 68.81,
+          "2014": 63.01,
+          "2015": 61.47,
+          "2016": 62.21,
+          "2017": 60.68,
+          "2018": 66.84,
+          "2019": 68.28,
+          "2020": 76.36
+        },
+        "ADMINISTRATIVE_ENGLISH_AS_FOREIGN_LANGUAGE": {
+          "2013": 0,
+          "2014": 0,
+          "2015": 0,
+          "2016": 0,
+          "2017": 0,
+          "2018": 0,
+          "2019": 0,
+          "2020": 0
+        },
+        "ADMINISTRATIVE_NOTICE_AND_AWARD_DISCREPANCIES": {
+          "2013": 74.16,
+          "2014": 69.69,
+          "2015": 69.55,
+          "2016": 70.06,
+          "2017": 64.11,
+          "2018": 60.56,
+          "2019": 59.37,
+          "2020": 47.45
+        },
+        "TRANSPARENCY_MISSING_ELIGIBLE_BID_LANGUAGES": {
+          "2013": 100,
+          "2014": 100,
+          "2015": 100,
+          "2016": 100,
+          "2017": 100,
+          "2018": 100,
+          "2019": 100,
+          "2020": 100
+        },
+        "TRANSPARENCY_MISSING_OR_INCOMPLETE_AWARD_CRITERIA": {
+          "2013": 50,
+          "2014": 0,
+          "2015": 0,
+          "2016": 50,
+          "2017": 100,
+          "2018": 100,
+          "2019": 100,
+          "2020": 100
+        },
+        "TRANSPARENCY_MISSING_OR_INCOMPLETE_CPVS": {
+          "2013": 100,
+          "2014": 100,
+          "2015": 100,
+          "2016": 100,
+          "2017": 100,
+          "2018": 100,
+          "2019": 100,
+          "2020": 100
+        },
+        "TRANSPARENCY_MISSING_OR_INCOMPLETE_DURATION_INFO": {
+          "2013": 0,
+          "2014": 0.76,
+          "2015": 1.04,
+          "2016": 2.11,
+          "2017": 2.54,
+          "2018": 5.05,
+          "2019": 6.73,
+          "2020": 7.34
+        },
+        "TRANSPARENCY_MISSING_SELECTION_METHOD": {
+          "2013": 32.65,
+          "2014": 13.64,
+          "2015": 12.5,
+          "2016": 16.9,
+          "2017": 21.74,
+          "2018": 44.83,
+          "2019": 59.18,
+          "2020": 98.8
+        },
+        "ADMINISTRATIVE_CENTRALIZED_PROCUREMENT": {
+          "2017": 0,
+          "2018": 0,
+          "2019": 100,
+          "2020": 100
+        },
+        "INTEGRITY_NEW_COMPANY": {
+          "2017": 100,
+          "2018": 100,
+          "2019": 100,
+          "2020": 100
+        }
+      },
+      "terms_indicators_score": {
+        "ADMINISTRATIVE_CENTRALIZED_PROCUREMENT": 42.86,
+        "ADMINISTRATIVE_COVERED_BY_GPA": 100,
+        "ADMINISTRATIVE_ELECTRONIC_AUCTION": 0,
+        "ADMINISTRATIVE_ENGLISH_AS_FOREIGN_LANGUAGE": 0,
+        "ADMINISTRATIVE_FRAMEWORK_AGREEMENT": 6.47,
+        "ADMINISTRATIVE_NOTICE_AND_AWARD_DISCREPANCIES": 63,
+        "INTEGRITY_ADVERTISEMENT_PERIOD": 64.26,
+        "INTEGRITY_CALL_FOR_TENDER_PUBLICATION": 93.15,
+        "INTEGRITY_DECISION_PERIOD": 25.08,
+        "INTEGRITY_NEW_COMPANY": 100,
+        "INTEGRITY_PROCEDURE_TYPE": 66.11,
+        "INTEGRITY_SINGLE_BID": 63.81,
+        "INTEGRITY_TAX_HAVEN": 100,
+        "TRANSPARENCY_BIDDER_NAME_MISSING": 99.91,
+        "TRANSPARENCY_MISSING_ADDRESS_OF_IMPLEMENTATION_NUTS": 93.11,
+        "TRANSPARENCY_MISSING_ELIGIBLE_BID_LANGUAGES": 100,
+        "TRANSPARENCY_MISSING_OR_INCOMPLETE_AWARD_CRITERIA": 96.89,
+        "TRANSPARENCY_MISSING_OR_INCOMPLETE_CPVS": 100,
+        "TRANSPARENCY_MISSING_OR_INCOMPLETE_DURATION_INFO": 3.29,
+        "TRANSPARENCY_MISSING_OR_INCOMPLETE_FUNDINGS_INFO": 100,
+        "TRANSPARENCY_MISSING_SELECTION_METHOD": 40.56,
+        "TRANSPARENCY_MISSING_SUBCONTRACTED_INFO": 35.48,
+        "TRANSPARENCY_VALUE_MISSING": 54.01
+      },
+      "benchmark": {
+        "histogram_finalPriceEUR": {
+          "2009": {
+            "value": 1188839,
+            "sum_finalPriceEUR": {
+              "value": 471511252477
+            },
+            "avg_finalPriceEUR": {
+              "value": 2986119.48
+            }
+          },
+          "2010": {
+            "value": 1601486,
+            "sum_finalPriceEUR": {
+              "value": 324630361118.03
+            },
+            "avg_finalPriceEUR": {
+              "value": 2778085.14
+            }
+          },
+          "2011": {
+            "value": 1772150,
+            "sum_finalPriceEUR": {
+              "value": 259678319355.2
+            },
+            "avg_finalPriceEUR": {
+              "value": 2192580.9
+            }
+          },
+          "2012": {
+            "value": 1850079,
+            "sum_finalPriceEUR": {
+              "value": 258560095646.67
+            },
+            "avg_finalPriceEUR": {
+              "value": 2213263.62
+            }
+          },
+          "2013": {
+            "value": 2001887,
+            "sum_finalPriceEUR": {
+              "value": 241107568409.91
+            },
+            "avg_finalPriceEUR": {
+              "value": 1933221.9
+            }
+          },
+          "2014": {
+            "value": 1587464,
+            "sum_finalPriceEUR": {
+              "value": 255724880563.41
+            },
+            "avg_finalPriceEUR": {
+              "value": 2015295.53
+            }
+          },
+          "2015": {
+            "value": 3642803,
+            "sum_finalPriceEUR": {
+              "value": 287897925129.04
+            },
+            "avg_finalPriceEUR": {
+              "value": 2137406.18
+            }
+          },
+          "2016": {
+            "value": 5918306,
+            "sum_finalPriceEUR": {
+              "value": 561274625238.58
+            },
+            "avg_finalPriceEUR": {
+              "value": 3562200.92
+            }
+          },
+          "2017": {
+            "value": 5501903,
+            "sum_finalPriceEUR": {
+              "value": 520384059066.95
+            },
+            "avg_finalPriceEUR": {
+              "value": 2443932.29
+            }
+          },
+          "2018": {
+            "value": 6108993,
+            "sum_finalPriceEUR": {
+              "value": 619008187940.13
+            },
+            "avg_finalPriceEUR": {
+              "value": 986599.3
+            }
+          },
+          "2019": {
+            "value": 6606385,
+            "sum_finalPriceEUR": {
+              "value": 571050753921.56
+            },
+            "avg_finalPriceEUR": {
+              "value": 679802.09
+            }
+          },
+          "2020": {
+            "value": 6833150,
+            "sum_finalPriceEUR": {
+              "value": 296561002965.58
+            },
+            "avg_finalPriceEUR": {
+              "value": 393492.33
+            }
+          }
+        },
+        "histogram_indicators": {
+          "ADMINISTRATIVE_CENTRALIZED_PROCUREMENT": {
+            "2009": 0.02,
+            "2010": 0.03,
+            "2011": 0.07,
+            "2012": 0.11,
+            "2013": 0.26,
+            "2014": 0.3,
+            "2015": 0.49,
+            "2016": 2.25,
+            "2017": 2.64,
+            "2018": 2.39,
+            "2019": 2.5,
+            "2020": 2.59
+          },
+          "ADMINISTRATIVE_COVERED_BY_GPA": {
+            "2009": 52.58,
+            "2010": 51.16,
+            "2011": 48.25,
+            "2012": 49.82,
+            "2013": 53.23,
+            "2014": 49.81,
+            "2015": 48.78,
+            "2016": 51.84,
+            "2017": 52.61,
+            "2018": 51.5,
+            "2019": 50.73,
+            "2020": 51.24
+          },
+          "ADMINISTRATIVE_ELECTRONIC_AUCTION": {
+            "2009": 0.97,
+            "2010": 1.36,
+            "2011": 2,
+            "2012": 2.46,
+            "2013": 3.79,
+            "2014": 3.75,
+            "2015": 3.81,
+            "2016": 5.71,
+            "2017": 3.5,
+            "2018": 1.53,
+            "2019": 1.59,
+            "2020": 1.31
+          },
+          "ADMINISTRATIVE_ENGLISH_AS_FOREIGN_LANGUAGE": {
+            "2009": 1.98,
+            "2010": 1.68,
+            "2011": 2.22,
+            "2012": 1.95,
+            "2013": 1.6,
+            "2014": 1.77,
+            "2015": 1.9,
+            "2016": 2.67,
+            "2017": 2.83,
+            "2018": 2.71,
+            "2019": 2.13,
+            "2020": 2.04
+          },
+          "ADMINISTRATIVE_FRAMEWORK_AGREEMENT": {
+            "2009": 13.05,
+            "2010": 10.85,
+            "2011": 8.46,
+            "2012": 16.6,
+            "2013": 17.52,
+            "2014": 18.84,
+            "2015": 18.24,
+            "2016": 18.15,
+            "2017": 17.72,
+            "2018": 16.63,
+            "2019": 16.58,
+            "2020": 17.14
+          },
+          "ADMINISTRATIVE_NOTICE_AND_AWARD_DISCREPANCIES": {
+            "2009": 72.51,
+            "2010": 72.26,
+            "2011": 73.22,
+            "2012": 73.49,
+            "2013": 76.54,
+            "2014": 75.68,
+            "2015": 74.43,
+            "2016": 77.29,
+            "2017": 82.66,
+            "2018": 83.7,
+            "2019": 85.3,
+            "2020": 85.31
+          },
+          "INTEGRITY_ADVERTISEMENT_PERIOD": {
+            "2009": 89.8,
+            "2010": 90.85,
+            "2011": 91.55,
+            "2012": 92.34,
+            "2013": 92.45,
+            "2014": 91.12,
+            "2015": 96.02,
+            "2016": 97.34,
+            "2017": 97.19,
+            "2018": 97.22,
+            "2019": 97.21,
+            "2020": 97.53
+          },
+          "INTEGRITY_CALL_FOR_TENDER_PUBLICATION": {
+            "2009": 50.74,
+            "2010": 40.11,
+            "2011": 38.1,
+            "2012": 36.12,
+            "2013": 35.68,
+            "2014": 42.99,
+            "2015": 18.19,
+            "2016": 10.32,
+            "2017": 11.24,
+            "2018": 11.31,
+            "2019": 10.35,
+            "2020": 9.14
+          },
+          "INTEGRITY_DECISION_PERIOD": {
+            "2009": 44.83,
+            "2010": 47.14,
+            "2011": 48.16,
+            "2012": 48.67,
+            "2013": 47.91,
+            "2014": 46.85,
+            "2015": 48.5,
+            "2016": 49.11,
+            "2017": 49.21,
+            "2018": 49.56,
+            "2019": 50.51,
+            "2020": 50.23
+          },
+          "INTEGRITY_NEW_COMPANY": {
+            "2009": 98.87,
+            "2010": 98.59,
+            "2011": 99.01,
+            "2012": 98.82,
+            "2013": 98.86,
+            "2014": 98.99,
+            "2015": 98.14,
+            "2016": 99.42,
+            "2017": 99.99,
+            "2018": 100,
+            "2019": 100,
+            "2020": 100
+          },
+          "INTEGRITY_PROCEDURE_TYPE": {
+            "2009": 87.52,
+            "2010": 92.48,
+            "2011": 93.4,
+            "2012": 92.94,
+            "2013": 92.23,
+            "2014": 82.09,
+            "2015": 65.02,
+            "2016": 73.76,
+            "2017": 63.47,
+            "2018": 62.74,
+            "2019": 58.35,
+            "2020": 52.34
+          },
+          "INTEGRITY_SINGLE_BID": {
+            "2009": 64.88,
+            "2010": 61.74,
+            "2011": 63.11,
+            "2012": 64.77,
+            "2013": 65.61,
+            "2014": 65.96,
+            "2015": 66.12,
+            "2016": 68.52,
+            "2017": 56.15,
+            "2018": 9.81,
+            "2019": 11,
+            "2020": 9.83
+          },
+          "INTEGRITY_TAX_HAVEN": {
+            "2009": 99.86,
+            "2010": 99.92,
+            "2011": 99.94,
+            "2012": 99.94,
+            "2013": 99.94,
+            "2014": 99.91,
+            "2015": 99.95,
+            "2016": 99.98,
+            "2017": 99.96,
+            "2018": 99.95,
+            "2019": 99.95,
+            "2020": 40.41
+          },
+          "TRANSPARENCY_BIDDER_NAME_MISSING": {
+            "2009": 99.97,
+            "2010": 99.99,
+            "2011": 99.99,
+            "2012": 99.99,
+            "2013": 99.99,
+            "2014": 99.99,
+            "2015": 99.64,
+            "2016": 99.97,
+            "2017": 99.96,
+            "2018": 99.99,
+            "2019": 100,
+            "2020": 99.38
+          },
+          "TRANSPARENCY_MISSING_ADDRESS_OF_IMPLEMENTATION_NUTS": {
+            "2009": 15.71,
+            "2010": 6.94,
+            "2011": 3.66,
+            "2012": 3.5,
+            "2013": 4.56,
+            "2014": 6.89,
+            "2015": 3.79,
+            "2016": 1.42,
+            "2017": 1.4,
+            "2018": 1.63,
+            "2019": 1.12,
+            "2020": 0.85
+          },
+          "TRANSPARENCY_MISSING_ELIGIBLE_BID_LANGUAGES": {
+            "2009": 49.28,
+            "2010": 39.6,
+            "2011": 37.69,
+            "2012": 38.74,
+            "2013": 40.79,
+            "2014": 45.26,
+            "2015": 42.08,
+            "2016": 46.72,
+            "2017": 50.34,
+            "2018": 45.26,
+            "2019": 49.24,
+            "2020": 51.92
+          },
+          "TRANSPARENCY_MISSING_OR_INCOMPLETE_AWARD_CRITERIA": {
+            "2009": 60,
+            "2010": 47.38,
+            "2011": 56.52,
+            "2012": 56.78,
+            "2013": 58.66,
+            "2014": 60.18,
+            "2015": 46.43,
+            "2016": 48.9,
+            "2017": 62.42,
+            "2018": 61.63,
+            "2019": 62.9,
+            "2020": 65.21
+          },
+          "TRANSPARENCY_MISSING_OR_INCOMPLETE_CPVS": {
+            "2009": 94.25,
+            "2010": 83.58,
+            "2011": 83.33,
+            "2012": 87.04,
+            "2013": 88.99,
+            "2014": 90.21,
+            "2015": 90.57,
+            "2016": 91.71,
+            "2017": 94.52,
+            "2018": 94.81,
+            "2019": 95.12,
+            "2020": 97.02
+          },
+          "TRANSPARENCY_MISSING_OR_INCOMPLETE_DURATION_INFO": {
+            "2009": 1.73,
+            "2010": 1.49,
+            "2011": 1.69,
+            "2012": 1.9,
+            "2013": 1.49,
+            "2014": 1.38,
+            "2015": 1.66,
+            "2016": 7.72,
+            "2017": 14.51,
+            "2018": 14.09,
+            "2019": 16.89,
+            "2020": 17.86
+          },
+          "TRANSPARENCY_MISSING_OR_INCOMPLETE_FUNDINGS_INFO": {
+            "2009": 100,
+            "2010": 100,
+            "2011": 100,
+            "2012": 100,
+            "2013": 100,
+            "2014": 100,
+            "2015": 100,
+            "2016": 100,
+            "2017": 100,
+            "2018": 100,
+            "2019": 100,
+            "2020": 100
+          },
+          "TRANSPARENCY_MISSING_SELECTION_METHOD": {
+            "2009": 41.04,
+            "2010": 32.17,
+            "2011": 30.15,
+            "2012": 32.31,
+            "2013": 33.41,
+            "2014": 36.28,
+            "2015": 51.54,
+            "2016": 57.47,
+            "2017": 54.41,
+            "2018": 50.29,
+            "2019": 54.29,
+            "2020": 54.5
+          },
+          "TRANSPARENCY_MISSING_SUBCONTRACTED_INFO": {
+            "2009": 19.29,
+            "2010": 11.13,
+            "2011": 9.53,
+            "2012": 9.39,
+            "2013": 10.19,
+            "2014": 15.08,
+            "2015": 8.12,
+            "2016": 3.85,
+            "2017": 5.88,
+            "2018": 5.87,
+            "2019": 6.14,
+            "2020": 4.61
+          },
+          "TRANSPARENCY_VALUE_MISSING": {
+            "2009": 44.61,
+            "2010": 35.17,
+            "2011": 35.35,
+            "2012": 35.56,
+            "2013": 36.22,
+            "2014": 42.07,
+            "2015": 50.78,
+            "2016": 46.32,
+            "2017": 53.82,
+            "2018": 56.28,
+            "2019": 60.32,
+            "2020": 63.12
+          },
+          "INTEGRITY": {
+            "2009": 72.22,
+            "2010": 71.57,
+            "2011": 71.7,
+            "2012": 71.24,
+            "2013": 71.04,
+            "2014": 69.37,
+            "2015": 59.59,
+            "2016": 60.94,
+            "2017": 57.88,
+            "2018": 54.58,
+            "2019": 52.74,
+            "2020": 48.22
+          },
+          "TENDER": {
+            "2009": 49.7,
+            "2010": 48.78,
+            "2011": 49.25,
+            "2012": 49.97,
+            "2013": 51.43,
+            "2014": 52.06,
+            "2015": 54.27,
+            "2016": 53.57,
+            "2017": 55.13,
+            "2018": 53.6,
+            "2019": 53.85,
+            "2020": 53.34
+          },
+          "TRANSPARENCY": {
+            "2009": 44.84,
+            "2010": 38.44,
+            "2011": 36.79,
+            "2012": 37.22,
+            "2013": 37.7,
+            "2014": 42.49,
+            "2015": 53.2,
+            "2016": 48.75,
+            "2017": 56.17,
+            "2018": 56.7,
+            "2019": 59.15,
+            "2020": 62.3
+          },
+          "ADMINISTRATIVE": {
+            "2009": 19.46,
+            "2010": 19.45,
+            "2011": 22.24,
+            "2012": 24.64,
+            "2013": 34.37,
+            "2014": 32.26,
+            "2015": 26.5,
+            "2016": 23.03,
+            "2017": 13.21,
+            "2018": 12,
+            "2019": 11.18,
+            "2020": 10.21
+          }
+        }
+      }
+    }
+  }
+}

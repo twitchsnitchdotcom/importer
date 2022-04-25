@@ -1,0 +1,709 @@
+{
+  "data": {
+    "hits": {
+      "total": 1105,
+      "hits": [
+        {
+          "created": "2021-02-09T15:02:39.695352",
+          "modified": "2021-03-07T04:14:09.407349",
+          "metaData": {
+            "opentender": true
+          },
+          "persistentId": "EE_5f5d8adb9933999dda602d661f319e1856118f74101daf2f14a2436ec1f5a421_1",
+          "processingOrder": "2020-12-18 15:12:21.99173300",
+          "title": "KASTRE VALLA KOHALIKE KRUUSATEEDE SUVINE HOOLDUS 2020-2022",
+          "description": "Kruusakattega teede suvine hooldus",
+          "isCoveredByGpa": false,
+          "isFrameworkAgreement": false,
+          "isDps": false,
+          "cpvs": [
+            {
+              "code": "50230000",
+              "isMain": true,
+              "valid": true,
+              "name": "Repair, maintenance and associated services related to roads and other equipment"
+            }
+          ],
+          "isElectronicAuction": false,
+          "estimatedPrice": {
+            "netAmount": 210000,
+            "vat": 20,
+            "currency": "EUR",
+            "netAmountEur": 210000,
+            "currencyNational": "EUR",
+            "netAmountNational": 210000
+          },
+          "indicators": [
+            {
+              "type": "INTEGRITY_SINGLE_BID",
+              "status": "CALCULATED",
+              "value": 100
+            },
+            {
+              "type": "ADMINISTRATIVE_CENTRALIZED_PROCUREMENT",
+              "status": "CALCULATED",
+              "value": 0
+            },
+            {
+              "type": "INTEGRITY_ADVERTISEMENT_PERIOD",
+              "status": "INSUFFICIENT_DATA"
+            },
+            {
+              "type": "INTEGRITY_DECISION_PERIOD",
+              "status": "CALCULATED",
+              "value": 0
+            },
+            {
+              "type": "ADMINISTRATIVE_COVERED_BY_GPA",
+              "status": "CALCULATED",
+              "value": 0
+            },
+            {
+              "type": "ADMINISTRATIVE_ELECTRONIC_AUCTION",
+              "status": "CALCULATED",
+              "value": 0
+            },
+            {
+              "type": "ADMINISTRATIVE_FRAMEWORK_AGREEMENT",
+              "status": "CALCULATED",
+              "value": 0
+            },
+            {
+              "type": "INTEGRITY_NEW_COMPANY",
+              "status": "UNDEFINED"
+            },
+            {
+              "type": "ADMINISTRATIVE_ENGLISH_AS_FOREIGN_LANGUAGE",
+              "status": "CALCULATED",
+              "value": 0
+            },
+            {
+              "type": "INTEGRITY_CALL_FOR_TENDER_PUBLICATION",
+              "status": "CALCULATED",
+              "value": 100
+            },
+            {
+              "type": "INTEGRITY_PROCEDURE_TYPE",
+              "status": "CALCULATED",
+              "value": 100
+            },
+            {
+              "type": "INTEGRITY_TAX_HAVEN",
+              "status": "UNDEFINED"
+            },
+            {
+              "type": "ADMINISTRATIVE_NOTICE_AND_AWARD_DISCREPANCIES",
+              "status": "CALCULATED",
+              "value": 91.6667
+            },
+            {
+              "type": "TRANSPARENCY_BIDDER_NAME_MISSING",
+              "status": "CALCULATED",
+              "value": 100
+            },
+            {
+              "type": "TRANSPARENCY_VALUE_MISSING",
+              "status": "CALCULATED",
+              "value": 100
+            },
+            {
+              "type": "TRANSPARENCY_MISSING_ELIGIBLE_BID_LANGUAGES",
+              "status": "CALCULATED",
+              "value": 100
+            },
+            {
+              "type": "TRANSPARENCY_MISSING_ADDRESS_OF_IMPLEMENTATION_NUTS",
+              "status": "CALCULATED",
+              "value": 0
+            },
+            {
+              "type": "TRANSPARENCY_MISSING_OR_INCOMPLETE_AWARD_CRITERIA",
+              "status": "UNDEFINED"
+            },
+            {
+              "type": "TRANSPARENCY_MISSING_OR_INCOMPLETE_CPVS",
+              "status": "CALCULATED",
+              "value": 100
+            },
+            {
+              "type": "TRANSPARENCY_MISSING_OR_INCOMPLETE_DURATION_INFO",
+              "status": "CALCULATED",
+              "value": 0
+            },
+            {
+              "type": "TRANSPARENCY_MISSING_SELECTION_METHOD",
+              "status": "CALCULATED",
+              "value": 0
+            },
+            {
+              "type": "TRANSPARENCY_MISSING_SUBCONTRACTED_INFO",
+              "status": "CALCULATED",
+              "value": 100
+            },
+            {
+              "type": "TRANSPARENCY_MISSING_OR_INCOMPLETE_FUNDINGS_INFO",
+              "status": "CALCULATED",
+              "value": 100
+            }
+          ],
+          "procedureType": "OPEN",
+          "nationalProcedureType": "pt_open",
+          "supplyType": "SERVICES",
+          "bidDeadline": "2020-03-12T09:00:00",
+          "isCentralProcurement": false,
+          "isJointProcurement": false,
+          "buyers": [
+            {
+              "processingOrder": "2021-02-04 11:50:15.30367700",
+              "name": "Kastre Vallavalitsus",
+              "address": {
+                "street": "Vallamaja",
+                "city": "Kastre vald",
+                "postcode": "62113",
+                "nuts": [
+                  "EE"
+                ],
+                "country": "EE",
+                "url": "http://www.kastre.ee",
+                "ot": {
+                  "nutscode": "EE"
+                }
+              },
+              "email": "tonu.muru@kastre.ee",
+              "contactName": "TÕNU MURU",
+              "phone": "+372 5139142",
+              "mainActivities": [
+                "GENERAL_PUBLIC_SERVICES",
+                "EDUCATION"
+              ],
+              "buyerType": "REGIONAL_AUTHORITY",
+              "id": "EE_body_2466769350d8639b8f9a16cb781c0be65abf5b758561a60463fcce9e805a081d"
+            }
+          ],
+          "publications": [
+            {
+              "source": "https://riigihanked.riik.ee/",
+              "sourceTenderId": "220162",
+              "machineReadableUrl": "https://riigihanked.riik.ee:443/rhr/api/public/v1/opendata/notice/2020/month/2/xml",
+              "dispatchDate": "2020-02-20",
+              "isIncluded": true,
+              "formType": "CONTRACT_NOTICE",
+              "sourceFormType": "F02_2014"
+            },
+            {
+              "source": "https://riigihanked.riik.ee/",
+              "sourceTenderId": "220162",
+              "machineReadableUrl": "https://riigihanked.riik.ee:443/rhr/api/public/v1/opendata/notice_award/2020/month/4/xml",
+              "dispatchDate": "2020-04-03",
+              "isIncluded": true,
+              "formType": "CONTRACT_AWARD",
+              "sourceFormType": "F03_2014"
+            }
+          ],
+          "hasLots": true,
+          "lots": [
+            {
+              "title": "Töövõtuleping",
+              "description": "Kruusateede hooldus",
+              "isAwarded": true,
+              "areVariantsAccepted": false,
+              "hasOptions": false,
+              "addressOfImplementation": {
+                "nuts": [
+                  "EE"
+                ]
+              },
+              "awardDecisionDate": "2020-04-01",
+              "cpvs": [
+                {
+                  "code": "50230000",
+                  "isMain": true
+                }
+              ],
+              "fundings": [
+                {
+                  "isEuFund": false
+                }
+              ],
+              "awardCriteria": [
+                {
+                  "name": "Kruusatee katmine purustatud kruusaga",
+                  "weight": 20
+                },
+                {
+                  "name": "Teeääre niitmine",
+                  "weight": 10
+                },
+                {
+                  "name": "Kruusateede greiderdamine",
+                  "weight": 70
+                }
+              ],
+              "estimatedPrice": {
+                "netAmount": 110000,
+                "vat": 20,
+                "currency": "EUR",
+                "netAmountEur": 110000,
+                "currencyNational": "EUR",
+                "netAmountNational": 110000
+              },
+              "indicators": [
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "metaData": {
+                    "lotTitle": "Töövõtuleping"
+                  },
+                  "type": "INTEGRITY_SINGLE_BID",
+                  "status": "CALCULATED",
+                  "value": 100
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "metaData": {
+                    "decisionPeriodLength": 20
+                  },
+                  "type": "INTEGRITY_DECISION_PERIOD",
+                  "status": "CALCULATED",
+                  "value": 0
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "INTEGRITY_NEW_COMPANY",
+                  "status": "INSUFFICIENT_DATA"
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_BIDDER_NAME_MISSING",
+                  "status": "CALCULATED",
+                  "value": 100
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_VALUE_MISSING",
+                  "status": "CALCULATED",
+                  "value": 100
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_MISSING_OR_INCOMPLETE_AWARD_CRITERIA",
+                  "status": "UNDEFINED"
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_MISSING_OR_INCOMPLETE_CPVS",
+                  "status": "CALCULATED",
+                  "value": 100
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_MISSING_OR_INCOMPLETE_DURATION_INFO",
+                  "status": "CALCULATED",
+                  "value": 0
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_MISSING_SELECTION_METHOD",
+                  "status": "CALCULATED",
+                  "value": 0
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_MISSING_SUBCONTRACTED_INFO",
+                  "status": "CALCULATED",
+                  "value": 100
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_MISSING_OR_INCOMPLETE_FUNDINGS_INFO",
+                  "status": "CALCULATED",
+                  "value": 100
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "INTEGRITY_TAX_HAVEN",
+                  "status": "INSUFFICIENT_DATA"
+                }
+              ],
+              "contractNumber": "11-5/50",
+              "lotNumber": 2,
+              "status": "AWARDED",
+              "robustEstimatedPrice": {
+                "netAmount": 110000,
+                "vat": 20,
+                "currency": "EUR",
+                "netAmountEur": 110000,
+                "currencyNational": "EUR",
+                "netAmountNational": 110000,
+                "reliability": 0.732955
+              },
+              "bids": [
+                {
+                  "isWinning": true,
+                  "bidders": [
+                    {
+                      "processingOrder": "2020-12-18 15:13:03.55858900",
+                      "name": "OÜ HANSO MK",
+                      "address": {
+                        "street": "Hanso",
+                        "city": "Kastre vald",
+                        "postcode": "62121",
+                        "nuts": [
+                          "EE"
+                        ],
+                        "country": "EE",
+                        "ot": {
+                          "nutscode": "EE"
+                        }
+                      },
+                      "phone": "+372 5252911",
+                      "isSme": true,
+                      "id": "EE_body_b0bca64272806bae25fd25c7f9de6ed21e992fbdc6f490444eddfd1593d5f0c1"
+                    }
+                  ],
+                  "isSubcontracted": false,
+                  "price": {
+                    "netAmount": 58440.72,
+                    "vat": 20,
+                    "currency": "EUR",
+                    "netAmountEur": 58440.72,
+                    "currencyNational": "EUR",
+                    "netAmountNational": 58440.72
+                  },
+                  "robustPrice": {
+                    "netAmount": 58440.72,
+                    "vat": 20,
+                    "currency": "EUR",
+                    "netAmountEur": 58440.72,
+                    "currencyNational": "EUR",
+                    "netAmountNational": 58440.72,
+                    "reliability": 0.657353
+                  },
+                  "isConsortium": false,
+                  "bidId": "group_EE_tender_9e6eacce911e2b27d4d259cd566ece91bc6b4601_1_1",
+                  "digiwhistPrice": {
+                    "netAmount": 58440.72,
+                    "currency": "EUR",
+                    "netAmountEur": 58440.72
+                  }
+                }
+              ],
+              "bidsCount": 3,
+              "electronicBidsCount": 3,
+              "smeBidsCount": 2,
+              "otherEuMemberStatesCompaniesBidsCount": 0,
+              "nonEuMemberStatesCompaniesBidsCount": 0,
+              "lotId": "group_EE_tender_9e6eacce911e2b27d4d259cd566ece91bc6b4601_1"
+            },
+            {
+              "title": "Töövõtuleping",
+              "description": "Kruusateede hooldus",
+              "isAwarded": true,
+              "areVariantsAccepted": false,
+              "hasOptions": false,
+              "addressOfImplementation": {
+                "nuts": [
+                  "EE"
+                ]
+              },
+              "awardDecisionDate": "2020-04-01",
+              "cpvs": [
+                {
+                  "code": "50230000",
+                  "isMain": true
+                }
+              ],
+              "fundings": [
+                {
+                  "isEuFund": false
+                }
+              ],
+              "awardCriteria": [
+                {
+                  "name": "Teeääre niitmine",
+                  "weight": 10
+                },
+                {
+                  "name": "Kruusateede greiderdamine",
+                  "weight": 70
+                },
+                {
+                  "name": "Kruusatee katmine purustatud kruusaga",
+                  "weight": 20
+                }
+              ],
+              "estimatedPrice": {
+                "netAmount": 100000,
+                "vat": 20,
+                "currency": "EUR",
+                "netAmountEur": 100000,
+                "currencyNational": "EUR",
+                "netAmountNational": 100000
+              },
+              "indicators": [
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "metaData": {
+                    "lotTitle": "Töövõtuleping"
+                  },
+                  "type": "INTEGRITY_SINGLE_BID",
+                  "status": "CALCULATED",
+                  "value": 100
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "metaData": {
+                    "decisionPeriodLength": 20
+                  },
+                  "type": "INTEGRITY_DECISION_PERIOD",
+                  "status": "CALCULATED",
+                  "value": 0
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "INTEGRITY_NEW_COMPANY",
+                  "status": "INSUFFICIENT_DATA"
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_BIDDER_NAME_MISSING",
+                  "status": "CALCULATED",
+                  "value": 100
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_VALUE_MISSING",
+                  "status": "CALCULATED",
+                  "value": 100
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_MISSING_OR_INCOMPLETE_AWARD_CRITERIA",
+                  "status": "UNDEFINED"
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_MISSING_OR_INCOMPLETE_CPVS",
+                  "status": "CALCULATED",
+                  "value": 100
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_MISSING_OR_INCOMPLETE_DURATION_INFO",
+                  "status": "CALCULATED",
+                  "value": 0
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_MISSING_SELECTION_METHOD",
+                  "status": "CALCULATED",
+                  "value": 0
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_MISSING_SUBCONTRACTED_INFO",
+                  "status": "CALCULATED",
+                  "value": 100
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "TRANSPARENCY_MISSING_OR_INCOMPLETE_FUNDINGS_INFO",
+                  "status": "CALCULATED",
+                  "value": 100
+                },
+                {
+                  "@class": "eu.dl.dataaccess.dto.indicator.BasicIndicator",
+                  "type": "INTEGRITY_TAX_HAVEN",
+                  "status": "INSUFFICIENT_DATA"
+                }
+              ],
+              "contractNumber": "11-5/50",
+              "lotNumber": 1,
+              "status": "AWARDED",
+              "robustEstimatedPrice": {
+                "netAmount": 100000,
+                "vat": 20,
+                "currency": "EUR",
+                "netAmountEur": 100000,
+                "currencyNational": "EUR",
+                "netAmountNational": 100000,
+                "reliability": 0.731708
+              },
+              "bids": [
+                {
+                  "isWinning": true,
+                  "bidders": [
+                    {
+                      "processingOrder": "2020-12-18 15:13:03.55858900",
+                      "name": "OÜ HANSO MK",
+                      "address": {
+                        "street": "Hanso",
+                        "city": "Kastre vald",
+                        "postcode": "62121",
+                        "nuts": [
+                          "EE"
+                        ],
+                        "country": "EE",
+                        "ot": {
+                          "nutscode": "EE"
+                        }
+                      },
+                      "phone": "+372 5252911",
+                      "isSme": true,
+                      "id": "EE_body_b0bca64272806bae25fd25c7f9de6ed21e992fbdc6f490444eddfd1593d5f0c1"
+                    }
+                  ],
+                  "isSubcontracted": false,
+                  "price": {
+                    "netAmount": 59196,
+                    "vat": 20,
+                    "currency": "EUR",
+                    "netAmountEur": 59196,
+                    "currencyNational": "EUR",
+                    "netAmountNational": 59196
+                  },
+                  "robustPrice": {
+                    "netAmount": 59196,
+                    "vat": 20,
+                    "currency": "EUR",
+                    "netAmountEur": 59196,
+                    "currencyNational": "EUR",
+                    "netAmountNational": 59196,
+                    "reliability": 0.663591
+                  },
+                  "isConsortium": false,
+                  "bidId": "group_EE_tender_9e6eacce911e2b27d4d259cd566ece91bc6b4601_2_1",
+                  "digiwhistPrice": {
+                    "netAmount": 59196,
+                    "currency": "EUR",
+                    "netAmountEur": 59196
+                  }
+                }
+              ],
+              "bidsCount": 3,
+              "electronicBidsCount": 3,
+              "smeBidsCount": 2,
+              "otherEuMemberStatesCompaniesBidsCount": 0,
+              "nonEuMemberStatesCompaniesBidsCount": 0,
+              "lotId": "group_EE_tender_9e6eacce911e2b27d4d259cd566ece91bc6b4601_2"
+            }
+          ],
+          "documents": [
+            {
+              "url": "https://riigihanked.riik.ee/rhr-web/#/procurement/1651283/general-info"
+            }
+          ],
+          "personalRequirements": "Vaata hankepassist https://riigihanked.riik.ee/rhr-web/#/procurement/1651283/procurement-passport või alusdokumendist https://riigihanked.riik.ee/rhr-web/#/procurement/1651283/documents?group=B",
+          "economicRequirements": "Vaata hankepassist https://riigihanked.riik.ee/rhr-web/#/procurement/1651283/procurement-passport või alusdokumendist https://riigihanked.riik.ee/rhr-web/#/procurement/1651283/documents?group=B",
+          "technicalRequirements": "Vaata hankepassist https://riigihanked.riik.ee/rhr-web/#/procurement/1651283/procurement-passport või alusdokumendist https://riigihanked.riik.ee/rhr-web/#/procurement/1651283/documents?group=B",
+          "appealBodyName": "Riigihangete vaidlustuskomisjon Endla 13/Lõkke 5 Tallinn 10122 http://www.fin.ee/riigihangete-poliitika",
+          "finalPrice": {
+            "netAmount": 117636.72,
+            "vat": 20,
+            "currency": "EUR",
+            "netAmountEur": 117636.72,
+            "currencyNational": "EUR",
+            "netAmountNational": 117636.72
+          },
+          "eligibleBidLanguages": [
+            "ET"
+          ],
+          "isEInvoiceAccepted": false,
+          "country": "EE",
+          "groupId": "group_EE_tender_9e6eacce911e2b27d4d259cd566ece91bc6b4601",
+          "digiwhistPrice": {
+            "netAmount": 117636.72,
+            "currency": "EUR",
+            "netAmountEur": 117636.72
+          },
+          "id": "b068cff9-5f9e-4788-87cb-a8d18ec149d2",
+          "ot": {
+            "country": "EE",
+            "scores": [
+              {
+                "type": "INTEGRITY",
+                "value": 75,
+                "status": "CALCULATED"
+              },
+              {
+                "type": "ADMINISTRATIVE",
+                "value": 15.2778,
+                "status": "CALCULATED"
+              },
+              {
+                "type": "TRANSPARENCY",
+                "value": 66.6667,
+                "status": "CALCULATED"
+              },
+              {
+                "type": "TENDER",
+                "value": 52.3148,
+                "status": "CALCULATED"
+              }
+            ],
+            "indicator": {
+              "INTEGRITY_SINGLE_BID": 100,
+              "ADMINISTRATIVE_CENTRALIZED_PROCUREMENT": 0,
+              "INTEGRITY_DECISION_PERIOD": 0,
+              "ADMINISTRATIVE_COVERED_BY_GPA": 0,
+              "ADMINISTRATIVE_ELECTRONIC_AUCTION": 0,
+              "ADMINISTRATIVE_FRAMEWORK_AGREEMENT": 0,
+              "ADMINISTRATIVE_ENGLISH_AS_FOREIGN_LANGUAGE": 0,
+              "INTEGRITY_CALL_FOR_TENDER_PUBLICATION": 100,
+              "INTEGRITY_PROCEDURE_TYPE": 100,
+              "ADMINISTRATIVE_NOTICE_AND_AWARD_DISCREPANCIES": 91.6667,
+              "TRANSPARENCY_BIDDER_NAME_MISSING": 100,
+              "TRANSPARENCY_VALUE_MISSING": 100,
+              "TRANSPARENCY_MISSING_ELIGIBLE_BID_LANGUAGES": 100,
+              "TRANSPARENCY_MISSING_ADDRESS_OF_IMPLEMENTATION_NUTS": 0,
+              "TRANSPARENCY_MISSING_OR_INCOMPLETE_CPVS": 100,
+              "TRANSPARENCY_MISSING_OR_INCOMPLETE_DURATION_INFO": 0,
+              "TRANSPARENCY_MISSING_SELECTION_METHOD": 0,
+              "TRANSPARENCY_MISSING_SUBCONTRACTED_INFO": 100,
+              "TRANSPARENCY_MISSING_OR_INCOMPLETE_FUNDINGS_INFO": 100
+            },
+            "cpv": "50230000",
+            "date": "2020-04-01",
+            "score": {
+              "INTEGRITY": 75,
+              "ADMINISTRATIVE": 15.2778,
+              "TRANSPARENCY": 66.6667,
+              "TENDER": 52.3148
+            },
+            "cpv_name": "Repair, maintenance and associated services related to roads and other equipment"
+          }
+        }
+      ]
+    },
+    "aggregations": {
+      "_lots_awardDecisionDate": {
+        "doc_count": 4536,
+        "buckets": [
+          {
+            "key": 2020,
+            "doc_count": 2240
+          },
+          {
+            "key": 2020,
+            "doc_count": 211
+          },
+          {
+            "key": 2020,
+            "doc_count": 126
+          },
+          {
+            "key": 2020,
+            "doc_count": 72
+          },
+          {
+            "key": 2020,
+            "doc_count": 56
+          }
+        ]
+      }
+    },
+    "sortBy": {
+      "id": "modified",
+      "ascend": false
+    }
+  }
+}

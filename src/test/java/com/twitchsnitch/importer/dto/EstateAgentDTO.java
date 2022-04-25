@@ -1,7 +1,8 @@
 package com.twitchsnitch.importer.dto;
 
-public class EstateAgent {
+public class EstateAgentDTO {
 
+    private String url;
     private String licenseNumber;//	765045
     private String licenseeName; //	Christopher Michael Durbin
     private String licenseType;	// Sales Agent
@@ -19,6 +20,14 @@ public class EstateAgent {
     private String relatedLicenseType; //	Corporation Broker
     private String relatedLicenseStartDate; //	20210712
     private String agencyIdentifier;//	1000164296
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getRelatedLicenseNumber() {
         return relatedLicenseNumber;
