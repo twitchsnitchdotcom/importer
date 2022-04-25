@@ -461,9 +461,9 @@ public class PersistenceService {
     public void persistTwitchStreams(Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as stream\n" +
                         "                    MERGE (l:LiveStream{twitch_id:stream.id})\n" +
-                        "                    SET  l.title = stream.title,\n" +
-                        "                    l.viewer_count = stream.viewercount,\n" +
-                        "                    l.started_at = datetime(stream.started_at),\n" +
+                        "                    SET  l.twitch_title = stream.title,\n" +
+                        "                    l.twitch_viewer_count = stream.viewercount,\n" +
+                        "                    l.twitch_started_at = datetime(stream.started_at),\n" +
                         "                    l.thumbnail_url = stream.thumbnail_url,\n" +
                         "                    l.is_mature = stream.is_mature WITH l, stream\n" +
                         "                    MATCH (u:User) WHERE u.login = stream.user_login\n" +

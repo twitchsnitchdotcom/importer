@@ -40,9 +40,13 @@ public class AsyncPersistenceService {
     public void persistChannelsAsync(Set<String> urls){
         for (String url : urls) {
             try {
-                persistenceService.persistSullyChannels(objectMapper().readValue(goToWebSiteJSON(url), Map.class));
+                String json = goToWebSiteJSON(url);
+                if(json!= null){
+                    persistenceService.persistSullyChannels(objectMapper().readValue(json, Map.class));
+                }
+
             } catch (JsonProcessingException e) {
-                e.printStackTrace();
+                log.error("Can't get url: " + url);
             }
         }
     }
@@ -52,9 +56,12 @@ public class AsyncPersistenceService {
     public void persistTeamsAsync(Integer index, Set<String> urls){
         for (String url : urls) {
             try {
-                persistenceService.persistSullyTeams(objectMapper().readValue(goToWebSiteJSON(url), Map.class));
+                String json = goToWebSiteJSON(url);
+                if(json!= null) {
+                    persistenceService.persistSullyTeams(objectMapper().readValue(json, Map.class));
+                }
             } catch (JsonProcessingException e) {
-                e.printStackTrace();
+                log.error("Can't get url: " + url);
             }
         }
     }
@@ -64,9 +71,12 @@ public class AsyncPersistenceService {
     public void persistGamesAsync(Integer index, Set<String> urls){
         for (String url : urls) {
             try {
-                persistenceService.persistSullyGames(objectMapper().readValue(goToWebSiteJSON(url), Map.class));
+                String json = goToWebSiteJSON(url);
+                if(json!= null) {
+                    persistenceService.persistSullyGames(objectMapper().readValue(json, Map.class));
+                }
             } catch (JsonProcessingException e) {
-                e.printStackTrace();
+                log.error("Can't get url: " + url);
             }
         }
     }
