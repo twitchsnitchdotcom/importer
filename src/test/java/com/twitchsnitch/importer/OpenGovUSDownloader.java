@@ -71,8 +71,8 @@ public class OpenGovUSDownloader {
 
 
      */
-    @BeforeTestExecution
-    public void beforeTests(){
+
+    public void addWorkingProxies(){
         workingProxies.add(new WorkingProxyDTO("105.213.99.253", 53281));
         workingProxies.add(new WorkingProxyDTO("167.160.89.13", 3128));
         workingProxies.add(new WorkingProxyDTO("118.136.66.172", 8080));
@@ -119,7 +119,7 @@ public class OpenGovUSDownloader {
 
     @Test
     public void IowaInsuranceProviders() throws IOException, URISyntaxException {
-        
+        addWorkingProxies()
         int insurancePageSize = 1000;
         String iowaInsuranceURL = "https://opengovus.com/iowa-insurance-producer";
 
@@ -341,7 +341,7 @@ public class OpenGovUSDownloader {
 
     @Test
     public void motorCarrierSearch() throws InterruptedException, IOException {
-
+        addWorkingProxies();
         String motorCarrierUrl = "https://opengovus.com/motor-carrier";
 
         Set<MotorCarrierDTO> motorCarrierDTOS = new HashSet<>();
@@ -521,7 +521,7 @@ public class OpenGovUSDownloader {
 //
     @Test
     public void medicalDoctorsSearch() throws InterruptedException, IOException {
-
+        addWorkingProxies();
         String doctorUrl = "https://opengovus.com/physician";
 
         Set<PhysicianDTO> physicianDTOS = new HashSet<>();
@@ -709,7 +709,7 @@ public class OpenGovUSDownloader {
 //
     @Test
     public void lawyerSearch() throws InterruptedException, IOException {
-
+        addWorkingProxies();
         String doctorUrl = "https://opengovus.com/washington-lawyer";
 
         Set<LawyerDTO> lawyerDTOS = new HashSet<>();
@@ -885,7 +885,7 @@ public class OpenGovUSDownloader {
 //    //TEXAS REAL ESTATE LICENSES  https://opengovus.com/texas-real-estate-license
     @Test
     public void realEstateAgentSearch() throws InterruptedException, IOException {
-
+        addWorkingProxies();
         String estateAgentUrl = "https://opengovus.com/texas-real-estate-license";
 
         Set<EstateAgentDTO> estateAgentDTOS = new HashSet<>();
@@ -1073,7 +1073,7 @@ public class OpenGovUSDownloader {
 
     @Test
     public void corporateSearch() throws InterruptedException, IOException {
-
+        addWorkingProxies();
         String corporateUrl = "https://opengovus.com/washington-corporation";
 
         Set<CorporationDTO> corporateDTOS = new HashSet<>();
