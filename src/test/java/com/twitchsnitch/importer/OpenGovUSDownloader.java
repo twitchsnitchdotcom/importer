@@ -1008,7 +1008,6 @@ public class OpenGovUSDownloader {
                 log.trace("Completed list does not contain url, fetching it: " + url);
                 Document doc = null;
                 try {
-                    WorkingProxyDTO randomProxy = getRandomWorkingProxy();
                     doc = Jsoup.connect(url).proxy(randomProxy.getIp(), randomProxy.getPort()).timeout(5000).get();
                     Elements select = doc.select("#entity-overview > div.panel-body > div > table:nth-child(3) > tbody");
                     List<Element> rows = select.get(0).getElementsByTag("tr");
@@ -1036,10 +1035,8 @@ public class OpenGovUSDownloader {
                 Document doc = null;
                 try {
                     if (i == 1) {
-                        WorkingProxyDTO randomProxy = getRandomWorkingProxy();
                         doc = Jsoup.connect(url).proxy(randomProxy.getIp(), randomProxy.getPort()).timeout(5000).get();
                     } else {
-                        WorkingProxyDTO randomProxy = getRandomWorkingProxy();
                         doc = Jsoup.connect(url + "?page=" + i).proxy(randomProxy.getIp(), randomProxy.getPort()).timeout(5000).get();
                     }
                     corporateSearchDeltaResults.addAll(extractExtraUrls(doc, corporateSearchResults, corporateCompletedResults, corporateUrl));
@@ -1063,7 +1060,6 @@ public class OpenGovUSDownloader {
                 log.trace("Completed list does not contain url, fetching it: " + url);
                 Document doc = null;
                 try {
-                    WorkingProxyDTO randomProxy = getRandomWorkingProxy();
                     doc = Jsoup.connect(url).proxy(randomProxy.getIp(), randomProxy.getPort()).timeout(5000).get();
                     Elements select = doc.select("#entity-overview > div.panel-body > div > table:nth-child(3) > tbody");
                     List<Element> rows = select.get(0).getElementsByTag("tr");
@@ -1089,7 +1085,6 @@ public class OpenGovUSDownloader {
                 log.trace("Completed list does not contain url, fetching it: " + url);
                 Document doc = null;
                 try {
-                    WorkingProxyDTO randomProxy = getRandomWorkingProxy();
                     doc = Jsoup.connect(url).proxy(randomProxy.getIp(), randomProxy.getPort()).timeout(5000).get();
                     Elements select = doc.select("#entity-overview > div.panel-body > div > table:nth-child(3) > tbody");
                     List<Element> rows = select.get(0).getElementsByTag("tr");
