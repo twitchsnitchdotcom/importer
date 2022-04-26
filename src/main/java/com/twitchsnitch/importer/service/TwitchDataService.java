@@ -2,6 +2,7 @@ package com.twitchsnitch.importer.service;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -227,13 +228,57 @@ public class TwitchDataService {
         String url = "https://sullygnome.com/api/tables/channeltables/newpartners/30/0/000/1/7/desc/0/100";
     }
 
-    public void sullySearch() {
+    public void sullySearchAndSetAllUsersWithoutSullyId() {
         List<String> allUsersWithoutSullyId = persistenceService.getAllUsersWithoutSullyId();
         for (String login : allUsersWithoutSullyId) {
             try {
                 String url = "https://sullygnome.com/api/standardsearch/" + login + "/true/true/false/true";
                 String json = goToWebSiteJSON(url);
-                SearchDTO searchDTO = objectMapper().readValue(json, SearchDTO.class);
+                List<SearchDTO> searchDTOList = objectMapper().readValue(json, new TypeReference<List<SearchDTO>>() {});
+                for(SearchDTO searchDTO: searchDTOList){
+                    if(searchDTO.getItemtype() == 1 && searchDTO.getSiteurl().equalsIgnoreCase(login)){
+                        //match
+                        //TODO some importing of an individual record
+                    }
+                }
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void sullySearchAndSetAllGamesWithoutSullyId() {
+        List<String> allGamesWithoutSullyId = persistenceService.getAllGamesWithoutSullyId();
+        for (String name : allGamesWithoutSullyId) {
+            try {
+                String url = "https://sullygnome.com/api/standardsearch/" + name + "/true/true/false/true";
+                String json = goToWebSiteJSON(url);
+                List<SearchDTO> searchDTOList  = objectMapper().readValue(json, new TypeReference<List<SearchDTO>>() {});
+                for(SearchDTO searchDTO: searchDTOList){
+                    if(searchDTO.getItemtype() == 2 && searchDTO.getDisplaytext().equalsIgnoreCase(name)){
+                        //match
+                        //TODO some importing of an individual record
+                    }
+                }
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void sullySearchAndSetAllTeamsWithoutSullyId() {
+        List<String> allTeamsWithoutSullyId = persistenceService.getAllTeamsWithoutSullyId();
+        for (String login : allTeamsWithoutSullyId) {
+            try {
+                String url = "https://sullygnome.com/api/standardsearch/" + login + "/true/true/false/true";
+                String json = goToWebSiteJSON(url);
+                List<SearchDTO> searchDTOList  = objectMapper().readValue(json, new TypeReference<List<SearchDTO>>() {});
+                for(SearchDTO searchDTO: searchDTOList){
+                    if(searchDTO.getItemtype() == 4 && searchDTO.getSiteurl().equalsIgnoreCase(login)){
+                        //match
+                        //TODO some importing of an individual record
+                    }
+                }
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -340,7 +385,7 @@ public class TwitchDataService {
             try {
                 String url = "https://sullygnome.com/channel/" + login;
                 String html = goToWebSiteHTML(url);
-
+                //TODO stuff here
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -434,14 +479,6 @@ public class TwitchDataService {
         } catch (Exception e) {
             log.error(e.getMessage());
         }
-    }
-
-    /**
-     * "/api/tables/channeltables/advancedsearch/" + days + "/" + -1 + "/" + languageId.toString() + "/" + minfollowers + "/" + minfollowers + "/" + minviewers + "/" + maxviewers + "/" + games + "/" + matchall + "/" + c.toString() + "/" + l.onlineonly() + "/" + a.cType_Community() + "/" + v.cType_Aff() + "/" + y.cType_Partnered() + "/" + p.cTypeMat_Mature() + "/" + w.cTypeMat_NotMature() + "/" 2022-04-17T00:00:00.000Z/-1/1/0/desc/0/100
-     */
-    //a way of importing all channels, kinda I think
-    public void channelSearch() {
-
     }
 
     public void importTeams1() {
@@ -747,6 +784,30 @@ public class TwitchDataService {
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());
+        }
+    }
+
+    @Async
+    public void importTopGames() {
+        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
+        try {
+            TopGameDTO resultList = runGetTopGame(randomToken, null);
+            persistenceService.persistTwitchGames(resultList.getMap());
+            String cursor = resultList.getPagination().getCursor();
+            while (cursor != null) {
+                TopGameDTO loopList = runGetTopGame(randomToken, cursor);
+                persistenceService.persistTwitchGames(resultList.getMap());
+                if (loopList != null && loopList.getData() != null) {
+                    String newCursor = loopList.getPagination().getCursor();
+                    if (newCursor == null) {
+                        break;
+                    } else {
+                        cursor = newCursor;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error(e.getLocalizedMessage());
         }
     }
 

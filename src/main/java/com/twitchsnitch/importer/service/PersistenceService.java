@@ -212,6 +212,36 @@ public class PersistenceService {
         return getAllUsersWithoutSullyId;
     }
 
+    public List<String> getAllGamesWithoutSullyId(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        List<String> getAllGamesWithoutSullyId = new ArrayList<>();
+        Collection<Map<String, Object>> all = client.query("MATCH (g:Game) where g.sully_id IS NULL RETURN g.name").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                getAllGamesWithoutSullyId.add((String) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("Get All Games without sully id: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return getAllGamesWithoutSullyId;
+    }
+
+    public List<String> getAllTeamsWithoutSullyId(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        List<String> getAllTeamsWithoutSullyId = new ArrayList<>();
+        Collection<Map<String, Object>> all = client.query("MATCH (t:Team) where t.sully_id IS NULL RETURN t.login").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                getAllTeamsWithoutSullyId.add((String) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("Get All Teams without sully id: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return getAllTeamsWithoutSullyId;
+    }
+
     public List<String> getChannelsCurrentlyLiveStreaming() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
