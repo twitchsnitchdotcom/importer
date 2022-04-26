@@ -119,7 +119,7 @@ public class OpenGovUSDownloader {
 
     @Test
     public void IowaInsuranceProviders() throws IOException, URISyntaxException {
-        addWorkingProxies()
+        addWorkingProxies();
         int insurancePageSize = 1000;
         String iowaInsuranceURL = "https://opengovus.com/iowa-insurance-producer";
 
