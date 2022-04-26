@@ -113,67 +113,67 @@ public class OpenGovUSDownloader {
             }
         }
 
-        log.debug("insuranceSearchResults size: " + insuranceSearchResults.size());
-        log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
-        log.debug("insuranceSearchDeltaResults size: " + insuranceSearchDeltaResults.size());
-        log.debug("insuranceCompletedResults size: " + insuranceCompletedResults.size());
-
-        // all the additional search result pages to build up the biggest delta results
-        for (String url : insuranceSearchDeltaResults) {
-            Document doc = null;
-            try {
-                WorkingProxyDTO randomProxy = getRandomProxy();
-                doc = Jsoup.connect(url).proxy(randomProxy.getIp(), randomProxy.getPort()).timeout(5000).get();
-                insuranceDeltaResults.addAll(extractExtraUrls(doc, insuranceSearchResults, insuranceCompletedResults, iowaInsuranceURL));
-            } catch (Exception e) {
-                log.error("Issue with addin the delta search results: " + url);
-            }
-        }
-
-        log.debug("insuranceSearchResults size: " + insuranceSearchResults.size());
-        log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
-        log.debug("insuranceSearchDeltaResults size: " + insuranceSearchDeltaResults.size());
-        log.debug("insuranceCompletedResults size: " + insuranceCompletedResults.size());
-
-
-        //add all the final results
-        for (String url : insuranceDeltaResults) {
-            if (!insuranceCompletedResults.contains(url)) {
-                log.trace("Completed list does not contain url, fetching it: " + url);
-                Document doc = null;
-                try {
-                    WorkingProxyDTO randomProxy = getRandomProxy();
-                    doc = Jsoup.connect(url).proxy(randomProxy.getIp(), randomProxy.getPort()).timeout(5000).get();
-                    Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
-                    List<Element> rows = select.get(0).getElementsByTag("tr");
-                    extractInsuranceProvider(url, rows, insuranceProviderDTOS);
-                    insuranceCompletedResults.add(url);
-                    log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
-                } catch (Exception e) {
-                    log.error("Issue with final results: " + url);
-                    insuranceErrorResults.add(url);
-                }
-            }
-        }
-
-        //add all the final results
-        for (String url : insuranceErrorResults) {
-            if (!insuranceCompletedResults.contains(url)) {
-                log.trace("Completed list does not contain url, fetching it: " + url);
-                Document doc = null;
-                try {
-                    WorkingProxyDTO randomProxy = getRandomProxy();
-                    doc = Jsoup.connect(url).proxy(randomProxy.getIp(), randomProxy.getPort()).timeout(5000).get();
-                    Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
-                    List<Element> rows = select.get(0).getElementsByTag("tr");
-                    extractInsuranceProvider(url, rows, insuranceProviderDTOS);
-                    insuranceCompletedResults.add(url);
-                    log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
-                } catch (Exception e) {
-                    log.error("Issue with final results: " + url);
-                }
-            }
-        }
+//        log.debug("insuranceSearchResults size: " + insuranceSearchResults.size());
+//        log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
+//        log.debug("insuranceSearchDeltaResults size: " + insuranceSearchDeltaResults.size());
+//        log.debug("insuranceCompletedResults size: " + insuranceCompletedResults.size());
+//
+//        // all the additional search result pages to build up the biggest delta results
+//        for (String url : insuranceSearchDeltaResults) {
+//            Document doc = null;
+//            try {
+//                WorkingProxyDTO randomProxy = getRandomProxy();
+//                doc = Jsoup.connect(url).proxy(randomProxy.getIp(), randomProxy.getPort()).timeout(5000).get();
+//                insuranceDeltaResults.addAll(extractExtraUrls(doc, insuranceSearchResults, insuranceCompletedResults, iowaInsuranceURL));
+//            } catch (Exception e) {
+//                log.error("Issue with addin the delta search results: " + url);
+//            }
+//        }
+//
+//        log.debug("insuranceSearchResults size: " + insuranceSearchResults.size());
+//        log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
+//        log.debug("insuranceSearchDeltaResults size: " + insuranceSearchDeltaResults.size());
+//        log.debug("insuranceCompletedResults size: " + insuranceCompletedResults.size());
+//
+//
+//        //add all the final results
+//        for (String url : insuranceDeltaResults) {
+//            if (!insuranceCompletedResults.contains(url)) {
+//                log.trace("Completed list does not contain url, fetching it: " + url);
+//                Document doc = null;
+//                try {
+//                    WorkingProxyDTO randomProxy = getRandomProxy();
+//                    doc = Jsoup.connect(url).proxy(randomProxy.getIp(), randomProxy.getPort()).timeout(5000).get();
+//                    Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
+//                    List<Element> rows = select.get(0).getElementsByTag("tr");
+//                    extractInsuranceProvider(url, rows, insuranceProviderDTOS);
+//                    insuranceCompletedResults.add(url);
+//                    log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
+//                } catch (Exception e) {
+//                    log.error("Issue with final results: " + url);
+//                    insuranceErrorResults.add(url);
+//                }
+//            }
+//        }
+//
+//        //add all the final results
+//        for (String url : insuranceErrorResults) {
+//            if (!insuranceCompletedResults.contains(url)) {
+//                log.trace("Completed list does not contain url, fetching it: " + url);
+//                Document doc = null;
+//                try {
+//                    WorkingProxyDTO randomProxy = getRandomProxy();
+//                    doc = Jsoup.connect(url).proxy(randomProxy.getIp(), randomProxy.getPort()).timeout(5000).get();
+//                    Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
+//                    List<Element> rows = select.get(0).getElementsByTag("tr");
+//                    extractInsuranceProvider(url, rows, insuranceProviderDTOS);
+//                    insuranceCompletedResults.add(url);
+//                    log.debug("insuranceProviderDTOS size: " + insuranceProviderDTOS.size());
+//                } catch (Exception e) {
+//                    log.error("Issue with final results: " + url);
+//                }
+//            }
+//        }
 
         File insurersFile = new File("/root/IdeaProjects/importer/src/test/resources/database/insurers.json");
         objectMapper().writeValue(insurersFile, insuranceProviderDTOS);
