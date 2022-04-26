@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/corporates_search_results.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/doctors_search_results.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/estateagents_search_results.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/insurers_search_results.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/lawyer_search_results.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/motorcarriers_search_results.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/OpenGovUSDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/OpenGovUSDownloader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +89,7 @@
       <recent name="com.twitchsnitch.importer.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.OpenGovUSDownloader.buildProxies">
+  <component name="RunManager" selected="JUnit.OpenGovUSDownloader.motorCarrierSearch">
     <configuration name="OpenGovUSDownloader.IowaInsuranceProviders" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="importer" />
       <extension name="coverage">
@@ -165,10 +172,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.OpenGovUSDownloader.buildProxies" />
-        <item itemvalue="JUnit.OpenGovUSDownloader.testProxies" />
         <item itemvalue="JUnit.OpenGovUSDownloader.motorCarrierSearch" />
         <item itemvalue="JUnit.OpenGovUSDownloader.IowaInsuranceProviders" />
+        <item itemvalue="JUnit.OpenGovUSDownloader.buildProxies" />
+        <item itemvalue="JUnit.OpenGovUSDownloader.testProxies" />
         <item itemvalue="JUnit.OpenGovUSDownloader.insuranceProviderSearch" />
       </list>
     </recent_temporary>
