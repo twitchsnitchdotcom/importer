@@ -13,8 +13,8 @@ public class ContractsDailyHistorical {
     @Test
     public void contractsDaily() throws InterruptedException {
         ChromeOptions options = new ChromeOptions();
-        //File webDriverFile = new File("/usr/lib/chromium-browser/chromedriver");
-        File webDriverFile = new File("/Users/horizondeep/Desktop/importer/src/main/resources/chromedriver");
+        File webDriverFile = new File("/usr/lib/chromium-browser/chromedriver");
+        //File webDriverFile = new File("/Users/horizondeep/Desktop/importer/src/main/resources/chromedriver");
         System.setProperty("webdriver.chrome.driver", webDriverFile.getAbsolutePath());
         options.addArguments("start-maximized"); // open Browser in maximized mode
         options.addArguments("disable-infobars"); // disabling infobars
