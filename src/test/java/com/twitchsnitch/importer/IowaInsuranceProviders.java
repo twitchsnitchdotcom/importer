@@ -103,7 +103,7 @@ public class IowaInsuranceProviders {
         insuranceErrorResults =  objectMapper().readValue(errorsfile, new TypeReference<Set<String>>() {});
 
         //all the general pages
-
+        int i = 0;
         for (String url : insuranceSearchResults) {
             if (!insuranceCompletedResults.contains(url)) {
                 log.debug("Completed list does not contain url, fetching it: " + url);
@@ -118,14 +118,17 @@ public class IowaInsuranceProviders {
                     completedSeqWriter.write(url);
                     insuranceDeltaResults.addAll(extractExtraUrls(doc, insuranceSearchResults, insuranceCompletedResults, iowaInsuranceURL));
                     insuranceSearchDeltaResults.addAll(extractExtraSearchUrls(doc, url));
+                    i++;
                 } catch (Exception e) {
-                    log.error("Issue adding all the general pages");
+                    log.error("Issue adding all the page: " + url);
+                    log.debug("Total records processed so far : " + i);
                     errorsSeqWriter.write(url);
                     insuranceErrorResults.add(url);
                 }
             }
         }
 
+        int j = 0;
         for (String url : insuranceErrorResults) {
             if (!insuranceCompletedResults.contains(url)) {
                 log.debug("Completed list does not contain url, fetching it: " + url);
@@ -140,8 +143,10 @@ public class IowaInsuranceProviders {
                     completedSeqWriter.write(url);
                     insuranceDeltaResults.addAll(extractExtraUrls(doc, insuranceSearchResults, insuranceCompletedResults, iowaInsuranceURL));
                     insuranceSearchDeltaResults.addAll(extractExtraSearchUrls(doc, url));
+                    j++;
                 } catch (Exception e) {
-                    log.error("Issue doing the error file fetch");
+                    log.error("Issue adding all the error url : " + url);
+                    log.debug("Total error records processed so far : " + j);
                 }
             }
         }
