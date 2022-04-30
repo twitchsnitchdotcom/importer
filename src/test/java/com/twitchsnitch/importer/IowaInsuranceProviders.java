@@ -76,7 +76,7 @@ public class IowaInsuranceProviders {
 
         FileWriter completedFileWriter = new FileWriter(completedfile, true);
         FileWriter resultsFileWriter = new FileWriter(resultsfile, true);
-        FileWriter errorsFileWriter = new FileWriter(resultsfile, true);
+        FileWriter errorsFileWriter = new FileWriter(errorsfile, true);
 
         SequenceWriter completedSeqWriter = objectMapper().writer().writeValuesAsArray(completedFileWriter);
         SequenceWriter resultsSeqWriter = objectMapper().writer().writeValuesAsArray(resultsFileWriter);
@@ -106,7 +106,6 @@ public class IowaInsuranceProviders {
         int i = 0;
         for (String url : insuranceSearchResults) {
             if (!insuranceCompletedResults.contains(url)) {
-                log.debug("Completed list does not contain url, fetching it: " + url);
                 Document doc = null;
                 try {
                     WorkingProxyDTO randomProxy = getRandomProxy();
@@ -122,6 +121,7 @@ public class IowaInsuranceProviders {
                 } catch (Exception e) {
                     log.error("Issue adding all the page: " + url);
                     log.debug("Total records processed so far : " + i);
+                    log.debug("Total errors so far : " + insuranceErrorResults.size());
                     errorsSeqWriter.write(url);
                     insuranceErrorResults.add(url);
                 }
@@ -131,7 +131,6 @@ public class IowaInsuranceProviders {
         int j = 0;
         for (String url : insuranceErrorResults) {
             if (!insuranceCompletedResults.contains(url)) {
-                log.debug("Completed list does not contain url, fetching it: " + url);
                 Document doc = null;
                 try {
                     WorkingProxyDTO randomProxy = getRandomProxy();
