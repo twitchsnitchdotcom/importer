@@ -98,9 +98,19 @@ public class IowaInsuranceProviders {
             genericSearch(iowaInsuranceURL, insurancePageSize, insuranceSearchResults, "insurers_search_results.json");
         }
 
-        insuranceCompletedResults =  objectMapper().readValue(completedfile, new TypeReference<Set<String>>() {});
+        try{
+            insuranceCompletedResults =  objectMapper().readValue(completedfile, new TypeReference<Set<String>>() {});
+        }
+        catch(Exception e){
+            log.error("insuranceCompletedResults file is empty");
+        }
 
-        insuranceErrorResults =  objectMapper().readValue(errorsfile, new TypeReference<Set<String>>() {});
+        try{
+            insuranceErrorResults =  objectMapper().readValue(errorsfile, new TypeReference<Set<String>>() {});
+        }
+        catch(Exception e){
+            log.error("insuranceErrorResults file is empty");
+        }
 
         //all the general pages
         int i = 0;
