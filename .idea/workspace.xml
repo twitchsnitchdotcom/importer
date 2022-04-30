@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/IowaInsuranceProviders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/IowaInsuranceProviders.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,6 +70,9 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/config" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.twitchsnitch.importer" />
       <recent name="com.twitchsnitch.importer.service" />
@@ -80,7 +84,7 @@
       <module name="importer" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -92,7 +96,7 @@
       <module name="importer" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -108,7 +112,7 @@
       <module name="importer" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -124,7 +128,7 @@
       <module name="importer" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -140,7 +144,7 @@
       <module name="importer" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>

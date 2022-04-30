@@ -72,11 +72,15 @@ public class IowaInsuranceProviders {
 
         File completedfile = new File(fileRoot + "insurers_completed_results.json");
         File resultsfile = new File(fileRoot + "insurers.json");
+        File errorsfile = new File(fileRoot + "insurers_errors.json");
 
         FileWriter completedFileWriter = new FileWriter(completedfile, true);
         FileWriter resultsFileWriter = new FileWriter(resultsfile, true);
+        FileWriter errorsFileWriter = new FileWriter(resultsfile, true);
+
         SequenceWriter completedSeqWriter = objectMapper().writer().writeValuesAsArray(completedFileWriter);
         SequenceWriter resultsSeqWriter = objectMapper().writer().writeValuesAsArray(resultsFileWriter);
+        SequenceWriter errorsSeqWriter = objectMapper().writer().writeValuesAsArray(errorsFileWriter);
 
         addWorkingProxies();
         int insurancePageSize = 1000;
@@ -94,9 +98,9 @@ public class IowaInsuranceProviders {
             genericSearch(iowaInsuranceURL, insurancePageSize, insuranceSearchResults, "insurers_search_results.json");
         }
 
-        File insurersCompletedFile = new File(fileRoot + "insurers_completed_results.json");
-        insuranceCompletedResults =  objectMapper().readValue(insurersCompletedFile, new TypeReference<Set<String>>() {});
+        insuranceCompletedResults =  objectMapper().readValue(completedfile, new TypeReference<Set<String>>() {});
 
+        insuranceErrorResults =  objectMapper().readValue(errorsfile, new TypeReference<Set<String>>() {});
 
         //all the general pages
 
@@ -116,6 +120,7 @@ public class IowaInsuranceProviders {
                     insuranceSearchDeltaResults.addAll(extractExtraSearchUrls(doc, url));
                 } catch (Exception e) {
                     log.error("Issue adding all the general pages");
+                    errorsSeqWriter.write(url);
                     insuranceErrorResults.add(url);
                 }
             }
@@ -136,17 +141,14 @@ public class IowaInsuranceProviders {
                     insuranceDeltaResults.addAll(extractExtraUrls(doc, insuranceSearchResults, insuranceCompletedResults, iowaInsuranceURL));
                     insuranceSearchDeltaResults.addAll(extractExtraSearchUrls(doc, url));
                 } catch (Exception e) {
-                    log.error("Issue adding all the general pages");
-                    insuranceErrorResults.add(url);
+                    log.error("Issue doing the error file fetch");
                 }
             }
         }
 
         resultsSeqWriter.close();
         completedSeqWriter.close();
-
-        File insurersErrorsFile = new File(fileRoot + "insurers_errors.json");
-        objectMapper().writeValue(insurersErrorsFile, insuranceErrorResults);
+        errorsSeqWriter.close();
 
         log.debug("insuranceSearchResults size: " + insuranceSearchResults.size());
         log.debug("insuranceSearchDeltaResults size: " + insuranceSearchDeltaResults.size());
