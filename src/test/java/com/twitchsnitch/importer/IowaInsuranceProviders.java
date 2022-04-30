@@ -97,9 +97,31 @@ public class IowaInsuranceProviders {
         File insurersCompletedFile = new File(fileRoot + "insurers_completed_results.json");
         insuranceCompletedResults =  objectMapper().readValue(insurersCompletedFile, new TypeReference<Set<String>>() {});
 
+
         //all the general pages
 
         for (String url : insuranceSearchResults) {
+            if (!insuranceCompletedResults.contains(url)) {
+                log.debug("Completed list does not contain url, fetching it: " + url);
+                Document doc = null;
+                try {
+                    WorkingProxyDTO randomProxy = getRandomProxy();
+                    doc = Jsoup.connect(url).proxy(randomProxy.getIp(), randomProxy.getPort()).timeout(5000).get();
+                    Elements select = doc.select("#overview > div.panel-body > div > table > tbody");
+                    List<Element> rows = select.get(0).getElementsByTag("tr");
+                    InsuranceProviderDTO insuranceProviderDTO = extractInsuranceProvider(url, rows);
+                    resultsSeqWriter.write(insuranceProviderDTO);
+                    completedSeqWriter.write(url);
+                    insuranceDeltaResults.addAll(extractExtraUrls(doc, insuranceSearchResults, insuranceCompletedResults, iowaInsuranceURL));
+                    insuranceSearchDeltaResults.addAll(extractExtraSearchUrls(doc, url));
+                } catch (Exception e) {
+                    log.error("Issue adding all the general pages");
+                    insuranceErrorResults.add(url);
+                }
+            }
+        }
+
+        for (String url : insuranceErrorResults) {
             if (!insuranceCompletedResults.contains(url)) {
                 log.debug("Completed list does not contain url, fetching it: " + url);
                 Document doc = null;
