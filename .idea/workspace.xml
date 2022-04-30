@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/IowaInsuranceProviders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/IowaInsuranceProviders.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/database/insurers.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/database/insurers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/database/insurers_completed_results.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/database/insurers_completed_results.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/database/insurers_errors.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/database/insurers_errors.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

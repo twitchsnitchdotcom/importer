@@ -29,8 +29,8 @@ public class IowaInsuranceProviders {
 
     static Set<WorkingProxyDTO> workingProxies = new HashSet<>();
 
-    //private String fileRoot = "/root/IdeaProjects/importer/src/test/resources/database/";
-    private static String fileRoot = "/Users/horizondeep/Desktop/importer/src/test/resources/database/";
+    private static String fileRoot = "/root/IdeaProjects/importer/src/test/resources/database/";
+    //private static String fileRoot = "/Users/horizondeep/Desktop/importer/src/test/resources/database/";
 
 
     public IowaInsuranceProviders() throws IOException {
