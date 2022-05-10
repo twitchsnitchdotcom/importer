@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/IowaInsuranceProviders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/IowaInsuranceProviders.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/HomePageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/HomePageElementDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/homepage.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/homepage.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/pagesource.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pagesource.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/JsoupTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/JsoupTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/pagesource.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pagesource.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,15 +60,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/resources/database" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/jamie/IdeaProjects/importer"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/resources/database" />
@@ -77,7 +82,7 @@
       <recent name="com.twitchsnitch.importer.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.OpenGovUSDownloader.IowaInsuranceProviders">
+  <component name="RunManager" selected="JUnit.JsoupTests.homePageStats">
     <configuration name="ImporterApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.ImporterApplication" />
       <module name="importer" />
@@ -91,17 +96,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ContractsDailyHistorical.contractsDaily" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="JsoupTests.homePageStats" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="importer" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value=".*" />
+          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.twitchsnitch.importer" />
-      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.ContractsDailyHistorical" />
-      <option name="METHOD_NAME" value="contractsDaily" />
+      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.JsoupTests" />
+      <option name="METHOD_NAME" value="homePageStats" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -155,13 +160,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.JsoupTests.homePageStats" />
         <item itemvalue="JUnit.OpenGovUSDownloader.IowaInsuranceProviders" />
         <item itemvalue="JUnit.OpenGovUSDownloader.medicalDoctorsSearch" />
         <item itemvalue="JUnit.OpenGovUSDownloader.motorCarrierSearch" />
         <item itemvalue="Application.ImporterApplication" />
-        <item itemvalue="JUnit.ContractsDailyHistorical.contractsDaily" />
       </list>
     </recent_temporary>
   </component>
