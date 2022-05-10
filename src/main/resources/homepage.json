@@ -1,0 +1,304 @@
+{
+  "dayRange": 7,
+  "hoursWatched": "418,470,601",
+  "hoursWatchedPercentageChange": 4.1,
+  "hoursWatchedChangeAmount": "-17,917,068",
+  "averageViewers": "2,490,896",
+  "averageViewersPercentageChange": 4.1,
+  "averageViewersChangeAmount": "-106,649",
+  "peakViewers": "4,333,337",
+  "peakViewersPercentageChange": 10.9,
+  "peakViewersChangeAmount": "-529,572",
+  "peakStreams": "5,148,513",
+  "peakStreamsPercentageChange": 3.7,
+  "peakStreamsChangeAmount": "-200,179",
+  "averageChannels": "87,448",
+  "averageChannelsPercentageChange": 4.2,
+  "averageChannelsChangeAmount": "-3,850",
+  "gamesStreamed": "26,014",
+  "gamesStreamedPercentageChange": 1.3,
+  "gamesStreamedChangeAmount": "+328",
+  "viewerRatio": "28.59",
+  "mostWatchedChannels": [
+    {
+      "rowNumber": 1,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/xqcow-profile_image-9298dca608632101-150x150.jpeg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "xQcOW",
+      "key": "Hours watched",
+      "value": "5,913,675",
+      "percentageChange": 11.4,
+      "valueChange": "+605,759"
+    },
+    {
+      "rowNumber": 2,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/f3591dbe4ee3d94b-profile_image-150x150.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "loltyler1",
+      "key": "Hours watched",
+      "value": "4,797,649",
+      "percentageChange": 426.6,
+      "valueChange": "+3,886,624"
+    },
+    {
+      "rowNumber": 3,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/f4b12683-57ff-4b57-926a-67512b43a7ff-profile_image-150x150.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Gaules",
+      "key": "Hours watched",
+      "value": "3,321,193",
+      "percentageChange": -1.4,
+      "valueChange": "-46,932"
+    },
+    {
+      "rowNumber": 4,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/asmongold-profile_image-f7ddcbd0332f5d28-150x150.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Asmongold",
+      "key": "Hours watched",
+      "value": "2,923,346",
+      "percentageChange": 1.7,
+      "valueChange": "+49,342"
+    },
+    {
+      "rowNumber": 5,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/07580fe8-4509-4cbd-84b6-31732234e98c-profile_image-150x150.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "iiTzTimmy",
+      "key": "Hours watched",
+      "value": "2,067,386",
+      "percentageChange": -23.0,
+      "valueChange": "-617,360"
+    }
+  ],
+  "mostWatchedGames": [
+    {
+      "rowNumber": 1,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/509658-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Just Chatting",
+      "key": "Hours watched",
+      "value": "61,674,599",
+      "percentageChange": 5.9,
+      "valueChange": "+3,460,773"
+    },
+    {
+      "rowNumber": 2,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/21779-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "League of Legends",
+      "key": "Hours watched",
+      "value": "32,004,270",
+      "percentageChange": 16.4,
+      "valueChange": "+4,500,515"
+    },
+    {
+      "rowNumber": 3,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/32982_IGDB-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Grand Theft Auto V",
+      "key": "Hours watched",
+      "value": "27,947,741",
+      "percentageChange": 0.7,
+      "valueChange": "+194,236"
+    },
+    {
+      "rowNumber": 4,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/516575-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "VALORANT",
+      "key": "Hours watched",
+      "value": "22,803,810",
+      "percentageChange": -4.2,
+      "valueChange": "-1,009,622"
+    },
+    {
+      "rowNumber": 5,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/511224-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Apex Legends",
+      "key": "Hours watched",
+      "value": "16,221,739",
+      "percentageChange": -10.5,
+      "valueChange": "-1,904,352"
+    }
+  ],
+  "trendingGames": [
+    {
+      "rowNumber": 1,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/263490_IGDB-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Rust",
+      "key": "More hours watched",
+      "value": "8,030,731",
+      "percentageChange": 395.3,
+      "valueChange": ""
+    },
+    {
+      "rowNumber": 2,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/21779-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "League of Legends",
+      "key": "More hours watched",
+      "value": "4,454,034",
+      "percentageChange": 16.4,
+      "valueChange": ""
+    },
+    {
+      "rowNumber": 3,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/2058220722_IGDB-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Poppy Playtime",
+      "key": "More hours watched",
+      "value": "4,133,174",
+      "percentageChange": 0.0,
+      "valueChange": ""
+    },
+    {
+      "rowNumber": 4,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/1411398523_IGDB-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Vampire: The Masquerade - Bloodhunt",
+      "key": "More hours watched",
+      "value": "2,511,206",
+      "percentageChange": 144.2,
+      "valueChange": ""
+    },
+    {
+      "rowNumber": 5,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/2047407036_IGDB-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Warhammer 40,000: Chaos Gate - Daemonhunters",
+      "key": "More hours watched",
+      "value": "1,518,910",
+      "percentageChange": 0.0,
+      "valueChange": ""
+    }
+  ],
+  "fastestGrowingChannels": [
+    {
+      "rowNumber": 1,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/a00b3506-870a-4e16-a739-9a2bfd2960c2-profile_image-150x150.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "TheNicoleT",
+      "key": "Followers gained",
+      "value": "454,925",
+      "percentageChange": 0.0,
+      "valueChange": "+453,728"
+    },
+    {
+      "rowNumber": 2,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/0107210e-a98c-409d-92a6-1caf70bb3953-profile_image-150x150.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "ElMariana",
+      "key": "Followers gained",
+      "value": "64,948",
+      "percentageChange": 43.5,
+      "valueChange": "+19,688"
+    },
+    {
+      "rowNumber": 3,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/2fa85db8-480e-4a8d-95fc-139b31d4b779-profile_image-150x150.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "卡門哥 (0800478587)",
+      "key": "Followers gained",
+      "value": "59,484",
+      "percentageChange": 0.0,
+      "valueChange": "+59,452"
+    },
+    {
+      "rowNumber": 4,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/b64f8a6d-64b9-4b36-b0ba-e2c9ba103574-profile_image-150x150.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Robleis",
+      "key": "Followers gained",
+      "value": "51,489",
+      "percentageChange": -35.3,
+      "valueChange": "-28,107"
+    },
+    {
+      "rowNumber": 5,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/c339f860-c405-40e6-a6b9-3c2bfa79fe61-profile_image-150x150.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "莉亞莉亞 (lea__y)",
+      "key": "Followers gained",
+      "value": "50,611",
+      "percentageChange": 0.0,
+      "valueChange": "+50,494"
+    }
+  ],
+  "mostStreamedGames": [
+    {
+      "rowNumber": 1,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/516575-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "VALORANT",
+      "key": "Hours streamed",
+      "value": "888,243",
+      "percentageChange": -6.5,
+      "valueChange": "-61,831"
+    },
+    {
+      "rowNumber": 2,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/511224-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Apex Legends",
+      "key": "Hours streamed",
+      "value": "790,889",
+      "percentageChange": -4.1,
+      "valueChange": "-33,697"
+    },
+    {
+      "rowNumber": 3,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/33214-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Fortnite",
+      "key": "Hours streamed",
+      "value": "739,949",
+      "percentageChange": -3.8,
+      "valueChange": "-29,500"
+    },
+    {
+      "rowNumber": 4,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/509658-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Just Chatting",
+      "key": "Hours streamed",
+      "value": "664,408",
+      "percentageChange": -2.4,
+      "valueChange": "-16,108"
+    },
+    {
+      "rowNumber": 5,
+      "image": "https://static-cdn.jtvnw.net/ttv-boxart/21779-136x190.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "League of Legends",
+      "key": "Hours streamed",
+      "value": "564,827",
+      "percentageChange": -4.0,
+      "valueChange": "-23,263"
+    }
+  ],
+  "mostViewedStreams": [
+    {
+      "rowNumber": 1,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/f4b12683-57ff-4b57-926a-67512b43a7ff-profile_image-150x150.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "Gaules",
+      "key": "Peak viewers",
+      "value": "263,480",
+      "percentageChange": 102.5,
+      "valueChange": "+2,222"
+    },
+    {
+      "rowNumber": 2,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/787bd9dd-9367-45ed-a44d-d755427549b8-profile_image-150x150.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "otplol_",
+      "key": "Peak viewers",
+      "value": "204,072",
+      "percentageChange": 53.5,
+      "valueChange": "+1,185"
+    },
+    {
+      "rowNumber": 3,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/574228be-01ef-4eab-bc0e-a4f6b68bedba-profile_image-150x150.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "ibai",
+      "key": "Peak viewers",
+      "value": "178,119",
+      "percentageChange": 47.8,
+      "valueChange": "+959"
+    },
+    {
+      "rowNumber": 4,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/ad9d3702-8644-4172-9372-e90e7a0eeeff-profile_image-150x150.png?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "PGL",
+      "key": "Peak viewers",
+      "value": "146,940",
+      "percentageChange": 0.0,
+      "valueChange": "+2,449"
+    },
+    {
+      "rowNumber": 5,
+      "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/xqcow-profile_image-9298dca608632101-150x150.jpeg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+      "name": "xQcOW",
+      "key": "Peak viewers",
+      "value": "136,236",
+      "percentageChange": -56.4,
+      "valueChange": "-2,932"
+    }
+  ]
+}

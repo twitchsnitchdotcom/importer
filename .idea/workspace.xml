@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/HomePageDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/dto/sully/HomePageElementDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/homepage.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/homepage.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pagesource.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pagesource.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/homepage.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/homepage.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/JsoupTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/JsoupTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pagesource.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pagesource.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,16 +77,19 @@
       <recent name="com.twitchsnitch.importer.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.JsoupTests.homePageStats">
-    <configuration name="ImporterApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.ImporterApplication" />
+  <component name="RunManager" selected="JUnit.JsoupTests.channelPageSingle">
+    <configuration name="JsoupTests.channelPageSingle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="importer" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value=".*" />
+          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.twitchsnitch.importer" />
+      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.JsoupTests" />
+      <option name="METHOD_NAME" value="channelPageSingle" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -173,11 +171,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.JsoupTests.channelPageSingle" />
         <item itemvalue="JUnit.JsoupTests.homePageStats" />
         <item itemvalue="JUnit.OpenGovUSDownloader.IowaInsuranceProviders" />
         <item itemvalue="JUnit.OpenGovUSDownloader.medicalDoctorsSearch" />
         <item itemvalue="JUnit.OpenGovUSDownloader.motorCarrierSearch" />
-        <item itemvalue="Application.ImporterApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -190,6 +188,14 @@
       <option name="presentableId" value="Default" />
       <updated>1648931531064</updated>
     </task>
+    <task id="LOCAL-00001" summary="kinda working, nice :)">
+      <created>1652197875739</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1652197875739</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -254,6 +260,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
           <line>820</line>
           <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/JsoupTests.java</url>
+          <line>329</line>
+          <option name="timeStamp" value="96" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

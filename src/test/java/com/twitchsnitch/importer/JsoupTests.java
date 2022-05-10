@@ -1,5 +1,9 @@
 package com.twitchsnitch.importer;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.twitchsnitch.importer.dto.sully.*;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
@@ -8,6 +12,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,9 +21,17 @@ import java.util.List;
 
 public class JsoupTests {
 
+    public final ObjectMapper objectMapper() {
+        JavaTimeModule module = new JavaTimeModule();
+        return new ObjectMapper()
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .registerModule(module);
+    }
 
     @Test
     public void homePageStats() throws IOException{
+
         FileInputStream fis = new FileInputStream("src/main/resources/homepage.html");
         String htmlString = IOUtils.toString(fis, "UTF-8");
 
@@ -31,9 +44,9 @@ public class JsoupTests {
         String hourswatchedIndicatorClass = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div.InfoStatPanelWrapper.InfoStatPanelSpacerLeft > div > div > div.InfoStatPanelTR > div > span").get(0).className();
         String hourswatchedChanged = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div.InfoStatPanelWrapper.InfoStatPanelSpacerLeft > div > div > div.InfoStatPanelBL > div").get(0).text();
 
-        homePageDTO.setHoursWatched();
-        homePageDTO.setHoursWatchedChangeAmount();
-        homePageDTO.setHoursWatchedChangeAmount();
+        homePageDTO.setHoursWatched(hourswatched);
+        homePageDTO.setHoursWatchedChangeAmount(hourswatchedChanged);
+        homePageDTO.setHoursWatchedPercentageChange(getPercentageChanged(hourswatchedPercentage, hourswatchedIndicatorClass));
 
         //averageViewers
         String averageViewers = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div:nth-child(2) > div > div > div.InfoStatPanelTL > div").get(0).text();
@@ -41,9 +54,9 @@ public class JsoupTests {
         String averageViewersIndicatorClass = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div:nth-child(2) > div > div > div.InfoStatPanelTR > div > span").get(0).className();
         String averageViewersChanged = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div:nth-child(2) > div > div > div.InfoStatPanelBL > div").get(0).text();
 
-        homePageDTO.setAverageViewers();
-        homePageDTO.setAverageViewersChangeAmount();
-        homePageDTO.setAverageViewersPercentageChange();
+        homePageDTO.setAverageViewers(averageViewers);
+        homePageDTO.setAverageViewersChangeAmount(averageViewersChanged);
+        homePageDTO.setAverageViewersPercentageChange(getPercentageChanged(averageViewersPercentage, averageViewersIndicatorClass));
 
         //peakViewers
         String peakViewers = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div:nth-child(3) > div > div > div.InfoStatPanelTL > div").get(0).text();
@@ -51,9 +64,9 @@ public class JsoupTests {
         String peakViewersIndicatorClass = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div:nth-child(3) > div > div > div.InfoStatPanelTR > div > span").get(0).className();
         String peakViewersChanged = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div:nth-child(3) > div > div > div.InfoStatPanelBL > div").get(0).text();
 
-        homePageDTO.setPeakViewers();
-        homePageDTO.setPeakViewersChangeAmount();
-        homePageDTO.setPeakViewersPercentageChange();
+        homePageDTO.setPeakViewers(peakViewers);
+        homePageDTO.setPeakViewersChangeAmount(peakViewersChanged);
+        homePageDTO.setPeakViewersPercentageChange(getPercentageChanged(peakViewersPercentage, peakViewersIndicatorClass));
 
         //peakStreams
         String peakStreams = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div:nth-child(4) > div > div > div.InfoStatPanelTL > div").get(0).text();
@@ -61,9 +74,9 @@ public class JsoupTests {
         String peakStreamsIndicatorClass = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div:nth-child(4) > div > div > div.InfoStatPanelTR > div > span").get(0).className();
         String peakStreamsChanged = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div:nth-child(4) > div > div > div.InfoStatPanelBL > div").get(0).text();
 
-        homePageDTO.setPeakStreams();
-        homePageDTO.setPeakStreamsChangeAmount();
-        homePageDTO.setPeakStreamsPercentageChange();
+        homePageDTO.setPeakStreams(peakStreams);
+        homePageDTO.setPeakStreamsChangeAmount(peakStreamsChanged);
+        homePageDTO.setPeakStreamsPercentageChange(getPercentageChanged(peakStreamsPercentage, peakStreamsIndicatorClass));
 
         //averageChannels
         String averageChannels = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div:nth-child(5) > div > div > div.InfoStatPanelTL > div").get(0).text();
@@ -71,9 +84,9 @@ public class JsoupTests {
         String averageChannelsIndicatorClass = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div:nth-child(5) > div > div > div.InfoStatPanelTR > div > span").get(0).className();
         String averageChannelsChanged = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div:nth-child(5) > div > div > div.InfoStatPanelBL > div").get(0).text();
 
-        homePageDTO.setAverageChannels();
-        homePageDTO.setAverageChannelsChangeAmount();
-        homePageDTO.setAverageChannelsPercentageChange();
+        homePageDTO.setAverageChannels(averageChannels);
+        homePageDTO.setAverageChannelsChangeAmount(averageChannelsChanged);
+        homePageDTO.setAverageChannelsPercentageChange(getPercentageChanged(averageChannelsPercentage, averageChannelsIndicatorClass));
 
         //gamesStreamed
         String gamesStreamed = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div:nth-child(6) > div > div > div.InfoStatPanelTL > div").get(0).text();
@@ -83,7 +96,7 @@ public class JsoupTests {
 
         homePageDTO.setGamesStreamed(gamesStreamed);
         homePageDTO.setGamesStreamedChangeAmount(gamesStreamedChanged);
-        homePageDTO.setGamesStreamedPercentageChange(gamesStreamedPercentage);
+        homePageDTO.setGamesStreamedPercentageChange(getPercentageChanged(gamesStreamedPercentage, gamesStreamedIndicatorClass));
 
         //viewerRatio
         String viewerRatio = doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop.InfoStatPanelContainerTopSpacer > div > div.InfoStatPanelWrapper.InfoStatPanelSpacerMiddle > div > div > div.InfoStatPanelTL > div").get(0).text();
@@ -121,12 +134,22 @@ public class JsoupTests {
         homePageDTO.setMostWatchedChannels(mostWatchedChannels);
 
         System.out.print(homePageDTO.toString());
+
+        objectMapper().writeValue(new File("src/main/resources/homepage.json"), homePageDTO);
+
     }
 
-    private Double getPercentage(String value, String indicator){
-        if(){
-
+    private Double getPercentageChanged(String value, String indicator){
+        if(value == null || indicator == null){
+            return null;
         }
+        return Double.parseDouble(value.replace("%", ""));
+//        if(indicator.equalsIgnoreCase("Positive")){
+//            return Double.parseDouble(value);
+//        }
+//        else{
+//            return Double.parseDouble("-" + value);
+//        }
     }
 
     private List<HomePageElementDTO> getDTOsFromElements(Elements elements){
@@ -236,8 +259,34 @@ positiveOrNegative = e.getElementsByClass("InfoStatPanelLongRight").get(0).getEl
 
         Document doc = Jsoup.parse(htmlString);
 
+
+        individualChannelPageDTO.setAvgViewers();
+        individualChannelPageDTO.setCreatedAt();
+
+        individualChannelPageDTO.setFollowersGained();
+        individualChannelPageDTO.setFollowersGainedWhilePlaying();
+        individualChannelPageDTO.setLogin();
+        individualChannelPageDTO.setMature();
+        individualChannelPageDTO.setPartner();
+        individualChannelPageDTO.setPreviousAvgViewers();
+        individualChannelPageDTO.setPreviousFollowerGain();
+        individualChannelPageDTO.setPreviousMaxViewers();
+        individualChannelPageDTO.setPreviousStreamedMinutes();
+        individualChannelPageDTO.setPreviousViewMinutes();
+        individualChannelPageDTO.setPreviousViewsGained();
+        individualChannelPageDTO.setProfileImageUrl();
+        individualChannelPageDTO.setRowNumber();
+        individualChannelPageDTO.setStatus();
+        individualChannelPageDTO.setStreamedMinutes();
+        individualChannelPageDTO.setSullyId();
+        individualChannelPageDTO.setTotalViewCount();
+        individualChannelPageDTO.setTwitchId();
+        individualChannelPageDTO.setTwitchLink();
+        individualChannelPageDTO.setViewMinutes();
+        individualChannelPageDTO.setViewsGained();
         //top row done
         String followers = cleanIt(doc.select("#pageHeaderMiddle > div.MiddleSubHeaderContainer > div > div:nth-child(2)").get(0).text());
+        individualChannelPageDTO.setFollowers(Long.parseLong(followers));
         String views = cleanIt(doc.select("#pageHeaderMiddle > div.MiddleSubHeaderContainer > div > div:nth-child(4)").get(0).text());
         String status = cleanIt(doc.select("#pageHeaderMiddle > div.MiddleSubHeaderContainer > div > div:nth-child(6)").get(0).text());
         String mature = cleanIt(doc.select("#pageHeaderMiddle > div.MiddleSubHeaderContainer > div > div:nth-child(8)").get(0).text());
@@ -311,30 +360,6 @@ positiveOrNegative = e.getElementsByClass("InfoStatPanelLongRight").get(0).getEl
             individualChannelPageDTO.setAffiliate(false);
         }
 
-//        individualChannelPageDTO.setAvgViewers();
-//        individualChannelPageDTO.setCreatedAt();
-//        individualChannelPageDTO.setFollowers();
-//        individualChannelPageDTO.setFollowersGained();
-//        individualChannelPageDTO.setFollowersGainedWhilePlaying();
-//        individualChannelPageDTO.setLogin();
-//        individualChannelPageDTO.setMature();
-//        individualChannelPageDTO.setPartner();
-//        individualChannelPageDTO.setPreviousAvgViewers();
-//        individualChannelPageDTO.setPreviousFollowerGain();
-//        individualChannelPageDTO.setPreviousMaxViewers();
-//        individualChannelPageDTO.setPreviousStreamedMinutes();
-//        individualChannelPageDTO.setPreviousViewMinutes();
-//        individualChannelPageDTO.setPreviousViewsGained();
-//        individualChannelPageDTO.setProfileImageUrl();
-//        individualChannelPageDTO.setRowNumber();
-//        individualChannelPageDTO.setStatus();
-//        individualChannelPageDTO.setStreamedMinutes();
-//        individualChannelPageDTO.setSullyId();
-//        individualChannelPageDTO.setTotalViewCount();
-//        individualChannelPageDTO.setTwitchId();
-//        individualChannelPageDTO.setTwitchLink();
-//        individualChannelPageDTO.setViewMinutes();
-//        individualChannelPageDTO.setViewsGained();
 
         Elements teamElements = doc.select("#channelQuickLinks > div").get(0).getElementsByTag("a");
         List<String> teams = new ArrayList<>();
