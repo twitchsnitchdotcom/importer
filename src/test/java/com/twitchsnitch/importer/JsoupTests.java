@@ -17,7 +17,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JsoupTests {
 
@@ -30,7 +32,7 @@ public class JsoupTests {
     }
 
     @Test
-    public void homePageStats() throws IOException{
+    public void homePageStats() throws IOException {
 
         FileInputStream fis = new FileInputStream("src/main/resources/homepage.html");
         String htmlString = IOUtils.toString(fis, "UTF-8");
@@ -124,7 +126,6 @@ public class JsoupTests {
         List<HomePageElementDTO> mostViewedStreams = getDTOsFromElements(mostViewedStreamsRow);
 
 
-
         homePageDTO.setMostViewedStreams(mostViewedStreams);
         homePageDTO.setFastestGrowingChannels(fastestGrowingChannels);
         homePageDTO.setMostStreamedGames(mostStreamedGames);
@@ -139,23 +140,23 @@ public class JsoupTests {
 
     }
 
-    private Double getPercentageChanged(String value, String indicator){
-        if(value == null || indicator == null){
+    private Double getPercentageChanged(String value, String indicator) {
+        if (value == null || indicator == null) {
             return null;
         }
-        return Double.parseDouble(value.replace("%", ""));
-//        if(indicator.equalsIgnoreCase("Positive")){
-//            return Double.parseDouble(value);
-//        }
-//        else{
-//            return Double.parseDouble("-" + value);
-//        }
+        value = value.replace("%", "");
+        if (indicator.equalsIgnoreCase("Negative")) {
+            double v = Double.parseDouble(value);
+            return ( v *= -1);
+        } else {
+            return Double.parseDouble(value);
+        }
     }
 
-    private List<HomePageElementDTO> getDTOsFromElements(Elements elements){
+    private List<HomePageElementDTO> getDTOsFromElements(Elements elements) {
         List<HomePageElementDTO> homePageElementDTOS = new ArrayList<>();
         int i = 0;
-        for(Element e: elements){
+        for (Element e : elements) {
             i++;
             HomePageElementDTO homePageElementDTO = new HomePageElementDTO();
 
@@ -170,36 +171,32 @@ public class JsoupTests {
             String positiveOrNegative = null;
             String valueChange = null;
 
-            try{
+            try {
                 percentageChange = e.getElementsByClass("InfoStatPanelLongRight").get(0).getElementsByClass("InfoStatPanelLongRightTop").get(0).getElementsByTag("span").get(0).text().replace("%", "");
-            }
-            catch(IndexOutOfBoundsException exception){
+            } catch (IndexOutOfBoundsException exception) {
                 System.out.println("Percentage Change not available");
             }
 
-            try{
-positiveOrNegative = e.getElementsByClass("InfoStatPanelLongRight").get(0).getElementsByClass("InfoStatPanelLongRightTop").get(0).getElementsByTag("span").get(0).className();
+            try {
+                positiveOrNegative = e.getElementsByClass("InfoStatPanelLongRight").get(0).getElementsByClass("InfoStatPanelLongRightTop").get(0).getElementsByTag("span").get(0).className();
 
-            }
-            catch(IndexOutOfBoundsException exception){
+            } catch (IndexOutOfBoundsException exception) {
                 System.out.println("positiveOrNegative Change not available");
             }
 
-            try{
+            try {
                 valueChange = e.getElementsByClass("InfoStatPanelLongRight").get(0).getElementsByClass("InfoStatPanelLongRightBottom").get(0).text();
-            }
-            catch(IndexOutOfBoundsException exception){
+            } catch (IndexOutOfBoundsException exception) {
                 System.out.println("Value Change not available");
             }
 
 
             double percentageChanged = 0;
 
-            if(positiveOrNegative != null && percentageChange != null){
-                if(positiveOrNegative.equalsIgnoreCase("Positive")){
+            if (positiveOrNegative != null && percentageChange != null) {
+                if (positiveOrNegative.equalsIgnoreCase("Positive")) {
                     percentageChanged = Double.parseDouble(percentageChange);
-                }
-                else{
+                } else {
                     percentageChanged = Double.parseDouble("-" + percentageChange);
                 }
             }
@@ -216,6 +213,7 @@ positiveOrNegative = e.getElementsByClass("InfoStatPanelLongRight").get(0).getEl
         }
         return homePageElementDTOS;
     }
+
     @Test
     public void teamStatsPage() throws IOException {
         FileInputStream fis = new FileInputStream("src/main/resources/team-stats-page.html");
@@ -259,121 +257,230 @@ positiveOrNegative = e.getElementsByClass("InfoStatPanelLongRight").get(0).getEl
 
         Document doc = Jsoup.parse(htmlString);
 
+        String displayName = doc.select("#pageHeaderMiddle > div.PageHeaderMiddleTop > div > div > div > h1 > span.PageHeaderMiddleWithImageHeaderP1").text();
+        individualChannelPageDTO.setDisplayName(displayName);
 
-        individualChannelPageDTO.setAvgViewers();
-        individualChannelPageDTO.setCreatedAt();
+        String twitchUrl = doc.select("#pageSubHeaderRight > a").attr("href");
+        individualChannelPageDTO.setUrl(twitchUrl);
 
-        individualChannelPageDTO.setFollowersGained();
-        individualChannelPageDTO.setFollowersGainedWhilePlaying();
-        individualChannelPageDTO.setLogin();
-        individualChannelPageDTO.setMature();
-        individualChannelPageDTO.setPartner();
-        individualChannelPageDTO.setPreviousAvgViewers();
-        individualChannelPageDTO.setPreviousFollowerGain();
-        individualChannelPageDTO.setPreviousMaxViewers();
-        individualChannelPageDTO.setPreviousStreamedMinutes();
-        individualChannelPageDTO.setPreviousViewMinutes();
-        individualChannelPageDTO.setPreviousViewsGained();
-        individualChannelPageDTO.setProfileImageUrl();
-        individualChannelPageDTO.setRowNumber();
-        individualChannelPageDTO.setStatus();
-        individualChannelPageDTO.setStreamedMinutes();
-        individualChannelPageDTO.setSullyId();
-        individualChannelPageDTO.setTotalViewCount();
-        individualChannelPageDTO.setTwitchId();
-        individualChannelPageDTO.setTwitchLink();
-        individualChannelPageDTO.setViewMinutes();
-        individualChannelPageDTO.setViewsGained();
+        String profilePic = doc.select("#pageHeaderMiddle > div.PageHeaderMiddleTop > div > div > img").attr("src");
+        individualChannelPageDTO.setProfilePic(profilePic);
+
         //top row done
         String followers = cleanIt(doc.select("#pageHeaderMiddle > div.MiddleSubHeaderContainer > div > div:nth-child(2)").get(0).text());
-        individualChannelPageDTO.setFollowers(Long.parseLong(followers));
+        individualChannelPageDTO.setFollowers(Integer.parseInt(followers));
+
         String views = cleanIt(doc.select("#pageHeaderMiddle > div.MiddleSubHeaderContainer > div > div:nth-child(4)").get(0).text());
+        individualChannelPageDTO.setViews(Integer.parseInt(views));
+
         String status = cleanIt(doc.select("#pageHeaderMiddle > div.MiddleSubHeaderContainer > div > div:nth-child(6)").get(0).text());
+        individualChannelPageDTO.setStatus(status);
+
         String mature = cleanIt(doc.select("#pageHeaderMiddle > div.MiddleSubHeaderContainer > div > div:nth-child(8)").get(0).text());
+        if (mature.equalsIgnoreCase("Yes")) {
+            individualChannelPageDTO.setMature(true);
+        } else {
+            individualChannelPageDTO.setMature(false);
+        }
+
         String language = cleanIt(doc.select("#pageHeaderMiddle > div.MiddleSubHeaderContainer > div > div:nth-child(10)").get(0).text());
-        String created = cleanIt(doc.select("#pageHeaderMiddle > div.MiddleSubHeaderContainer > div > div:nth-child(12)").get(0).text());
+        individualChannelPageDTO.setLanguage(language);
+
+        String createdAt = cleanIt(doc.select("#pageHeaderMiddle > div.MiddleSubHeaderContainer > div > div:nth-child(12)").get(0).text());
+        individualChannelPageDTO.setCreatedAt(createdAt);
 
         //ranking row
         String lastOnlineDays = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(1) > div.MiddleSubHeaderItemValue").get(0).text());
+        individualChannelPageDTO.setLastOnlineDays(Integer.parseInt(lastOnlineDays.replace(" days", "")));
 
         String followerRank = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(2) > div.MiddleSubHeaderItemValue").get(0).text().split(" ")[0]);
+        individualChannelPageDTO.setFollowerRank(Integer.parseInt(followerRank));
+
         String followerRankChange = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(2) > div.MiddleSubHeaderItemValue > span").get(0).text());
         String followerRankChangeName = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(2) > div.MiddleSubHeaderItemValue > span > div").get(0).className());
+        individualChannelPageDTO.setFollowerRankChange(changeFromName(followerRankChange, followerRankChangeName));
 
         String followerGainRank = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(3) > div.MiddleSubHeaderItemValue").get(0).text().split(" ")[0]);
+        individualChannelPageDTO.setFollowerGainRank(Integer.parseInt(followerGainRank));
+
         String followerGainRankChange = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(3) > div.MiddleSubHeaderItemValue > span").get(0).text());
         String followerGainRankChangeName = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(3) > div.MiddleSubHeaderItemValue > span > div").get(0).className());
+        individualChannelPageDTO.setFollowerGainRankChange(changeFromName(followerGainRankChange, followerGainRankChangeName));
 
         String peakViewerRank = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(4) > div.MiddleSubHeaderItemValue").get(0).text().split(" ")[0]);
+        individualChannelPageDTO.setPeakViewerRank(Integer.parseInt(peakViewerRank));
+
         String peakViewerRankChange = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(4) > div.MiddleSubHeaderItemValue > span").get(0).text());
         String peakViewerRankChangeName = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(4) > div.MiddleSubHeaderItemValue > span > div").get(0).className());
+        individualChannelPageDTO.setPeakViewerRankChange(changeFromName(peakViewerRankChange, peakViewerRankChangeName));
 
         String averageViewerRank = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(5) > div.MiddleSubHeaderItemValue").get(0).text().split(" ")[0]);
+        individualChannelPageDTO.setAverageViewerRank(Integer.parseInt(averageViewerRank));
+
         String averageViewerRankChange = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(5) > div.MiddleSubHeaderItemValue > span").get(0).text());
         String averageViewerRankChangeName = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(5) > div.MiddleSubHeaderItemValue > span > div").get(0).className());
+        individualChannelPageDTO.setAverageViewerRankChange(changeFromName(averageViewerRankChange, averageViewerRankChangeName));
 
         String viewRank = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(6) > div.MiddleSubHeaderItemValue").get(0).text().split(" ")[0]);
+        individualChannelPageDTO.setViewRank(Integer.parseInt(viewRank));
+
         String viewRankChange = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(6) > div.MiddleSubHeaderItemValue > span").get(0).text());
         String viewRankChangeName = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(6) > div.MiddleSubHeaderItemValue > span > div").get(0).className());
+        individualChannelPageDTO.setViewRankChange(changeFromName(viewRankChange, viewRankChangeName));
 
         String viewGainRank = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(7) > div.MiddleSubHeaderItemValue").get(0).text().split(" ")[0]);
+        individualChannelPageDTO.setViewGainRank(Integer.parseInt(viewGainRank));
+
         String viewGainRankChange = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(7) > div.MiddleSubHeaderItemValue > span").get(0).text());
         String viewGainRankChangeName = cleanIt(doc.select("#pageContentSubHeader > div:nth-child(7) > div.MiddleSubHeaderItemValue > span > div").get(0).className());
+        individualChannelPageDTO.setViewRankChange(changeFromName(viewGainRankChange, viewGainRankChangeName));
 
         //stats
 
         String averageViewers = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div.InfoStatPanelWrapper.InfoStatPanelSpacerLeft > div > div > div.InfoStatPanelTL > div").get(0).text());
+        individualChannelPageDTO.setAverageViewers(Integer.parseInt(averageViewers));
+
         String averageViewersChange = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div.InfoStatPanelWrapper.InfoStatPanelSpacerLeft > div > div > div.InfoStatPanelBL > div").get(0).text());
+        individualChannelPageDTO.setAverageViewersChange(Integer.parseInt(averageViewersChange));
+
         String averageViewersChangeDirection = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div.InfoStatPanelWrapper.InfoStatPanelSpacerLeft > div > div > div.InfoStatPanelBL > div").get(0).className().split(" ")[1]);
         String averageViewersChangePercentage = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div.InfoStatPanelWrapper.InfoStatPanelSpacerLeft > div > div > div.InfoStatPanelTR > div > span").get(0).text());
+        individualChannelPageDTO.setAverageViewersChangePercentage(changeFromPercentage(averageViewersChangePercentage, averageViewersChangeDirection));
 
         String hoursWatched = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(2) > div > div > div.InfoStatPanelTL > div").get(0).text());
+        individualChannelPageDTO.setHoursWatched(Integer.parseInt(hoursWatched));
+
         String hoursWatchedChange = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(2) > div > div > div.InfoStatPanelBL > div").get(0).text());
+        individualChannelPageDTO.setHoursWatchedChange(Integer.parseInt(hoursWatchedChange));
+
         String hoursWatchedChangeDirection = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(2) > div > div > div.InfoStatPanelTR > div > span").get(0).className());
         String hoursWatchedChangePercentage = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(2) > div > div > div.InfoStatPanelTR > div > span").get(0).text());
+        individualChannelPageDTO.setHoursWatchedChangePercentage(changeFromPercentage(hoursWatchedChangePercentage, hoursWatchedChangeDirection));
 
         String followersGained = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(3) > div > div > div.InfoStatPanelTL > div").get(0).text());
+        individualChannelPageDTO.setFollowersGained(Integer.parseInt(followersGained));
+
         String followersGainedChange = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(3) > div > div > div.InfoStatPanelBL > div").get(0).text());
+        individualChannelPageDTO.setFollowersGainedChange(Integer.parseInt(followersGainedChange));
+
         String followersGainedChangeDirection = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(3) > div > div > div.InfoStatPanelTR > div > span").get(0).className());
         String followersGainedChangePercentage = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(3) > div > div > div.InfoStatPanelTR > div > span").get(0).text());
+        individualChannelPageDTO.setFollowersGainedChangePercentage(changeFromPercentage(followersGainedChangePercentage, followersGainedChangeDirection));
 
         String viewsGained = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(4) > div > div > div.InfoStatPanelTL > div").get(0).text());
+        individualChannelPageDTO.setViewsGained(Integer.parseInt(viewsGained));
+
         String viewsGainedChange = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(3) > div > div > div.InfoStatPanelBL > div").get(0).text());
+        individualChannelPageDTO.setViewsGainedChange(Integer.parseInt(viewsGainedChange));
+
         String viewsGainedChangeDirection = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(4) > div > div > div.InfoStatPanelTR > div > span").get(0).className());
         String viewsGainedChangePercentage = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(4) > div > div > div.InfoStatPanelTR > div > span").get(0).text());
+        individualChannelPageDTO.setViewsGainedChangePercentage(changeFromPercentage(viewsGainedChangePercentage, viewsGainedChangeDirection));
 
         String peakViewers = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(4) > div > div > div.InfoStatPanelTR > div > span").get(0).text());
+        individualChannelPageDTO.setPeakViewers(Double.parseDouble(peakViewers));
+
         String peakViewersChange = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(3) > div > div > div.InfoStatPanelBL > div").get(0).text());
+        individualChannelPageDTO.setPeakViewersChange(Double.parseDouble(peakViewersChange));
+
         String peakViewersChangeDirection = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(4) > div > div > div.InfoStatPanelTR > div > span").get(0).className());
         String peakViewersChangePercentage = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(5) > div > div > div.InfoStatPanelTR > div > span").get(0).text());
+        individualChannelPageDTO.setPeakViewersChangePercentage(changeFromPercentage(peakViewersChangePercentage, peakViewersChangeDirection));
 
         String hoursStreamed = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(5) > div > div > div.InfoStatPanelTR > div > span").get(0).text());
+        individualChannelPageDTO.setHoursStreamed(Double.parseDouble(hoursStreamed));
+
         String hoursStreamedChange = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(3) > div > div > div.InfoStatPanelBL > div").get(0).text());
+        individualChannelPageDTO.setHoursStreamedChange(Double.parseDouble(hoursStreamedChange));
+
         String hoursStreamedDirection = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(5) > div > div > div.InfoStatPanelTR > div > span").get(0).className());
         String hoursStreamedChangePercentage = cleanIt(doc.select("body > div.RightContent > div.MainContent > div.InfoStatPanelContainerTop > div > div:nth-child(5) > div > div > div.InfoStatPanelTR > div > span").get(0).text());
-
-
-        if(status.equalsIgnoreCase("Affiliate")){
-            individualChannelPageDTO.setAffiliate(true);
-        }
-        else{
-            individualChannelPageDTO.setAffiliate(false);
-        }
+        individualChannelPageDTO.setHoursStreamedChangePercentage(changeFromPercentage(hoursStreamedChangePercentage, hoursStreamedDirection));
 
 
         Elements teamElements = doc.select("#channelQuickLinks > div").get(0).getElementsByTag("a");
-        List<String> teams = new ArrayList<>();
+        Map<String, String> teams = new HashMap<>();
+        for (Element e : teamElements) {
+            String url = e.attr("href").replace("/team/", "");
+            String name = e.text();
+            teams.put(url, name);
+        }
+        individualChannelPageDTO.setTeams(teams);
 
+        Element element = doc.select("#combinedPanel > div > div.PageBackgroundColor.InfoPanelCombinedMiddle > div").get(0);
+        Elements streamsRows = element.getElementsByClass("InfoPanelCombinedRow");
+        streamsRows.addAll(element.getElementsByClass("InfoPanelCombinedRowAlt"));
+        streamsRows.remove(0); //its the header row
+        List<IndividualChannelStreamDTO> channelStreams = new ArrayList<>();
 
-        for(Element team: teamElements){
-            teams.add(team.attributes().get("href").replace("/team/", ""));
+        for (Element stream : streamsRows) {
+            IndividualChannelStreamDTO individualChannelStreamDTO = new IndividualChannelStreamDTO();
+            String streamId = stream.getElementsByTag("a").get(0).attr("href").split("/")[5];
+            individualChannelStreamDTO.setSullyId(Long.parseLong(streamId));
+
+            String start = stream.getElementsByTag("a").get(0).text();
+            individualChannelStreamDTO.setDateTime(start);
+
+            String streamLength = stream.getElementsByTag("div").get(2).text().replace(" hrs", "");
+            individualChannelStreamDTO.setStreamLength(Double.parseDouble(streamLength));
+
+            String streamAverageViewers = stream.getElementsByTag("div").get(3).text();
+            individualChannelStreamDTO.setAverageViewers(Double.parseDouble(streamAverageViewers));
+
+            String streamPeakViewers = stream.getElementsByTag("div").get(4).text();
+            individualChannelStreamDTO.setPeakViewers(Integer.parseInt(streamPeakViewers));
+
+            String streamWatchTime = stream.getElementsByTag("div").get(5).text().replace(" hrs", "");
+            individualChannelStreamDTO.setWatchTime(Double.parseDouble(streamWatchTime));
+
+            String streamFollowers = stream.getElementsByTag("div").get(6).text();
+            individualChannelStreamDTO.setFollowers(Integer.parseInt(streamFollowers));
+
+            String streamViews = stream.getElementsByTag("div").get(7).text();
+            individualChannelStreamDTO.setViews(Integer.parseInt(streamViews));
+
+            Elements gamesElements = stream.getElementsByTag("div").get(8).getElementsByTag("a");
+            Map<String, String> games = new HashMap<>();
+            for (Element game : gamesElements) {
+                String gameName = game.attr("title").replace("View stats for ", "");
+                String gameImageUrl = game.getElementsByTag("img").get(0).attr("src");
+                games.put(gameName, gameImageUrl);
+            }
+            individualChannelStreamDTO.setGames(games);
+            channelStreams.add(individualChannelStreamDTO);
         }
 
-        System.out.println(individualChannelPageDTO.toString());
+        individualChannelPageDTO.setIndividualChannelStreamDTOList(channelStreams);
+
+        objectMapper().writeValue(new File("src/main/resources/channel-single-page.json"), individualChannelPageDTO);
 
     }
 
-    private String cleanIt(String original){
+    private Integer changeFromName(String changeValue, String changeName) {
+        if(changeName == null || changeValue == null){
+            return null;
+        }
+        if (changeName.equalsIgnoreCase("NegativeChange")) {
+            int v = Integer.parseInt(changeValue);
+            return ( v *= -1);
+        } else {
+            return Integer.parseInt(changeValue);
+        }
+    }
+
+    private Double changeFromPercentage(String changeValue, String changeName) {
+        if(changeName == null || changeValue == null){
+            return null;
+        }
+        if (changeName.equalsIgnoreCase("Negative")) {
+            double v = Double.parseDouble(changeValue);
+            return ( v *= -1);
+        } else {
+            return Double.parseDouble(changeValue);
+        }
+    }
+
+    private String cleanIt(String original) {
         return original.replace(" hrs", "").replace("%", "").replace("th", "").replace("rd", "").replace("nd", "").replace("st", "").replace("( ", "").replace(")", "").replace(",", "");
     }
 }

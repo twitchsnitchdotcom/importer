@@ -1,0 +1,184 @@
+{
+  "displayName": "Holly",
+  "url": "https://www.twitch.tv/holly",
+  "profilePic": "https://static-cdn.jtvnw.net/jtv_user_pictures/bd93d140-7102-407f-ae37-e061b6293930-profile_image-150x150.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+  "createdAt": "16 Dec 2013",
+  "views": 1506022,
+  "language": "English",
+  "status": "Partnered",
+  "followers": 79560,
+  "mature": true,
+  "lastOnlineDays": 3,
+  "followerRank": 6000,
+  "followerRankChange": -70,
+  "followerGainRank": 116534,
+  "followerGainRankChange": 1841755,
+  "peakViewerRank": 21100,
+  "peakViewerRankChange": 60372,
+  "averageViewerRank": 42882,
+  "averageViewerRankChange": 15352,
+  "viewRank": 10106,
+  "viewRankChange": 13738,
+  "viewGainRank": 23194,
+  "averageViewers": 54,
+  "averageViewersChange": 17,
+  "averageViewersChangePercentage": 45.9,
+  "hoursWatched": 5863,
+  "hoursWatchedChange": 3123,
+  "hoursWatchedChangePercentage": 114.0,
+  "followersGained": 61,
+  "followersGainedChange": 145,
+  "followersGainedChangePercentage": 172.6,
+  "viewsGained": 11343,
+  "viewsGainedChange": 145,
+  "viewsGainedChangePercentage": 87.7,
+  "peakViewers": 87.7,
+  "peakViewersChange": 145.0,
+  "peakViewersChangePercentage": 382.0,
+  "hoursStreamed": 382.0,
+  "hoursStreamedChange": 145.0,
+  "hoursStreamedChangePercentage": 382.0,
+  "teams": {
+    "astro": "A★Star Collective",
+    "mostwanted": "Most Wanted eSports",
+    "gfuel": "G FUEL: The Official Energy Drink of Esports®"
+  },
+  "individualChannelStreamDTOList": [
+    {
+      "dateTime": "Thu Apr 14th 14:20",
+      "sullyId": 46168506141,
+      "streamLength": 1.2,
+      "averageViewers": 22.0,
+      "peakViewers": 33,
+      "watchTime": 25.7,
+      "followers": -1,
+      "views": 76,
+      "games": {
+        "The Dark Pictures Anthology: House of Ashes": "https://static-cdn.jtvnw.net/ttv-boxart/1274531553_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100"
+      }
+    },
+    {
+      "dateTime": "Sun Apr 10th 20:43",
+      "sullyId": 46133624685,
+      "streamLength": 3.5,
+      "averageViewers": 117.0,
+      "peakViewers": 379,
+      "watchTime": 413.4,
+      "followers": 13,
+      "views": 616,
+      "games": {
+        "Fortnite": "https://static-cdn.jtvnw.net/ttv-boxart/33214-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100"
+      }
+    },
+    {
+      "dateTime": "Sat Apr 9th 11:15",
+      "sullyId": 46118196093,
+      "streamLength": 5.2,
+      "averageViewers": 57.0,
+      "peakViewers": 101,
+      "watchTime": 299.2,
+      "followers": -7,
+      "views": 551,
+      "games": {
+        "It Takes Two": "https://static-cdn.jtvnw.net/ttv-boxart/518213_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+        "Gartic Phone": "https://static-cdn.jtvnw.net/ttv-boxart/278888515_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+        "Who": "https://static-cdn.jtvnw.net/ttv-boxart/491169_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100"
+      }
+    },
+    {
+      "dateTime": "Thu Apr 7th 12:16",
+      "sullyId": 46098358349,
+      "streamLength": 4.2,
+      "averageViewers": 40.0,
+      "peakViewers": 58,
+      "watchTime": 169.3,
+      "followers": 5,
+      "views": 394,
+      "games": {
+        "Fortnite": "https://static-cdn.jtvnw.net/ttv-boxart/33214-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+        "Surgeon Simulator 2": "https://static-cdn.jtvnw.net/ttv-boxart/515471_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100"
+      }
+    },
+    {
+      "dateTime": "Sun Apr 3rd 21:03",
+      "sullyId": 46063446365,
+      "streamLength": 5.7,
+      "averageViewers": 28.0,
+      "peakViewers": 50,
+      "watchTime": 159.6,
+      "followers": -12,
+      "views": 480,
+      "games": {
+        "Call of Duty: Warzone": "https://static-cdn.jtvnw.net/ttv-boxart/512710-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+        "The Cycle: Frontier": "https://static-cdn.jtvnw.net/ttv-boxart/470840663_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100"
+      }
+    },
+    {
+      "dateTime": "Thu Apr 14th 21:50",
+      "sullyId": 46171271069,
+      "streamLength": 2.7,
+      "averageViewers": 20.0,
+      "peakViewers": 32,
+      "watchTime": 53.3,
+      "followers": -7,
+      "views": 244,
+      "games": {
+        "Roblox": "https://static-cdn.jtvnw.net/ttv-boxart/23020_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100"
+      }
+    },
+    {
+      "dateTime": "Mon Apr 11th 12:13",
+      "sullyId": 46139379197,
+      "streamLength": 7.0,
+      "averageViewers": 39.0,
+      "peakViewers": 57,
+      "watchTime": 274.3,
+      "followers": -10,
+      "views": 542,
+      "games": {
+        "Tick Tock: A Tale for Two": "https://static-cdn.jtvnw.net/ttv-boxart/508757_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+        "The Dark Pictures Anthology: House of Ashes": "https://static-cdn.jtvnw.net/ttv-boxart/1274531553_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100"
+      }
+    },
+    {
+      "dateTime": "Sun Apr 10th 12:59",
+      "sullyId": 46129743757,
+      "streamLength": 5.0,
+      "averageViewers": 43.0,
+      "peakViewers": 72,
+      "watchTime": 215.7,
+      "followers": -6,
+      "views": 370,
+      "games": {
+        "It Takes Two": "https://static-cdn.jtvnw.net/ttv-boxart/518213_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100"
+      }
+    },
+    {
+      "dateTime": "Fri Apr 8th 10:02",
+      "sullyId": 46107355325,
+      "streamLength": 5.5,
+      "averageViewers": 48.0,
+      "peakViewers": 62,
+      "watchTime": 262.4,
+      "followers": -6,
+      "views": 462,
+      "games": {
+        "Surgeon Simulator 2": "https://static-cdn.jtvnw.net/ttv-boxart/515471_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100"
+      }
+    },
+    {
+      "dateTime": "Wed Apr 6th 10:55",
+      "sullyId": 46088096349,
+      "streamLength": 8.6,
+      "averageViewers": 47.0,
+      "peakViewers": 68,
+      "watchTime": 403.4,
+      "followers": -5,
+      "views": 598,
+      "games": {
+        "Fortnite": "https://static-cdn.jtvnw.net/ttv-boxart/33214-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100",
+        "The Cycle: Frontier": "https://static-cdn.jtvnw.net/ttv-boxart/470840663_IGDB-30x30.jpg?imenable=1&impolicy=user-profile-picture&imwidth=100"
+      }
+    }
+  ]
+}

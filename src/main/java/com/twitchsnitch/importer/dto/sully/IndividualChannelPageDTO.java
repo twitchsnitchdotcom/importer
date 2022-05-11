@@ -1,49 +1,93 @@
 package com.twitchsnitch.importer.dto.sully;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class IndividualChannelPageDTO {
 
-    private Boolean affiliate; // false
-    private Integer avgViewers; // avg_viewers 1658
-    private String createdAt; // created_at "2013-11-21T21:59:20Z"
-    private Integer followers; // followers	459636
-    private Integer followersGained; // followers_gained	760
-    private Integer followersGainedWhilePlaying; // followers_gained_while_playing	0
-    private String login; // login	ml7support
-    private Boolean mature;  // mature	false
-    private Long maxViewers; // max_viewers	3202
-    private String name;  // name	mL7support
-    private Boolean partner;  // partner	true
-    private Long previousAvgViewers;// previous_avg_viewers	1556
-    private Long previousFollowerGain;// previous_follower_gain	822
-    private Long previousMaxViewers;// previous_max_viewers	2571
-    private Long previousStreamedMinutes;// previous_streamed_minutes	2205
-    private Long previousViewMinutes;// previous_view_minutes	3431595
-    private Long previousViewsGained;// previous_views_gained	59092
-    private String profileImageUrl;//profile_image_url	https://static-cdn.jtvnw.net/jtv_user_pictures/94286e18-367b-4795-98a5-d8dd530d4d0a-profile_image-150x150.png?imenable=1&impolicy=user-profile-picture… Show all
-    private Long rowNumber; //row_number	1218
-    private String status;//	Partner
-    private Long streamedMinutes;// streamed_minutes	1710
-    private Long sullyId;//sully_id	279750
-    private Long totalViewCount;//total_view_count	17564333
-    private Long twitchId;//twitch_id	51929371
-    private String twitchLink;//twitch_link	https://www.twitch.tv/ml7support
-    private Long viewMinutes;//view_minutes	2835450
-    private Long viewsGained;//views_gained	48942
+    private String displayName;
+    private String url;
+    private String profilePic;
+    private String createdAt;
+    private Integer views;
+    private String language;
+    private String status;
+    private Integer followers;
+    private Boolean mature;
+    private Integer lastOnlineDays;
+    private Integer followerRank;
+    private Integer followerRankChange;
+    private Integer followerGainRank;
+    private Integer followerGainRankChange;
+    private Integer  peakViewerRank;
+    private Integer  peakViewerRankChange;
+    private Integer  averageViewerRank;
+    private Integer  averageViewerRankChange;
+    private Integer  viewRank;
+    private Integer  viewRankChange;
+    private Integer  viewGainRank;
+    private Integer  viewGainRankChange;
+    private Integer  averageViewers;
+    private Integer  averageViewersChange;
+    private Double averageViewersChangePercentage;
+    private Integer  hoursWatched;
+    private Integer  hoursWatchedChange;
+    private Double hoursWatchedChangePercentage;
+    private Integer  followersGained;
+    private Integer  followersGainedChange;
+    private Double followersGainedChangePercentage;
+    private Integer  viewsGained;
+    private Integer  viewsGainedChange;
+    private Double viewsGainedChangePercentage;
+    private Double  peakViewers;
+    private Double  peakViewersChange;
+    private Double peakViewersChangePercentage;
+    private Double  hoursStreamed;
+    private Double  hoursStreamedChange;
+    private Double hoursStreamedChangePercentage;
+    private Map<String, String> teams = new HashMap<>();
+    private List<IndividualChannelStreamDTO> individualChannelStreamDTOList = new ArrayList<>();
 
-    public Boolean getAffiliate() {
-        return affiliate;
+    public List<IndividualChannelStreamDTO> getIndividualChannelStreamDTOList() {
+        return individualChannelStreamDTOList;
     }
 
-    public void setAffiliate(Boolean affiliate) {
-        this.affiliate = affiliate;
+    public void setIndividualChannelStreamDTOList(List<IndividualChannelStreamDTO> individualChannelStreamDTOList) {
+        this.individualChannelStreamDTOList = individualChannelStreamDTOList;
     }
 
-    public Integer getAvgViewers() {
-        return avgViewers;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setAvgViewers(Integer avgViewers) {
-        this.avgViewers = avgViewers;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Map<String, String> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Map<String, String> teams) {
+        this.teams = teams;
     }
 
     public String getCreatedAt() {
@@ -54,132 +98,20 @@ public class IndividualChannelPageDTO {
         this.createdAt = createdAt;
     }
 
-    public Integer getFollowers() {
-        return followers;
+    public Integer getViews() {
+        return views;
     }
 
-    public void setFollowers(Integer followers) {
-        this.followers = followers;
+    public void setViews(Integer views) {
+        this.views = views;
     }
 
-    public Integer getFollowersGained() {
-        return followersGained;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setFollowersGained(Integer followersGained) {
-        this.followersGained = followersGained;
-    }
-
-    public Integer getFollowersGainedWhilePlaying() {
-        return followersGainedWhilePlaying;
-    }
-
-    public void setFollowersGainedWhilePlaying(Integer followersGainedWhilePlaying) {
-        this.followersGainedWhilePlaying = followersGainedWhilePlaying;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public Boolean getMature() {
-        return mature;
-    }
-
-    public void setMature(Boolean mature) {
-        this.mature = mature;
-    }
-
-    public Long getMaxViewers() {
-        return maxViewers;
-    }
-
-    public void setMaxViewers(Long maxViewers) {
-        this.maxViewers = maxViewers;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Boolean getPartner() {
-        return partner;
-    }
-
-    public void setPartner(Boolean partner) {
-        this.partner = partner;
-    }
-
-    public Long getPreviousAvgViewers() {
-        return previousAvgViewers;
-    }
-
-    public void setPreviousAvgViewers(Long previousAvgViewers) {
-        this.previousAvgViewers = previousAvgViewers;
-    }
-
-    public Long getPreviousFollowerGain() {
-        return previousFollowerGain;
-    }
-
-    public void setPreviousFollowerGain(Long previousFollowerGain) {
-        this.previousFollowerGain = previousFollowerGain;
-    }
-
-    public Long getPreviousMaxViewers() {
-        return previousMaxViewers;
-    }
-
-    public void setPreviousMaxViewers(Long previousMaxViewers) {
-        this.previousMaxViewers = previousMaxViewers;
-    }
-
-    public Long getPreviousStreamedMinutes() {
-        return previousStreamedMinutes;
-    }
-
-    public void setPreviousStreamedMinutes(Long previousStreamedMinutes) {
-        this.previousStreamedMinutes = previousStreamedMinutes;
-    }
-
-    public Long getPreviousViewMinutes() {
-        return previousViewMinutes;
-    }
-
-    public void setPreviousViewMinutes(Long previousViewMinutes) {
-        this.previousViewMinutes = previousViewMinutes;
-    }
-
-    public Long getPreviousViewsGained() {
-        return previousViewsGained;
-    }
-
-    public void setPreviousViewsGained(Long previousViewsGained) {
-        this.previousViewsGained = previousViewsGained;
-    }
-
-    public String getProfileImageUrl() {
-        return profileImageUrl;
-    }
-
-    public void setProfileImageUrl(String profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
-    }
-
-    public Long getRowNumber() {
-        return rowNumber;
-    }
-
-    public void setRowNumber(Long rowNumber) {
-        this.rowNumber = rowNumber;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public String getStatus() {
@@ -190,92 +122,269 @@ public class IndividualChannelPageDTO {
         this.status = status;
     }
 
-    public Long getStreamedMinutes() {
-        return streamedMinutes;
+    public Integer getFollowers() {
+        return followers;
     }
 
-    public void setStreamedMinutes(Long streamedMinutes) {
-        this.streamedMinutes = streamedMinutes;
+    public void setFollowers(Integer followers) {
+        this.followers = followers;
     }
 
-    public Long getSullyId() {
-        return sullyId;
+    public Boolean getMature() {
+        return mature;
     }
 
-    public void setSullyId(Long sullyId) {
-        this.sullyId = sullyId;
+    public void setMature(Boolean mature) {
+        this.mature = mature;
     }
 
-    public Long getTotalViewCount() {
-        return totalViewCount;
+    public Integer getLastOnlineDays() {
+        return lastOnlineDays;
     }
 
-    public void setTotalViewCount(Long totalViewCount) {
-        this.totalViewCount = totalViewCount;
+    public void setLastOnlineDays(Integer lastOnlineDays) {
+        this.lastOnlineDays = lastOnlineDays;
     }
 
-    public Long getTwitchId() {
-        return twitchId;
+    public Integer getFollowerRank() {
+        return followerRank;
     }
 
-    public void setTwitchId(Long twitchId) {
-        this.twitchId = twitchId;
+    public void setFollowerRank(Integer followerRank) {
+        this.followerRank = followerRank;
     }
 
-    public String getTwitchLink() {
-        return twitchLink;
+    public Integer getFollowerRankChange() {
+        return followerRankChange;
     }
 
-    public void setTwitchLink(String twitchLink) {
-        this.twitchLink = twitchLink;
+    public void setFollowerRankChange(Integer followerRankChange) {
+        this.followerRankChange = followerRankChange;
     }
 
-    public Long getViewMinutes() {
-        return viewMinutes;
+    public Integer getFollowerGainRank() {
+        return followerGainRank;
     }
 
-    public void setViewMinutes(Long viewMinutes) {
-        this.viewMinutes = viewMinutes;
+    public void setFollowerGainRank(Integer followerGainRank) {
+        this.followerGainRank = followerGainRank;
     }
 
-    public Long getViewsGained() {
+    public Integer getFollowerGainRankChange() {
+        return followerGainRankChange;
+    }
+
+    public void setFollowerGainRankChange(Integer followerGainRankChange) {
+        this.followerGainRankChange = followerGainRankChange;
+    }
+
+    public Integer getPeakViewerRank() {
+        return peakViewerRank;
+    }
+
+    public void setPeakViewerRank(Integer peakViewerRank) {
+        this.peakViewerRank = peakViewerRank;
+    }
+
+    public Integer getPeakViewerRankChange() {
+        return peakViewerRankChange;
+    }
+
+    public void setPeakViewerRankChange(Integer peakViewerRankChange) {
+        this.peakViewerRankChange = peakViewerRankChange;
+    }
+
+    public Integer getAverageViewerRank() {
+        return averageViewerRank;
+    }
+
+    public void setAverageViewerRank(Integer averageViewerRank) {
+        this.averageViewerRank = averageViewerRank;
+    }
+
+    public Integer getAverageViewerRankChange() {
+        return averageViewerRankChange;
+    }
+
+    public void setAverageViewerRankChange(Integer averageViewerRankChange) {
+        this.averageViewerRankChange = averageViewerRankChange;
+    }
+
+    public Integer getViewRank() {
+        return viewRank;
+    }
+
+    public void setViewRank(Integer viewRank) {
+        this.viewRank = viewRank;
+    }
+
+    public Integer getViewRankChange() {
+        return viewRankChange;
+    }
+
+    public void setViewRankChange(Integer viewRankChange) {
+        this.viewRankChange = viewRankChange;
+    }
+
+    public Integer getViewGainRank() {
+        return viewGainRank;
+    }
+
+    public void setViewGainRank(Integer viewGainRank) {
+        this.viewGainRank = viewGainRank;
+    }
+
+    public Integer getViewGainRankChange() {
+        return viewGainRankChange;
+    }
+
+    public void setViewGainRankChange(Integer viewGainRankChange) {
+        this.viewGainRankChange = viewGainRankChange;
+    }
+
+    public Integer getAverageViewers() {
+        return averageViewers;
+    }
+
+    public void setAverageViewers(Integer averageViewers) {
+        this.averageViewers = averageViewers;
+    }
+
+    public Integer getAverageViewersChange() {
+        return averageViewersChange;
+    }
+
+    public void setAverageViewersChange(Integer averageViewersChange) {
+        this.averageViewersChange = averageViewersChange;
+    }
+
+    public Double getAverageViewersChangePercentage() {
+        return averageViewersChangePercentage;
+    }
+
+    public void setAverageViewersChangePercentage(Double averageViewersChangePercentage) {
+        this.averageViewersChangePercentage = averageViewersChangePercentage;
+    }
+
+    public Integer getHoursWatched() {
+        return hoursWatched;
+    }
+
+    public void setHoursWatched(Integer hoursWatched) {
+        this.hoursWatched = hoursWatched;
+    }
+
+    public Integer getHoursWatchedChange() {
+        return hoursWatchedChange;
+    }
+
+    public void setHoursWatchedChange(Integer hoursWatchedChange) {
+        this.hoursWatchedChange = hoursWatchedChange;
+    }
+
+    public Double getHoursWatchedChangePercentage() {
+        return hoursWatchedChangePercentage;
+    }
+
+    public void setHoursWatchedChangePercentage(Double hoursWatchedChangePercentage) {
+        this.hoursWatchedChangePercentage = hoursWatchedChangePercentage;
+    }
+
+    public Integer getFollowersGained() {
+        return followersGained;
+    }
+
+    public void setFollowersGained(Integer followersGained) {
+        this.followersGained = followersGained;
+    }
+
+    public Integer getFollowersGainedChange() {
+        return followersGainedChange;
+    }
+
+    public void setFollowersGainedChange(Integer followersGainedChange) {
+        this.followersGainedChange = followersGainedChange;
+    }
+
+    public Double getFollowersGainedChangePercentage() {
+        return followersGainedChangePercentage;
+    }
+
+    public void setFollowersGainedChangePercentage(Double followersGainedChangePercentage) {
+        this.followersGainedChangePercentage = followersGainedChangePercentage;
+    }
+
+    public Integer getViewsGained() {
         return viewsGained;
     }
 
-    public void setViewsGained(Long viewsGained) {
+    public void setViewsGained(Integer viewsGained) {
         this.viewsGained = viewsGained;
     }
 
-    @Override
-    public String toString() {
-        return "IndividualChannelPageDTO{" +
-                "affiliate=" + affiliate +
-                ", avgViewers=" + avgViewers +
-                ", createdAt='" + createdAt + '\'' +
-                ", followers=" + followers +
-                ", followersGained=" + followersGained +
-                ", followersGainedWhilePlaying=" + followersGainedWhilePlaying +
-                ", login='" + login + '\'' +
-                ", mature=" + mature +
-                ", maxViewers=" + maxViewers +
-                ", name='" + name + '\'' +
-                ", partner=" + partner +
-                ", previousAvgViewers=" + previousAvgViewers +
-                ", previousFollowerGain=" + previousFollowerGain +
-                ", previousMaxViewers=" + previousMaxViewers +
-                ", previousStreamedMinutes=" + previousStreamedMinutes +
-                ", previousViewMinutes=" + previousViewMinutes +
-                ", previousViewsGained=" + previousViewsGained +
-                ", profileImageUrl='" + profileImageUrl + '\'' +
-                ", rowNumber=" + rowNumber +
-                ", status='" + status + '\'' +
-                ", streamedMinutes=" + streamedMinutes +
-                ", sullyId=" + sullyId +
-                ", totalViewCount=" + totalViewCount +
-                ", twitchId=" + twitchId +
-                ", twitchLink='" + twitchLink + '\'' +
-                ", viewMinutes=" + viewMinutes +
-                ", viewsGained=" + viewsGained +
-                '}';
+    public Integer getViewsGainedChange() {
+        return viewsGainedChange;
     }
+
+    public void setViewsGainedChange(Integer viewsGainedChange) {
+        this.viewsGainedChange = viewsGainedChange;
+    }
+
+    public Double getViewsGainedChangePercentage() {
+        return viewsGainedChangePercentage;
+    }
+
+    public void setViewsGainedChangePercentage(Double viewsGainedChangePercentage) {
+        this.viewsGainedChangePercentage = viewsGainedChangePercentage;
+    }
+
+    public Double getPeakViewers() {
+        return peakViewers;
+    }
+
+    public void setPeakViewers(Double peakViewers) {
+        this.peakViewers = peakViewers;
+    }
+
+    public Double getPeakViewersChange() {
+        return peakViewersChange;
+    }
+
+    public void setPeakViewersChange(Double peakViewersChange) {
+        this.peakViewersChange = peakViewersChange;
+    }
+
+    public Double getPeakViewersChangePercentage() {
+        return peakViewersChangePercentage;
+    }
+
+    public void setPeakViewersChangePercentage(Double peakViewersChangePercentage) {
+        this.peakViewersChangePercentage = peakViewersChangePercentage;
+    }
+
+    public Double getHoursStreamed() {
+        return hoursStreamed;
+    }
+
+    public void setHoursStreamed(Double hoursStreamed) {
+        this.hoursStreamed = hoursStreamed;
+    }
+
+    public Double getHoursStreamedChange() {
+        return hoursStreamedChange;
+    }
+
+    public void setHoursStreamedChange(Double hoursStreamedChange) {
+        this.hoursStreamedChange = hoursStreamedChange;
+    }
+
+    public Double getHoursStreamedChangePercentage() {
+        return hoursStreamedChangePercentage;
+    }
+
+    public void setHoursStreamedChangePercentage(Double hoursStreamedChangePercentage) {
+        this.hoursStreamedChangePercentage = hoursStreamedChangePercentage;
+    }
+
+
 }
