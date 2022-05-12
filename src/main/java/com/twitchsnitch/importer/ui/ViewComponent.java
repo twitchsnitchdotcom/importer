@@ -115,9 +115,20 @@ public class ViewComponent extends VerticalLayout {
         add(new HorizontalLayout(importChattersOnDB));
 
 
+        //todo followers to and followers from db stats
+
         //followers
+        H3 followersHeadline = new H3("Followers INFO");
+        Div followersInfo = new Div();
+        followersInfo.setText("Channels without followers to : " + dbStatsService.getNumberOfChatters() + " | channels without followers from");
+
+
         Button importFollowsTo = new Button("importFollowsTo", event -> twitchDataService.importFollowsTo());
         Button importFollowsFrom = new Button("importFollowsFrom", event -> twitchDataService.importFollowsFrom());
+
+        add(followersHeadline);
+        add(new HorizontalLayout(followersInfo));
+        add(new HorizontalLayout(importFollowsTo, importFollowsFrom));
 
         //teams
         Button importTwitchTeams = new Button("importTwitchTeams", event -> twitchDataService.importTwitchTeams());
@@ -125,7 +136,6 @@ public class ViewComponent extends VerticalLayout {
         Button importTeams2 = new Button("importTeams2", event -> twitchDataService.importTeams2());
 
         //alternate
-
         Button importGameFinder = new Button("importGameFinder", event -> twitchDataService.importGameFinder());
         Button importRaidPicker = new Button("importRaidPicker", event -> twitchDataService.importRaidPicker());
         Button importChannelGames = new Button("importChannelGames", event -> twitchDataService.importChannelGames());

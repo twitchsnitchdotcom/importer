@@ -100,24 +100,6 @@ public class TwitchDataService {
         return request;
     }
 
-    public String goToWebSiteJSON(String url) {
-        ChromeDriver driver = driverService.getRandomDriver();
-        try {
-            driver.get("view-source:" + url);
-            String json = driver.findElement(By.className("line-content")).getText();
-            return json;
-        } catch (Exception e) {
-            try {
-                driver.get("view-source:" + url);
-                //Thread.sleep(2000);
-                String json = driver.findElement(By.className("line-content")).getText();
-                return json;
-            } catch (Exception e2) {
-                log.error("FAILED COLLECTING: " + url);
-            }
-        }
-        return null;
-    }
 
     public List<String> goToWebSitesJSON(Set<String> urls) {
         List<String> jsonList = new ArrayList<>();
@@ -269,12 +251,13 @@ public class TwitchDataService {
         String url = "https://sullygnome.com/api/tables/channeltables/newpartners/30/0/000/1/7/desc/0/100";
     }
 
+    @Async
     public void sullySearchAndSetAllUsersWithoutSullyId() {
         List<String> allUsersWithoutSullyId = persistenceService.getAllUsersWithoutSullyId();
         for (String login : allUsersWithoutSullyId) {
             try {
                 String url = "https://sullygnome.com/api/standardsearch/" + login + "/true/true/false/true";
-                String json = goToWebSiteJSON(url);
+                String json = goToWebSiteREST(url);
                 List<SearchDTO> searchDTOList = objectMapper().readValue(json, new TypeReference<List<SearchDTO>>() {});
                 for(SearchDTO searchDTO: searchDTOList){
                     if(searchDTO.getItemtype() == 1 && searchDTO.getSiteurl().equalsIgnoreCase(login)){
@@ -288,12 +271,13 @@ public class TwitchDataService {
         }
     }
 
+    @Async
     public void sullySearchAndSetAllGamesWithoutSullyId() {
         List<String> allGamesWithoutSullyId = persistenceService.getAllGamesWithoutSullyId();
         for (String name : allGamesWithoutSullyId) {
             try {
                 String url = "https://sullygnome.com/api/standardsearch/" + name + "/true/true/false/true";
-                String json = goToWebSiteJSON(url);
+                String json = goToWebSiteREST(url);
                 List<SearchDTO> searchDTOList  = objectMapper().readValue(json, new TypeReference<List<SearchDTO>>() {});
                 for(SearchDTO searchDTO: searchDTOList){
                     if(searchDTO.getItemtype() == 2 && searchDTO.getDisplaytext().equalsIgnoreCase(name)){
@@ -312,7 +296,7 @@ public class TwitchDataService {
         for (String login : allTeamsWithoutSullyId) {
             try {
                 String url = "https://sullygnome.com/api/standardsearch/" + login + "/true/true/false/true";
-                String json = goToWebSiteJSON(url);
+                String json = goToWebSiteREST(url);
                 List<SearchDTO> searchDTOList  = objectMapper().readValue(json, new TypeReference<List<SearchDTO>>() {});
                 for(SearchDTO searchDTO: searchDTOList){
                     if(searchDTO.getItemtype() == 4 && searchDTO.getSiteurl().equalsIgnoreCase(login)){
@@ -326,6 +310,7 @@ public class TwitchDataService {
         }
     }
 
+    @Async
     public void sullyDeepSearchPhase1() {
         List<Long> allSullyLanguageIds = persistenceService.getAllSullyLanguageIds();
         int lowerBound = 0;
@@ -338,7 +323,7 @@ public class TwitchDataService {
                 String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/" + languageId + "/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
                 String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/" + languageId + "/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
                 try {
-                    String json = goToWebSiteJSON(scaffoldUrl);
+                    String json = goToWebSiteREST(scaffoldUrl);
                     if (json != null) {
                         ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
                         if(channelSearchDTO.getRecordsTotal() > 0){
@@ -363,6 +348,7 @@ public class TwitchDataService {
         genericSullyDeepSearch(lowerBound, upperBound, modus);
     }
 
+    @Async
     public void sullyDeepSearchPhase3() {
         int lowerBound = 2500;
         int upperBound = 10000;
@@ -370,6 +356,7 @@ public class TwitchDataService {
         genericSullyDeepSearch(lowerBound, upperBound, modus);
     }
 
+    @Async
     public void sullyDeepSearchPhase4() {
         int lowerBound = 10000;
         int upperBound = 100000;
@@ -378,6 +365,7 @@ public class TwitchDataService {
 
     }
 
+    @Async
     public void sullyDeepSearchPhase5() {
         int lowerBound = 100000;
         int upperBound = 10000000;
@@ -385,6 +373,7 @@ public class TwitchDataService {
         genericSullyDeepSearch(lowerBound, upperBound, modus);
     }
 
+    @Async
     public void genericSullyDeepSearch(Integer lowerBound, Integer upperBound, Integer modus) {
         String suffix = "/" + numberOfRecords;
         //fifth phase
@@ -394,7 +383,7 @@ public class TwitchDataService {
                 String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
                 String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
                 try {
-                    String json = goToWebSiteJSON(scaffoldUrl);
+                    String json = goToWebSiteREST(scaffoldUrl);
                     if (json != null) {
                         ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
                         if(channelSearchDTO.getRecordsTotal() > 0){
@@ -526,6 +515,7 @@ public class TwitchDataService {
         }
     }
 
+    @Async
     public void importTeams1() {
         String suffix = "/" + numberOfRecords;
         //teams result list
@@ -533,7 +523,7 @@ public class TwitchDataService {
         String teamsprefix = "https://sullygnome.com/api/tables/teamtables/getteams/" + teamsDaysPerspective + "/0/1/3/desc/";
         long teamTotalSize;
         try {
-            //TeamsTable teamsTable = objectMapper().readValue(goToWebSiteJSON(teamsScaffoldUrl), TeamsTable.class);
+            //TeamsTable teamsTable = objectMapper().readValue(goToWebSiteREST(teamsScaffoldUrl), TeamsTable.class);
             teamTotalSize = 5000;
             log.debug("Actual Teams size: " + teamTotalSize);
             Set<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
@@ -546,6 +536,7 @@ public class TwitchDataService {
         }
     }
 
+    @Async
     public void importTeams2() {
         String suffix = "/" + numberOfRecords;
         //teams result list
@@ -553,7 +544,7 @@ public class TwitchDataService {
         String teamsprefix = "https://sullygnome.com/api/tables/teamtables/getteams/" + teamsDaysPerspective + "/0/4/5/asc/0/";
         long teamTotalSize;
         try {
-            //TeamsTable teamsTable = objectMapper().readValue(goToWebSiteJSON(teamsScaffoldUrl), TeamsTable.class);
+            //TeamsTable teamsTable = objectMapper().readValue(goToWebSiteREST(teamsScaffoldUrl), TeamsTable.class);
             teamTotalSize = 5000;
             log.debug("Actual Teams size: " + teamTotalSize);
             Set<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
@@ -566,6 +557,7 @@ public class TwitchDataService {
         }
     }
 
+    @Async
     public void importFollowsTo() {
         Set<String> usersWithoutTwitchFollowsTo;
         usersWithoutTwitchFollowsTo = persistenceService.getUsersWithoutTwitchFollowsTo();
@@ -684,6 +676,7 @@ public class TwitchDataService {
     }
 
     //todo 4
+    @Async
     public void importRaidPicker() {
         try {
             for (String login : persistenceService.getChannelsCurrentlyLiveStreaming()) {
@@ -700,7 +693,7 @@ public class TwitchDataService {
                         }
                     }
                     String url = "https://sullygnome.com/api/tables/channeltables/raidfinder/30/2215977/%20" + gameString + "/0/0/9999999/" + raidDTO.getLowRange() + "/" + raidDTO.getHighRange() + "/011/11/false/1/4/desc/0/100";
-                    String json = goToWebSiteJSON(url);
+                    String json = goToWebSiteREST(url);
                     ChannelRaidFinder channelRaidFinder = objectMapper().readValue(json, ChannelRaidFinder.class);
                     if (channelRaidFinder.getRecordsTotal() > 0) {
                         persistenceService.persistSullyChannelRaidFinder(login, objectMapper().readValue(json, Map.class));
@@ -713,6 +706,7 @@ public class TwitchDataService {
         }
     }
 
+    @Async
     //todo 3
     public void importGameFinder() {
         try {
@@ -721,7 +715,7 @@ public class TwitchDataService {
             String gamePickerPrefix = "https://sullygnome.com/api/tables/gametables/getgamepickergames/-1/-1/90/false/-1/-1/-1/-1/-1/-1/-1/-1/-1/-1/2/4/desc/";
             long gamePickerTotalSize;
 
-            String jsonScaffold = goToWebSiteJSON(gamePickerScaffoldUrl);
+            String jsonScaffold = goToWebSiteREST(gamePickerScaffoldUrl);
             if (jsonScaffold != null) {
                 ChannelGamePicker channelGamePicker = objectMapper().readValue(jsonScaffold, ChannelGamePicker.class);
                 gamePickerTotalSize = channelGamePicker.getRecordsTotal();
@@ -744,7 +738,7 @@ public class TwitchDataService {
             String urlSuffix = "/%20/1/2/desc/0/100";
             Set<Long> channelsWithoutChannelGameData = persistenceService.getChannelsWithoutChannelGameData();
             for (Long sullyId : channelsWithoutChannelGameData) {
-                String json = goToWebSiteJSON(urlPrefix + sullyId + urlSuffix);
+                String json = goToWebSiteREST(urlPrefix + sullyId + urlSuffix);
                 persistenceService.persistSullyChannelGames(sullyId, objectMapper().readValue(json, Map.class));
             }
         } catch (JsonProcessingException e) {
@@ -765,6 +759,7 @@ public class TwitchDataService {
         persistenceService.getTwitchIdNotSetCountGame();
     }
 
+    @Async
     public void importTwitchUsers() {
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
         Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId();
@@ -789,7 +784,7 @@ public class TwitchDataService {
                 String channelStreamPrefix = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc/0/";
 
                 long streamsTotalSize;
-                String jsonScaffold = goToWebSiteJSON(channelStreamScaffoldUrl);
+                String jsonScaffold = goToWebSiteREST(channelStreamScaffoldUrl);
                 if (jsonScaffold != null) {
                     ChannelStreamList channelStreamList = objectMapper().readValue(jsonScaffold, ChannelStreamList.class);
                     streamsTotalSize = channelStreamList.getRecordsTotal();
