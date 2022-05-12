@@ -14,6 +14,15 @@ public class DBStatsService {
         this.persistenceService = persistenceService;
     }
 
+    public Long getUsersWithoutFollowsTo(){
+        return persistenceService.getUsersWithoutFollowsTo();
+    }
+
+    public Long getUsersWithoutFollowsFrom(){
+        return persistenceService.getUsersWithoutFollowsFrom();
+    }
+
+
     public Long getTotalChannels(){
         return persistenceService.getTotalChannels();
     }
@@ -30,8 +39,11 @@ public class DBStatsService {
         return persistenceService.getAllGamesWithoutSullyId();
     }
 
-    public List<String> getAllTeamsWithoutSullyId(){
-        return persistenceService.getAllTeamsWithoutSullyId();
+    public Long getTeamsCount(){
+        return persistenceService.getTeamsCount();
+    }
+    public Integer getAllTeamsWithoutSullyId(){
+        return persistenceService.getAllTeamsWithoutSullyId().size();
     }
 
     public List<String> getChannelsCurrentlyLiveStreaming(){

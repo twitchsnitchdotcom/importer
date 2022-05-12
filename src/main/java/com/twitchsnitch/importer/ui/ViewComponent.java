@@ -120,8 +120,7 @@ public class ViewComponent extends VerticalLayout {
         //followers
         H3 followersHeadline = new H3("Followers INFO");
         Div followersInfo = new Div();
-        followersInfo.setText("Channels without followers to : " + dbStatsService.getNumberOfChatters() + " | channels without followers from");
-
+        followersInfo.setText("Users without followers to : " + dbStatsService.getUsersWithoutFollowsTo() + " | Users without followers from: " + dbStatsService.getUsersWithoutFollowsFrom());
 
         Button importFollowsTo = new Button("importFollowsTo", event -> twitchDataService.importFollowsTo());
         Button importFollowsFrom = new Button("importFollowsFrom", event -> twitchDataService.importFollowsFrom());
@@ -131,9 +130,20 @@ public class ViewComponent extends VerticalLayout {
         add(new HorizontalLayout(importFollowsTo, importFollowsFrom));
 
         //teams
+
+        H3 teamsHeadline = new H3("TEAMS INFO");
+        Div teamsInfo = new Div();
+        teamsInfo.setText("Teams Total: " + dbStatsService.getTeamsCount() + " | Teams without sully id: " + dbStatsService.getAllTeamsWithoutSullyId() + " | Teams without twitch id: " + dbStatsService.getTeamsWithoutTwitchId().size() );
+
         Button importTwitchTeams = new Button("importTwitchTeams", event -> twitchDataService.importTwitchTeams());
         Button importTeams1 = new Button("importTeams1", event -> twitchDataService.importTeams1());
         Button importTeams2 = new Button("importTeams2", event -> twitchDataService.importTeams2());
+
+        add(teamsHeadline);
+        add(new HorizontalLayout(teamsInfo));
+        add(new HorizontalLayout(importTwitchTeams, importTeams1, importTeams2));
+
+
 
         //alternate
         Button importGameFinder = new Button("importGameFinder", event -> twitchDataService.importGameFinder());
@@ -141,8 +151,6 @@ public class ViewComponent extends VerticalLayout {
         Button importChannelGames = new Button("importChannelGames", event -> twitchDataService.importChannelGames());
         Button importChannelStreams = new Button("importChannelStreams", event -> twitchDataService.importChannelStreams());
 
-        twitchDataService.getTwitchIdNotSetCountUser();
-        twitchDataService.getTwitchIdNotSetCountGame();
     }
 
 }

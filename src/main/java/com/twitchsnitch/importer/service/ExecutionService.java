@@ -25,6 +25,7 @@ public class ExecutionService {
     public void execute(){
         if(executionEnabled){
             twitchDataService.importChattersOnDB();
+            twitchDataService.importLiveStreams();
         }
         executionEnabled = true;
     }

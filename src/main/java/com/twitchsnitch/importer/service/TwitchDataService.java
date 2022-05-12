@@ -244,11 +244,29 @@ public class TwitchDataService {
         return persistenceService.getTwitchIdNotSetCountUser();
     }
 
+    public void getSharedChatters(){
+//todo will need to have some data to perform this one
+    }
+
+    public void getSharedFollowers(){
+        //todo will need to have some data to perform this one
+    }
+
     //MAIN METHODS
 
     //its a gimic for marketing
     public void newPartnersImport() {
         String url = "https://sullygnome.com/api/tables/channeltables/newpartners/30/0/000/1/7/desc/0/100";
+    }
+
+    //
+    public void setSharedChatters(){
+        //todo will need to have some data to perform this one
+    }
+
+    //
+    public void setSharedFollowers(){
+//todo will need to have some data to perform this one
     }
 
     @Async

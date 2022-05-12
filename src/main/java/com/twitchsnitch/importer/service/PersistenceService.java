@@ -147,6 +147,36 @@ public class PersistenceService {
 
     }
 
+    public Long getUsersWithoutFollowsTo(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Long usersWithoutFollowsTo = 0L;
+        Collection<Map<String, Object>> all = client.query("MATCH (u:User) WHERE u.twitch_followers_to_update_date IS NULL RETURN count(u)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                usersWithoutFollowsTo = ((Long) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("getUsersWithoutFollowsTo " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return usersWithoutFollowsTo;
+    }
+
+    public Long getUsersWithoutFollowsFrom(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Long usersWithoutFollowsFrom = 0L;
+        Collection<Map<String, Object>> all = client.query("MATCH (u:User) WHERE u.twitch_followers_from_update_date IS NULL RETURN count(u)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                usersWithoutFollowsFrom = ((Long) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("usersWithoutFollowsFrom " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return usersWithoutFollowsFrom;
+    }
+
     //TWITCH METHODS
     public RaidFinderDTO getRaidFinder(String login) {
         RaidFinderDTO raidFinderDTO = new RaidFinderDTO();
@@ -263,6 +293,22 @@ public class PersistenceService {
         log.trace("Get All Chatters in the db: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         return numberOfChatters;
     }
+
+    public Long getTeamsCount(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Long teamsCount = 0L;
+        Collection<Map<String, Object>> all = client.query("MATCH (t:Team) RETURN count(t)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                teamsCount = ((Long) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("Get Teams count: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return teamsCount;
+    }
+
     public List<String> getAllTeamsWithoutSullyId(){
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -578,7 +624,8 @@ public class PersistenceService {
                 "  //Store information about regular users\n" +
                 "  FOREACH (chatter in chatters.viewers | \n" +
                 "          MERGE (u:User{login:chatter}) \n" +
-                "          MERGE (u)-[c:CHATTER{date:datetime()}]->(s))',\n" +
+                "          MERGE (u)-[c:CHATTER]->(s))',\n" +
+               // "          MERGE (u)-[c:CHATTER{date:datetime()}]->(s))',\n" +
                 "{batchSize:1})").in(database).run();
         logResultSummaries("runChattersOnDB", run);
     }
@@ -621,7 +668,8 @@ public class PersistenceService {
         ResultSummary run = client.query("UNWIND $json.data as follower\n" +
                         "                    MERGE (f:User{login:follower.from_login})\n" +
                         "                    MERGE (t:User{login:follower.to_login})\n" +
-                        "                    SET t.twitch_followers_to = $json.total\n" +
+                        "                    SET t.twitch_followers_to = $json.total,\n" +
+                        "                    t.twitch_followers_to_update_date = datetime()\n" +
                         "                    MERGE (f)-[:FOLLOWS{twitch_followed_at:datetime(follower.followed_at)}]->(t);\n"
                 ).in(database)
                 .bind(jsonMap).to("json")
@@ -634,7 +682,8 @@ public class PersistenceService {
     public void persistTwitchFollowersFrom(Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as follower\n" +
                         "                    MERGE (f:User{login:follower.from_login})\n" +
-                        "                    SET f.twitch_followers_from = $json.total\n" +
+                        "                    SET f.twitch_followers_from = $json.total,\n" +
+                        "                    f.twitch_followers_from_update_date = datetime()\n" +
                         "                    MERGE (t:User{login:follower.to_login})\n" +
                         "                    MERGE (f)-[:FOLLOWS{twitch_followed_at:datetime(follower.followed_at)}]->(t);\n"
                 ).in(database)
