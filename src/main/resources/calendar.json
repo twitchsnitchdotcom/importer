@@ -1,0 +1,199 @@
+{
+  "data": {
+    "segments": [
+      {
+        "id": "eyJzZWdtZW50SUQiOiJjNjllZmNmZi02NDZhLTQwZTItOGI2Ni01ZTc3MmJiNzg3NDMiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoxOX0=",
+        "start_time": "2022-05-12T00:00:00Z",
+        "end_time": "2022-05-12T04:00:00Z",
+        "title": "Yuria: Warhammer 40,000: Chaos Gate - Daemonhunters",
+        "canceled_until": null,
+        "category": {
+          "id": "2047407036",
+          "name": "Warhammer 40,000: Chaos Gate - Daemonhunters"
+        },
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiI2ZWQ4NDk1MS1jYWYzLTQ5OTAtODk1My1kYzk2MjZkOWQ2MWUiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoxOX0=",
+        "start_time": "2022-05-12T09:00:00Z",
+        "end_time": "2022-05-12T12:00:00Z",
+        "title": "Tyr: FPS TIME",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiJiNWMxY2Q5OC01NGZiLTQ1NTAtOTk2OC05ZGRkMWFkOWMxYTAiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoxOX0=",
+        "start_time": "2022-05-12T12:00:00Z",
+        "end_time": "2022-05-12T16:00:00Z",
+        "title": "Cas: Gaming Variety & Beard",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiIwODcxNTJlMS1jNDhjLTRkNWQtOTg3ZC03MDFlOTBhNjE1ZGIiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoxOX0=",
+        "start_time": "2022-05-13T09:00:00Z",
+        "end_time": "2022-05-13T15:00:00Z",
+        "title": "Tyr & Cas: Cas: Gaming Variety & Beard",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiIzOWY2Yjc2Yi02OWFhLTRhNjMtOTFlMC0xNDJiNGViYjIzOTYiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoxOX0=",
+        "start_time": "2022-05-14T00:00:00Z",
+        "end_time": "2022-05-14T04:00:00Z",
+        "title": "TYR: FPS or RPG? ",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiJlMWI2MTUyMS1kNzU0LTQ3YmQtYjdjOS1iYjNjODc2ZTFkYTMiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoxOX0=",
+        "start_time": "2022-05-14T12:00:00Z",
+        "end_time": "2022-05-14T16:00:00Z",
+        "title": "Cas: Gaming Variety & Beard",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiI2YzFlNDcyZS0xNGFlLTQ2MzctYmRhMi0xZGM1NDBhMTUwY2YiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoxOX0=",
+        "start_time": "2022-05-15T00:00:00Z",
+        "end_time": "2022-05-15T04:00:00Z",
+        "title": "TYR: FPS or RPG?",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiJhOTM1MTlkMi1jNmQzLTRmOTAtYjYyMS1iMTdlOTQ0NGY3ZWQiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoxOX0=",
+        "start_time": "2022-05-15T12:00:00Z",
+        "end_time": "2022-05-15T16:00:00Z",
+        "title": "Cas: RPGS and Fun",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiJhZjJlZTE4ZS04ZTU0LTQ3MzctOWM2ZS0zNmE2YjNmNDJjYTEiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoyMH0=",
+        "start_time": "2022-05-16T00:00:00Z",
+        "end_time": "2022-05-16T03:00:00Z",
+        "title": "Yuria: MMO fun",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiJlMTFkOTNjMC01NTE5LTRmMzgtODk4Ni0yZTRjMTlmMjVjZTMiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoyMH0=",
+        "start_time": "2022-05-17T00:00:00Z",
+        "end_time": "2022-05-17T04:00:00Z",
+        "title": "Yuria: MMO fun!",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiJiYmYyMDQ2Ni0wN2I3LTRjMzItYjNjNC02NWM1ZmNmZDliN2QiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoyMH0=",
+        "start_time": "2022-05-17T09:00:00Z",
+        "end_time": "2022-05-17T12:00:00Z",
+        "title": "TYR: Gaming FPS & Action Adventure",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiI4NzliYzYwYi02MDhjLTQwNzgtYTQ4NS1jNDNhODhiYWQ0YTEiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoyMH0=",
+        "start_time": "2022-05-17T12:00:00Z",
+        "end_time": "2022-05-17T16:00:00Z",
+        "title": "Cas: Gaming Variety & Beard",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiI4YjAxMjJmYy1kM2NhLTRmZDktYjM5OS01MzMxYTBlNjZmYTEiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoyMH0=",
+        "start_time": "2022-05-18T00:00:00Z",
+        "end_time": "2022-05-18T04:00:00Z",
+        "title": "Yuria: Games and Fun",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiJjNjllZmNmZi02NDZhLTQwZTItOGI2Ni01ZTc3MmJiNzg3NDMiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoyMH0=",
+        "start_time": "2022-05-19T00:00:00Z",
+        "end_time": "2022-05-19T04:00:00Z",
+        "title": "Yuria: Warhammer 40,000: Chaos Gate - Daemonhunters",
+        "canceled_until": null,
+        "category": {
+          "id": "2047407036",
+          "name": "Warhammer 40,000: Chaos Gate - Daemonhunters"
+        },
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiI2ZWQ4NDk1MS1jYWYzLTQ5OTAtODk1My1kYzk2MjZkOWQ2MWUiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoyMH0=",
+        "start_time": "2022-05-19T09:00:00Z",
+        "end_time": "2022-05-19T12:00:00Z",
+        "title": "Tyr: FPS TIME",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiJiNWMxY2Q5OC01NGZiLTQ1NTAtOTk2OC05ZGRkMWFkOWMxYTAiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoyMH0=",
+        "start_time": "2022-05-19T12:00:00Z",
+        "end_time": "2022-05-19T16:00:00Z",
+        "title": "Cas: Gaming Variety & Beard",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiIwODcxNTJlMS1jNDhjLTRkNWQtOTg3ZC03MDFlOTBhNjE1ZGIiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoyMH0=",
+        "start_time": "2022-05-20T09:00:00Z",
+        "end_time": "2022-05-20T15:00:00Z",
+        "title": "Tyr & Cas: Cas: Gaming Variety & Beard",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiIzOWY2Yjc2Yi02OWFhLTRhNjMtOTFlMC0xNDJiNGViYjIzOTYiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoyMH0=",
+        "start_time": "2022-05-21T00:00:00Z",
+        "end_time": "2022-05-21T04:00:00Z",
+        "title": "TYR: FPS or RPG? ",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiJlMWI2MTUyMS1kNzU0LTQ3YmQtYjdjOS1iYjNjODc2ZTFkYTMiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoyMH0=",
+        "start_time": "2022-05-21T12:00:00Z",
+        "end_time": "2022-05-21T16:00:00Z",
+        "title": "Cas: Gaming Variety & Beard",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      },
+      {
+        "id": "eyJzZWdtZW50SUQiOiI2YzFlNDcyZS0xNGFlLTQ2MzctYmRhMi0xZGM1NDBhMTUwY2YiLCJpc29ZZWFyIjoyMDIyLCJpc29XZWVrIjoyMH0=",
+        "start_time": "2022-05-22T00:00:00Z",
+        "end_time": "2022-05-22T04:00:00Z",
+        "title": "TYR: FPS or RPG?",
+        "canceled_until": null,
+        "category": null,
+        "is_recurring": true
+      }
+    ],
+    "broadcaster_id": "156037856",
+    "broadcaster_name": "Fextralife",
+    "broadcaster_login": "fextralife",
+    "vacation": null
+  },
+  "pagination": {
+    "cursor": "eyJiIjpudWxsLCJhIjp7IkN1cnNvciI6ImV5SnlaV3hoZEdsMlpWUnBiV1VpT2lJeU1ESXlMVEExTFRFNFZEQTVPak16T2pBMFdpSXNJbXhoYzNSVFpXZHRaVzUwU1VRaU9pSTJZekZsTkRjeVpTMHhOR0ZsTFRRMk16Y3RZbVJoTWkweFpHTTFOREJoTVRVd1kyWWlMQ0pzWVhOMFUyVm5iV1Z1ZEZOMFlYSjBWR2x0WlNJNmV5SnpaV052Ym1Seklqb3hOalV6TVRjM05qQXdmU3dpZDJWbGEyUmhlU0k2SWxkRlJFNUZVMFJCV1NJc0luVjBZMDltWm5ObGRFMXBiblYwWlhNaU9qQjkifX0"
+  }
+}
