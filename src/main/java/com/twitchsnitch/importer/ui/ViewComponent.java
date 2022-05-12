@@ -15,17 +15,124 @@
  */
 package com.twitchsnitch.importer.ui;
 
-import com.vaadin.flow.component.html.Label;
+import com.twitchsnitch.importer.service.DBStatsService;
+import com.twitchsnitch.importer.service.TwitchDataService;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
-import org.springframework.beans.factory.annotation.Autowired;
 
-@Route("view")
+import javax.annotation.security.PermitAll;
+
+@Route("")
+@PermitAll
 @UIScope
-public class ViewComponent extends Label {
+public class ViewComponent extends VerticalLayout {
 
-    public ViewComponent(@Autowired Greeter greeter) {
-        // it's the same Greeter instance as in the RootComponent class
-        setText(greeter.sayHello());
+    private final TwitchDataService twitchDataService;
+    private final DBStatsService dbStatsService;
+
+
+    public ViewComponent(TwitchDataService twitchDataService, DBStatsService dbStatsService) {
+        this.twitchDataService = twitchDataService;
+        this.dbStatsService = dbStatsService;
+        formatLayout();
     }
+
+    public void formatLayout(){
+        //db
+        H3 dbHeadline = new H3("DATABASE INFO");
+        Div dbInfo = new Div();
+        dbInfo.setText(dbStatsService.getDBInfo());
+        Button addDB = new Button("addDB", event -> twitchDataService.addDB());
+        Button dropDB = new Button("dropDB", event -> twitchDataService.dropDB());
+        Button dropDBConstraints = new Button("dropDBConstraints", event -> twitchDataService.dropDBConstraints());
+        Button addDBConstraints = new Button("addDBConstraints", event -> twitchDataService.addDBConstraints());
+
+        add(dbHeadline);
+        add(new HorizontalLayout(dbInfo));
+        add(new HorizontalLayout(addDB, dropDB, dropDBConstraints, addDBConstraints));
+
+        //languages
+        H3 languagesHeadline = new H3("LANGUAGE INFO");
+        Div languageInfo = new Div();
+        languageInfo.setText("Languages without sully_id: " + dbStatsService.getLanguagesWithOutSullyIds());
+        Button importLanguages = new Button("importLanguages", event -> twitchDataService.importSullyLanguages());
+
+        add(languagesHeadline);
+        add(new HorizontalLayout(languageInfo));
+        add(new HorizontalLayout(importLanguages));
+
+        //games
+        H3 gamesHeadline = new H3("GAMES INFO");
+        Div gamesInfo = new Div();
+        gamesInfo.setText("Total Games: " + dbStatsService.getAllGamesCount() + " | Games without twitch_id: " + dbStatsService.getAllGamesWithoutTwitchIds().size());
+        Button importTwitchGameData = new Button("importTwitchGameData", event -> twitchDataService.importTwitchGameData());
+        Button importGames1 = new Button("importGames1", event -> twitchDataService.importGames1());
+        Button importGames2 = new Button("importGames2", event -> twitchDataService.importGames2());
+
+        add(gamesHeadline);
+        add(new HorizontalLayout(gamesInfo));
+        add(new HorizontalLayout(importTwitchGameData, importGames1, importGames2));
+
+        //channels
+        H3 channelsHeadline = new H3("CHANNEL INFO");
+        Div channelsInfo = new Div();
+        channelsInfo.setText("Total Channels: " + dbStatsService.getTotalChannels() + " | Total Channels without twitch id: " + dbStatsService.getTotalChannelsWithoutTwitchId());
+        Button importTwitchUsers = new Button("importTwitchUsers", event -> twitchDataService.importTwitchUsers());
+        Button importChannels = new Button("importChannels", event -> twitchDataService.importChannels());
+        Button sullyDeepSearchPhase1 = new Button("Phase1", event -> twitchDataService.sullyDeepSearchPhase1());
+        Button sullyDeepSearchPhase2 = new Button("Phase2", event -> twitchDataService.sullyDeepSearchPhase2());
+        Button sullyDeepSearchPhase3 = new Button("Phase3", event -> twitchDataService.sullyDeepSearchPhase3());
+        Button sullyDeepSearchPhase4 = new Button("Phase4", event -> twitchDataService.sullyDeepSearchPhase4());
+        Button sullyDeepSearchPhase5 = new Button("Phase5", event -> twitchDataService.sullyDeepSearchPhase5());
+
+        add(channelsHeadline);
+        add(new HorizontalLayout(channelsInfo));
+        add(new HorizontalLayout(importTwitchUsers, importChannels, sullyDeepSearchPhase1, sullyDeepSearchPhase2, sullyDeepSearchPhase3, sullyDeepSearchPhase4, sullyDeepSearchPhase5));
+
+        //streams
+        H3 streamsHeadline = new H3("STREAMS INFO");
+        Div streamsInfo = new Div();
+        streamsInfo.setText("Total number of streams: " + dbStatsService.getChannelsCurrentlyLiveStreaming().size());
+        Button importLiveStreams = new Button("importLiveStreams", event -> twitchDataService.importLiveStreams());
+
+        add(streamsHeadline);
+        add(new HorizontalLayout(streamsInfo));
+        add(new HorizontalLayout(importLiveStreams));
+
+        //chatters info
+        H3 chattersHeadline = new H3("Chatters INFO");
+        Div chattersInfo = new Div();
+        chattersInfo.setText("Total number of chatters: " + dbStatsService.getNumberOfChatters());
+        Button importChattersOnDB = new Button("importChattersOnDB", event -> twitchDataService.importChattersOnDB());
+
+        add(chattersHeadline);
+        add(new HorizontalLayout(chattersInfo));
+        add(new HorizontalLayout(importChattersOnDB));
+
+
+        //followers
+        Button importFollowsTo = new Button("importFollowsTo", event -> twitchDataService.importFollowsTo());
+        Button importFollowsFrom = new Button("importFollowsFrom", event -> twitchDataService.importFollowsFrom());
+
+        //teams
+        Button importTwitchTeams = new Button("importTwitchTeams", event -> twitchDataService.importTwitchTeams());
+        Button importTeams1 = new Button("importTeams1", event -> twitchDataService.importTeams1());
+        Button importTeams2 = new Button("importTeams2", event -> twitchDataService.importTeams2());
+
+        //alternate
+
+        Button importGameFinder = new Button("importGameFinder", event -> twitchDataService.importGameFinder());
+        Button importRaidPicker = new Button("importRaidPicker", event -> twitchDataService.importRaidPicker());
+        Button importChannelGames = new Button("importChannelGames", event -> twitchDataService.importChannelGames());
+        Button importChannelStreams = new Button("importChannelStreams", event -> twitchDataService.importChannelStreams());
+
+        twitchDataService.getTwitchIdNotSetCountUser();
+        twitchDataService.getTwitchIdNotSetCountGame();
+    }
+
 }

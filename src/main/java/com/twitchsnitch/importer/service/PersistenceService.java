@@ -1,6 +1,7 @@
 package com.twitchsnitch.importer.service;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -113,34 +114,34 @@ public class PersistenceService {
     }
 
     private void logResultSummaries(String key, ResultSummary resultSummary) {
-        log.trace("RESULT SUMMARY FOR: " + key);
+        log.debug("RESULT SUMMARY FOR: " + key);
 
         if (resultSummary.counters().nodesCreated() > 0) {
-            log.trace("Nodes created: " + resultSummary.counters().nodesCreated());
+            log.debug("Nodes created: " + resultSummary.counters().nodesCreated());
         }
         if (resultSummary.counters().labelsAdded() > 0) {
-            log.trace("Labels added: " + resultSummary.counters().labelsAdded());
+            log.debug("Labels added: " + resultSummary.counters().labelsAdded());
         }
         if (resultSummary.counters().relationshipsCreated() > 0) {
-            log.trace("Relationships added: " + resultSummary.counters().relationshipsCreated());
+            log.debug("Relationships added: " + resultSummary.counters().relationshipsCreated());
         }
         if (resultSummary.counters().relationshipsDeleted() > 0) {
-            log.trace("Relationships deleted: " + resultSummary.counters().relationshipsDeleted());
+            log.debug("Relationships deleted: " + resultSummary.counters().relationshipsDeleted());
         }
         if (resultSummary.counters().indexesAdded() > 0) {
-            log.trace("Indexes added: " + resultSummary.counters().indexesAdded());
+            log.debug("Indexes added: " + resultSummary.counters().indexesAdded());
         }
         if (resultSummary.counters().indexesRemoved() > 0) {
-            log.trace("Indexes removed: " + resultSummary.counters().indexesRemoved());
+            log.debug("Indexes removed: " + resultSummary.counters().indexesRemoved());
         }
         if (resultSummary.counters().constraintsAdded() > 0) {
-            log.trace("Constraints added: " + resultSummary.counters().constraintsAdded());
+            log.debug("Constraints added: " + resultSummary.counters().constraintsAdded());
         }
         if (resultSummary.counters().constraintsRemoved() > 0) {
-            log.trace("Constraints added: " + resultSummary.counters().constraintsRemoved());
+            log.debug("Constraints added: " + resultSummary.counters().constraintsRemoved());
         }
         if (resultSummary.counters().propertiesSet() > 0) {
-            log.trace("Properties set: " + resultSummary.counters().propertiesSet());
+            log.debug("Properties set: " + resultSummary.counters().propertiesSet());
         }
 
     }
@@ -180,6 +181,25 @@ public class PersistenceService {
         stopWatch.stop();
         log.trace("Get All Raid finders took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         return raidFinderDTO;
+    }
+
+    public String getDBInfo(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        String statsString = null;
+        Collection<Map<String, Object>> all = client.query("CALL apoc.meta.stats()").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                try {
+                    statsString = objectMapper().writeValueAsString(entry);
+                } catch (JsonProcessingException e) {
+                    log.error("Cant parse APOC Stats");
+                }
+            }
+        }
+        stopWatch.stop();
+        log.trace("Get all Apoc meta stats took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return statsString;
     }
 
     public List<Long> getAllSullyLanguageIds(){
@@ -227,6 +247,21 @@ public class PersistenceService {
         return getAllGamesWithoutSullyId;
     }
 
+
+    public Long getNumberOfChatters(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Long numberOfChatters = 0L;
+        Collection<Map<String, Object>> all = client.query("MATCH (u:User)-[c:CHATTER]->(s) RETURN count(c)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                numberOfChatters = ((Long) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("Get All Chatters in the db: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return numberOfChatters;
+    }
     public List<String> getAllTeamsWithoutSullyId(){
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -316,6 +351,52 @@ public class PersistenceService {
         log.trace("Get All Games Without TwitchIds took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
         log.trace("FOUND:" + gamesWithoutTwitchIds.size() + " Games Without TwitchIds");
         return gamesWithoutTwitchIds;
+    }
+
+
+    public Long getTotalChannels(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Long totalChannels = 0L;
+        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) RETURN count(c)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                totalChannels = ((Long) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("Get total Channels took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return totalChannels;
+    }
+
+    public Long getTotalChannelsWithoutTwitchId(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Long totalChannels = 0L;
+        Collection<Map<String, Object>> all = client.query("MATCH (c:Channel) WHERE c.twitch_id IS NULL RETURN count(c)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                totalChannels = ((Long) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("Get total Channels took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return totalChannels;
+    }
+
+    public Long getAllGamesCount() {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Long gamesCount = 0L;
+        Collection<Map<String, Object>> all = client.query("MATCH (g:Game) return count(g)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                gamesCount = ((Long) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("Get All Games count took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return gamesCount;
     }
 
     public Set<String> getUsersWithoutTwitchId() {
@@ -427,6 +508,18 @@ public class PersistenceService {
         return null;
     }
 
+    public Long getSullyLanguageIdNotSetCount() {
+        Collection<Map<String, Object>> all = client.query("MATCH (l:Language) WHERE l.sully_id IS NULL RETURN count(l)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                long notsetcount = (Long) entry.getValue();
+                log.trace("Get All Languages without sully_id is : " + notsetcount);
+                return notsetcount;
+            }
+        }
+        return null;
+    }
+
     //updates
 
 
@@ -509,14 +602,14 @@ public class PersistenceService {
         logResultSummaries("persistTwitchStreams", run);
     }
 
-    public void persistTwitchLanguage(String key, String name, Integer sullyId) {
+    public void persistSullyLanguage(String key, String name, Integer sullyId) {
         ResultSummary run = client.query(
                         "CREATE (l:Language{key:$key}) SET l.name = $name, l.sully_id = $sullyId").in(database)
                 .bind(key).to("key")
                 .bind(name).to("name")
                 .bind(sullyId).to("sullyId")
                 .run();
-        logResultSummaries("persistTwitchLanguage", run);
+        logResultSummaries("persistSullyLanguage", run);
     }
 
 

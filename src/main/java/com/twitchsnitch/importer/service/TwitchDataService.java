@@ -10,6 +10,7 @@ import com.twitchsnitch.importer.dto.sully.ChannelSearchDTO;
 import com.twitchsnitch.importer.dto.sully.RaidFinderDTO;
 import com.twitchsnitch.importer.dto.sully.SearchDTO;
 import com.twitchsnitch.importer.dto.sully.channels.*;
+import com.twitchsnitch.importer.dto.sully.games.GamesTable;
 import com.twitchsnitch.importer.dto.twitch.*;
 import com.twitchsnitch.importer.utils.SplittingUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -30,10 +31,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -175,6 +175,46 @@ public class TwitchDataService {
         return htmlList;
     }
 
+
+    public String goToWebSiteREST(String urlString){
+        String response = null;
+        URL url = null;
+        try {
+            url = new URL(urlString);
+            HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+            httpConn.setRequestMethod("GET");
+
+            httpConn.setRequestProperty("authority", "sullygnome.com");
+            httpConn.setRequestProperty("accept", "application/json, text/javascript, */*; q=0.01");
+            httpConn.setRequestProperty("accept-language", "en-US,en;q=0.9");
+            httpConn.setRequestProperty("cookie", "_ga=GA1.2.911863633.1652187859; _gid=GA1.2.1880556020.1652356979; _gat=1");
+            httpConn.setRequestProperty("referer", "https://sullygnome.com/games/watched");
+            httpConn.setRequestProperty("sec-ch-ua", "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"101\", \"Google Chrome\";v=\"101\"");
+            httpConn.setRequestProperty("sec-ch-ua-mobile", "?0");
+            httpConn.setRequestProperty("sec-ch-ua-platform", "\"Linux\"");
+            httpConn.setRequestProperty("sec-fetch-dest", "empty");
+            httpConn.setRequestProperty("sec-fetch-mode", "cors");
+            httpConn.setRequestProperty("sec-fetch-site", "same-origin");
+            httpConn.setRequestProperty("timecode", "128052_5/12/2022 12:03:26 PM_7e376882-daf0-4b1e-8d50-e898e2111777_4a484544b669b1d1bdf40b5ecb31d9e6");
+            httpConn.setRequestProperty("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36");
+            httpConn.setRequestProperty("x-requested-with", "XMLHttpRequest");
+
+            InputStream responseStream = httpConn.getResponseCode() / 100 == 2
+                    ? httpConn.getInputStream()
+                    : httpConn.getErrorStream();
+            Scanner s = new Scanner(responseStream).useDelimiter("\\A");
+            response = s.hasNext() ? s.next() : "";
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (ProtocolException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return response;
+    }
+
+
     private Set<String> buildUpSubSequentUrls(String prefix, String suffix, long resultSize) {
         HashSet<String> urls = new HashSet<>();
         long pages = resultSize / 100;
@@ -194,6 +234,7 @@ public class TwitchDataService {
         }
         return null;
     }
+
 
     //DB METHODS
     public void addDB() {
@@ -397,19 +438,22 @@ public class TwitchDataService {
         persistenceService.persistChattersOnDB();
     }
 
+    @Async
     public void importGames1() {
         String suffix = "/" + numberOfRecords;
         String gameScaffoldUrl = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc/0/" + numberOfRecords;
         String gamePrefix = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/1/3/desc/";
         long gamesTotalSize;
         try {
-            //GamesTable gamesTable = objectMapper().readValue(goToWebSiteJSON(gameScaffoldUrl), GamesTable.class);
-            gamesTotalSize = 1000;
-            log.debug("Actual Game size: " + gamesTotalSize);
+            GamesTable gamesTable = objectMapper().readValue(goToWebSiteREST(gameScaffoldUrl), GamesTable.class);
+            gamesTotalSize = gamesTable.getRecordsTotal();
+            log.debug("Actual Game size: " + gamesTable.getRecordsTotal());
             Set<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(gamesUrls, 10);
             for (int i = 0; i < sets.size(); i++) {
                 asyncPersistenceService.persistGamesAsync(i, sets.get(i));
+
+
             }
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -417,15 +461,16 @@ public class TwitchDataService {
 
     }
 
+    @Async
     public void importGames2() {
         String suffix = "/" + numberOfRecords;
         String gameScaffoldUrl = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/2/3/asc/0/" + numberOfRecords;
         String gamePrefix = "https://sullygnome.com/api/tables/gametables/getgames/" + gamesDaysPerspective + "/%20/0/2/3/asc/";
         long gamesTotalSize;
         try {
-            //GamesTable gamesTable = objectMapper().readValue(goToWebSiteJSON(gameScaffoldUrl), GamesTable.class);
-            gamesTotalSize = 1000;
-            log.debug("Actual Game size: " + gamesTotalSize);
+            GamesTable gamesTable = objectMapper().readValue(goToWebSiteREST(gameScaffoldUrl), GamesTable.class);
+            gamesTotalSize = gamesTable.getRecordsTotal();
+            log.debug("Actual Game size: " + gamesTable.getRecordsTotal());
             Set<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(gamesUrls, 10);
             for (int i = 0; i < sets.size(); i++) {
@@ -587,49 +632,50 @@ public class TwitchDataService {
      *
      */
 
-    public void importLanguages() {
+    @Async
+    public void importSullyLanguages() {
         try {
             URL resource = getClass().getClassLoader().getResource("language-english.json");
             File tokensFile = new File(resource.toURI());
             LanguageKeyDTO languageKeyDTO = objectMapper().readValue(tokensFile, LanguageKeyDTO.class);
-            persistenceService.persistTwitchLanguage("any", "Any Language", -1);
-            persistenceService.persistTwitchLanguage("en", languageKeyDTO.getEn(), 217);
-            persistenceService.persistTwitchLanguage("zh", languageKeyDTO.getZh(), 241);
-            persistenceService.persistTwitchLanguage("ja", languageKeyDTO.getJa(), 226);
-            persistenceService.persistTwitchLanguage("ko", languageKeyDTO.getKo(), 231);
-            persistenceService.persistTwitchLanguage("es", languageKeyDTO.getEs(), 228);
-            persistenceService.persistTwitchLanguage("fr", languageKeyDTO.getFr(), 214);
-            persistenceService.persistTwitchLanguage("de", languageKeyDTO.getDe(), 220);
-            persistenceService.persistTwitchLanguage("it", languageKeyDTO.getIt(), 230);
-            persistenceService.persistTwitchLanguage("pt", languageKeyDTO.getPt(), 232);
-            persistenceService.persistTwitchLanguage("sv", languageKeyDTO.getSv(), 238);
-            persistenceService.persistTwitchLanguage("no", languageKeyDTO.getNo(), 234);
-            persistenceService.persistTwitchLanguage("nl", languageKeyDTO.getNl(), 235);
-            persistenceService.persistTwitchLanguage("fi", languageKeyDTO.getFi(), 229);
-            persistenceService.persistTwitchLanguage("el", languageKeyDTO.getEl(), 245);
-            persistenceService.persistTwitchLanguage("ru", languageKeyDTO.getRu(), 227);
-            persistenceService.persistTwitchLanguage("tr", languageKeyDTO.getTr(), 236);
-            persistenceService.persistTwitchLanguage("cs", languageKeyDTO.getCs(), 216);
-            persistenceService.persistTwitchLanguage("hu", languageKeyDTO.getHu(), 218);
-            persistenceService.persistTwitchLanguage("ar", languageKeyDTO.getAr(), 213);
-            persistenceService.persistTwitchLanguage("bg", languageKeyDTO.getBg(), 215);
-            persistenceService.persistTwitchLanguage("th", languageKeyDTO.getTh(), 224);
-            persistenceService.persistTwitchLanguage("vi", languageKeyDTO.getVi(), 243);
-            persistenceService.persistTwitchLanguage("asl", languageKeyDTO.getAsl(), 244);
-            persistenceService.persistTwitchLanguage("other", languageKeyDTO.getOther(), 222);
-            persistenceService.persistTwitchLanguage("uk", languageKeyDTO.getUk(), 249);
-            persistenceService.persistTwitchLanguage("pl", languageKeyDTO.getPl(), 242);
-            persistenceService.persistTwitchLanguage("hi", languageKeyDTO.getHi(), 247);
-            persistenceService.persistTwitchLanguage("ca", languageKeyDTO.getCa(), 250);
-            persistenceService.persistTwitchLanguage("zh-HK", languageKeyDTO.getZhHK(), 225);
-            persistenceService.persistTwitchLanguage("zh-TW", languageKeyDTO.getZhTW(), 223);
-            persistenceService.persistTwitchLanguage("da", languageKeyDTO.getDa(), 240);
-            persistenceService.persistTwitchLanguage("id", languageKeyDTO.getId(), 248);
-            persistenceService.persistTwitchLanguage("ms", languageKeyDTO.getMs(), 252);
-            persistenceService.persistTwitchLanguage("pt-BR", languageKeyDTO.getPtBR(), 233);
-            persistenceService.persistTwitchLanguage("ro", languageKeyDTO.getRo(), 246);
-            persistenceService.persistTwitchLanguage("sk", languageKeyDTO.getSk(), 237);
-            persistenceService.persistTwitchLanguage("es-MX", languageKeyDTO.getEsMX(), 221);
+            persistenceService.persistSullyLanguage("any", "Any Language", -1);
+            persistenceService.persistSullyLanguage("en", languageKeyDTO.getEn(), 217);
+            persistenceService.persistSullyLanguage("zh", languageKeyDTO.getZh(), 241);
+            persistenceService.persistSullyLanguage("ja", languageKeyDTO.getJa(), 226);
+            persistenceService.persistSullyLanguage("ko", languageKeyDTO.getKo(), 231);
+            persistenceService.persistSullyLanguage("es", languageKeyDTO.getEs(), 228);
+            persistenceService.persistSullyLanguage("fr", languageKeyDTO.getFr(), 214);
+            persistenceService.persistSullyLanguage("de", languageKeyDTO.getDe(), 220);
+            persistenceService.persistSullyLanguage("it", languageKeyDTO.getIt(), 230);
+            persistenceService.persistSullyLanguage("pt", languageKeyDTO.getPt(), 232);
+            persistenceService.persistSullyLanguage("sv", languageKeyDTO.getSv(), 238);
+            persistenceService.persistSullyLanguage("no", languageKeyDTO.getNo(), 234);
+            persistenceService.persistSullyLanguage("nl", languageKeyDTO.getNl(), 235);
+            persistenceService.persistSullyLanguage("fi", languageKeyDTO.getFi(), 229);
+            persistenceService.persistSullyLanguage("el", languageKeyDTO.getEl(), 245);
+            persistenceService.persistSullyLanguage("ru", languageKeyDTO.getRu(), 227);
+            persistenceService.persistSullyLanguage("tr", languageKeyDTO.getTr(), 236);
+            persistenceService.persistSullyLanguage("cs", languageKeyDTO.getCs(), 216);
+            persistenceService.persistSullyLanguage("hu", languageKeyDTO.getHu(), 218);
+            persistenceService.persistSullyLanguage("ar", languageKeyDTO.getAr(), 213);
+            persistenceService.persistSullyLanguage("bg", languageKeyDTO.getBg(), 215);
+            persistenceService.persistSullyLanguage("th", languageKeyDTO.getTh(), 224);
+            persistenceService.persistSullyLanguage("vi", languageKeyDTO.getVi(), 243);
+            persistenceService.persistSullyLanguage("asl", languageKeyDTO.getAsl(), 244);
+            persistenceService.persistSullyLanguage("other", languageKeyDTO.getOther(), 222);
+            persistenceService.persistSullyLanguage("uk", languageKeyDTO.getUk(), 249);
+            persistenceService.persistSullyLanguage("pl", languageKeyDTO.getPl(), 242);
+            persistenceService.persistSullyLanguage("hi", languageKeyDTO.getHi(), 247);
+            persistenceService.persistSullyLanguage("ca", languageKeyDTO.getCa(), 250);
+            persistenceService.persistSullyLanguage("zh-HK", languageKeyDTO.getZhHK(), 225);
+            persistenceService.persistSullyLanguage("zh-TW", languageKeyDTO.getZhTW(), 223);
+            persistenceService.persistSullyLanguage("da", languageKeyDTO.getDa(), 240);
+            persistenceService.persistSullyLanguage("id", languageKeyDTO.getId(), 248);
+            persistenceService.persistSullyLanguage("ms", languageKeyDTO.getMs(), 252);
+            persistenceService.persistSullyLanguage("pt-BR", languageKeyDTO.getPtBR(), 233);
+            persistenceService.persistSullyLanguage("ro", languageKeyDTO.getRo(), 246);
+            persistenceService.persistSullyLanguage("sk", languageKeyDTO.getSk(), 237);
+            persistenceService.persistSullyLanguage("es-MX", languageKeyDTO.getEsMX(), 221);
         } catch (IOException e) {
             log.error(e.getLocalizedMessage());
         } catch (URISyntaxException e) {
@@ -691,6 +737,7 @@ public class TwitchDataService {
 
 
     //todo 2
+    @Async
     public void importChannelGames() {
         try {
             String urlPrefix = "https://sullygnome.com/api/tables/channeltables/games/" + gamesDaysPerspective + "/";
@@ -706,6 +753,7 @@ public class TwitchDataService {
     }
 
 
+    @Async
     public void importTwitchGameData() {
         Set<String> allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds();
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
@@ -729,7 +777,6 @@ public class TwitchDataService {
             Map map = runGetUsers(chunk, localToken);
             persistenceService.updateUserWithTwitchData(map);
         }
-        persistenceService.getTwitchIdNotSetCountUser();
     }
 
     //todo 1

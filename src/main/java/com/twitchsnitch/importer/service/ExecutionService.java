@@ -13,8 +13,8 @@ public class ExecutionService {
     private final static Logger log = LoggerFactory.getLogger(ExecutionService.class);
     private TwitchDataService twitchDataService;
     private OAuthService oAuthService;
-    private boolean executionEnabled;
-    private boolean refreshTokensEnabled;
+    private boolean executionEnabled = false;
+    private boolean refreshTokensEnabled = false;
 
     public ExecutionService(TwitchDataService twitchDataService){
         this.twitchDataService = twitchDataService;

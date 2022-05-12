@@ -18,7 +18,7 @@ public class ImportDataResource {
     public void prep() {
         twitchDataService.dropDBConstraints();
         twitchDataService.addDBConstraints();
-        twitchDataService.importLanguages();
+        twitchDataService.importSullyLanguages();
     }
 
     @GetMapping("/search/1")
@@ -52,7 +52,7 @@ public class ImportDataResource {
 
         twitchDataService.dropDBConstraints();
         twitchDataService.addDBConstraints();
-        twitchDataService.importLanguages();
+        twitchDataService.importSullyLanguages();
 
         twitchDataService.importChannels();
         Thread.sleep(5000);
@@ -115,7 +115,7 @@ public class ImportDataResource {
 
     @GetMapping("/import/languages")
     public void importLanguages() {
-        twitchDataService.importLanguages();
+        twitchDataService.importSullyLanguages();
     }
 
     @GetMapping("/import/channels")

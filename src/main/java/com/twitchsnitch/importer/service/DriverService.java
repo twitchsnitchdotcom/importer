@@ -25,9 +25,9 @@ public class DriverService {
     ChromeOptions options = new ChromeOptions();
     private boolean areDriversAvailable = false;
     //GENERIC METHODS
-    @PostConstruct
+    //@PostConstruct
     public void initWebDriver() throws URISyntaxException {
-        File webDriverFile = new File("/usr/lib/chromium-browser/chromedriver");
+        File webDriverFile = new File("/home/jamie/IdeaProjects/importer/src/main/resources/chromedriver");
         System.setProperty("webdriver.chrome.driver", webDriverFile.getAbsolutePath());
         options.addArguments("start-maximized"); // open Browser in maximized mode
         options.addArguments("disable-infobars"); // disabling infobars
