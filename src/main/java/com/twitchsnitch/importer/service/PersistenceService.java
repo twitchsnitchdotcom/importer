@@ -30,6 +30,9 @@ public class PersistenceService {
     @Value("${database}")
     private String database;
 
+    @Value("${log.db.data}")
+    private Boolean logDBData;
+
     private final static Logger log = LoggerFactory.getLogger(PersistenceService.class);
 
     @PostConstruct
@@ -115,35 +118,41 @@ public class PersistenceService {
     }
 
     private void logResultSummaries(String key, ResultSummary resultSummary) {
-        log.debug("RESULT SUMMARY FOR: " + key);
 
-        if (resultSummary.counters().nodesCreated() > 0) {
-            log.debug("Nodes created: " + resultSummary.counters().nodesCreated());
+        if(logDBData){
+
+            if (resultSummary.counters().nodesCreated() > 0) {
+                log.debug("Nodes created: " + resultSummary.counters().nodesCreated());
+            }
+            if (resultSummary.counters().labelsAdded() > 0) {
+                log.debug("Labels added: " + resultSummary.counters().labelsAdded());
+            }
+            if (resultSummary.counters().relationshipsCreated() > 0) {
+                log.debug("Relationships added: " + resultSummary.counters().relationshipsCreated());
+            }
+            if (resultSummary.counters().relationshipsDeleted() > 0) {
+                log.debug("Relationships deleted: " + resultSummary.counters().relationshipsDeleted());
+            }
+            if (resultSummary.counters().indexesAdded() > 0) {
+                log.debug("Indexes added: " + resultSummary.counters().indexesAdded());
+            }
+            if (resultSummary.counters().indexesRemoved() > 0) {
+                log.debug("Indexes removed: " + resultSummary.counters().indexesRemoved());
+            }
+            if (resultSummary.counters().constraintsAdded() > 0) {
+                log.debug("Constraints added: " + resultSummary.counters().constraintsAdded());
+            }
+            if (resultSummary.counters().constraintsRemoved() > 0) {
+                log.debug("Constraints added: " + resultSummary.counters().constraintsRemoved());
+            }
+            if (resultSummary.counters().propertiesSet() > 0) {
+                log.debug("Properties set: " + resultSummary.counters().propertiesSet());
+            }
+
+            log.debug("RESULT SUMMARY FOR: " + key);
         }
-        if (resultSummary.counters().labelsAdded() > 0) {
-            log.debug("Labels added: " + resultSummary.counters().labelsAdded());
-        }
-        if (resultSummary.counters().relationshipsCreated() > 0) {
-            log.debug("Relationships added: " + resultSummary.counters().relationshipsCreated());
-        }
-        if (resultSummary.counters().relationshipsDeleted() > 0) {
-            log.debug("Relationships deleted: " + resultSummary.counters().relationshipsDeleted());
-        }
-        if (resultSummary.counters().indexesAdded() > 0) {
-            log.debug("Indexes added: " + resultSummary.counters().indexesAdded());
-        }
-        if (resultSummary.counters().indexesRemoved() > 0) {
-            log.debug("Indexes removed: " + resultSummary.counters().indexesRemoved());
-        }
-        if (resultSummary.counters().constraintsAdded() > 0) {
-            log.debug("Constraints added: " + resultSummary.counters().constraintsAdded());
-        }
-        if (resultSummary.counters().constraintsRemoved() > 0) {
-            log.debug("Constraints added: " + resultSummary.counters().constraintsRemoved());
-        }
-        if (resultSummary.counters().propertiesSet() > 0) {
-            log.debug("Properties set: " + resultSummary.counters().propertiesSet());
-        }
+
+
 
     }
 
@@ -536,7 +545,7 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsFrom = new HashSet<>();
         Collection<Map<String, Object>> all;
 
-            all = client.query("MATCH (c:User) WHERE c.twitch_follows_from IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC").in(database).fetch().all();
+            all = client.query("MATCH (c:User) WHERE c.twitch_followers_from_update_date IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id").in(database).fetch().all();
 
 
         for (Map<String, Object> objectMap : all) {

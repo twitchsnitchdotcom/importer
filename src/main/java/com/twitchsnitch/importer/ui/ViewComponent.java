@@ -144,12 +144,12 @@ public class ViewComponent extends VerticalLayout {
         Div followersInfo = new Div();
         followersInfo.setText("Users without followers to : " + dbStatsService.getUsersWithoutFollowsTo() + " | Users without followers from: " + dbStatsService.getUsersWithoutFollowsFrom());
 
-        Button importFollowsTo = new Button("importFollowsTo", event -> twitchDataService.importFollowsTo());
+        //Button importFollowsTo = new Button("importFollowsTo", event -> twitchDataService.importFollowsTo());
         Button importFollowsFrom = new Button("importFollowsFrom", event -> twitchDataService.importFollowsFrom());
 
         add(followersHeadline);
         add(new HorizontalLayout(followersInfo));
-        add(new HorizontalLayout(importFollowsTo, importFollowsFrom));
+        add(new HorizontalLayout(importFollowsFrom));
 
         //teams
 

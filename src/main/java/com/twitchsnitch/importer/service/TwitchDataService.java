@@ -576,12 +576,15 @@ public class TwitchDataService {
 
     @Async
     public void importFollowsTo() {
+        log.debug("Starting to run job importFollowsTo ");
         Set<String> usersWithoutTwitchFollowsTo;
         usersWithoutTwitchFollowsTo = persistenceService.getUsersWithoutTwitchFollowsTo();
+        log.debug("Starting to run job importFollowsTo, batch size: " + usersWithoutTwitchFollowsTo.size());
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
         for (String twitchId : usersWithoutTwitchFollowsTo) {
             try {
                 FollowsDTO resultList = runGetFollowersTo(twitchId, randomToken, null);
+                log.debug("Currently running importFollowsTo user : " + twitchId);
                 persistenceService.persistTwitchFollowersTo(resultList.getMap());
                 if (resultList != null) {
                     String cursor = resultList.getPagination().getCursor();
@@ -603,20 +606,23 @@ public class TwitchDataService {
                 log.error(e.getLocalizedMessage());
             }
         }
+        log.debug("Finished to run job importFollowsTo ");
     }
 
 
     @Async
     public void importFollowsFrom() {
+        log.debug("Starting to run job importFollowsFrom ");
         Set<String> usersWithoutTwitchFollowsFrom;
 
         usersWithoutTwitchFollowsFrom = persistenceService.getUsersWithoutTwitchFollowsFrom();
-
+        log.debug("Starting to run job importFollowsFrom, batch size: " + usersWithoutTwitchFollowsFrom.size());
 
         OAuthTokenDTO randomToken = oAuthService.getRandomToken();
         for (String twitchId : usersWithoutTwitchFollowsFrom) {
             try {
                 FollowsDTO resultList = runGetFollowersFrom(twitchId, randomToken, null);
+                log.debug("Currently running importFollowsFrom user : " + twitchId);
                 persistenceService.persistTwitchFollowersFrom(resultList.getMap());
                 if (resultList != null) {
                     String cursor = resultList.getPagination().getCursor();
@@ -798,9 +804,13 @@ public class TwitchDataService {
 
     @Async
     public void importTwitchUsersWithoutEitherId() {
+        log.debug("Currently running importTwitchUsersWithoutEitherId");
         OAuthTokenDTO localToken = oAuthService.getRandomToken();
         int sizeRemaining = 1000;
+        int batch = 0;
         while(sizeRemaining == 1000){
+            batch++;
+            log.debug("importTwitchUsersWithoutEitherId, batch: " + batch);
             Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchIdOrSullyId();
             sizeRemaining = usersWithoutTwitchId.size();
             List<Set<String>> setsOf100 = SplittingUtils.choppedSet(usersWithoutTwitchId, 100);

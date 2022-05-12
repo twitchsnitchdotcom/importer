@@ -6,15 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/DBStatsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/DBStatsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/ExecutionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/ExecutionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/OAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/OAuthService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/ui/ViewComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/ui/ViewComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tokens.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tokens.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tokens.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tokens.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652363535876</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="kinda working, nice :)">
+      <created>1652383051746</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1652383051746</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,7 +227,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>715</line>
+          <line>721</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
