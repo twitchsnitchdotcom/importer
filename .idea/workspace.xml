@@ -5,14 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/NewYorkLobbyists.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/LobbyistDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/database/lobbyists.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/database/lobbyists_completed_results.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/database/lobbyists_errors.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/file.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/file.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/PersistenceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/ui/ViewComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/ui/ViewComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,19 +79,31 @@
       <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.twitchsnitch.importer" />
-      <recent name="com.twitchsnitch.importer.ui" />
       <recent name="com.twitchsnitch.importer.dto.sully" />
+      <recent name="com.twitchsnitch.importer" />
       <recent name="com.twitchsnitch.importer.service" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.NewYorkLobbyists">
-    <configuration name="NewYorkLobbyists" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.NewYorkLobbyists" />
+  <component name="RunManager" selected="Application.ImporterApplication">
+    <configuration name="ImporterApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.ImporterApplication" />
       <module name="importer" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.twitchsnitch.importer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.rest.Main" />
+      <module name="importer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.twitchsnitch.importer.rest.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -148,29 +159,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OpenGovUSDownloader.medicalDoctorsSearch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="importer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value=".*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.twitchsnitch.importer" />
-      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.OpenGovUSDownloader" />
-      <option name="METHOD_NAME" value="medicalDoctorsSearch" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.NewYorkLobbyists" />
+        <item itemvalue="Application.ImporterApplication" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.JsoupTests.homePageStats" />
         <item itemvalue="JUnit.JsoupTests.channelPageSingle" />
         <item itemvalue="JUnit.OpenGovUSDownloader.IowaInsuranceProviders" />
-        <item itemvalue="JUnit.OpenGovUSDownloader.medicalDoctorsSearch" />
       </list>
     </recent_temporary>
   </component>
@@ -184,13 +179,27 @@
       <updated>1648931531064</updated>
     </task>
     <task id="LOCAL-00001" summary="kinda working, nice :)">
-      <created>1652261696727</created>
+      <created>1652360660271</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1652261696728</updated>
+      <updated>1652360660271</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="kinda working, nice :)">
+      <created>1652363535876</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1652363535876</updated>
+    </task>
+    <task id="LOCAL-00003" summary="kinda working, nice :)">
+      <created>1652383051746</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1652383051746</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -218,53 +227,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>713</line>
+          <line>721</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>375</line>
+          <line>374</line>
           <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>412</line>
+          <line>411</line>
           <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>783</line>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>785</line>
-          <option name="timeStamp" value="71" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>1005</line>
-          <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>886</line>
-          <option name="timeStamp" value="76" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
-          <line>880</line>
-          <option name="timeStamp" value="79" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/NewYorkLobbyists.java</url>
-          <line>122</line>
-          <option name="timeStamp" value="80" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/NewYorkLobbyists.java</url>
-          <line>270</line>
-          <option name="timeStamp" value="81" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -30,6 +30,9 @@ public class PersistenceService {
     @Value("${database}")
     private String database;
 
+    @Value("${log.db.data}")
+    private Boolean logDBData;
+
     private final static Logger log = LoggerFactory.getLogger(PersistenceService.class);
 
     @PostConstruct
@@ -115,35 +118,41 @@ public class PersistenceService {
     }
 
     private void logResultSummaries(String key, ResultSummary resultSummary) {
-        log.debug("RESULT SUMMARY FOR: " + key);
 
-        if (resultSummary.counters().nodesCreated() > 0) {
-            log.debug("Nodes created: " + resultSummary.counters().nodesCreated());
+        if(logDBData){
+
+            if (resultSummary.counters().nodesCreated() > 0) {
+                log.debug("Nodes created: " + resultSummary.counters().nodesCreated());
+            }
+            if (resultSummary.counters().labelsAdded() > 0) {
+                log.debug("Labels added: " + resultSummary.counters().labelsAdded());
+            }
+            if (resultSummary.counters().relationshipsCreated() > 0) {
+                log.debug("Relationships added: " + resultSummary.counters().relationshipsCreated());
+            }
+            if (resultSummary.counters().relationshipsDeleted() > 0) {
+                log.debug("Relationships deleted: " + resultSummary.counters().relationshipsDeleted());
+            }
+            if (resultSummary.counters().indexesAdded() > 0) {
+                log.debug("Indexes added: " + resultSummary.counters().indexesAdded());
+            }
+            if (resultSummary.counters().indexesRemoved() > 0) {
+                log.debug("Indexes removed: " + resultSummary.counters().indexesRemoved());
+            }
+            if (resultSummary.counters().constraintsAdded() > 0) {
+                log.debug("Constraints added: " + resultSummary.counters().constraintsAdded());
+            }
+            if (resultSummary.counters().constraintsRemoved() > 0) {
+                log.debug("Constraints added: " + resultSummary.counters().constraintsRemoved());
+            }
+            if (resultSummary.counters().propertiesSet() > 0) {
+                log.debug("Properties set: " + resultSummary.counters().propertiesSet());
+            }
+
+            log.debug("RESULT SUMMARY FOR: " + key);
         }
-        if (resultSummary.counters().labelsAdded() > 0) {
-            log.debug("Labels added: " + resultSummary.counters().labelsAdded());
-        }
-        if (resultSummary.counters().relationshipsCreated() > 0) {
-            log.debug("Relationships added: " + resultSummary.counters().relationshipsCreated());
-        }
-        if (resultSummary.counters().relationshipsDeleted() > 0) {
-            log.debug("Relationships deleted: " + resultSummary.counters().relationshipsDeleted());
-        }
-        if (resultSummary.counters().indexesAdded() > 0) {
-            log.debug("Indexes added: " + resultSummary.counters().indexesAdded());
-        }
-        if (resultSummary.counters().indexesRemoved() > 0) {
-            log.debug("Indexes removed: " + resultSummary.counters().indexesRemoved());
-        }
-        if (resultSummary.counters().constraintsAdded() > 0) {
-            log.debug("Constraints added: " + resultSummary.counters().constraintsAdded());
-        }
-        if (resultSummary.counters().constraintsRemoved() > 0) {
-            log.debug("Constraints added: " + resultSummary.counters().constraintsRemoved());
-        }
-        if (resultSummary.counters().propertiesSet() > 0) {
-            log.debug("Properties set: " + resultSummary.counters().propertiesSet());
-        }
+
+
 
     }
 
@@ -222,7 +231,7 @@ public class PersistenceService {
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 try {
-                    statsString = objectMapper().writeValueAsString(entry);
+                    statsString = objectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(entry);
                 } catch (JsonProcessingException e) {
                     log.error("Cant parse APOC Stats");
                 }
@@ -369,6 +378,21 @@ public class PersistenceService {
         return sullyChannelStreams;
     }
 
+    public Long getTotalStreams(){
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Long totalStreams = 0L;
+        Collection<Map<String, Object>> all = client.query("MATCH (l:LiveStream) RETURN count(l)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                totalStreams = ((Long) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("Get All Live Streams took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return totalStreams;
+    }
+
     public Set<Long> getAllSullyChannels() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -451,7 +475,40 @@ public class PersistenceService {
         stopWatch.start();
         Set<String> usersWithoutTwitchId = new HashSet<>();
         Collection<Map<String, Object>> all;
-        all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login").in(database).fetch().all();
+        all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login LIMIT 1000").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                usersWithoutTwitchId.add((String) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("FOUND:" + usersWithoutTwitchId.size() + " Users Without TwitchIds");
+        log.trace("Get All Users without twitch_id took: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return usersWithoutTwitchId;
+    }
+
+
+    public Long getUsersWithoutTwitchIdOrSullyIdCount() {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Long getUsersWithoutTwitchIdOrSullyIdCount = 0L;
+        Collection<Map<String, Object>> all;
+        all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL AND u.sully_id IS NULL RETURN count(u)").in(database).fetch().all();
+        for (Map<String, Object> objectMap : all) {
+            for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+                getUsersWithoutTwitchIdOrSullyIdCount = ((Long) entry.getValue());
+            }
+        }
+        stopWatch.stop();
+        log.trace("Get getUsersWithoutTwitchIdOrSullyIdCount: " + stopWatch.getLastTaskTimeMillis() / 1000 + " seconds");
+        return getUsersWithoutTwitchIdOrSullyIdCount;
+    }
+    public Set<String> getUsersWithoutTwitchIdOrSullyId() {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Set<String> usersWithoutTwitchId = new HashSet<>();
+        Collection<Map<String, Object>> all;
+        all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL AND u.sully_id IS NULL RETURN u.login LIMIT 1000").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 usersWithoutTwitchId.add((String) entry.getValue());
@@ -488,7 +545,7 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsFrom = new HashSet<>();
         Collection<Map<String, Object>> all;
 
-            all = client.query("MATCH (c:User) WHERE c.twitch_follows_from IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC").in(database).fetch().all();
+            all = client.query("MATCH (c:User) WHERE c.twitch_followers_from_update_date IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id").in(database).fetch().all();
 
 
         for (Map<String, Object> objectMap : all) {
@@ -633,16 +690,17 @@ public class PersistenceService {
     @Async
     public void persistTwitchStreams(Map jsonMap) {
         ResultSummary run = client.query("UNWIND $json.data as stream\n" +
+                        "                    MATCH (u:User{login:stream.user_login})\n" +
+                        "                    MATCH (lang:Language{key:stream.language})\n" +
+                        "                    MATCH (g:Game{twitch_id:stream.game_id})\n" +
                         "                    MERGE (l:LiveStream{twitch_id:stream.id})\n" +
                         "                    SET  l.twitch_title = stream.title,\n" +
                         "                    l.twitch_viewer_count = stream.viewercount,\n" +
                         "                    l.twitch_started_at = datetime(stream.started_at),\n" +
                         "                    l.thumbnail_url = stream.thumbnail_url,\n" +
-                        "                    l.is_mature = stream.is_mature WITH l, stream\n" +
-                        "                    MERGE (u:User{login:stream.user_login}) ON CREATE SET u.twitch_id = stream.user_id, u.name = stream.user_name WITH l, stream, u\n" +
+                        "                    l.is_mature = stream.is_mature\n" +
                         "                    MERGE (u)-[:LIVE_STREAMING]->(l)\n" +
-                        "                    MERGE (l)-[:PLAYS]->(g:Game{twitch_id:stream.game_id}) ON CREATE SET g.name = stream.game_name\n" +
-                        "                    MERGE (lang:Language{key:stream.language})\n" +
+                        "                    MERGE (l)-[:PLAYING]->(g)\n" +
                         "                    MERGE (l)-[:HAS_LANGUAGE]->(lang)\n" +
                         "                    SET u:Channel\n"
                 ).in(database)
@@ -700,7 +758,7 @@ public class PersistenceService {
         stopWatch.start();
         ResultSummary run = client.query("UNWIND $json.data as channel\n" +
                         " MERGE (c:Channel{login:channel.url})\n" +
-                        "          SET       c.followers = channel.followers,\n" +
+                        "         ON CREATE SET       c.followers = channel.followers,\n" +
                         "                    c.view_minutes = channel.viewminutes,\n" +
                         "                    c:User,\n" +
                         "                    c.streamed_minutes = channel.streamedminutes,\n" +

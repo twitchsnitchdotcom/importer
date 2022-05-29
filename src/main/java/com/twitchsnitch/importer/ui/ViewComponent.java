@@ -15,7 +15,9 @@
  */
 package com.twitchsnitch.importer.ui;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.twitchsnitch.importer.service.DBStatsService;
+import com.twitchsnitch.importer.service.OAuthService;
 import com.twitchsnitch.importer.service.TwitchDataService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
@@ -35,14 +37,33 @@ public class ViewComponent extends VerticalLayout {
     private final TwitchDataService twitchDataService;
     private final DBStatsService dbStatsService;
 
+    private final OAuthService oAuthService;
 
-    public ViewComponent(TwitchDataService twitchDataService, DBStatsService dbStatsService) {
+
+    public ViewComponent(TwitchDataService twitchDataService, DBStatsService dbStatsService, OAuthService oAuthService) {
         this.twitchDataService = twitchDataService;
         this.dbStatsService = dbStatsService;
+        this.oAuthService = oAuthService;
         formatLayout();
     }
 
     public void formatLayout(){
+
+        //db
+        H3 tokenHeadline = new H3("TOKENS INFO");
+        Div tokenInfo = new Div();
+        try {
+            tokenInfo.setText(oAuthService.objectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(oAuthService.getTokens()));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        Button newTokens = new Button("newTokens", event -> oAuthService.newTokens(false));
+        Button refreshTokens = new Button("refreshTokens", event -> oAuthService.newTokens(true));
+
+        add(tokenHeadline);
+        add(new HorizontalLayout(tokenInfo));
+        add(new HorizontalLayout(newTokens, refreshTokens));
+
         //db
         H3 dbHeadline = new H3("DATABASE INFO");
         Div dbInfo = new Div();
@@ -81,8 +102,9 @@ public class ViewComponent extends VerticalLayout {
         //channels
         H3 channelsHeadline = new H3("CHANNEL INFO");
         Div channelsInfo = new Div();
-        channelsInfo.setText("Total Channels: " + dbStatsService.getTotalChannels() + " | Total Channels without twitch id: " + dbStatsService.getTotalChannelsWithoutTwitchId());
+        channelsInfo.setText("Total Channels: " + dbStatsService.getTotalChannels() + " | Total Channels without twitch id: " + dbStatsService.getTotalChannelsWithoutTwitchId() + " | Total Channels without twitch or sully id: " + dbStatsService.getTotalChannelsWithoutTwitchIdOrSullyIdCount());
         Button importTwitchUsers = new Button("importTwitchUsers", event -> twitchDataService.importTwitchUsers());
+        Button importTwitchUsersWithoutAnyId = new Button("importTwitchUsersWithoutAnyId", event -> twitchDataService.importTwitchUsersWithoutEitherId());
         Button importChannels = new Button("importChannels", event -> twitchDataService.importChannels());
         Button sullyDeepSearchPhase1 = new Button("Phase1", event -> twitchDataService.sullyDeepSearchPhase1());
         Button sullyDeepSearchPhase2 = new Button("Phase2", event -> twitchDataService.sullyDeepSearchPhase2());
@@ -92,12 +114,12 @@ public class ViewComponent extends VerticalLayout {
 
         add(channelsHeadline);
         add(new HorizontalLayout(channelsInfo));
-        add(new HorizontalLayout(importTwitchUsers, importChannels, sullyDeepSearchPhase1, sullyDeepSearchPhase2, sullyDeepSearchPhase3, sullyDeepSearchPhase4, sullyDeepSearchPhase5));
+        add(new HorizontalLayout(importTwitchUsersWithoutAnyId, importTwitchUsers, importChannels, sullyDeepSearchPhase1, sullyDeepSearchPhase2, sullyDeepSearchPhase3, sullyDeepSearchPhase4, sullyDeepSearchPhase5));
 
         //streams
         H3 streamsHeadline = new H3("STREAMS INFO");
         Div streamsInfo = new Div();
-        streamsInfo.setText("Total number of streams: " + dbStatsService.getChannelsCurrentlyLiveStreaming().size());
+        streamsInfo.setText("Total number of streams: " + dbStatsService.getTotalStreams());
         Button importLiveStreams = new Button("importLiveStreams", event -> twitchDataService.importLiveStreams());
 
         add(streamsHeadline);
@@ -122,12 +144,12 @@ public class ViewComponent extends VerticalLayout {
         Div followersInfo = new Div();
         followersInfo.setText("Users without followers to : " + dbStatsService.getUsersWithoutFollowsTo() + " | Users without followers from: " + dbStatsService.getUsersWithoutFollowsFrom());
 
-        Button importFollowsTo = new Button("importFollowsTo", event -> twitchDataService.importFollowsTo());
+        //Button importFollowsTo = new Button("importFollowsTo", event -> twitchDataService.importFollowsTo());
         Button importFollowsFrom = new Button("importFollowsFrom", event -> twitchDataService.importFollowsFrom());
 
         add(followersHeadline);
         add(new HorizontalLayout(followersInfo));
-        add(new HorizontalLayout(importFollowsTo, importFollowsFrom));
+        add(new HorizontalLayout(importFollowsFrom));
 
         //teams
 

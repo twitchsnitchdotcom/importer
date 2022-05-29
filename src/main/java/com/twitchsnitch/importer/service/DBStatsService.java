@@ -31,6 +31,14 @@ public class DBStatsService {
         return persistenceService.getTotalChannelsWithoutTwitchId();
     }
 
+    public Integer getTotalChannelsWithoutTwitchIdOrSullyId(){
+        return persistenceService.getUsersWithoutTwitchIdOrSullyId().size();
+    }
+
+    public Long getTotalChannelsWithoutTwitchIdOrSullyIdCount(){
+        return persistenceService.getUsersWithoutTwitchIdOrSullyIdCount();
+    }
+
     public List<String> getAllUsersWithoutSullyId(){
         return persistenceService.getAllUsersWithoutSullyId();
     }
@@ -46,8 +54,8 @@ public class DBStatsService {
         return persistenceService.getAllTeamsWithoutSullyId().size();
     }
 
-    public List<String> getChannelsCurrentlyLiveStreaming(){
-        return persistenceService.getChannelsCurrentlyLiveStreaming();
+    public Long getTotalStreams(){
+        return persistenceService.getTotalStreams();
     }
 
     public Long getNumberOfChatters(){

@@ -83,27 +83,36 @@ public class OAuthService {
                 url =  "https://id.twitch.tv/oauth2/token?client_id=" + oAuthTokenDTO.getClientId() + "&client_secret=" + oAuthTokenDTO.getClientSecret()  + "&grant_type=client_credentials";
             }
             // make an HTTP GET request with headers
-            ResponseEntity<RefreshTokenDTO> response = restTemplate.exchange(
+            ResponseEntity<String> response = restTemplate.exchange(
                     url,
                     HttpMethod.POST,
                     getGenericHttpRequest(oAuthTokenDTO),
-                    RefreshTokenDTO.class
+                    String.class
             );
 
-            RefreshTokenDTO refreshTokenDTO = response.getBody();
-            if(response.getStatusCode().is2xxSuccessful()){
-                log.debug("Successfully got new token from twitch: " + refreshTokenDTO.getAccessToken());
-                oAuthTokenDTO.setToken(refreshTokenDTO.getAccessToken());
-                if(refreshTokenDTO.getRefreshToken() != null) {
-                    oAuthTokenDTO.setRefreshToken(refreshTokenDTO.getRefreshToken());
+            log.debug(response.getBody());
+            try{
+                RefreshTokenDTO refreshTokenDTO = objectMapper().readValue(response.getBody(),RefreshTokenDTO.class);
+
+                log.debug(response.getBody());
+                if(response.getStatusCode().is2xxSuccessful()){
+                    //log.debug("Successfully got new token from twitch: " + refreshTokenDTO.getAccessToken());
+                    oAuthTokenDTO.setToken(refreshTokenDTO.getAccessToken());
+                    if(refreshTokenDTO.getRefreshToken() != null) {
+                        oAuthTokenDTO.setRefreshToken(refreshTokenDTO.getRefreshToken());
+                    }
+                    oAuthTokenDTO.setExpiresIn(refreshTokenDTO.getExpiresIn());
+                    newTokenList.add(oAuthTokenDTO);
                 }
-                oAuthTokenDTO.setExpiresIn(refreshTokenDTO.getExpiresIn());
-                newTokenList.add(oAuthTokenDTO);
+                else{
+                    log.error("Unable to refresh token: " + oAuthTokenDTO.getName());
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
             }
 
-            else{
-                log.error("Unable to refresh token: " + oAuthTokenDTO.getName());
-            }
+
         }
         tokens = newTokenList;
     }

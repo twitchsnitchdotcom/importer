@@ -21,7 +21,7 @@ public class ExecutionService {
     }
 
     //placeholder for execution stuff
-    @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.HOURS)
+    @Scheduled(fixedDelay = 30, timeUnit = TimeUnit.MINUTES)
     public void execute(){
         if(executionEnabled){
             twitchDataService.importChattersOnDB();
@@ -30,11 +30,16 @@ public class ExecutionService {
         executionEnabled = true;
     }
 
+    @Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
+    public void executeChatters(){
+            twitchDataService.importChattersOnDB();
+    }
+
     //every hour, refresh the tokens
-    @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.HOURS)
+    @Scheduled(fixedDelay = 30, timeUnit = TimeUnit.MINUTES)
     public void refreshTokens(){
         if(refreshTokensEnabled){
-            oAuthService.newTokens(true);
+            oAuthService.newTokens(false);
         }
         refreshTokensEnabled = true;
     }
