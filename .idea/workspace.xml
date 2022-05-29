@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44bf6563-bd17-4b0c-be69-18fb994e37e6" name="Changes" comment="kinda working, nice :)">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/NewYorkLobbyists.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/dto/LobbyistDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/lobbyists.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/lobbyists_completed_results.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/database/lobbyists_errors.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tokens.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tokens.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/file.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/file.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,13 +80,26 @@
       <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.twitchsnitch.importer" />
       <recent name="com.twitchsnitch.importer.ui" />
       <recent name="com.twitchsnitch.importer.dto.sully" />
-      <recent name="com.twitchsnitch.importer" />
       <recent name="com.twitchsnitch.importer.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.JsoupTests.homePageStats">
+  <component name="RunManager" selected="Application.NewYorkLobbyists">
+    <configuration name="NewYorkLobbyists" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.NewYorkLobbyists" />
+      <module name="importer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.twitchsnitch.importer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="JsoupTests.channelPageSingle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="importer" />
       <extension name="coverage">
@@ -145,29 +164,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OpenGovUSDownloader.motorCarrierSearch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="importer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value=".*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.twitchsnitch.importer" />
-      <option name="MAIN_CLASS_NAME" value="com.twitchsnitch.importer.OpenGovUSDownloader" />
-      <option name="METHOD_NAME" value="motorCarrierSearch" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.NewYorkLobbyists" />
         <item itemvalue="JUnit.JsoupTests.homePageStats" />
         <item itemvalue="JUnit.JsoupTests.channelPageSingle" />
         <item itemvalue="JUnit.OpenGovUSDownloader.IowaInsuranceProviders" />
         <item itemvalue="JUnit.OpenGovUSDownloader.medicalDoctorsSearch" />
-        <item itemvalue="JUnit.OpenGovUSDownloader.motorCarrierSearch" />
       </list>
     </recent_temporary>
   </component>
@@ -252,6 +255,16 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/twitchsnitch/importer/service/TwitchDataService.java</url>
           <line>880</line>
           <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/NewYorkLobbyists.java</url>
+          <line>122</line>
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/twitchsnitch/importer/NewYorkLobbyists.java</url>
+          <line>270</line>
+          <option name="timeStamp" value="81" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
