@@ -21,16 +21,16 @@ public class ExecutionService {
     }
 
     //placeholder for execution stuff
-    @Scheduled(fixedDelay = 30, timeUnit = TimeUnit.MINUTES)
+   // @Scheduled(fixedDelay = 30, timeUnit = TimeUnit.MINUTES)
     public void execute(){
-        if(executionEnabled){
+        if(this.executionEnabled){
             twitchDataService.importChattersOnDB();
             twitchDataService.importLiveStreams();
         }
-        executionEnabled = true;
+        this.executionEnabled = true;
     }
 
-    @Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
+    //@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
     public void executeChatters(){
             twitchDataService.importChattersOnDB();
     }
@@ -38,10 +38,10 @@ public class ExecutionService {
     //every hour, refresh the tokens
     @Scheduled(fixedDelay = 30, timeUnit = TimeUnit.MINUTES)
     public void refreshTokens(){
-        if(refreshTokensEnabled){
+        if(this.refreshTokensEnabled){
             oAuthService.newTokens(false);
         }
-        refreshTokensEnabled = true;
+        this.refreshTokensEnabled = true;
     }
 
 

@@ -64,7 +64,7 @@ public class ImportDataResource {
     @GetMapping("/phase/2")
     public void phase2() throws InterruptedException {
 
-        twitchDataService.importFollowsTo();
+        //twitchDataService.importFollowsTo();
         twitchDataService.importFollowsFrom();
 
         twitchDataService.importTwitchUsers();
@@ -83,7 +83,7 @@ public class ImportDataResource {
     @GetMapping("/phase/3")
     public void phase3() {
 
-        twitchDataService.importFollowsTo();
+        //twitchDataService.importFollowsTo();
         twitchDataService.importFollowsFrom();
         twitchDataService.importLiveStreams();
         twitchDataService.importGameFinder();
@@ -151,7 +151,7 @@ public class ImportDataResource {
 
     @GetMapping("/import/follows/to")
     public void importFollowsTo() {
-        twitchDataService.importFollowsTo();
+       // twitchDataService.importFollowsTo();
     }
 
     @GetMapping("/import/follows/from")

@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.neo4j.core.Neo4jClient;
+import org.springframework.data.neo4j.core.ReactiveNeo4jClient;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
@@ -27,6 +28,8 @@ public class PersistenceService {
 
     private Neo4jClient client;
 
+    ReactiveNeo4jClient reactiveNeo4jClient;
+
     @Value("${database}")
     private String database;
 
@@ -38,8 +41,9 @@ public class PersistenceService {
     @PostConstruct
     public void initNeo4j() {
         Driver driver = GraphDatabase
-                .driver("neo4j://134.209.188.67:7687", AuthTokens.basic("neo4j", "admin"));
+                .driver("neo4j://143.198.145.30:7687", AuthTokens.basic("neo4j", "admin"));
         client = Neo4jClient.create(driver);
+        reactiveNeo4jClient = ReactiveNeo4jClient.create(driver);
     }
 
     public final ObjectMapper objectMapper() {
@@ -475,7 +479,7 @@ public class PersistenceService {
         stopWatch.start();
         Set<String> usersWithoutTwitchId = new HashSet<>();
         Collection<Map<String, Object>> all;
-        all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login LIMIT 1000").in(database).fetch().all();
+        all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL RETURN u.login").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 usersWithoutTwitchId.add((String) entry.getValue());
@@ -526,7 +530,7 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsTo = new HashSet<>();
         Collection<Map<String, Object>> all;
 
-            all = client.query("MATCH (c:User) WHERE c.twitch_follows_to IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC").in(database).fetch().all();
+            all = client.query("MATCH (c:User) WHERE c.twitch_follows_to IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id ORDER BY c.followers ASC LIMIT 100").in(database).fetch().all();
 
 
         for (Map<String, Object> objectMap : all) {
@@ -634,6 +638,7 @@ public class PersistenceService {
         logResultSummaries("updateGameWithTwitchData", run);
     }
 
+
     @Async
     public void updateUserWithTwitchData(Map json) {
         ResultSummary run = client.query("UNWIND $json.data as user " +
@@ -651,7 +656,7 @@ public class PersistenceService {
                         "    t.twitch_id = row.id\n" +
                         "    WITH row,t\n" +
                         "    UNWIND row.users as member\n" +
-                        "MERGE (u:User{login:member.user_login, twitch_id:member.user_id, name:member.user_name})\n" +
+                        "MERGE (u:User{login:member.user_login})\n" +
                         "MERGE (u)-[:MEMBER_OF]->(t);").in(database)
                 .bind(json).to("json")
                 .bind(login).to("login")
@@ -757,10 +762,10 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         ResultSummary run = client.query("UNWIND $json.data as channel\n" +
-                        " MERGE (c:Channel{login:channel.url})\n" +
+                        " MERGE (c:User{login:channel.url})\n" +
                         "         ON CREATE SET       c.followers = channel.followers,\n" +
                         "                    c.view_minutes = channel.viewminutes,\n" +
-                        "                    c:User,\n" +
+                        "                    c:Channel,\n" +
                         "                    c.streamed_minutes = channel.streamedminutes,\n" +
                         "                    c.peak_viewers = channel.maxviewers,\n" +
                         "                    c.average_viewers = channel.avgviewers,\n" +
@@ -855,7 +860,7 @@ public class PersistenceService {
 
      * @param jsonMap
      */
-    @Async
+
     public void persistSullyGames(Map jsonMap) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();

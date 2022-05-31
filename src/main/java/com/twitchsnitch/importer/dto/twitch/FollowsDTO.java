@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Generated("jsonschema2pojo")
 public class FollowsDTO {
 
+    private String url;
     private Map map;
 @JsonProperty("total")
 private Long total;
@@ -76,5 +77,13 @@ this.additionalProperties.put(name, value);
 
     public void setMap(Map map) {
         this.map = map;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

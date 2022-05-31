@@ -44,7 +44,6 @@ public class AsyncPersistenceService {
     private final static Logger log = LoggerFactory.getLogger(AsyncPersistenceService.class);
 
 
-    @Async
     public void persistChannelsAsync(Set<String> urls){
         for (String url : urls) {
             try {
@@ -57,6 +56,7 @@ public class AsyncPersistenceService {
                 log.error("Can't get url: " + url);
             }
         }
+        log.debug("Processed urls: " + urls.size());
     }
 
 
@@ -74,8 +74,6 @@ public class AsyncPersistenceService {
         }
     }
 
-
-    @Async
     public void persistGamesAsync(Integer index, Set<String> urls){
         for (String url : urls) {
             try {

@@ -111,10 +111,8 @@ public class OAuthService {
             catch (Exception e){
                 e.printStackTrace();
             }
-
-
         }
-        tokens = newTokenList;
+        this.tokens = newTokenList;
     }
 
     public HttpEntity getGenericHttpRequest(OAuthTokenDTO randomToken){

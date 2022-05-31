@@ -33,8 +33,8 @@ public class NewYorkLobbyists {
 
     static Set<WorkingProxyDTO> workingProxies = new HashSet<>();
 
-    //private static String fileRoot = "/root/IdeaProjects/importer/src/test/resources/database/";
-    private static String fileRoot = "/Users/horizondeep/Desktop/importer/src/test/resources/database/";
+    private static String fileRoot = "/home/jamie/IdeaProjects/importer/src/test/resources/database/";
+    //private static String fileRoot = "/Users/horizondeep/Desktop/importer/src/test/resources/database/";
 
 
     public NewYorkLobbyists() throws IOException {
@@ -81,7 +81,7 @@ public class NewYorkLobbyists {
         SequenceWriter errorsSeqWriter = objectMapper().writer().writeValuesAsArray(errorsFileWriter);
 
         addWorkingProxies();
-        int lobbyistsPageSize = 271;
+        int lobbyistsPageSize = 25;
         String iowaInsuranceURL = "https://opengovus.com/new-york-state-lobbyist";
 
         Set<String> lobbyistsSearchResults = new HashSet<>();
@@ -90,11 +90,18 @@ public class NewYorkLobbyists {
         Set<String> lobbyistsSearchDeltaResults = new HashSet<>();
         Set<String> lobbyistsCompletedResults = new HashSet<>();
 
-        File lobbyistsSearchFile = new File(fileRoot + "lobbyists_search_results.json");
-        lobbyistsSearchResults =  objectMapper().readValue(lobbyistsSearchFile, new TypeReference<Set<String>>() {});
-        if(lobbyistsSearchResults.size() == 0){
+        try{
+            File lobbyistsSearchFile = new File(fileRoot + "lobbyists_search_results.json");
+            lobbyistsSearchResults =  objectMapper().readValue(lobbyistsSearchFile, new TypeReference<Set<String>>() {});
+            if(lobbyistsSearchResults.size() == 0){
+                genericSearch(iowaInsuranceURL, lobbyistsPageSize, lobbyistsSearchResults, "lobbyists_search_results.json");
+            }
+        }
+        catch(Exception e){
+            log.error("lobbyistsCompletedResults file is empty");
             genericSearch(iowaInsuranceURL, lobbyistsPageSize, lobbyistsSearchResults, "lobbyists_search_results.json");
         }
+
 
         try{
             lobbyistsCompletedResults =  objectMapper().readValue(completedfile, new TypeReference<Set<String>>() {});

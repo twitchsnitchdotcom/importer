@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 @EnableAsync
 public class ImporterApplication {
 

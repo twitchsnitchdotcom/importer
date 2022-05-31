@@ -11,7 +11,12 @@ import com.twitchsnitch.importer.dto.sully.RaidFinderDTO;
 import com.twitchsnitch.importer.dto.sully.SearchDTO;
 import com.twitchsnitch.importer.dto.sully.channels.*;
 import com.twitchsnitch.importer.dto.sully.games.GamesTable;
+import com.twitchsnitch.importer.dto.sully.teams.TeamsTable;
 import com.twitchsnitch.importer.dto.twitch.*;
+import com.twitchsnitch.importer.exceptions.UserDefinedException;
+import com.twitchsnitch.importer.exceptions.UserDefinedException2;
+import com.twitchsnitch.importer.repositories.UserRepository;
+import com.twitchsnitch.importer.repositories.UserRepositoryAsync;
 import com.twitchsnitch.importer.utils.SplittingUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -28,6 +33,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +48,15 @@ import java.util.*;
 @Service
 public class TwitchDataService {
 
+    private final static Logger log = LoggerFactory.getLogger(TwitchDataService.class);
+    private final OAuthService oAuthService;
+    private final PersistenceService persistenceService;
+    private final DriverService driverService;
+    private final AsyncPersistenceService asyncPersistenceService;
+    private final UserRepositoryAsync userRepositoryAsync;
+
+    private final UserRepository userRepository;
+    WebClient webClient = WebClient.builder().filter(errorHandler()).baseUrl("https://api.twitch.tv/helix").build();
     @Value("${data.filepath}")
     private String dataFilePath;
     @Value("${test.sampling}")
@@ -59,13 +76,31 @@ public class TwitchDataService {
     private boolean splitDriverWorkload;
     @Value("${webdrivers.size.max}")
     private Integer webDriversSize;
-    private final OAuthService oAuthService;
-    private final PersistenceService persistenceService;
-    private final DriverService driverService;
-    private final AsyncPersistenceService asyncPersistenceService;
-
     private RestTemplate restTemplate = new RestTemplate();
     private Set<String> liveStreamers = new HashSet<>();
+
+    public TwitchDataService(OAuthService oAuthService, PersistenceService persistenceService, UserRepositoryAsync userRepositoryAsync,
+                             DriverService driverService, AsyncPersistenceService asyncPersistenceService, UserRepository userRepository) {
+        this.oAuthService = oAuthService;
+        this.persistenceService = persistenceService;
+        this.driverService = driverService;
+        this.asyncPersistenceService = asyncPersistenceService;
+        this.userRepositoryAsync = userRepositoryAsync;
+        this.userRepository = userRepository;
+    }
+
+    private static boolean isFuzzy(String term, String value) {
+        int distance;
+        term = term.trim();
+        if (term.length() < 3) {
+            distance = 0;
+        } else if (term.length() < 6) {
+            distance = 1;
+        } else {
+            distance = 2;
+        }
+        return StringUtils.getLevenshteinDistance(value, term) <= distance;
+    }
 
     public final ObjectMapper objectMapper() {
         JavaTimeModule module = new JavaTimeModule();
@@ -74,15 +109,6 @@ public class TwitchDataService {
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .registerModule(module);
     }
-
-    public TwitchDataService(OAuthService oAuthService, PersistenceService persistenceService, DriverService driverService, AsyncPersistenceService asyncPersistenceService) {
-        this.oAuthService = oAuthService;
-        this.persistenceService = persistenceService;
-        this.driverService = driverService;
-        this.asyncPersistenceService = asyncPersistenceService;
-    }
-
-    private final static Logger log = LoggerFactory.getLogger(TwitchDataService.class);
 
     public HttpEntity getGenericHttpRequest(OAuthTokenDTO randomToken) {
         // create headers
@@ -99,7 +125,6 @@ public class TwitchDataService {
 
         return request;
     }
-
 
     public List<String> goToWebSitesJSON(Set<String> urls) {
         List<String> jsonList = new ArrayList<>();
@@ -157,8 +182,7 @@ public class TwitchDataService {
         return htmlList;
     }
 
-
-    public String goToWebSiteREST(String urlString){
+    public String goToWebSiteREST(String urlString) {
         String response = null;
         URL url = null;
         try {
@@ -196,15 +220,14 @@ public class TwitchDataService {
         return response;
     }
 
-
     private Set<String> buildUpSubSequentUrls(String prefix, String suffix, long resultSize) {
         HashSet<String> urls = new HashSet<>();
         long pages = resultSize / 100;
-        log.debug("Original result size is: " + resultSize);
         for (int i = 0; i <= pages; i++) {
             Integer pagination = i * 100;
             urls.add(prefix + pagination.toString() + suffix);
         }
+        log.trace("Original result size is: " + resultSize + " | Expected pages = " + pages + "/" + urls.size());
         return urls;
     }
 
@@ -216,7 +239,6 @@ public class TwitchDataService {
         }
         return null;
     }
-
 
     //DB METHODS
     public void addDB() {
@@ -244,15 +266,15 @@ public class TwitchDataService {
         return persistenceService.getTwitchIdNotSetCountUser();
     }
 
-    public void getSharedChatters(){
+    //MAIN METHODS
+
+    public void getSharedChatters() {
 //todo will need to have some data to perform this one
     }
 
-    public void getSharedFollowers(){
+    public void getSharedFollowers() {
         //todo will need to have some data to perform this one
     }
-
-    //MAIN METHODS
 
     //its a gimic for marketing
     public void newPartnersImport() {
@@ -260,12 +282,12 @@ public class TwitchDataService {
     }
 
     //
-    public void setSharedChatters(){
+    public void setSharedChatters() {
         //todo will need to have some data to perform this one
     }
 
     //
-    public void setSharedFollowers(){
+    public void setSharedFollowers() {
 //todo will need to have some data to perform this one
     }
 
@@ -276,9 +298,10 @@ public class TwitchDataService {
             try {
                 String url = "https://sullygnome.com/api/standardsearch/" + login + "/true/true/false/true";
                 String json = goToWebSiteREST(url);
-                List<SearchDTO> searchDTOList = objectMapper().readValue(json, new TypeReference<List<SearchDTO>>() {});
-                for(SearchDTO searchDTO: searchDTOList){
-                    if(searchDTO.getItemtype() == 1 && searchDTO.getSiteurl().equalsIgnoreCase(login)){
+                List<SearchDTO> searchDTOList = objectMapper().readValue(json, new TypeReference<List<SearchDTO>>() {
+                });
+                for (SearchDTO searchDTO : searchDTOList) {
+                    if (searchDTO.getItemtype() == 1 && searchDTO.getSiteurl().equalsIgnoreCase(login)) {
                         //match
                         //TODO some importing of an individual record
                     }
@@ -296,9 +319,10 @@ public class TwitchDataService {
             try {
                 String url = "https://sullygnome.com/api/standardsearch/" + name + "/true/true/false/true";
                 String json = goToWebSiteREST(url);
-                List<SearchDTO> searchDTOList  = objectMapper().readValue(json, new TypeReference<List<SearchDTO>>() {});
-                for(SearchDTO searchDTO: searchDTOList){
-                    if(searchDTO.getItemtype() == 2 && searchDTO.getDisplaytext().equalsIgnoreCase(name)){
+                List<SearchDTO> searchDTOList = objectMapper().readValue(json, new TypeReference<List<SearchDTO>>() {
+                });
+                for (SearchDTO searchDTO : searchDTOList) {
+                    if (searchDTO.getItemtype() == 2 && searchDTO.getDisplaytext().equalsIgnoreCase(name)) {
                         //match
                         //TODO some importing of an individual record
                     }
@@ -315,9 +339,10 @@ public class TwitchDataService {
             try {
                 String url = "https://sullygnome.com/api/standardsearch/" + login + "/true/true/false/true";
                 String json = goToWebSiteREST(url);
-                List<SearchDTO> searchDTOList  = objectMapper().readValue(json, new TypeReference<List<SearchDTO>>() {});
-                for(SearchDTO searchDTO: searchDTOList){
-                    if(searchDTO.getItemtype() == 4 && searchDTO.getSiteurl().equalsIgnoreCase(login)){
+                List<SearchDTO> searchDTOList = objectMapper().readValue(json, new TypeReference<List<SearchDTO>>() {
+                });
+                for (SearchDTO searchDTO : searchDTOList) {
+                    if (searchDTO.getItemtype() == 4 && searchDTO.getSiteurl().equalsIgnoreCase(login)) {
                         //match
                         //TODO some importing of an individual record
                     }
@@ -343,7 +368,8 @@ public class TwitchDataService {
                     String json = goToWebSiteREST(scaffoldUrl);
                     if (json != null) {
                         ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
-                        if(channelSearchDTO.getRecordsTotal() > 0){
+                        if (channelSearchDTO.getRecordsTotal() > 0) {
+                            log.trace("channelSearchDTO.getRecordsTotal() = " + channelSearchDTO.getRecordsTotal());
                             Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
                             if (channelSearchUrls.size() > 0) {
                                 asyncPersistenceService.persistChannelsAsync(channelSearchUrls);
@@ -358,10 +384,11 @@ public class TwitchDataService {
 
     }
 
+    @Async
     public void sullyDeepSearchPhase2() {
         int lowerBound = 250;
         int upperBound = 2500;
-        int modus = 1;
+        int modus = 10;
         genericSullyDeepSearch(lowerBound, upperBound, modus);
     }
 
@@ -369,7 +396,7 @@ public class TwitchDataService {
     public void sullyDeepSearchPhase3() {
         int lowerBound = 2500;
         int upperBound = 10000;
-        int modus = 10;
+        int modus = 25;
         genericSullyDeepSearch(lowerBound, upperBound, modus);
     }
 
@@ -390,23 +417,23 @@ public class TwitchDataService {
         genericSullyDeepSearch(lowerBound, upperBound, modus);
     }
 
-    @Async
     public void genericSullyDeepSearch(Integer lowerBound, Integer upperBound, Integer modus) {
         String suffix = "/" + numberOfRecords;
         //fifth phase
         for (int i = lowerBound; i <= upperBound; i++) {
-            log.debug("Deep search for channels, index: " + i);
+
             if (i % modus == 0) {
+                log.debug("Deep search for channels, index: " + i);
                 String scaffoldUrl = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/0/100";
-                String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + i + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
+                String prefix = "https://sullygnome.com/api/tables/channeltables/advancedsearch/30/0/-1/" + i + "/" + (i + modus) + "/-1/-1/%20/1/false/false/true/true/true/true/true/false/2022-04-16T22:00:00.000Z/-1/1/0/desc/";
                 try {
                     String json = goToWebSiteREST(scaffoldUrl);
                     if (json != null) {
                         ChannelSearchDTO channelSearchDTO = objectMapper().readValue(json, ChannelSearchDTO.class);
-                        if(channelSearchDTO.getRecordsTotal() > 0){
+                        if (channelSearchDTO.getRecordsTotal() > 0) {
                             Set<String> channelSearchUrls = buildUpSubSequentUrls(prefix, suffix, channelSearchDTO.getRecordsTotal());
                             if (channelSearchUrls.size() > 0) {
-                                asyncPersistenceService.persistChannelsAsync( channelSearchUrls);
+                                asyncPersistenceService.persistChannelsAsync(channelSearchUrls);
                             }
                         }
                     }
@@ -416,7 +443,6 @@ public class TwitchDataService {
             }
         }
     }
-
 
     public void sullyDeepSearchAll() {
         sullyDeepSearchPhase1();
@@ -457,9 +483,8 @@ public class TwitchDataService {
             Set<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(gamesUrls, 10);
             for (int i = 0; i < sets.size(); i++) {
+                log.debug("Procesesing Set: " + i);
                 asyncPersistenceService.persistGamesAsync(i, sets.get(i));
-
-
             }
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -480,6 +505,7 @@ public class TwitchDataService {
             Set<String> gamesUrls = buildUpSubSequentUrls(gamePrefix, suffix, gamesTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(gamesUrls, 10);
             for (int i = 0; i < sets.size(); i++) {
+                log.debug("Procesesing Set: " + i);
                 asyncPersistenceService.persistGamesAsync(i, sets.get(i));
             }
         } catch (Exception e) {
@@ -488,18 +514,16 @@ public class TwitchDataService {
 
     }
 
-
+    @Async
     public void importTwitchTeams() {
-        OAuthTokenDTO localToken = oAuthService.getRandomToken();
         Set<String> teamsWithoutTwitchId = persistenceService.getTeamsWithoutTwitchId();
         for (String teamName : teamsWithoutTwitchId) {
             if (teamName != null) {
-                Map map = runGetTeam(teamName, localToken);
+                Map map = runGetTeam(teamName, oAuthService.getRandomToken());
                 persistenceService.updateTeamWithTwitchData(teamName, map);
             }
         }
     }
-
 
     public void importChannels() {
         String suffix = "/" + numberOfRecords;
@@ -540,8 +564,8 @@ public class TwitchDataService {
         String teamsprefix = "https://sullygnome.com/api/tables/teamtables/getteams/" + teamsDaysPerspective + "/0/1/3/desc/";
         long teamTotalSize;
         try {
-            //TeamsTable teamsTable = objectMapper().readValue(goToWebSiteREST(teamsScaffoldUrl), TeamsTable.class);
-            teamTotalSize = 5000;
+            TeamsTable teamsTable = objectMapper().readValue(goToWebSiteREST(teamsScaffoldUrl), TeamsTable.class);
+            teamTotalSize = teamsTable.getRecordsTotal();
             log.debug("Actual Teams size: " + teamTotalSize);
             Set<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(teamsUrls, 10);
@@ -561,8 +585,8 @@ public class TwitchDataService {
         String teamsprefix = "https://sullygnome.com/api/tables/teamtables/getteams/" + teamsDaysPerspective + "/0/4/5/asc/0/";
         long teamTotalSize;
         try {
-            //TeamsTable teamsTable = objectMapper().readValue(goToWebSiteREST(teamsScaffoldUrl), TeamsTable.class);
-            teamTotalSize = 5000;
+            TeamsTable teamsTable = objectMapper().readValue(goToWebSiteREST(teamsScaffoldUrl), TeamsTable.class);
+            teamTotalSize = teamsTable.getRecordsTotal();
             log.debug("Actual Teams size: " + teamTotalSize);
             Set<String> teamsUrls = buildUpSubSequentUrls(teamsprefix, suffix, teamTotalSize);
             List<Set<String>> sets = SplittingUtils.splitIntoMultipleSets(teamsUrls, 10);
@@ -574,588 +598,588 @@ public class TwitchDataService {
         }
     }
 
-    @Async
-    public void importFollowsTo() {
-        log.debug("Starting to run job importFollowsTo ");
-        Set<String> usersWithoutTwitchFollowsTo;
-        usersWithoutTwitchFollowsTo = persistenceService.getUsersWithoutTwitchFollowsTo();
-        log.debug("Starting to run job importFollowsTo, batch size: " + usersWithoutTwitchFollowsTo.size());
-        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
-        for (String twitchId : usersWithoutTwitchFollowsTo) {
-            try {
-                FollowsDTO resultList = runGetFollowersTo(twitchId, randomToken, null);
-                log.debug("Currently running importFollowsTo user : " + twitchId);
-                persistenceService.persistTwitchFollowersTo(resultList.getMap());
-                if (resultList != null) {
-                    String cursor = resultList.getPagination().getCursor();
-                    while (cursor != null) {
-                        FollowsDTO loopList = runGetFollowersTo(twitchId, randomToken, cursor);
-                        if (loopList != null && loopList.getData() != null) {
-                            String newCursor = loopList.getPagination().getCursor();
-                            randomToken = oAuthService.getRandomToken();
-                            persistenceService.persistTwitchFollowersTo(resultList.getMap());
-                            if (newCursor == null) {
-                                break;
-                            } else {
-                                cursor = newCursor;
+
+
+        @Async
+        public void importFollowsFrom () {
+            log.debug("Starting to run job importFollowsFrom ");
+            Set<String> usersWithoutTwitchFollowsFrom;
+
+            usersWithoutTwitchFollowsFrom = persistenceService.getUsersWithoutTwitchFollowsFrom();
+            log.debug("Starting to run job importFollowsFrom, batch size: " + usersWithoutTwitchFollowsFrom.size());
+
+            OAuthTokenDTO randomToken = oAuthService.getRandomToken();
+            for (String twitchId : usersWithoutTwitchFollowsFrom) {
+                try {
+                    FollowsDTO resultList = runGetFollowersFrom(twitchId, randomToken, null);
+                    int totalpersisted = 0;
+                    log.debug("Currently running importFollowsFrom user : " + twitchId);
+                    persistenceService.persistTwitchFollowersFrom(resultList.getMap());
+                    totalpersisted = resultList.getData().size();
+                    if (resultList != null) {
+                        String cursor = resultList.getPagination().getCursor();
+                        while (cursor != null) {
+                            FollowsDTO loopList = runGetFollowersFrom(twitchId, randomToken, cursor);
+                            if (loopList != null && loopList.getData() != null) {
+                                String newCursor = loopList.getPagination().getCursor();
+                                randomToken = oAuthService.getRandomToken();
+                                persistenceService.persistTwitchFollowersFrom(loopList.getMap());
+                                totalpersisted = totalpersisted + loopList.getData().size();
+                                if (newCursor == null) {
+                                    break;
+                                } else {
+                                    cursor = newCursor;
+                                }
                             }
                         }
                     }
+                    log.debug("expected following to be added: " + resultList.getTotal() + " added: " + totalpersisted);
+                } catch (Exception e) {
+                    log.error(e.getLocalizedMessage());
                 }
-            } catch (Exception e) {
-                log.error(e.getLocalizedMessage());
             }
         }
-        log.debug("Finished to run job importFollowsTo ");
-    }
 
+        /**
+         *
+         */
 
-    @Async
-    public void importFollowsFrom() {
-        log.debug("Starting to run job importFollowsFrom ");
-        Set<String> usersWithoutTwitchFollowsFrom;
-
-        usersWithoutTwitchFollowsFrom = persistenceService.getUsersWithoutTwitchFollowsFrom();
-        log.debug("Starting to run job importFollowsFrom, batch size: " + usersWithoutTwitchFollowsFrom.size());
-
-        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
-        for (String twitchId : usersWithoutTwitchFollowsFrom) {
+        @Async
+        public void importSullyLanguages () {
             try {
-                FollowsDTO resultList = runGetFollowersFrom(twitchId, randomToken, null);
-                log.debug("Currently running importFollowsFrom user : " + twitchId);
-                persistenceService.persistTwitchFollowersFrom(resultList.getMap());
-                if (resultList != null) {
-                    String cursor = resultList.getPagination().getCursor();
-                    while (cursor != null) {
-                        FollowsDTO loopList = runGetFollowersFrom(twitchId, randomToken, cursor);
-                        if (loopList != null && loopList.getData() != null) {
-                            String newCursor = loopList.getPagination().getCursor();
-                            randomToken = oAuthService.getRandomToken();
-                            persistenceService.persistTwitchFollowersFrom(resultList.getMap());
-                            if (newCursor == null) {
-                                break;
+                URL resource = getClass().getClassLoader().getResource("language-english.json");
+                File tokensFile = new File(resource.toURI());
+                LanguageKeyDTO languageKeyDTO = objectMapper().readValue(tokensFile, LanguageKeyDTO.class);
+                persistenceService.persistSullyLanguage("any", "Any Language", -1);
+                persistenceService.persistSullyLanguage("en", languageKeyDTO.getEn(), 217);
+                persistenceService.persistSullyLanguage("zh", languageKeyDTO.getZh(), 241);
+                persistenceService.persistSullyLanguage("ja", languageKeyDTO.getJa(), 226);
+                persistenceService.persistSullyLanguage("ko", languageKeyDTO.getKo(), 231);
+                persistenceService.persistSullyLanguage("es", languageKeyDTO.getEs(), 228);
+                persistenceService.persistSullyLanguage("fr", languageKeyDTO.getFr(), 214);
+                persistenceService.persistSullyLanguage("de", languageKeyDTO.getDe(), 220);
+                persistenceService.persistSullyLanguage("it", languageKeyDTO.getIt(), 230);
+                persistenceService.persistSullyLanguage("pt", languageKeyDTO.getPt(), 232);
+                persistenceService.persistSullyLanguage("sv", languageKeyDTO.getSv(), 238);
+                persistenceService.persistSullyLanguage("no", languageKeyDTO.getNo(), 234);
+                persistenceService.persistSullyLanguage("nl", languageKeyDTO.getNl(), 235);
+                persistenceService.persistSullyLanguage("fi", languageKeyDTO.getFi(), 229);
+                persistenceService.persistSullyLanguage("el", languageKeyDTO.getEl(), 245);
+                persistenceService.persistSullyLanguage("ru", languageKeyDTO.getRu(), 227);
+                persistenceService.persistSullyLanguage("tr", languageKeyDTO.getTr(), 236);
+                persistenceService.persistSullyLanguage("cs", languageKeyDTO.getCs(), 216);
+                persistenceService.persistSullyLanguage("hu", languageKeyDTO.getHu(), 218);
+                persistenceService.persistSullyLanguage("ar", languageKeyDTO.getAr(), 213);
+                persistenceService.persistSullyLanguage("bg", languageKeyDTO.getBg(), 215);
+                persistenceService.persistSullyLanguage("th", languageKeyDTO.getTh(), 224);
+                persistenceService.persistSullyLanguage("vi", languageKeyDTO.getVi(), 243);
+                persistenceService.persistSullyLanguage("asl", languageKeyDTO.getAsl(), 244);
+                persistenceService.persistSullyLanguage("other", languageKeyDTO.getOther(), 222);
+                persistenceService.persistSullyLanguage("uk", languageKeyDTO.getUk(), 249);
+                persistenceService.persistSullyLanguage("pl", languageKeyDTO.getPl(), 242);
+                persistenceService.persistSullyLanguage("hi", languageKeyDTO.getHi(), 247);
+                persistenceService.persistSullyLanguage("ca", languageKeyDTO.getCa(), 250);
+                persistenceService.persistSullyLanguage("zh-HK", languageKeyDTO.getZhHK(), 225);
+                persistenceService.persistSullyLanguage("zh-TW", languageKeyDTO.getZhTW(), 223);
+                persistenceService.persistSullyLanguage("da", languageKeyDTO.getDa(), 240);
+                persistenceService.persistSullyLanguage("id", languageKeyDTO.getId(), 248);
+                persistenceService.persistSullyLanguage("ms", languageKeyDTO.getMs(), 252);
+                persistenceService.persistSullyLanguage("pt-BR", languageKeyDTO.getPtBR(), 233);
+                persistenceService.persistSullyLanguage("ro", languageKeyDTO.getRo(), 246);
+                persistenceService.persistSullyLanguage("sk", languageKeyDTO.getSk(), 237);
+                persistenceService.persistSullyLanguage("es-MX", languageKeyDTO.getEsMX(), 221);
+            } catch (IOException e) {
+                log.error(e.getLocalizedMessage());
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //todo 4
+        @Async
+        public void importRaidPicker () {
+            try {
+                for (String login : persistenceService.getChannelsCurrentlyLiveStreaming()) {
+                    RaidFinderDTO raidDTO = persistenceService.getRaidFinder(login);
+                    boolean secondValue = false;
+                    String gameString = "";
+                    if (raidDTO.isDataIsSet()) {
+                        for (String gameId : raidDTO.getGameIds()) {
+                            if (secondValue) {
+                                gameString = gameString + "," + gameId;
                             } else {
-                                cursor = newCursor;
+                                gameString = gameString + gameId;
+                                secondValue = true;
                             }
                         }
-                    }
-                }
-            } catch (Exception e) {
-                log.error(e.getLocalizedMessage());
-            }
-        }
-    }
-
-    /**
-     *
-     */
-
-    @Async
-    public void importSullyLanguages() {
-        try {
-            URL resource = getClass().getClassLoader().getResource("language-english.json");
-            File tokensFile = new File(resource.toURI());
-            LanguageKeyDTO languageKeyDTO = objectMapper().readValue(tokensFile, LanguageKeyDTO.class);
-            persistenceService.persistSullyLanguage("any", "Any Language", -1);
-            persistenceService.persistSullyLanguage("en", languageKeyDTO.getEn(), 217);
-            persistenceService.persistSullyLanguage("zh", languageKeyDTO.getZh(), 241);
-            persistenceService.persistSullyLanguage("ja", languageKeyDTO.getJa(), 226);
-            persistenceService.persistSullyLanguage("ko", languageKeyDTO.getKo(), 231);
-            persistenceService.persistSullyLanguage("es", languageKeyDTO.getEs(), 228);
-            persistenceService.persistSullyLanguage("fr", languageKeyDTO.getFr(), 214);
-            persistenceService.persistSullyLanguage("de", languageKeyDTO.getDe(), 220);
-            persistenceService.persistSullyLanguage("it", languageKeyDTO.getIt(), 230);
-            persistenceService.persistSullyLanguage("pt", languageKeyDTO.getPt(), 232);
-            persistenceService.persistSullyLanguage("sv", languageKeyDTO.getSv(), 238);
-            persistenceService.persistSullyLanguage("no", languageKeyDTO.getNo(), 234);
-            persistenceService.persistSullyLanguage("nl", languageKeyDTO.getNl(), 235);
-            persistenceService.persistSullyLanguage("fi", languageKeyDTO.getFi(), 229);
-            persistenceService.persistSullyLanguage("el", languageKeyDTO.getEl(), 245);
-            persistenceService.persistSullyLanguage("ru", languageKeyDTO.getRu(), 227);
-            persistenceService.persistSullyLanguage("tr", languageKeyDTO.getTr(), 236);
-            persistenceService.persistSullyLanguage("cs", languageKeyDTO.getCs(), 216);
-            persistenceService.persistSullyLanguage("hu", languageKeyDTO.getHu(), 218);
-            persistenceService.persistSullyLanguage("ar", languageKeyDTO.getAr(), 213);
-            persistenceService.persistSullyLanguage("bg", languageKeyDTO.getBg(), 215);
-            persistenceService.persistSullyLanguage("th", languageKeyDTO.getTh(), 224);
-            persistenceService.persistSullyLanguage("vi", languageKeyDTO.getVi(), 243);
-            persistenceService.persistSullyLanguage("asl", languageKeyDTO.getAsl(), 244);
-            persistenceService.persistSullyLanguage("other", languageKeyDTO.getOther(), 222);
-            persistenceService.persistSullyLanguage("uk", languageKeyDTO.getUk(), 249);
-            persistenceService.persistSullyLanguage("pl", languageKeyDTO.getPl(), 242);
-            persistenceService.persistSullyLanguage("hi", languageKeyDTO.getHi(), 247);
-            persistenceService.persistSullyLanguage("ca", languageKeyDTO.getCa(), 250);
-            persistenceService.persistSullyLanguage("zh-HK", languageKeyDTO.getZhHK(), 225);
-            persistenceService.persistSullyLanguage("zh-TW", languageKeyDTO.getZhTW(), 223);
-            persistenceService.persistSullyLanguage("da", languageKeyDTO.getDa(), 240);
-            persistenceService.persistSullyLanguage("id", languageKeyDTO.getId(), 248);
-            persistenceService.persistSullyLanguage("ms", languageKeyDTO.getMs(), 252);
-            persistenceService.persistSullyLanguage("pt-BR", languageKeyDTO.getPtBR(), 233);
-            persistenceService.persistSullyLanguage("ro", languageKeyDTO.getRo(), 246);
-            persistenceService.persistSullyLanguage("sk", languageKeyDTO.getSk(), 237);
-            persistenceService.persistSullyLanguage("es-MX", languageKeyDTO.getEsMX(), 221);
-        } catch (IOException e) {
-            log.error(e.getLocalizedMessage());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //todo 4
-    @Async
-    public void importRaidPicker() {
-        try {
-            for (String login : persistenceService.getChannelsCurrentlyLiveStreaming()) {
-                RaidFinderDTO raidDTO = persistenceService.getRaidFinder(login);
-                boolean secondValue = false;
-                String gameString = "";
-                if (raidDTO.isDataIsSet()) {
-                    for (String gameId : raidDTO.getGameIds()) {
-                        if (secondValue) {
-                            gameString = gameString + "," + gameId;
-                        } else {
-                            gameString = gameString + gameId;
-                            secondValue = true;
+                        String url = "https://sullygnome.com/api/tables/channeltables/raidfinder/30/2215977/%20" + gameString + "/0/0/9999999/" + raidDTO.getLowRange() + "/" + raidDTO.getHighRange() + "/011/11/false/1/4/desc/0/100";
+                        String json = goToWebSiteREST(url);
+                        ChannelRaidFinder channelRaidFinder = objectMapper().readValue(json, ChannelRaidFinder.class);
+                        if (channelRaidFinder.getRecordsTotal() > 0) {
+                            persistenceService.persistSullyChannelRaidFinder(login, objectMapper().readValue(json, Map.class));
                         }
                     }
-                    String url = "https://sullygnome.com/api/tables/channeltables/raidfinder/30/2215977/%20" + gameString + "/0/0/9999999/" + raidDTO.getLowRange() + "/" + raidDTO.getHighRange() + "/011/11/false/1/4/desc/0/100";
-                    String json = goToWebSiteREST(url);
-                    ChannelRaidFinder channelRaidFinder = objectMapper().readValue(json, ChannelRaidFinder.class);
-                    if (channelRaidFinder.getRecordsTotal() > 0) {
-                        persistenceService.persistSullyChannelRaidFinder(login, objectMapper().readValue(json, Map.class));
-                    }
+
                 }
-
-            }
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage());
-        }
-    }
-
-    @Async
-    //todo 3
-    public void importGameFinder() {
-        try {
-            String suffix = "/" + numberOfRecords;
-            String gamePickerScaffoldUrl = "https://sullygnome.com/api/tables/gametables/getgamepickergames/-1/-1/90/false/-1/-1/-1/-1/-1/-1/-1/-1/-1/-1/2/4/desc/0/100";
-            String gamePickerPrefix = "https://sullygnome.com/api/tables/gametables/getgamepickergames/-1/-1/90/false/-1/-1/-1/-1/-1/-1/-1/-1/-1/-1/2/4/desc/";
-            long gamePickerTotalSize;
-
-            String jsonScaffold = goToWebSiteREST(gamePickerScaffoldUrl);
-            if (jsonScaffold != null) {
-                ChannelGamePicker channelGamePicker = objectMapper().readValue(jsonScaffold, ChannelGamePicker.class);
-                gamePickerTotalSize = channelGamePicker.getRecordsTotal();
-                Set<String> gamePickerUrls = buildUpSubSequentUrls(gamePickerPrefix, suffix, gamePickerTotalSize);
-                for (String json : goToWebSitesJSON(gamePickerUrls)) {
-                    persistenceService.persistSullyChannelGameFinder(objectMapper().readValue(json, Map.class));
-                }
-            }
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage());
-        }
-    }
-
-
-    //todo 2
-    @Async
-    public void importChannelGames() {
-        try {
-            String urlPrefix = "https://sullygnome.com/api/tables/channeltables/games/" + gamesDaysPerspective + "/";
-            String urlSuffix = "/%20/1/2/desc/0/100";
-            Set<Long> channelsWithoutChannelGameData = persistenceService.getChannelsWithoutChannelGameData();
-            for (Long sullyId : channelsWithoutChannelGameData) {
-                String json = goToWebSiteREST(urlPrefix + sullyId + urlSuffix);
-                persistenceService.persistSullyChannelGames(sullyId, objectMapper().readValue(json, Map.class));
-            }
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage());
-        }
-    }
-
-
-    @Async
-    public void importTwitchGameData() {
-        Set<String> allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds();
-        OAuthTokenDTO localToken = oAuthService.getRandomToken();
-        List<Set<String>> setsOf100 = SplittingUtils.choppedSet(allGamesWithoutTwitchIds, 100);
-        for (Set<String> chunk : setsOf100) {
-            Map map = runGetGame(chunk, localToken);
-            persistenceService.updateGameWithTwitchData(map);
-        }
-        persistenceService.getTwitchIdNotSetCountGame();
-    }
-
-    @Async
-    public void importTwitchUsers() {
-        OAuthTokenDTO localToken = oAuthService.getRandomToken();
-        int sizeRemaining = 1000;
-        while(sizeRemaining == 1000){
-            Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId();
-            sizeRemaining = usersWithoutTwitchId.size();
-            List<Set<String>> setsOf100 = SplittingUtils.choppedSet(usersWithoutTwitchId, 100);
-            for (Set<String> chunk : setsOf100) {
-                Map map = runGetUsers(chunk, localToken);
-                localToken = oAuthService.getRandomToken();
-                persistenceService.updateUserWithTwitchData(map);
+            } catch (JsonProcessingException e) {
+                log.error(e.getMessage());
             }
         }
 
-    }
-
-    @Async
-    public void importTwitchUsersWithoutEitherId() {
-        log.debug("Currently running importTwitchUsersWithoutEitherId");
-        OAuthTokenDTO localToken = oAuthService.getRandomToken();
-        int sizeRemaining = 1000;
-        int batch = 0;
-        while(sizeRemaining == 1000){
-            batch++;
-            log.debug("importTwitchUsersWithoutEitherId, batch: " + batch);
-            Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchIdOrSullyId();
-            sizeRemaining = usersWithoutTwitchId.size();
-            List<Set<String>> setsOf100 = SplittingUtils.choppedSet(usersWithoutTwitchId, 100);
-            for (Set<String> chunk : setsOf100) {
-                Map map = runGetUsers(chunk, localToken);
-                localToken = oAuthService.getRandomToken();
-                persistenceService.updateUserWithTwitchData(map);
-            }
-        }
-
-    }
-
-    //todo 1
-    public void importChannelStreams() {
-        Set<Long> allSullyChannels = persistenceService.getAllSullyChannels();
-        try {
-            for (Long id : allSullyChannels) {
+        @Async
+        //todo 3
+        public void importGameFinder () {
+            try {
                 String suffix = "/" + numberOfRecords;
-                String channelStreamScaffoldUrl = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc/0/10";
-                String channelStreamPrefix = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc/0/";
+                String gamePickerScaffoldUrl = "https://sullygnome.com/api/tables/gametables/getgamepickergames/-1/-1/90/false/-1/-1/-1/-1/-1/-1/-1/-1/-1/-1/2/4/desc/0/100";
+                String gamePickerPrefix = "https://sullygnome.com/api/tables/gametables/getgamepickergames/-1/-1/90/false/-1/-1/-1/-1/-1/-1/-1/-1/-1/-1/2/4/desc/";
+                long gamePickerTotalSize;
 
-                long streamsTotalSize;
-                String jsonScaffold = goToWebSiteREST(channelStreamScaffoldUrl);
+                String jsonScaffold = goToWebSiteREST(gamePickerScaffoldUrl);
                 if (jsonScaffold != null) {
-                    ChannelStreamList channelStreamList = objectMapper().readValue(jsonScaffold, ChannelStreamList.class);
-                    streamsTotalSize = channelStreamList.getRecordsTotal();
-                    Set<String> streamsUrls = buildUpSubSequentUrls(channelStreamPrefix, suffix, streamsTotalSize);
-                    for (String json : goToWebSitesJSON(streamsUrls)) {
-                        persistenceService.persistSullyChannelStreams(objectMapper().readValue(json, Map.class));
-                        ChannelStreamList channelStreams = objectMapper().readValue(json, ChannelStreamList.class);
-                        for (ChannelStreamListDatum data : channelStreams.getData()) {
-                            String url = "https://sullygnome.com/channel/" + data.getChannelurl() + "/stream/" + data.getStreamId();
-                            String html = goToWebSiteHTML(url);
-                            IndividualStreamDTO individualStreamDTO = new IndividualStreamDTO();
-                            Document doc = Jsoup.parse(html);
-                            individualStreamDTO.setAverageViewers(Long.parseLong(doc.select("body > div.RightContent > div.MainContent > div.PageContentContainer > div.StandardPageContainer > div > div.MiniPanelContainer > div:nth-child(1) > div > div.MiniPanelTop > div.MiniPanelTopRight").get(0).text().replace(",", "")));
-                            individualStreamDTO.setViewsPerHour(Double.parseDouble(doc.select("body > div.RightContent > div.MainContent > div.PageContentContainer > div.StandardPageContainer > div > div.MiniPanelContainer > div:nth-child(2) > div > div.MiniPanelTop > div.MiniPanelTopRight").get(0).text().replace(",", "")));
-                            Elements streamSummaryPanels = doc.getElementsByClass("StreamGameSummaryPanel");
-                            for (Element panel : streamSummaryPanels) {
-                                IndividualStreamDataDTO individualStreamDataDTO = new IndividualStreamDataDTO();
-                                Elements pannelItems = panel.getElementsByClass("StreamGameSummaryPanelItemValue");
-                                individualStreamDataDTO.setGameName(pannelItems.get(0).text());
-                                individualStreamDataDTO.setWatchTime(Long.parseLong(pannelItems.get(1).text().replace(",", "").replace(" hours", "")));
-                                individualStreamDataDTO.setStreamLength(pannelItems.get(2).text());
-                                Elements miniPanelOuter = panel.getElementsByClass("MiniPanelOuter");
+                    ChannelGamePicker channelGamePicker = objectMapper().readValue(jsonScaffold, ChannelGamePicker.class);
+                    gamePickerTotalSize = channelGamePicker.getRecordsTotal();
+                    Set<String> gamePickerUrls = buildUpSubSequentUrls(gamePickerPrefix, suffix, gamePickerTotalSize);
+                    for (String json : goToWebSitesJSON(gamePickerUrls)) {
+                        persistenceService.persistSullyChannelGameFinder(objectMapper().readValue(json, Map.class));
+                    }
+                }
+            } catch (JsonProcessingException e) {
+                log.error(e.getMessage());
+            }
+        }
 
-                                individualStreamDataDTO.setAverageViewers(Long.parseLong(miniPanelOuter.get(0).getElementsByClass("MiniPanelTop").get(0).getElementsByClass("MiniPanelTopRight").get(0).text().replace(",", "")));
-                                individualStreamDataDTO.setMaxViewers(Long.parseLong(miniPanelOuter.get(0).getElementsByClass("MiniPanelMiddle").get(0).getElementsByClass("MiniPanelMiddleRight").get(0).text().replace(",", "")));
-                                individualStreamDataDTO.setMaxViewersPerformance(miniPanelOuter.get(0).getElementsByClass("MiniPanelBottom").get(0).getElementsByClass("MiniPanelBottomRight").get(0).text());
-                                individualStreamDataDTO.setViewsPerHour(Double.parseDouble(miniPanelOuter.get(1).getElementsByClass("MiniPanelTop").get(0).getElementsByClass("MiniPanelTopRight").get(0).text().replace(",", "")));
-                                individualStreamDataDTO.setViews(Long.parseLong(miniPanelOuter.get(1).getElementsByClass("MiniPanelMiddle").get(0).getElementsByClass("MiniPanelMiddleRight").get(0).text().replace(",", "")));
-                                individualStreamDataDTO.setViewsPerformance(miniPanelOuter.get(1).getElementsByClass("MiniPanelBottom").get(0).getElementsByClass("MiniPanelBottomRight").get(0).text());
-                                individualStreamDTO.getGamesPlayed().add(individualStreamDataDTO);
-                            }
-                            persistenceService.persistSullyChannelIndividualStream(data.getStreamId(), individualStreamDTO);
+        //todo 2
+        @Async
+        public void importChannelGames () {
+            try {
+                String urlPrefix = "https://sullygnome.com/api/tables/channeltables/games/" + gamesDaysPerspective + "/";
+                String urlSuffix = "/%20/1/2/desc/0/100";
+                Set<Long> channelsWithoutChannelGameData = persistenceService.getChannelsWithoutChannelGameData();
+                for (Long sullyId : channelsWithoutChannelGameData) {
+                    String json = goToWebSiteREST(urlPrefix + sullyId + urlSuffix);
+                    persistenceService.persistSullyChannelGames(sullyId, objectMapper().readValue(json, Map.class));
+                }
+            } catch (JsonProcessingException e) {
+                log.error(e.getMessage());
+            }
+        }
+
+        public static ExchangeFilterFunction errorHandler () {
+            return ExchangeFilterFunction.ofResponseProcessor(clientResponse -> {
+                if (clientResponse.statusCode().is5xxServerError()) {
+                    return clientResponse.bodyToMono(String.class)
+                            .flatMap(errorBody -> Mono.error(new UserDefinedException(errorBody)));
+                } else if (clientResponse.statusCode().is4xxClientError()) {
+                    return clientResponse.bodyToMono(String.class)
+                            .flatMap(errorBody -> Mono.error(new UserDefinedException2(errorBody)));
+                } else {
+                    return Mono.just(clientResponse);
+                }
+            });
+        }
+
+        @Async
+        public void importTwitchGameData () {
+            Set<String> allGamesWithoutTwitchIds = persistenceService.getAllGamesWithoutTwitchIds();
+            OAuthTokenDTO localToken = oAuthService.getRandomToken();
+            List<Set<String>> setsOf100 = SplittingUtils.choppedSet(allGamesWithoutTwitchIds, 100);
+            for (Set<String> chunk : setsOf100) {
+                Map map = runGetGame(chunk, localToken);
+                persistenceService.updateGameWithTwitchData(map);
+            }
+            persistenceService.getTwitchIdNotSetCountGame();
+        }
+
+        @Async
+        public void importTwitchUsers () {
+            List<String> urls = new ArrayList<>();
+            Set<String> usersWithoutTwitchId = persistenceService.getUsersWithoutTwitchId();
+            List<Set<String>> setsOf100 = SplittingUtils.choppedSet(usersWithoutTwitchId, 100);
+            for (Set<String> list : setsOf100) {
+                urls.add(getUserUrl(list));
+            }
+            fetchUsers(urls);
+        }
+
+        public void fetchUsers (List < String > urls) {
+
+            log.debug("Started processing urls: " + urls.size());
+            urls.stream()
+                    .parallel()
+                    .map(this::runGetUsersAsync)
+                    .map(d -> d.share().block())
+                    .forEach(d -> {
+                        try {
+                            persistenceService.updateUserWithTwitchData(objectMapper().readValue(d, Map.class));
+                        } catch (JsonProcessingException e) {
+                            throw new RuntimeException(e);
                         }
+                    });
+            log.debug("Finished processing urls: " + urls.size());
 
-                    }
-                }
-
-
-            }
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage());
         }
-    }
 
-    @Async
-    public void importTopGames() {
-        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
-        try {
-            TopGameDTO resultList = runGetTopGame(randomToken, null);
-            persistenceService.persistTwitchGames(resultList.getMap());
-            String cursor = resultList.getPagination().getCursor();
-            while (cursor != null) {
-                TopGameDTO loopList = runGetTopGame(randomToken, cursor);
+        public String getUserUrl (Set < String > loginNames) {
+            StringBuilder url = new StringBuilder("https://api.twitch.tv/helix/users?login=");
+            boolean firstValue = true;
+            for (String name : loginNames) {
+                if (firstValue) {
+                    url.append(name);
+                    firstValue = false;
+                } else {
+                    url.append("&login=" + name);
+                }
+            }
+            return url.toString();
+        }
+
+
+        public Mono<String> runGetUsersAsync (String url){
+            Mono<String> authorization = null;
+            OAuthTokenDTO localToken = oAuthService.getRandomToken();
+            authorization = webClient.get()
+                    .uri(url)
+                    .header("Content-Type", "application/json")
+                    .header("Client-ID", localToken.getClientId())
+                    .header("Authorization", "Bearer " + localToken.getToken())
+                    .retrieve()
+                    .bodyToMono(String.class);
+            return authorization;
+
+        }
+
+        @Async
+        public void importTwitchUsersWithoutEitherId () {
+            List<String> urls = new ArrayList<>();
+            log.debug("Currently running importTwitchUsersWithoutEitherId");
+            Set<String> usersWithoutTwitchId = userRepository.getAllUsersWithoutAnyIds();
+            List<Set<String>> setsOf100 = SplittingUtils.choppedSet(usersWithoutTwitchId, 100);
+            for (Set<String> list : setsOf100) {
+                urls.add(getUserUrl(list));
+            }
+            fetchUsers(urls);
+        }
+
+        //todo 1
+        public void importChannelStreams () {
+            Set<Long> allSullyChannels = persistenceService.getAllSullyChannels();
+            try {
+                for (Long id : allSullyChannels) {
+                    String suffix = "/" + numberOfRecords;
+                    String channelStreamScaffoldUrl = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc/0/10";
+                    String channelStreamPrefix = "https://sullygnome.com/api/tables/channeltables/streams/" + gamesDaysPerspective + "/" + id + "/%20/1/1/desc/0/";
+
+                    long streamsTotalSize;
+                    String jsonScaffold = goToWebSiteREST(channelStreamScaffoldUrl);
+                    if (jsonScaffold != null) {
+                        ChannelStreamList channelStreamList = objectMapper().readValue(jsonScaffold, ChannelStreamList.class);
+                        streamsTotalSize = channelStreamList.getRecordsTotal();
+                        Set<String> streamsUrls = buildUpSubSequentUrls(channelStreamPrefix, suffix, streamsTotalSize);
+                        for (String json : goToWebSitesJSON(streamsUrls)) {
+                            persistenceService.persistSullyChannelStreams(objectMapper().readValue(json, Map.class));
+                            ChannelStreamList channelStreams = objectMapper().readValue(json, ChannelStreamList.class);
+                            for (ChannelStreamListDatum data : channelStreams.getData()) {
+                                String url = "https://sullygnome.com/channel/" + data.getChannelurl() + "/stream/" + data.getStreamId();
+                                String html = goToWebSiteHTML(url);
+                                IndividualStreamDTO individualStreamDTO = new IndividualStreamDTO();
+                                Document doc = Jsoup.parse(html);
+                                individualStreamDTO.setAverageViewers(Long.parseLong(doc.select("body > div.RightContent > div.MainContent > div.PageContentContainer > div.StandardPageContainer > div > div.MiniPanelContainer > div:nth-child(1) > div > div.MiniPanelTop > div.MiniPanelTopRight").get(0).text().replace(",", "")));
+                                individualStreamDTO.setViewsPerHour(Double.parseDouble(doc.select("body > div.RightContent > div.MainContent > div.PageContentContainer > div.StandardPageContainer > div > div.MiniPanelContainer > div:nth-child(2) > div > div.MiniPanelTop > div.MiniPanelTopRight").get(0).text().replace(",", "")));
+                                Elements streamSummaryPanels = doc.getElementsByClass("StreamGameSummaryPanel");
+                                for (Element panel : streamSummaryPanels) {
+                                    IndividualStreamDataDTO individualStreamDataDTO = new IndividualStreamDataDTO();
+                                    Elements pannelItems = panel.getElementsByClass("StreamGameSummaryPanelItemValue");
+                                    individualStreamDataDTO.setGameName(pannelItems.get(0).text());
+                                    individualStreamDataDTO.setWatchTime(Long.parseLong(pannelItems.get(1).text().replace(",", "").replace(" hours", "")));
+                                    individualStreamDataDTO.setStreamLength(pannelItems.get(2).text());
+                                    Elements miniPanelOuter = panel.getElementsByClass("MiniPanelOuter");
+
+                                    individualStreamDataDTO.setAverageViewers(Long.parseLong(miniPanelOuter.get(0).getElementsByClass("MiniPanelTop").get(0).getElementsByClass("MiniPanelTopRight").get(0).text().replace(",", "")));
+                                    individualStreamDataDTO.setMaxViewers(Long.parseLong(miniPanelOuter.get(0).getElementsByClass("MiniPanelMiddle").get(0).getElementsByClass("MiniPanelMiddleRight").get(0).text().replace(",", "")));
+                                    individualStreamDataDTO.setMaxViewersPerformance(miniPanelOuter.get(0).getElementsByClass("MiniPanelBottom").get(0).getElementsByClass("MiniPanelBottomRight").get(0).text());
+                                    individualStreamDataDTO.setViewsPerHour(Double.parseDouble(miniPanelOuter.get(1).getElementsByClass("MiniPanelTop").get(0).getElementsByClass("MiniPanelTopRight").get(0).text().replace(",", "")));
+                                    individualStreamDataDTO.setViews(Long.parseLong(miniPanelOuter.get(1).getElementsByClass("MiniPanelMiddle").get(0).getElementsByClass("MiniPanelMiddleRight").get(0).text().replace(",", "")));
+                                    individualStreamDataDTO.setViewsPerformance(miniPanelOuter.get(1).getElementsByClass("MiniPanelBottom").get(0).getElementsByClass("MiniPanelBottomRight").get(0).text());
+                                    individualStreamDTO.getGamesPlayed().add(individualStreamDataDTO);
+                                }
+                                persistenceService.persistSullyChannelIndividualStream(data.getStreamId(), individualStreamDTO);
+                            }
+
+                        }
+                    }
+
+
+                }
+            } catch (JsonProcessingException e) {
+                log.error(e.getMessage());
+            }
+        }
+
+        @Async
+        public void importTopGames () {
+            OAuthTokenDTO randomToken = oAuthService.getRandomToken();
+            try {
+                TopGameDTO resultList = runGetTopGame(randomToken, null);
                 persistenceService.persistTwitchGames(resultList.getMap());
-                if (loopList != null && loopList.getData() != null) {
-                    String newCursor = loopList.getPagination().getCursor();
-                    if (newCursor == null) {
-                        break;
-                    } else {
-                        cursor = newCursor;
+                String cursor = resultList.getPagination().getCursor();
+                while (cursor != null) {
+                    TopGameDTO loopList = runGetTopGame(randomToken, cursor);
+                    persistenceService.persistTwitchGames(resultList.getMap());
+                    if (loopList != null && loopList.getData() != null) {
+                        String newCursor = loopList.getPagination().getCursor();
+                        if (newCursor == null) {
+                            break;
+                        } else {
+                            cursor = newCursor;
+                        }
                     }
                 }
+            } catch (Exception e) {
+                log.error(e.getLocalizedMessage());
             }
-        } catch (Exception e) {
-            log.error(e.getLocalizedMessage());
         }
-    }
 
-    @Async
-    public void importLiveStreams() {
-        OAuthTokenDTO randomToken = oAuthService.getRandomToken();
-        try {
-            int i = 1;
-            StreamListDTO resultList = runGetLiveStreams(randomToken, null);
-            persistenceService.persistTwitchStreams(resultList.getMap());
-            String cursor = resultList.getPagination().getCursor();
-            while (cursor != null) {
-                StreamListDTO loopList = runGetLiveStreams(randomToken, cursor);
-                persistenceService.persistTwitchStreams(loopList.getMap());
-                i++;
-                log.debug("Total number of pages of streams: " + i);
-                if (loopList != null && loopList.getStreams() != null) {
-                    String newCursor = loopList.getPagination().getCursor();
-                    if (newCursor == null) {
-                        break;
-                    } else {
-                        cursor = newCursor;
+        //REST METHODS
+
+        @Async
+        public void importLiveStreams () {
+            OAuthTokenDTO randomToken = oAuthService.getRandomToken();
+            try {
+                int i = 1;
+                StreamListDTO resultList = runGetLiveStreams(randomToken, null);
+                persistenceService.persistTwitchStreams(resultList.getMap());
+                String cursor = resultList.getPagination().getCursor();
+                while (cursor != null) {
+                    StreamListDTO loopList = runGetLiveStreams(randomToken, cursor);
+                    persistenceService.persistTwitchStreams(loopList.getMap());
+                    i++;
+                    log.debug("Total number of pages of streams: " + i);
+                    if (loopList != null && loopList.getStreams() != null) {
+                        String newCursor = loopList.getPagination().getCursor();
+                        if (newCursor == null) {
+                            break;
+                        } else {
+                            cursor = newCursor;
+                        }
                     }
                 }
+            } catch (Exception e) {
+                log.error(e.getLocalizedMessage());
             }
-        } catch (Exception e) {
-            log.error(e.getLocalizedMessage());
+            log.debug("Total size of all the Streams are: " + liveStreamers.size());
         }
-        log.debug("Total size of all the Streams are: " + liveStreamers.size());
+
+        public StreamListDTO runGetLiveStreams (OAuthTokenDTO oAuthTokenDTO, String cursor){
+            String url = "https://api.twitch.tv/helix/streams?first=100";
+            if (cursor != null) {
+                url = url + "&after=" + cursor;
+            }
+            try {
+                ResponseEntity<String> response = restTemplate.exchange(
+                        url,
+                        HttpMethod.GET,
+                        getGenericHttpRequest(oAuthTokenDTO),
+                        String.class);
+
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    StreamListDTO streamListDTO = objectMapper().readValue(response.getBody(), StreamListDTO.class);
+                    streamListDTO.setMap(objectMapper().readValue(response.getBody(), Map.class));
+                    return streamListDTO;
+                }
+            } catch (HttpClientErrorException | JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public Map runGetChatters (String loginName){
+            String url = "http://tmi.twitch.tv/group/user/" + loginName + "/chatters";
+
+            try {
+                // make an HTTP GET request with headers
+                ResponseEntity<String> response = restTemplate.exchange(
+                        url,
+                        HttpMethod.GET,
+                        getGenericHttpRequest(null),
+                        String.class
+                );
+
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    return objectMapper().readValue(response.getBody(), Map.class);
+                }
+            } catch (HttpClientErrorException e) {
+                log.debug("Error getting username chatters: " + loginName);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public Map runGetGame (Set < String > nonEncodedGameDisplayNames, OAuthTokenDTO oAuthTokenDTO){
+            StringBuilder url = new StringBuilder("https://api.twitch.tv/helix/games?name=");
+            boolean firstValue = true;
+            for (String name : nonEncodedGameDisplayNames) {
+                if (firstValue) {
+                    url.append(encodeValue(name));
+                    firstValue = false;
+                } else {
+                    url.append("&name=" + encodeValue(name));
+                }
+            }
+
+            try {
+
+                ResponseEntity<String> response = restTemplate.exchange(
+                        url.toString(),
+                        HttpMethod.GET,
+                        getGenericHttpRequest(oAuthTokenDTO),
+                        String.class);
+
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    return objectMapper().readValue(response.getBody(), Map.class);
+                }
+            } catch (HttpClientErrorException | JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public Map runGetUsers (Set < String > loginNames, OAuthTokenDTO oAuthTokenDTO){
+            StringBuilder url = new StringBuilder("https://api.twitch.tv/helix/users?login=");
+            boolean firstValue = true;
+            for (String name : loginNames) {
+                if (firstValue) {
+                    url.append(name);
+                    firstValue = false;
+                } else {
+                    url.append("&login=" + name);
+                }
+            }
+
+            try {
+
+                ResponseEntity<String> response = restTemplate.exchange(
+                        url.toString(),
+                        HttpMethod.GET,
+                        getGenericHttpRequest(oAuthTokenDTO),
+                        String.class);
+
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    return objectMapper().readValue(response.getBody(), Map.class);
+                }
+            } catch (HttpClientErrorException | JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public Map runGetUser (String loginName, OAuthTokenDTO oAuthTokenDTO){
+            StringBuilder url = new StringBuilder("https://api.twitch.tv/helix/users?login=" + loginName);
+            try {
+                ResponseEntity<String> response = restTemplate.exchange(
+                        url.toString(),
+                        HttpMethod.GET,
+                        getGenericHttpRequest(oAuthTokenDTO),
+                        String.class);
+
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    return objectMapper().readValue(response.getBody(), Map.class);
+                }
+            } catch (HttpClientErrorException | JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public Map runGetTeam (String teamName, OAuthTokenDTO oAuthTokenDTO){
+            String url = "https://api.twitch.tv/helix/teams?name=" + teamName;
+            try {
+                ResponseEntity<String> response = restTemplate.exchange(
+                        url,
+                        HttpMethod.GET,
+                        getGenericHttpRequest(oAuthTokenDTO),
+                        String.class);
+
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    return objectMapper().readValue(response.getBody(), Map.class);
+                }
+            } catch (HttpClientErrorException | JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public FollowsDTO runGetFollowersTo (String twitchId, OAuthTokenDTO oAuthTokenDTO, String cursor){
+            String url = "https://api.twitch.tv/helix/users/follows?first=100&to_id=" + twitchId;
+            if (cursor != null) {
+                url = url + "&after=" + cursor;
+            }
+            try {
+                ResponseEntity<String> response = restTemplate.exchange(
+                        url,
+                        HttpMethod.GET,
+                        getGenericHttpRequest(oAuthTokenDTO),
+                        String.class);
+
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    FollowsDTO followsDTO = objectMapper().readValue(response.getBody(), FollowsDTO.class);
+                    followsDTO.setMap(objectMapper().readValue(response.getBody(), Map.class));
+                    return followsDTO;
+                }
+            } catch (HttpClientErrorException | JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public FollowsDTO runGetFollowersFrom (String twitchId, OAuthTokenDTO oAuthTokenDTO, String cursor){
+            String url = "https://api.twitch.tv/helix/users/follows?first=100&from_id=" + twitchId;
+            if (cursor != null) {
+                url = url + "&after=" + cursor;
+            }
+            try {
+                ResponseEntity<String> response = restTemplate.exchange(
+                        url,
+                        HttpMethod.GET,
+                        getGenericHttpRequest(oAuthTokenDTO),
+                        String.class);
+
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    FollowsDTO followsDTO = objectMapper().readValue(response.getBody(), FollowsDTO.class);
+                    followsDTO.setMap(objectMapper().readValue(response.getBody(), Map.class));
+                    return followsDTO;
+                }
+            } catch (HttpClientErrorException | JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public TopGameDTO runGetTopGame (OAuthTokenDTO oAuthTokenDTO, String cursor){
+            String url = "https://api.twitch.tv/helix/games/top?first=100";
+            if (cursor != null) {
+                url = url + "&after=" + cursor;
+            }
+            try {
+                ResponseEntity<String> response = restTemplate.exchange(
+                        url,
+                        HttpMethod.GET,
+                        getGenericHttpRequest(oAuthTokenDTO),
+                        String.class);
+
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    TopGameDTO gamesDTO = objectMapper().readValue(response.getBody(), TopGameDTO.class);
+                    gamesDTO.setMap(objectMapper().readValue(response.getBody(), Map.class));
+                    return gamesDTO;
+                }
+            } catch (HttpClientErrorException | JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
     }
-
-    //REST METHODS
-
-    public StreamListDTO runGetLiveStreams(OAuthTokenDTO oAuthTokenDTO, String cursor) {
-        String url = "https://api.twitch.tv/helix/streams?first=100";
-        if (cursor != null) {
-            url = url + "&after=" + cursor;
-        }
-        try {
-            ResponseEntity<String> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    getGenericHttpRequest(oAuthTokenDTO),
-                    String.class);
-
-            if (response.getStatusCode().is2xxSuccessful()) {
-                StreamListDTO streamListDTO = objectMapper().readValue(response.getBody(), StreamListDTO.class);
-                streamListDTO.setMap(objectMapper().readValue(response.getBody(), Map.class));
-                return streamListDTO;
-            }
-        } catch (HttpClientErrorException | JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Map runGetChatters(String loginName) {
-        String url = "http://tmi.twitch.tv/group/user/" + loginName + "/chatters";
-
-        try {
-            // make an HTTP GET request with headers
-            ResponseEntity<String> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    getGenericHttpRequest(null),
-                    String.class
-            );
-
-            if (response.getStatusCode().is2xxSuccessful()) {
-                return objectMapper().readValue(response.getBody(), Map.class);
-            }
-        } catch (HttpClientErrorException e) {
-            log.debug("Error getting username chatters: " + loginName);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Map runGetGame(Set<String> nonEncodedGameDisplayNames, OAuthTokenDTO oAuthTokenDTO) {
-        StringBuilder url = new StringBuilder("https://api.twitch.tv/helix/games?name=");
-        boolean firstValue = true;
-        for (String name : nonEncodedGameDisplayNames) {
-            if (firstValue) {
-                url.append(encodeValue(name));
-                firstValue = false;
-            } else {
-                url.append("&name=" + encodeValue(name));
-            }
-        }
-
-        try {
-
-            ResponseEntity<String> response = restTemplate.exchange(
-                    url.toString(),
-                    HttpMethod.GET,
-                    getGenericHttpRequest(oAuthTokenDTO),
-                    String.class);
-
-            if (response.getStatusCode().is2xxSuccessful()) {
-                return objectMapper().readValue(response.getBody(), Map.class);
-            }
-        } catch (HttpClientErrorException | JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Map runGetUsers(Set<String> loginNames, OAuthTokenDTO oAuthTokenDTO) {
-        StringBuilder url = new StringBuilder("https://api.twitch.tv/helix/users?login=");
-        boolean firstValue = true;
-        for (String name : loginNames) {
-            if (firstValue) {
-                url.append(name);
-                firstValue = false;
-            } else {
-                url.append("&login=" + name);
-            }
-        }
-
-        try {
-
-            ResponseEntity<String> response = restTemplate.exchange(
-                    url.toString(),
-                    HttpMethod.GET,
-                    getGenericHttpRequest(oAuthTokenDTO),
-                    String.class);
-
-            if (response.getStatusCode().is2xxSuccessful()) {
-                return objectMapper().readValue(response.getBody(), Map.class);
-            }
-        } catch (HttpClientErrorException | JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        log.debug("");
-        return null;
-    }
-
-    public Map runGetUser(String loginName, OAuthTokenDTO oAuthTokenDTO) {
-        StringBuilder url = new StringBuilder("https://api.twitch.tv/helix/users?login=" + loginName);
-        try {
-            ResponseEntity<String> response = restTemplate.exchange(
-                    url.toString(),
-                    HttpMethod.GET,
-                    getGenericHttpRequest(oAuthTokenDTO),
-                    String.class);
-
-            if (response.getStatusCode().is2xxSuccessful()) {
-                return objectMapper().readValue(response.getBody(), Map.class);
-            }
-        } catch (HttpClientErrorException | JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Map runGetTeam(String teamName, OAuthTokenDTO oAuthTokenDTO) {
-        String url = "https://api.twitch.tv/helix/teams?name=" + teamName;
-        try {
-            ResponseEntity<String> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    getGenericHttpRequest(oAuthTokenDTO),
-                    String.class);
-
-            if (response.getStatusCode().is2xxSuccessful()) {
-                return objectMapper().readValue(response.getBody(), Map.class);
-            }
-        } catch (HttpClientErrorException | JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public FollowsDTO runGetFollowersTo(String twitchId, OAuthTokenDTO oAuthTokenDTO, String cursor) {
-        String url = "https://api.twitch.tv/helix/users/follows?first=100&to_id=" + twitchId;
-        if (cursor != null) {
-            url = url + "&after=" + cursor;
-        }
-        try {
-            ResponseEntity<String> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    getGenericHttpRequest(oAuthTokenDTO),
-                    String.class);
-
-            if (response.getStatusCode().is2xxSuccessful()) {
-                FollowsDTO followsDTO = objectMapper().readValue(response.getBody(), FollowsDTO.class);
-                followsDTO.setMap(objectMapper().readValue(response.getBody(), Map.class));
-                return followsDTO;
-            }
-        } catch (HttpClientErrorException | JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public FollowsDTO runGetFollowersFrom(String twitchId, OAuthTokenDTO oAuthTokenDTO, String cursor) {
-        String url = "https://api.twitch.tv/helix/users/follows?first=100&from_id=" + twitchId;
-        if (cursor != null) {
-            url = url + "&after=" + cursor;
-        }
-        try {
-            ResponseEntity<String> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    getGenericHttpRequest(oAuthTokenDTO),
-                    String.class);
-
-            if (response.getStatusCode().is2xxSuccessful()) {
-                FollowsDTO followsDTO = objectMapper().readValue(response.getBody(), FollowsDTO.class);
-                followsDTO.setMap(objectMapper().readValue(response.getBody(), Map.class));
-                return followsDTO;
-            }
-        } catch (HttpClientErrorException | JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public TopGameDTO runGetTopGame(OAuthTokenDTO oAuthTokenDTO, String cursor) {
-        String url = "https://api.twitch.tv/helix/games/top?first=100";
-        if (cursor != null) {
-            url = url + "&after=" + cursor;
-        }
-        try {
-            ResponseEntity<String> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    getGenericHttpRequest(oAuthTokenDTO),
-                    String.class);
-
-            if (response.getStatusCode().is2xxSuccessful()) {
-                TopGameDTO gamesDTO = objectMapper().readValue(response.getBody(), TopGameDTO.class);
-                gamesDTO.setMap(objectMapper().readValue(response.getBody(), Map.class));
-                return gamesDTO;
-            }
-        } catch (HttpClientErrorException | JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private static boolean isFuzzy(String term, String value) {
-        int distance;
-        term = term.trim();
-        if (term.length() < 3) {
-            distance = 0;
-        } else if (term.length() < 6) {
-            distance = 1;
-        } else {
-            distance = 2;
-        }
-        return StringUtils.getLevenshteinDistance(value, term) <= distance;
-    }
-
-}
 
 
 
