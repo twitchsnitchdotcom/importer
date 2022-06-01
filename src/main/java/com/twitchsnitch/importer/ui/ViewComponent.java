@@ -53,7 +53,7 @@ public class ViewComponent extends VerticalLayout {
 
     public void formatLayout(){
 
-//        //db
+        //db
 //        H3 tokenHeadline = new H3("TOKENS INFO");
 //        Div tokenInfo = new Div();
 //        try {
@@ -67,41 +67,41 @@ public class ViewComponent extends VerticalLayout {
 //        add(tokenHeadline);
 //        add(new HorizontalLayout(tokenInfo));
 //        add(new HorizontalLayout(newTokens, refreshTokens));
-//
-//        //db
-//        H3 dbHeadline = new H3("DATABASE INFO");
-//        Div dbInfo = new Div();
-//        dbInfo.setText(dbStatsService.getDBInfo());
-//        Button addDB = new Button("addDB", event -> twitchDataService.addDB());
-//        Button dropDB = new Button("dropDB", event -> twitchDataService.dropDB());
-//        Button dropDBConstraints = new Button("dropDBConstraints", event -> twitchDataService.dropDBConstraints());
-//        Button addDBConstraints = new Button("addDBConstraints", event -> twitchDataService.addDBConstraints());
-//
-//        add(dbHeadline);
-//        add(new HorizontalLayout(dbInfo));
-//        add(new HorizontalLayout(addDB, dropDB, dropDBConstraints, addDBConstraints));
-//
-//        //languages
-//        H3 languagesHeadline = new H3("LANGUAGE INFO");
-//        Div languageInfo = new Div();
-//        languageInfo.setText("Languages without sully_id: " + dbStatsService.getLanguagesWithOutSullyIds());
-//        Button importLanguages = new Button("importLanguages", event -> twitchDataService.importSullyLanguages());
-//
-//        add(languagesHeadline);
-//        add(new HorizontalLayout(languageInfo));
-//        add(new HorizontalLayout(importLanguages));
-//
-//        //games
-//        H3 gamesHeadline = new H3("GAMES INFO");
-//        Div gamesInfo = new Div();
-//        gamesInfo.setText("Total Games: " + dbStatsService.getAllGamesCount() + " | Games without twitch_id: " + dbStatsService.getAllGamesWithoutTwitchIds().size());
-//        Button importTwitchGameData = new Button("importTwitchGameData", event -> twitchDataService.importTwitchGameData());
-//        Button importGames1 = new Button("importGames1", event -> twitchDataService.importGames1());
-//        Button importGames2 = new Button("importGames2", event -> twitchDataService.importGames2());
-//
-//        add(gamesHeadline);
-//        add(new HorizontalLayout(gamesInfo));
-//        add(new HorizontalLayout(importTwitchGameData, importGames1, importGames2));
+
+        //db
+        H3 dbHeadline = new H3("DATABASE INFO");
+        Div dbInfo = new Div();
+        dbInfo.setText(dbStatsService.getDBInfo());
+        Button addDB = new Button("addDB", event -> twitchDataService.addDB());
+        Button dropDB = new Button("dropDB", event -> twitchDataService.dropDB());
+        Button dropDBConstraints = new Button("dropDBConstraints", event -> twitchDataService.dropDBConstraints());
+        Button addDBConstraints = new Button("addDBConstraints", event -> twitchDataService.addDBConstraints());
+
+        add(dbHeadline);
+        add(new HorizontalLayout(dbInfo));
+        add(new HorizontalLayout(addDB, dropDB, dropDBConstraints, addDBConstraints));
+
+        //languages
+        H3 languagesHeadline = new H3("LANGUAGE INFO");
+        Div languageInfo = new Div();
+        languageInfo.setText("Languages without sully_id: " + dbStatsService.getLanguagesWithOutSullyIds());
+        Button importLanguages = new Button("importLanguages", event -> twitchDataService.importSullyLanguages());
+
+        add(languagesHeadline);
+        add(new HorizontalLayout(languageInfo));
+        add(new HorizontalLayout(importLanguages));
+
+        //games
+        H3 gamesHeadline = new H3("GAMES INFO");
+        Div gamesInfo = new Div();
+        gamesInfo.setText("Total Games: " + dbStatsService.getAllGamesCount() + " | Games without twitch_id: " + dbStatsService.getAllGamesWithoutTwitchIds().size());
+        Button importTwitchGameData = new Button("importTwitchGameData", event -> twitchDataService.importTwitchGameData());
+        Button importGames1 = new Button("importGames1", event -> twitchDataService.importGames1());
+        Button importGames2 = new Button("importGames2", event -> twitchDataService.importGames2());
+
+        add(gamesHeadline);
+        add(new HorizontalLayout(gamesInfo));
+        add(new HorizontalLayout(importTwitchGameData, importGames1, importGames2));
 
         //channels
         H3 channelsHeadline = new H3("CHANNEL INFO");
@@ -131,15 +131,15 @@ public class ViewComponent extends VerticalLayout {
         add(new HorizontalLayout(streamsInfo));
         add(new HorizontalLayout(importLiveStreams));
 
-//        //chatters info
-//        H3 chattersHeadline = new H3("Chatters INFO");
-//        Div chattersInfo = new Div();
-//        chattersInfo.setText("Total number of chatters: " + dbStatsService.getNumberOfChatters());
-//        Button importChattersOnDB = new Button("importChattersOnDB", event -> twitchDataService.importChattersOnDB());
-//
-//        add(chattersHeadline);
-//        add(new HorizontalLayout(chattersInfo));
-//        add(new HorizontalLayout(importChattersOnDB));
+        //chatters info
+        H3 chattersHeadline = new H3("Chatters INFO");
+        Div chattersInfo = new Div();
+        chattersInfo.setText("Total number of chatters: " + dbStatsService.getNumberOfChatters());
+        Button importChattersOnDB = new Button("importChattersOnDB", event -> twitchDataService.importChattersOnDB());
+
+        add(chattersHeadline);
+        add(new HorizontalLayout(chattersInfo));
+        add(new HorizontalLayout(importChattersOnDB));
 
 
         //todo followers to and followers from db stats
@@ -158,18 +158,18 @@ public class ViewComponent extends VerticalLayout {
 
 //        //teams
 //
-//        H3 teamsHeadline = new H3("TEAMS INFO");
-//        Div teamsInfo = new Div();
-//        teamsInfo.setText("Teams Total: " + dbStatsService.getTeamsCount() + " | Teams without sully id: " + dbStatsService.getAllTeamsWithoutSullyId() + " | Teams without twitch id: " + dbStatsService.getTeamsWithoutTwitchId().size() );
-//
-//        Button importTwitchTeams = new Button("importTwitchTeams", event -> twitchDataService.importTwitchTeams());
-//        Button importTeams1 = new Button("importTeams1", event -> twitchDataService.importTeams1());
-//        Button importTeams2 = new Button("importTeams2", event -> twitchDataService.importTeams2());
-//
-//        add(teamsHeadline);
-//        add(new HorizontalLayout(teamsInfo));
-//        add(new HorizontalLayout(importTwitchTeams, importTeams1, importTeams2));
-//
+        H3 teamsHeadline = new H3("TEAMS INFO");
+        Div teamsInfo = new Div();
+        teamsInfo.setText("Teams Total: " + dbStatsService.getTeamsCount() + " | Teams without sully id: " + dbStatsService.getAllTeamsWithoutSullyId() + " | Teams without twitch id: " + dbStatsService.getTeamsWithoutTwitchId().size() );
+
+        Button importTwitchTeams = new Button("importTwitchTeams", event -> twitchDataService.importTwitchTeams());
+        Button importTeams1 = new Button("importTeams1", event -> twitchDataService.importTeams1());
+        Button importTeams2 = new Button("importTeams2", event -> twitchDataService.importTeams2());
+
+        add(teamsHeadline);
+        add(new HorizontalLayout(teamsInfo));
+        add(new HorizontalLayout(importTwitchTeams, importTeams1, importTeams2));
+
 //
 //
 //        //alternate
