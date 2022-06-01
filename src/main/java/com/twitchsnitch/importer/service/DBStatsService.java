@@ -35,8 +35,8 @@ public class DBStatsService {
         return persistenceService.getUsersWithoutTwitchIdOrSullyId().size();
     }
 
-    public Long getTotalChannelsWithoutTwitchIdOrSullyIdCount(){
-        return persistenceService.getUsersWithoutTwitchIdOrSullyIdCount();
+    public Long getTotalChannelsWithoutSullyIdCount(){
+        return persistenceService.getUsersWithoutSullyIdCount();
     }
 
     public List<String> getAllUsersWithoutSullyId(){

@@ -291,26 +291,7 @@ public class TwitchDataService {
 //todo will need to have some data to perform this one
     }
 
-    @Async
-    public void sullySearchAndSetAllUsersWithoutSullyId() {
-        List<String> allUsersWithoutSullyId = persistenceService.getAllUsersWithoutSullyId();
-        for (String login : allUsersWithoutSullyId) {
-            try {
-                String url = "https://sullygnome.com/api/standardsearch/" + login + "/true/true/false/true";
-                String json = goToWebSiteREST(url);
-                List<SearchDTO> searchDTOList = objectMapper().readValue(json, new TypeReference<List<SearchDTO>>() {
-                });
-                for (SearchDTO searchDTO : searchDTOList) {
-                    if (searchDTO.getItemtype() == 1 && searchDTO.getSiteurl().equalsIgnoreCase(login)) {
-                        //match
-                        //TODO some importing of an individual record
-                    }
-                }
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
 
     @Async
     public void sullySearchAndSetAllGamesWithoutSullyId() {

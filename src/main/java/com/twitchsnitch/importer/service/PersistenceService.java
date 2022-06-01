@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.twitchsnitch.importer.dto.sully.RaidFinderDTO;
+import com.twitchsnitch.importer.dto.sully.SearchDTO;
 import com.twitchsnitch.importer.dto.sully.channels.*;
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
@@ -102,7 +103,9 @@ public class PersistenceService {
         ResultSummary gameTwitchIdIndex = client.query("CREATE INDEX FOR (g:Game) ON (g.twitch_id);").in(database).run();
         ResultSummary channelSullyIdIndex = client.query("CREATE INDEX FOR (c:Channel) ON (c.sully_id);").in(database).run();
         ResultSummary channelTwitchIdIndex = client.query("CREATE INDEX FOR (c:Channel) ON (c.twitch_id);").in(database).run();
-
+        ResultSummary userSullyIdIndex = client.query("CREATE INDEX FOR (u:User) ON (u.sully_id);").in(database).run();
+        ResultSummary userTwitchIdIndex = client.query("CREATE INDEX FOR (u:User) ON (u.twitch_id);").in(database).run();
+        ResultSummary twitch_followers_from_update_dateIndex = client.query("CREATE INDEX FOR (u:User) ON (u.twitch_followers_from_update_date);").in(database).run();
         logResultSummaries("liveStreamConstraint", liveStreamConstraint);
         logResultSummaries("gameDisplayNameConstraint", gameDisplayNameConstraint);
         logResultSummaries("languageConstraint", languageConstraint);
@@ -265,7 +268,7 @@ public class PersistenceService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         List<String> getAllUsersWithoutSullyId = new ArrayList<>();
-        Collection<Map<String, Object>> all = client.query("MATCH (u:User) where u.sully_id IS NULL RETURN u.login").in(database).fetch().all();
+        Collection<Map<String, Object>> all = client.query("MATCH (u:User) where u.sully_id IS NULL SET u.sully_id = 'UNKNOWN' RETURN u.login LIMIT 10000").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 getAllUsersWithoutSullyId.add((String) entry.getValue());
@@ -492,12 +495,12 @@ public class PersistenceService {
     }
 
 
-    public Long getUsersWithoutTwitchIdOrSullyIdCount() {
+    public Long getUsersWithoutSullyIdCount() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Long getUsersWithoutTwitchIdOrSullyIdCount = 0L;
         Collection<Map<String, Object>> all;
-        all = client.query("MATCH (u:User) WHERE u.twitch_id IS NULL AND u.sully_id IS NULL RETURN count(u)").in(database).fetch().all();
+        all = client.query("MATCH (u:User) WHERE u.sully_id IS NULL RETURN count(u)").in(database).fetch().all();
         for (Map<String, Object> objectMap : all) {
             for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                 getUsersWithoutTwitchIdOrSullyIdCount = ((Long) entry.getValue());
@@ -549,7 +552,7 @@ public class PersistenceService {
         Set<String> usersWithoutFollowsFrom = new HashSet<>();
         Collection<Map<String, Object>> all;
 
-            all = client.query("MATCH (c:User) WHERE c.twitch_followers_from_update_date IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id").in(database).fetch().all();
+            all = client.query("MATCH (c:User) WHERE c.twitch_followers_from_update_date IS NULL AND c.twitch_id IS NOT NULL RETURN c.twitch_id LIMIT 1000000").in(database).fetch().all();
 
 
         for (Map<String, Object> objectMap : all) {
@@ -1163,4 +1166,20 @@ public class PersistenceService {
         logResultSummaries("persistTwitchGames", run);
     }
 
+    public void persistSullySearch(SearchDTO searchDTO) {
+        ResultSummary run = client.query(
+                        " MERGE (c:User{login:$twitchLink})\n" +
+                        "       SET          c:Channel,\n" +
+                        "                    c.profile_image_url = $boxArt,\n" +
+                        "                    c.sully_id = $sullyId,\n" +
+                        "                    c.name = $name;"
+                        ).in(database)
+                .bind(searchDTO.getValue()).to("sullyId")
+                .bind(searchDTO.getBoxart()).to("boxArt")
+                .bind(searchDTO.getSiteurl()).to("twitchLink")
+                .bind(searchDTO.getDisplaytext()).to("name")
+                .run();
+
+        logResultSummaries("persistSullySearch", run);
+    }
 }

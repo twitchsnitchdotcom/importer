@@ -15,7 +15,6 @@
  */
 package com.twitchsnitch.importer.ui;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.twitchsnitch.importer.service.DBStatsService;
 import com.twitchsnitch.importer.service.OAuthService;
 import com.twitchsnitch.importer.service.TwitchDataService;
@@ -107,7 +106,7 @@ public class ViewComponent extends VerticalLayout {
         //channels
         H3 channelsHeadline = new H3("CHANNEL INFO");
         Div channelsInfo = new Div();
-        channelsInfo.setText("Total Channels: " + dbStatsService.getTotalChannels() + " | Total Channels without twitch id: " + dbStatsService.getTotalChannelsWithoutTwitchId() + " | Total Channels without twitch or sully id: " + dbStatsService.getTotalChannelsWithoutTwitchIdOrSullyIdCount());
+        //channelsInfo.setText("Total Channels: " + dbStatsService.getTotalChannels() + " | Total Channels without twitch id: " + dbStatsService.getTotalChannelsWithoutTwitchId() + " | Total Channels without sully id: " + dbStatsService.getTotalChannelsWithoutSullyIdCount());
         Button importTwitchUsers = new Button("importTwitchUsers", event -> twitchDataService.importTwitchUsers());
         Button importTwitchUsersWithoutAnyId = new Button("importTwitchUsersWithoutAnyId", event -> twitchDataService.importTwitchUsersWithoutEitherId());
         Button importChannels = new Button("importChannels", event -> twitchDataService.importChannels());
@@ -116,10 +115,11 @@ public class ViewComponent extends VerticalLayout {
         Button sullyDeepSearchPhase3 = new Button("Phase3", event -> twitchDataService.sullyDeepSearchPhase3());
         Button sullyDeepSearchPhase4 = new Button("Phase4", event -> twitchDataService.sullyDeepSearchPhase4());
         Button sullyDeepSearchPhase5 = new Button("Phase5", event -> twitchDataService.sullyDeepSearchPhase5());
+        Button sullyWebSearch = new Button("UsersWithoutSullyIds", event -> webclientService.importSullyIdChannels());
 
         add(channelsHeadline);
         add(new HorizontalLayout(channelsInfo));
-        add(new HorizontalLayout(importTwitchUsersWithoutAnyId, importTwitchUsers, importChannels, sullyDeepSearchPhase1, sullyDeepSearchPhase2, sullyDeepSearchPhase3, sullyDeepSearchPhase4, sullyDeepSearchPhase5));
+        add(new HorizontalLayout(importTwitchUsersWithoutAnyId, importTwitchUsers, importChannels, sullyDeepSearchPhase1, sullyDeepSearchPhase2, sullyDeepSearchPhase3, sullyDeepSearchPhase4, sullyDeepSearchPhase5, sullyWebSearch));
 
         //streams
         H3 streamsHeadline = new H3("STREAMS INFO");
@@ -147,7 +147,7 @@ public class ViewComponent extends VerticalLayout {
         //followers
         H3 followersHeadline = new H3("Followers INFO");
         Div followersInfo = new Div();
-        followersInfo.setText("| Users without followers from: " + dbStatsService.getUsersWithoutFollowsFrom());
+        //followersInfo.setText("| Users without followers from: " + dbStatsService.getUsersWithoutFollowsFrom());
 
         //Button importFollowsTo = new Button("importFollowsTo", event -> twitchDataService.importFollowsTo());
         Button importFollowsFrom = new Button("importFollowsFrom", event -> webclientService.importFollowsTo());
@@ -156,27 +156,27 @@ public class ViewComponent extends VerticalLayout {
         add(new HorizontalLayout(followersInfo));
         add(new HorizontalLayout(importFollowsFrom));
 
-        //teams
-
-        H3 teamsHeadline = new H3("TEAMS INFO");
-        Div teamsInfo = new Div();
-        teamsInfo.setText("Teams Total: " + dbStatsService.getTeamsCount() + " | Teams without sully id: " + dbStatsService.getAllTeamsWithoutSullyId() + " | Teams without twitch id: " + dbStatsService.getTeamsWithoutTwitchId().size() );
-
-        Button importTwitchTeams = new Button("importTwitchTeams", event -> twitchDataService.importTwitchTeams());
-        Button importTeams1 = new Button("importTeams1", event -> twitchDataService.importTeams1());
-        Button importTeams2 = new Button("importTeams2", event -> twitchDataService.importTeams2());
-
-        add(teamsHeadline);
-        add(new HorizontalLayout(teamsInfo));
-        add(new HorizontalLayout(importTwitchTeams, importTeams1, importTeams2));
-
-
-
-        //alternate
-        Button importGameFinder = new Button("importGameFinder", event -> twitchDataService.importGameFinder());
-        Button importRaidPicker = new Button("importRaidPicker", event -> twitchDataService.importRaidPicker());
-        Button importChannelGames = new Button("importChannelGames", event -> twitchDataService.importChannelGames());
-        Button importChannelStreams = new Button("importChannelStreams", event -> twitchDataService.importChannelStreams());
+//        //teams
+//
+//        H3 teamsHeadline = new H3("TEAMS INFO");
+//        Div teamsInfo = new Div();
+//        teamsInfo.setText("Teams Total: " + dbStatsService.getTeamsCount() + " | Teams without sully id: " + dbStatsService.getAllTeamsWithoutSullyId() + " | Teams without twitch id: " + dbStatsService.getTeamsWithoutTwitchId().size() );
+//
+//        Button importTwitchTeams = new Button("importTwitchTeams", event -> twitchDataService.importTwitchTeams());
+//        Button importTeams1 = new Button("importTeams1", event -> twitchDataService.importTeams1());
+//        Button importTeams2 = new Button("importTeams2", event -> twitchDataService.importTeams2());
+//
+//        add(teamsHeadline);
+//        add(new HorizontalLayout(teamsInfo));
+//        add(new HorizontalLayout(importTwitchTeams, importTeams1, importTeams2));
+//
+//
+//
+//        //alternate
+//        Button importGameFinder = new Button("importGameFinder", event -> twitchDataService.importGameFinder());
+//        Button importRaidPicker = new Button("importRaidPicker", event -> twitchDataService.importRaidPicker());
+//        Button importChannelGames = new Button("importChannelGames", event -> twitchDataService.importChannelGames());
+//        Button importChannelStreams = new Button("importChannelStreams", event -> twitchDataService.importChannelStreams());
 
     }
 
