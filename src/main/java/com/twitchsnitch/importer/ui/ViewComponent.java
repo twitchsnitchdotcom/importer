@@ -106,7 +106,7 @@ public class ViewComponent extends VerticalLayout {
         //channels
         H3 channelsHeadline = new H3("CHANNEL INFO");
         Div channelsInfo = new Div();
-        //channelsInfo.setText("Total Channels: " + dbStatsService.getTotalChannels() + " | Total Channels without twitch id: " + dbStatsService.getTotalChannelsWithoutTwitchId() + " | Total Channels without sully id: " + dbStatsService.getTotalChannelsWithoutSullyIdCount());
+        channelsInfo.setText("Total Channels: " + dbStatsService.getTotalChannels() + " | Total Channels without twitch id: " + dbStatsService.getTotalChannelsWithoutTwitchId() + " | Total Channels without sully id: " + dbStatsService.getTotalChannelsWithoutSullyIdCount());
         Button importTwitchUsers = new Button("importTwitchUsers", event -> twitchDataService.importTwitchUsers());
         Button importTwitchUsersWithoutAnyId = new Button("importTwitchUsersWithoutAnyId", event -> twitchDataService.importTwitchUsersWithoutEitherId());
         Button importChannels = new Button("importChannels", event -> twitchDataService.importChannels());
@@ -147,7 +147,7 @@ public class ViewComponent extends VerticalLayout {
         //followers
         H3 followersHeadline = new H3("Followers INFO");
         Div followersInfo = new Div();
-        //followersInfo.setText("| Users without followers from: " + dbStatsService.getUsersWithoutFollowsFrom());
+        followersInfo.setText("| Users without followers from: " + dbStatsService.getUsersWithoutFollowsFrom());
 
         //Button importFollowsTo = new Button("importFollowsTo", event -> twitchDataService.importFollowsTo());
         Button importFollowsFrom = new Button("importFollowsFrom", event -> webclientService.importFollowsTo());
